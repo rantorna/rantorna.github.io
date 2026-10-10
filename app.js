@@ -79,10 +79,12 @@ function render() {
     se: $("#se-guarantee").checked, free: $("#free-wd").checked, noIntro: $("#no-intro").checked,
     noBundle: $("#no-bundle").checked, verified: $("#verified-only").checked,
   };
+  const q = $("#q").value.trim().toLowerCase();
   const items = rows()
     .map((r) => ({ ...r, rate: rateFor(r.p, amount) }))
-    .filter(({ p, rate }) => {
+    .filter(({ bank, p, rate }) => {
       if (rate == null) return false;
+      if (q && !(bank.bank.name + " " + (bank.bank.legal_name || "") + " " + p.name).toLowerCase().includes(q)) return false;
       const bm = val(p, "binding_months");
       if (bind === 0 && bm !== 0 && bm !== null) return false;
       if (bind > 0 && bind < 999 && (bm == null || bm > bind)) return false;

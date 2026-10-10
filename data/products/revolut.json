@@ -4,9 +4,10 @@
   "name": "Revolut",
   "homepage": "https://www.revolut.com/sv-SE/",
   "home_country": "LT",
-  "kind": "neobank"
+  "kind": "neobank",
+  "legal_name": null
  },
- "checked_at": "2026-10-10T12:23:13+00:00",
+ "checked_at": "2026-10-10T13:28:19+00:00",
  "sources": [
   {
    "url": "https://www.revolut.com/sv-SE/savings/",
@@ -23,11 +24,18 @@
    "chars": 8390
   },
   {
-   "url": "https://www.revolut.com/sv-SE/legal/",
-   "title": "Villkor och policyer | Revolut Sverige",
+   "url": "https://www.revolut.com/sv-SE/our-pricing-plans/",
+   "title": "Jämför Revolut-paket | Revolut Sverige",
    "kind": "html",
    "via": "browser",
-   "chars": 7303
+   "chars": 14879
+  },
+  {
+   "url": "https://www.revolut.com/sv-SE/bank-account/",
+   "title": "En allt-i-ett-app för din ekonomi | Revolut Sverige",
+   "kind": "html",
+   "via": "browser",
+   "chars": 11610
   },
   {
    "url": "https://www.revolut.com/sv-SE/how-we-keep-your-money-safe/",
@@ -37,7 +45,14 @@
    "chars": 13785
   },
   {
-   "url": "https://www.revolut.com/sv-SE/bank-account/",
+   "url": "https://www.revolut.com/sv-SE/legal/",
+   "title": "Villkor och policyer | Revolut Sverige",
+   "kind": "html",
+   "via": "browser",
+   "chars": 7303
+  },
+  {
+   "url": "https://www.revolut.com/sv-SE/a-radically-better-account/",
    "title": "En allt-i-ett-app för din ekonomi | Revolut Sverige",
    "kind": "html",
    "via": "browser",
@@ -49,50 +64,43 @@
    "kind": "html",
    "via": "browser",
    "chars": 8247
-  },
-  {
-   "url": "https://www.revolut.com/sv-SE/a-radically-better-account/",
-   "title": "En allt-i-ett-app för din ekonomi | Revolut Sverige",
-   "kind": "html",
-   "via": "browser",
-   "chars": 11610
   }
  ],
  "status": "ok",
- "notes": "Räntan beror på betalpaket, inte på belopp: 1 % för Standard (gratis) och 2,25 % för Ultra (655 kr/mån). Räntorna för Plus, Premium och Metal anges inte. rate_percent visar Standard-räntan, och requires_other_products = true eftersom högre ränta kräver ett betalt paket. Sidan för Sparutmaningen (dok 5) anger ett maxbelopp: ”Det maximala insättningsbeloppet är 100 000 € i SEK-motsvarighet”. Det finns inget belopp i kronor, så max_deposit_sek är null. Sparutmaningen är en tävling som bygger på Sparande med direktåtkomst och har ingen egen ränta, så den räknas inte som en separat produkt. Flexibla penningfonder är en fondinvestering och har uteslutits. Datum då räntan började gälla, behörighetskrav och villkorsdokumentet saknas i källorna. Sidan /savings/ gav 404.",
+ "notes": "Revolut har ett enda SEK-sparkonto, Sparande med direktåtkomst, där räntan beror på vilket betalpaket kunden har. Därför redovisas det som en produkt per paketnivå. Plus ger samma ränta som Standard (1 %) och har därför ingen egen post. Standard är kostnadsfritt. Premium (104,99 kr/mån), Metal (189,99 kr/mån) och Ultra (655 kr/mån, introduktionspris) har månadsavgifter som sänker den faktiska avkastningen.\n\nDet högsta insättningsbeloppet anges bara som 100 000 € i SEK-motsvarighet. Det står inte i kronor, så max_deposit_sek är null.\n\nDatum då räntan började gälla och vem som får öppna kontot framgår inte av källorna. /savings/ gav 404.\n\nFöljande har jag inte tagit med:\n- Flexibla penningfonder, eftersom det är fondinvestering och inte inlåning.\n- Sparutmaningen, eftersom den använder samma konto och ränta men har dragningar om priser.\n- Gemensamt sparkonto, eftersom det bara finns som villkorslänk.",
  "products": [
   {
-   "name": "Sparande med direktåtkomst",
+   "name": "Sparande med direktåtkomst (SEK) – Standard",
    "flags": [],
    "fields": {
     "product_type": {
      "value": "rörligt sparkonto",
-     "quote": "Upp till 2,25 % p.a. som betalas ut dagligen.¹ Inga minimikrav. Omedelbar tillgång när som helst.",
+     "quote": "Sparande – på begäran",
      "source": 1,
      "status": "osäkert",
      "jev": {
       "verdict": "says_nothing",
-      "confidence": 0.52
+      "confidence": 0.33
      }
     },
     "rate_percent": {
      "value": 1,
-     "quote": "Räntan är variabel och beror på vilket paket du har, från 1 % % per år för Standard-paketet till 2,25 % % per år för Ultra-paketet.",
-     "source": 1,
-     "status": "osäkert",
+     "quote": "från 1,00 % per år för Standard-paketet till 2,25 % per år för Ultra-paketet",
+     "source": 2,
+     "status": "belagt",
      "jev": {
-      "verdict": "contradicts",
-      "confidence": 0.56
+      "verdict": "supports",
+      "confidence": 0.43
      }
     },
     "rate_type": {
      "value": "rörlig",
-     "quote": "Räntan är rörlig och beror på vilket paket du har, från 1% per år med Standard till 2,25% per år med Ultra.",
-     "source": 5,
+     "quote": "Räntan är variabel och beror på vilket paket du har",
+     "source": 2,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.74
+      "confidence": 0.82
      }
     },
     "binding_months": {
@@ -102,7 +110,7 @@
      "status": "osäkert",
      "jev": {
       "verdict": "says_nothing",
-      "confidence": 0.49
+      "confidence": 0.35
      }
     },
     "withdrawals": {
@@ -112,7 +120,7 @@
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.59
+      "confidence": 0.51
      }
     },
     "free_withdrawals_per_year": {
@@ -122,13 +130,13 @@
      "status": "okänt"
     },
     "withdrawal_terms": {
-     "value": "Avgiftsfria uttag när som helst, utan bindningstid.",
+     "value": "Fria och avgiftsfria uttag när som helst.",
      "quote": "Få avgiftsfri tillgång till dina pengar när och var du vill.",
      "source": 1,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.82
+      "confidence": 0.56
      }
     },
     "early_withdrawal": {
@@ -139,7 +147,7 @@
     },
     "min_deposit_sek": {
      "value": null,
-     "quote": "Spara utan minsta insättning",
+     "quote": "Inga minimikrav. Omedelbar tillgång när som helst.",
      "source": 1,
      "status": "talet finns inte i citatet",
      "claimed": 0
@@ -151,13 +159,175 @@
      "status": "okänt"
     },
     "deposit_terms": {
-     "value": "Insättningar när som helst utan minimikrav; återkommande överföringar och avrundningssparande finns.",
-     "quote": "Oavsett om du betalar dig själv först eller sparar det som blir över kan du lägga till vad du vill, när du vill. Inga minimikrav.",
+     "value": "Inget minimibelopp, påfyllning när som helst; högsta insättning 100 000 € i SEK-motsvarighet.",
+     "quote": "Det maximala insättningsbeloppet är 100 000 € i SEK-motsvarighet.",
+     "source": 7,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.94
+     }
+    },
+    "eligibility": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "requires_other_products": {
+     "value": false,
+     "quote": "Standard\nKostnadsfritt",
      "source": 1,
+     "status": "osäkert",
+     "jev": {
+      "verdict": "says_nothing",
+      "confidence": 0.49
+     }
+    },
+    "intro_rate": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "interest_paid": {
+     "value": "dagligen",
+     "quote": "Sparande med direktåtkomst ger ränta som betalas ut dagligen.",
+     "source": 2,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
       "confidence": 1.0
+     }
+    },
+    "guarantee_country": {
+     "value": "LT",
+     "quote": "Behöriga insättningar skyddas av Litauens insättningsgarantisystem upp till 100 000 €",
+     "source": 1,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.53
+     }
+    },
+    "guarantee_amount": {
+     "value": "100 000 euro",
+     "quote": "Behöriga insättningar skyddas av Litauens insättningsgarantisystem upp till 100 000 €",
+     "source": 1,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.94
+     }
+    },
+    "rate_valid_from": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    }
+   },
+   "rate_tiers": [],
+   "pending_rate": null,
+   "status": "verifierad"
+  },
+  {
+   "name": "Sparande med direktåtkomst (SEK) – Premium",
+   "flags": [],
+   "fields": {
+    "product_type": {
+     "value": "rörligt sparkonto",
+     "quote": "Sparande – på begäran",
+     "source": 1,
+     "status": "osäkert",
+     "jev": {
+      "verdict": "says_nothing",
+      "confidence": 0.35
+     }
+    },
+    "rate_percent": {
+     "value": 1.25,
+     "quote": "1.25% p.a.",
+     "source": 2,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.22
+     }
+    },
+    "rate_type": {
+     "value": "rörlig",
+     "quote": "Räntan är variabel och beror på vilket paket du har",
+     "source": 2,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.82
+     }
+    },
+    "binding_months": {
+     "value": 0,
+     "quote": "Omedelbar tillgång när som helst.",
+     "source": 1,
+     "status": "osäkert",
+     "jev": {
+      "verdict": "says_nothing",
+      "confidence": 0.51
+     }
+    },
+    "withdrawals": {
+     "value": "fria",
+     "quote": "Få avgiftsfri tillgång till dina pengar när och var du vill.",
+     "source": 1,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.72
+     }
+    },
+    "free_withdrawals_per_year": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "withdrawal_terms": {
+     "value": "Fria och avgiftsfria uttag när som helst.",
+     "quote": "Få avgiftsfri tillgång till dina pengar när och var du vill.",
+     "source": 1,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.55
+     }
+    },
+    "early_withdrawal": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "min_deposit_sek": {
+     "value": null,
+     "quote": "Inga minimikrav. Omedelbar tillgång när som helst.",
+     "source": 1,
+     "status": "talet finns inte i citatet",
+     "claimed": 0
+    },
+    "max_deposit_sek": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "deposit_terms": {
+     "value": "Inget minimibelopp, påfyllning när som helst; högsta insättning 100 000 € i SEK-motsvarighet.",
+     "quote": "Det maximala insättningsbeloppet är 100 000 € i SEK-motsvarighet.",
+     "source": 7,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.95
      }
     },
     "eligibility": {
@@ -168,11 +338,173 @@
     },
     "requires_other_products": {
      "value": true,
-     "quote": "Räntan är variabel och beror på vilket paket du har, från 1 % % per år för Standard-paketet till 2,25 % % per år för Ultra-paketet.",
-     "source": 1,
+     "quote": "104,99 kr/månad",
+     "source": 2,
      "status": "osäkert",
      "jev": {
       "verdict": "contradicts",
+      "confidence": 0.1
+     }
+    },
+    "intro_rate": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "interest_paid": {
+     "value": "dagligen",
+     "quote": "Sparande med direktåtkomst ger ränta som betalas ut dagligen.",
+     "source": 2,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.98
+     }
+    },
+    "guarantee_country": {
+     "value": "LT",
+     "quote": "Behöriga insättningar skyddas av Litauens insättningsgarantisystem upp till 100 000 €",
+     "source": 1,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.72
+     }
+    },
+    "guarantee_amount": {
+     "value": "100 000 euro",
+     "quote": "Behöriga insättningar skyddas av Litauens insättningsgarantisystem upp till 100 000 €",
+     "source": 1,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.97
+     }
+    },
+    "rate_valid_from": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    }
+   },
+   "rate_tiers": [],
+   "pending_rate": null,
+   "status": "verifierad"
+  },
+  {
+   "name": "Sparande med direktåtkomst (SEK) – Metal",
+   "flags": [],
+   "fields": {
+    "product_type": {
+     "value": "rörligt sparkonto",
+     "quote": "Sparande – på begäran",
+     "source": 1,
+     "status": "osäkert",
+     "jev": {
+      "verdict": "says_nothing",
+      "confidence": 0.34
+     }
+    },
+    "rate_percent": {
+     "value": 1.75,
+     "quote": "1.75% p.a.",
+     "source": 2,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.37
+     }
+    },
+    "rate_type": {
+     "value": "rörlig",
+     "quote": "Räntan är variabel och beror på vilket paket du har",
+     "source": 2,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.95
+     }
+    },
+    "binding_months": {
+     "value": 0,
+     "quote": "Omedelbar tillgång när som helst.",
+     "source": 1,
+     "status": "osäkert",
+     "jev": {
+      "verdict": "says_nothing",
+      "confidence": 0.4
+     }
+    },
+    "withdrawals": {
+     "value": "fria",
+     "quote": "Få avgiftsfri tillgång till dina pengar när och var du vill.",
+     "source": 1,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.74
+     }
+    },
+    "free_withdrawals_per_year": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "withdrawal_terms": {
+     "value": "Fria och avgiftsfria uttag när som helst.",
+     "quote": "Få avgiftsfri tillgång till dina pengar när och var du vill.",
+     "source": 1,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.64
+     }
+    },
+    "early_withdrawal": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "min_deposit_sek": {
+     "value": null,
+     "quote": "Inga minimikrav. Omedelbar tillgång när som helst.",
+     "source": 1,
+     "status": "talet finns inte i citatet",
+     "claimed": 0
+    },
+    "max_deposit_sek": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "deposit_terms": {
+     "value": "Inget minimibelopp, påfyllning när som helst; högsta insättning 100 000 € i SEK-motsvarighet.",
+     "quote": "Det maximala insättningsbeloppet är 100 000 € i SEK-motsvarighet.",
+     "source": 7,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.97
+     }
+    },
+    "eligibility": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "requires_other_products": {
+     "value": true,
+     "quote": "189,99 kr/månad",
+     "source": 2,
+     "status": "osäkert",
+     "jev": {
+      "verdict": "says_nothing",
       "confidence": 0.34
      }
     },
@@ -183,8 +515,28 @@
      "status": "okänt"
     },
     "interest_paid": {
-     "value": "Dagligen",
-     "quote": "Sparande med direktåtkomst erbjuder ränta som betalas ut dagligen.",
+     "value": "dagligen",
+     "quote": "Sparande med direktåtkomst ger ränta som betalas ut dagligen.",
+     "source": 2,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 1.0
+     }
+    },
+    "guarantee_country": {
+     "value": "LT",
+     "quote": "Behöriga insättningar skyddas av Litauens insättningsgarantisystem upp till 100 000 €",
+     "source": 1,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.72
+     }
+    },
+    "guarantee_amount": {
+     "value": "100 000 euro",
+     "quote": "Behöriga insättningar skyddas av Litauens insättningsgarantisystem upp till 100 000 €",
      "source": 1,
      "status": "belagt",
      "jev": {
@@ -192,24 +544,166 @@
       "confidence": 0.97
      }
     },
-    "guarantee_country": {
-     "value": "LT",
-     "quote": "Behöriga insättningar skyddas av Litauens insättningsgarantisystem upp till 100 000 €, men vissa undantag kan gälla.",
+    "rate_valid_from": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    }
+   },
+   "rate_tiers": [],
+   "pending_rate": null,
+   "status": "verifierad"
+  },
+  {
+   "name": "Sparande med direktåtkomst (SEK) – Ultra",
+   "flags": [],
+   "fields": {
+    "product_type": {
+     "value": "rörligt sparkonto",
+     "quote": "Sparande – på begäran",
+     "source": 1,
+     "status": "osäkert",
+     "jev": {
+      "verdict": "says_nothing",
+      "confidence": 0.28
+     }
+    },
+    "rate_percent": {
+     "value": 2.25,
+     "quote": "från 1,00 % per år för Standard-paketet till 2,25 % per år för Ultra-paketet",
+     "source": 2,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.38
+     }
+    },
+    "rate_type": {
+     "value": "rörlig",
+     "quote": "Räntan är variabel och beror på vilket paket du har",
+     "source": 2,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.83
+     }
+    },
+    "binding_months": {
+     "value": 0,
+     "quote": "Omedelbar tillgång när som helst.",
+     "source": 1,
+     "status": "osäkert",
+     "jev": {
+      "verdict": "says_nothing",
+      "confidence": 0.23
+     }
+    },
+    "withdrawals": {
+     "value": "fria",
+     "quote": "Få avgiftsfri tillgång till dina pengar när och var du vill.",
      "source": 1,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.77
+      "confidence": 0.34
+     }
+    },
+    "free_withdrawals_per_year": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "withdrawal_terms": {
+     "value": "Fria och avgiftsfria uttag när som helst.",
+     "quote": "Få avgiftsfri tillgång till dina pengar när och var du vill.",
+     "source": 1,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.58
+     }
+    },
+    "early_withdrawal": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "min_deposit_sek": {
+     "value": null,
+     "quote": "Inga minimikrav. Omedelbar tillgång när som helst.",
+     "source": 1,
+     "status": "talet finns inte i citatet",
+     "claimed": 0
+    },
+    "max_deposit_sek": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "deposit_terms": {
+     "value": "Inget minimibelopp, påfyllning när som helst; högsta insättning 100 000 € i SEK-motsvarighet.",
+     "quote": "Det maximala insättningsbeloppet är 100 000 € i SEK-motsvarighet.",
+     "source": 7,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.94
+     }
+    },
+    "eligibility": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "requires_other_products": {
+     "value": true,
+     "quote": "655 kr/mån (introduktionspris)",
+     "source": 1,
+     "status": "osäkert",
+     "jev": {
+      "verdict": "says_nothing",
+      "confidence": 0.51
+     }
+    },
+    "intro_rate": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "interest_paid": {
+     "value": "dagligen",
+     "quote": "Sparande med direktåtkomst ger ränta som betalas ut dagligen.",
+     "source": 2,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 1.0
+     }
+    },
+    "guarantee_country": {
+     "value": "LT",
+     "quote": "Behöriga insättningar skyddas av Litauens insättningsgarantisystem upp till 100 000 €",
+     "source": 1,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.91
      }
     },
     "guarantee_amount": {
      "value": "100 000 euro",
-     "quote": "Behöriga insättningar skyddas av Litauens insättningsgarantisystem upp till 100 000 €, men vissa undantag kan gälla.",
+     "quote": "Behöriga insättningar skyddas av Litauens insättningsgarantisystem upp till 100 000 €",
      "source": 1,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.92
+      "confidence": 0.98
      }
     },
     "rate_valid_from": {
@@ -224,7 +718,7 @@
    "status": "verifierad"
   }
  ],
- "source_hash": "256ff5e37e09b481",
- "changed_at": "2026-10-10T12:23:13+00:00",
+ "source_hash": "bf42c851d715ff7c",
+ "changed_at": "2026-10-10T13:28:19+00:00",
  "model": "claude-opus-5-5"
 }

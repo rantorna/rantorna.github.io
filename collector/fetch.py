@@ -7,6 +7,7 @@ from __future__ import annotations
 
 import io
 import re
+import threading
 from dataclasses import dataclass, field
 from urllib.parse import urljoin, urldefrag
 
@@ -34,8 +35,8 @@ class Page:
 
 
 _client: httpx.Client | None = None
-_browser = None
-_pw = None
+_local = threading.local()  # en webbläsare per tråd (Playwrights sync-API är inte trådsäkert)
+_all_browsers: list = []
 
 
 def client() -> httpx.Client:
@@ -95,13 +96,13 @@ def pdf_to_page(url: str, data: bytes) -> Page:
 
 
 def _browser_get(url: str) -> Page:
-    global _browser, _pw
     from playwright.sync_api import sync_playwright
 
-    if _browser is None:
-        _pw = sync_playwright().start()
-        _browser = _pw.chromium.launch()
-    ctx = _browser.new_context(user_agent=UA, locale="sv-SE")
+    if getattr(_local, "browser", None) is None:
+        _local.pw = sync_playwright().start()
+        _local.browser = _local.pw.chromium.launch()
+        _all_browsers.append((_local.pw, _local.browser))
+    ctx = _local.browser.new_context(user_agent=UA, locale="sv-SE")
     page = ctx.new_page()
     try:
         page.goto(url, wait_until="domcontentloaded", timeout=45000)
@@ -175,8 +176,11 @@ def sitemap_urls(homepage: str, limit: int = 5000) -> list[str]:
 
 
 def close():
-    global _browser, _pw
-    if _browser:
-        _browser.close()
-        _pw.stop()
-        _browser = _pw = None
+    """Stänger webbläsaren i den aktuella tråden."""
+    if getattr(_local, "browser", None) is not None:
+        try:
+            _local.browser.close()
+            _local.pw.stop()
+        except Exception:
+            pass
+        _local.browser = _local.pw = None

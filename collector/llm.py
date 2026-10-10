@@ -77,11 +77,13 @@ def _api(model, system, user, schema, max_tokens, effort):
     return json.loads(text)
 
 
-def _cli(model, system, user, schema):
+def _cli(model, system, user, schema, tools: str = ""):
     cmd = [
-        _bin(), "-p", "--output-format", "json", "--model", model, "--tools", "",
+        _bin(), "-p", "--output-format", "json", "--model", model, "--tools", tools,
         "--json-schema", json.dumps(schema), "--append-system-prompt", system,
     ]
+    if tools:
+        cmd += ["--allowedTools", tools.replace(",", " ")]
     r = subprocess.run(cmd, input=user, capture_output=True, text=True, timeout=900)
     try:
         out = json.loads(r.stdout)
@@ -96,3 +98,45 @@ def _cli(model, system, user, schema):
     if data is None:
         data = json.loads(out.get("result", "null"))
     return data
+
+
+def research_call(system: str, user: str, schema: dict) -> dict:
+    """Som json_call men med webbsökning och webbhämtning tillgängliga."""
+    model = os.environ.get("RANTORNA_RESEARCH_MODEL", MODEL)
+    b = backend()
+    usage["calls"] += 1
+    if b == "cli":
+        return _cli(model, system, user, schema, tools="WebSearch,WebFetch")
+    if b == "api":
+        return _api_research(model, system, user, schema)
+    raise LLMError("Ingen LLM konfigurerad")
+
+
+def _api_research(model, system, user, schema):
+    import anthropic
+
+    client = anthropic.Anthropic()
+    messages = [{"role": "user", "content": user}]
+    for _ in range(6):  # pause_turn: servern vill fortsätta en lång sökslinga
+        with client.messages.stream(
+            model=model,
+            max_tokens=16000,
+            system=system,
+            messages=messages,
+            tools=[{"type": "web_search_20260209", "name": "web_search", "max_uses": 8},
+                   {"type": "web_fetch_20260209", "name": "web_fetch", "max_uses": 8}],
+            output_config={"effort": "medium", "format": {"type": "json_schema", "schema": schema}},
+        ) as stream:
+            msg = stream.get_final_message()
+        usage["input_tokens"] += msg.usage.input_tokens
+        usage["output_tokens"] += msg.usage.output_tokens
+        if msg.stop_reason == "pause_turn":
+            messages.append({"role": "assistant", "content": msg.content})
+            continue
+        if msg.stop_reason == "refusal":
+            raise LLMError("modellen avböjde")
+        text = next((b.text for b in reversed(msg.content) if b.type == "text"), None)
+        if text is None:
+            raise LLMError("inget textsvar")
+        return json.loads(text)
+    raise LLMError("för många pause_turn")

@@ -12,6 +12,7 @@ import hashlib
 import json
 import re
 import sys
+from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 
 import yaml
@@ -43,7 +44,20 @@ def relevant_hash(pages: list[fetch.Page]) -> str:
 
 
 def load_banks() -> list[dict]:
-    return yaml.safe_load((DATA / "banks.yaml").read_text())
+    """Banker från uppslagen i FI-registret, plus/överstyrda av data/banks.yaml."""
+    from .resolve import banks_from_institutions, site_key
+
+    manual = yaml.safe_load((DATA / "banks.yaml").read_text()) or []
+    ids = {b["id"] for b in manual}
+    sites = {site_key(b["homepage"]) for b in manual}
+    sites |= {site_key(u) for b in manual for u in b.get("start_urls", [])}
+    out = list(manual)
+    for b in banks_from_institutions():
+        if b["id"] in ids or site_key(b["homepage"]) in sites or any(site_key(u) in sites for u in b.get("start_urls", [])):
+            continue
+        ids.add(b["id"])
+        out.append(b)
+    return [b for b in out if not b.get("skip")]
 
 
 def collect_pages(bank: dict, log) -> list[fetch.Page]:
@@ -78,7 +92,7 @@ def process(bank: dict, discover_only: bool, force: bool, log) -> dict | None:
     previous = json.loads(out_path.read_text()) if out_path.exists() else None
     pages = collect_pages(bank, log)
     record = {
-        "bank": {k: bank.get(k) for k in ("id", "name", "homepage", "home_country", "kind")},
+        "bank": {k: bank.get(k) for k in ("id", "name", "homepage", "home_country", "kind", "legal_name")},
         "checked_at": now(),
         "sources": [{"url": p.url, "title": p.title, "kind": p.kind, "via": p.via, "chars": len(p.text)} for p in pages],
     }
@@ -162,20 +176,29 @@ def main():
     ap.add_argument("--bank", action="append", help="bank-id (kan upprepas)")
     ap.add_argument("--discover-only", action="store_true")
     ap.add_argument("--force", action="store_true", help="tolka även om källorna inte ändrats")
+    ap.add_argument("--workers", type=int, default=4)
     args = ap.parse_args()
     PRODUCTS.mkdir(parents=True, exist_ok=True)
     banks = [b for b in load_banks() if not args.bank or b["id"] in args.bank]
-    log = lambda s: print(s, flush=True)
+    print(f"{len(banks)} banker", flush=True)
     failures = 0
-    try:
-        for b in banks:
-            try:
-                process(b, args.discover_only, args.force, log)
-            except Exception as e:  # en trasig bank ska inte stoppa resten
-                failures += 1
-                log(f"  ! {b['id']}: {type(e).__name__}: {e}")
-    finally:
-        fetch.close()
+
+    def work(b):
+        lines = []
+        try:
+            process(b, args.discover_only, args.force, lines.append)
+            ok = True
+        except Exception as e:  # en trasig bank ska inte stoppa resten
+            lines.append(f"  ! {b['id']}: {type(e).__name__}: {e}")
+            ok = False
+        finally:
+            fetch.close()
+        print("\n".join(lines), flush=True)  # en banks logg samlad
+        return ok
+
+    with ThreadPoolExecutor(args.workers) as pool:
+        results = list(pool.map(work, banks))
+    failures = results.count(False)
     if not args.discover_only:
         build_site_data()
     log(f"\nLLM: {llm.usage}  Jev: {jev.usage}")
