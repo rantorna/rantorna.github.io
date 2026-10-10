@@ -1,0 +1,68 @@
+name: Hämta räntor
+
+on:
+  schedule:
+    - cron: "17 3 * * *"   # varje natt 03:17 UTC
+  workflow_dispatch:
+    inputs:
+      bank:
+        description: "Bara en bank (id), tomt = alla"
+        required: false
+      force:
+        description: "Tolka om även om källorna är oförändrade"
+        type: boolean
+        default: false
+
+permissions:
+  contents: write
+
+concurrency:
+  group: collect
+  cancel-in-progress: false
+
+jobs:
+  collect:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    env:
+      ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+      CLAUDE_CODE_OAUTH_TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+      TYPESAFE_API_KEY: ${{ secrets.TYPESAFE_API_KEY }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+          cache: pip
+
+      - name: Installera
+        run: |
+          pip install -r requirements.txt
+          python -m playwright install --with-deps chromium
+
+      - name: Installera Claude CLI (om prenumerationstoken används)
+        if: ${{ env.CLAUDE_CODE_OAUTH_TOKEN != '' && env.ANTHROPIC_API_KEY == '' }}
+        run: npm install -g @anthropic-ai/claude-code
+
+      - name: Hämta och tolka
+        env:
+          BANK: ${{ inputs.bank }}
+          FORCE: ${{ inputs.force }}
+        run: |
+          args=""
+          if [ -n "$BANK" ]; then args="$args --bank $BANK"; fi
+          if [ "$FORCE" = "true" ]; then args="$args --force"; fi
+          python -m collector.run $args
+
+      - name: Spara ändringar
+        run: |
+          git config user.name "rantorna-bot"
+          git config user.email "rantorna-bot@users.noreply.github.com"
+          git add data/
+          if git diff --cached --quiet; then
+            echo "Inga ändringar."
+          else
+            git commit -m "Räntor $(date -u +%Y-%m-%d)"
+            git push
+          fi

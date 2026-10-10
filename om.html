@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="sv">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Så funkar Räntorna</title>
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="./">räntorna<span>.</span></a>
+    <nav><a href="./">Jämför räntor</a></nav>
+  </div>
+</header>
+<main class="wrap prose">
+  <h1>Så funkar det</h1>
+  <p>Räntorna jämför sparkonton hos banker som tar emot insättningar från privatpersoner i Sverige, även utländska banker och neobanker. Allt sköts automatiskt, och ingen bank betalar för att synas.</p>
+
+  <h2>Varje natt</h2>
+  <ol>
+    <li><strong>Hitta sidorna.</strong> För varje bank letar en robot upp sidorna om sparkonton, räntor och villkor via bankens sitemap och länkar. Ingen bank har specialkod, så om en bank gör om sin webbplats hittas sidorna ändå.</li>
+    <li><strong>Hämta.</strong> Sidorna och villkors-PDF:erna hämtas och görs om till text. Bara om den relevanta texten har ändrats tolkas den på nytt.</li>
+    <li><strong>Tolka.</strong> En AI-modell (Claude) fyller i samma fält för alla konton: ränta, bindning, uttagsregler, lägsta och högsta belopp, vem som får öppna kontot, insättningsgaranti med mera. Till varje uppgift ska den ge ett ordagrant citat ur bankens text.</li>
+    <li><strong>Kontrollera.</strong> Koden kontrollerar att citatet faktiskt står i källan och att siffran finns i citatet. Annars visas uppgiften som <em>okänd</em>. En andra modell (Jev från TypeSafe) bedömer dessutom om sammanhanget kring citatet verkligen stöder uppgiften.</li>
+    <li><strong>Rimlighetskontroll.</strong> Om en ränta plötsligt ändras mycket, eller är orimlig, markeras kontot som <em>ej verifierat</em> tills uppgiften bekräftas igen.</li>
+  </ol>
+
+  <h2>Statusmärkena</h2>
+  <ul>
+    <li><strong>Verifierad:</strong> ränta, bindningstid och uttagsregler är belagda med citat.</li>
+    <li><strong>Delvis verifierad:</strong> räntan är belagd, men något av de andra huvudvillkoren saknas.</li>
+    <li><strong>Ej verifierad:</strong> räntan är flaggad och behöver bekräftas.</li>
+  </ul>
+
+  <h2>Avkastning efter skatt</h2>
+  <p>Ränta på sparkonton beskattas med 30 procent. Avkastningen visar beloppet du anger under ett år, utan ränta på ränta. Har kontot ett tak räknas bara beloppet upp till taket.</p>
+
+  <h2>Insättningsgaranti</h2>
+  <p>Den svenska insättningsgarantin gäller upp till 1 050 000 kr per person och bank. Utländska banker med filial eller gränsöverskridande verksamhet i Sverige omfattas normalt av hemlandets garanti, inom EU minst 100 000 euro. Därför visas garantilandet för varje konto.</p>
+
+  <h2>Begränsningar</h2>
+  <p>Vissa banker visar sina räntor först efter inloggning eller blockerar automatiska besök. De kontona kan saknas eller visas med okända villkor. Räntorna ger inga råd. Kontrollera alltid villkoren hos banken.</p>
+  <p>Källkod och all data, med historik: <a href="https://github.com/rantorna/rantorna.github.io">github.com/rantorna/rantorna.github.io</a>.</p>
+</main>
+<footer class="wrap foot"></footer>
+</body>
+</html>

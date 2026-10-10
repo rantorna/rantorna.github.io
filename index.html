@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="sv">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Räntorna – sparräntor med villkoren</title>
+<meta name="description" content="Jämför sparräntor hos alla banker i Sverige – med bindning, uttagsregler och insättningsgaranti. Varje uppgift är belagd med citat från banken.">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="./">räntorna<span>.</span></a>
+    <nav><a href="om.html">Så funkar det</a></nav>
+  </div>
+</header>
+
+<main class="wrap">
+  <section class="intro">
+    <h1>Sparräntor i Sverige – med villkoren</h1>
+    <p>Alla uppgifter hämtas automatiskt från bankernas egna sidor och kontrolleras mot ett ordagrant citat. Det som inte går att belägga visas som <em>okänt</em>.</p>
+  </section>
+
+  <form id="filters" class="filters" onsubmit="return false">
+    <label class="amount">Belopp
+      <span class="input-suffix"><input id="amount" type="text" inputmode="numeric" value="100 000" aria-label="Belopp i kronor"><span>kr</span></span>
+    </label>
+    <fieldset>
+      <legend>Bindning</legend>
+      <div class="seg" role="radiogroup">
+        <label><input type="radio" name="bind" value="0" checked><span>Ingen</span></label>
+        <label><input type="radio" name="bind" value="3"><span>≤ 3 mån</span></label>
+        <label><input type="radio" name="bind" value="12"><span>≤ 1 år</span></label>
+        <label><input type="radio" name="bind" value="999"><span>Alla</span></label>
+      </div>
+    </fieldset>
+    <fieldset class="checks">
+      <legend>Krav</legend>
+      <label><input type="checkbox" id="se-guarantee"> Svensk insättningsgaranti</label>
+      <label><input type="checkbox" id="free-wd"> Fria uttag</label>
+      <label><input type="checkbox" id="no-intro" checked> Dölj kampanjräntor</label>
+      <label><input type="checkbox" id="no-bundle"> Inga krav på andra produkter</label>
+      <label><input type="checkbox" id="verified-only"> Bara verifierade</label>
+    </fieldset>
+  </form>
+
+  <p id="summary" class="summary" aria-live="polite"></p>
+  <ol id="list" class="list"></ol>
+  <p id="empty" class="empty" hidden>Inga konton matchar filtren.</p>
+</main>
+
+<footer class="wrap foot">
+  <p id="updated"></p>
+  <p>Räntorna är en oberoende, automatiskt uppdaterad jämförelse och ger inga råd. Kontrollera alltid villkoren hos banken innan du öppnar ett konto.</p>
+</footer>
+
+<template id="row">
+  <li class="item">
+    <div class="head">
+      <div class="who">
+        <span class="bank"></span>
+        <span class="product"></span>
+        <span class="tags"></span>
+      </div>
+      <div class="nums">
+        <span class="rate"></span>
+        <span class="yield"></span>
+      </div>
+    </div>
+    <details>
+      <summary>Villkor och källor</summary>
+      <dl class="terms"></dl>
+      <p class="sources"></p>
+    </details>
+  </li>
+</template>
+
+<script src="app.js"></script>
+</body>
+</html>
