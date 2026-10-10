@@ -28,9 +28,13 @@ def backend() -> str | None:
         return None if forced == "none" else forced
     if os.environ.get("ANTHROPIC_API_KEY"):
         return "api"
-    if os.environ.get("CLAUDE_CODE_OAUTH_TOKEN") and shutil.which("claude"):
+    if os.environ.get("CLAUDE_CODE_OAUTH_TOKEN") and shutil.which(_bin()):
         return "cli"
     return None
+
+
+def _bin() -> str:
+    return os.environ.get("CLAUDE_BIN", "claude")
 
 
 def available() -> bool:
@@ -75,7 +79,7 @@ def _api(model, system, user, schema, max_tokens, effort):
 
 def _cli(model, system, user, schema):
     cmd = [
-        "claude", "-p", "--output-format", "json", "--model", model, "--tools", "",
+        _bin(), "-p", "--output-format", "json", "--model", model, "--tools", "",
         "--json-schema", json.dumps(schema), "--append-system-prompt", system,
     ]
     r = subprocess.run(cmd, input=user, capture_output=True, text=True, timeout=900)

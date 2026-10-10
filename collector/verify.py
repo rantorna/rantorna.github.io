@@ -58,9 +58,17 @@ def _num_variants(x: float) -> set[str]:
     return out
 
 
+WORDS = {1: ("ett", "en", "ettårigt"), 2: ("två",), 3: ("tre",), 4: ("fyra",), 5: ("fem",), 6: ("sex",),
+         7: ("sju",), 8: ("åtta",), 9: ("nio",), 10: ("tio",), 11: ("elva",), 12: ("tolv",), 18: ("arton",)}
+
+
 def number_in(value: float, quote: str) -> bool:
     q = _norm(quote).replace(" ", "")
-    return any(v.replace(" ", "") in q for v in _num_variants(value))
+    if any(v.replace(" ", "") in q for v in _num_variants(value)):
+        return True
+    # Små heltal skrivs ofta med ord ("tre månader", "två år").
+    words = set(re.findall(r"\w+", _norm(quote)))
+    return float(value).is_integer() and any(w in words for w in WORDS.get(int(value), ()))
 
 
 def check_field(name, ev: dict, docs: list[str]) -> dict:
@@ -126,7 +134,7 @@ def restatus(p: dict) -> None:
     core = [c for c in CORE if not (c == "withdrawals" and bound)]
     if f["rate_percent"]["value"] is None or p["flags"]:
         p["status"] = "ej verifierad"
-    elif all(f[c]["status"] == "belagt" for c in core):
+    elif all(f[c]["status"] in ("belagt", "osäkert") and f[c]["value"] is not None for c in core):
         p["status"] = "verifierad"
     else:
         p["status"] = "delvis verifierad"

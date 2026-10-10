@@ -70,8 +70,12 @@ def check_product(product: dict, docs: list[str], bank_name: str) -> None:
     for k, ans in body["answers"].items():
         f = product["fields"][k]
         f["jev"] = {"verdict": ans["choice"], "confidence": round(ans["confidence"], 2)}
-        if ans["choice"] != "supports" and ans["confidence"] >= ACCEPT:
+        # Citatet är redan bevisat att stå i källan. Jev nollar bara när den säkert
+        # säger emot; ett osäkert nej markeras men värdet står kvar.
+        if ans["choice"] == "supports":
+            continue
+        if ans["confidence"] >= ACCEPT:
             f["claimed"], f["value"] = f["value"], None
             f["status"] = "motsägs av källan" if ans["choice"] == "contradicts" else "stöds inte av källan"
-        elif ans["choice"] != "supports" or ans["confidence"] < ACCEPT:
+        else:
             f["status"] = "osäkert"

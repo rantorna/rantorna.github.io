@@ -1,7 +1,6 @@
 "use strict";
 
 const TAX = 0.30; // kapitalinkomstskatt på ränta
-const SE_GUARANTEE_SEK = 1_050_000;
 const LABELS = {
   product_type: "Kontotyp",
   rate_percent: "Ränta",
@@ -51,6 +50,13 @@ function rateFor(p, amount) {
     if ((t.min_sek ?? 0) <= amount && (t.max_sek == null || amount <= t.max_sek)) return t.rate_percent;
   }
   return val(p, "rate_percent");
+}
+
+/** "1 150 000 kr" -> 1150000. Belopp i euro räknas inte om. */
+function guaranteeSek(text) {
+  if (!text || !/kr|sek/i.test(text)) return null;
+  const n = parseInt(text.replace(/[^\d]/g, ""), 10);
+  return n > 10000 ? n : null;
 }
 
 function rows() {
@@ -141,7 +147,8 @@ function row({ bank, p, rate }, amount) {
     v.textContent = shown ?? "okänt";
     if (shown == null) v.classList.add("unknown");
     dd.append(v);
-    if (fld.status && !["belagt", "okänt"].includes(fld.status)) dd.append(" ", badge(fld.status, "warn"));
+    if (shown == null && fld.status !== "okänt") v.title = `Ej belagt: ${fld.status}`;
+    if (fld.status === "osäkert") dd.append(" ", badge("osäkert", "part"));
     if (fld.quote && shown != null) {
       const q = document.createElement("q");
       q.textContent = fld.quote;
@@ -156,7 +163,8 @@ function row({ bank, p, rate }, amount) {
     dl.append(dt, dd);
   }
   const warn = [];
-  if (gc === "SE" && amount > SE_GUARANTEE_SEK) warn.push(`Beloppet överstiger den svenska insättningsgarantin (${kr.format(SE_GUARANTEE_SEK)} kr per person och bank).`);
+  const gLimit = guaranteeSek(val(p, "guarantee_amount"));
+  if (gLimit && amount > gLimit) warn.push(`Beloppet överstiger insättningsgarantin (${kr.format(gLimit)} kr per person och bank enligt banken).`);
   if (max != null && amount > max) warn.push(`Räntan gäller upp till ${kr.format(max)} kr.`);
   for (const fl of p.flags || []) warn.push(fl);
   const srcEl = el.querySelector(".sources");
