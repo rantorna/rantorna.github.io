@@ -22,6 +22,14 @@ DESC = {name: desc for name, _, desc in FIELDS}
 usage = {"calls": 0, "input_tokens": 0, "output_tokens": 0}
 
 
+def binding_in_name(name: str, field: dict) -> bool:
+    from .verify import binding_in, number_in
+
+    v = field["value"]
+    in_name = number_in(v, name) or binding_in(v, name)
+    return in_name and any(t in field["quote"].lower() for t in name.lower().split() if len(t) > 3)
+
+
 def available() -> bool:
     return bool(os.environ.get("TYPESAFE_API_KEY"))
 
@@ -38,6 +46,11 @@ def _context(quote: str, doc: str) -> str:
 def check_product(product: dict, docs: list[str], bank_name: str) -> None:
     """Uppdaterar product['fields'] på plats med jev-resultat."""
     fields = {k: v for k, v in product["fields"].items() if v["status"] == "belagt"}
+    # Bindningstid som står i produktens eget namn och i citatet ("Sparkonto 3 månader: 2,95 %")
+    # är redan starkt belagd; Jev läser ofta sådana rader för bokstavligt.
+    b = fields.get("binding_months")
+    if b and b["value"] and binding_in_name(product["name"], b):
+        fields.pop("binding_months")
     if not fields:
         return
     state = {"bank": bank_name, "product": product["name"]}

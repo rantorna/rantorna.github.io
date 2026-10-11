@@ -12,6 +12,7 @@ const LABELS = {
   early_withdrawal: "Uttag i förtid",
   min_deposit_sek: "Lägsta belopp",
   max_deposit_sek: "Högsta belopp",
+  monthly_deposit_cap_sek: "Högst per månad",
   deposit_terms: "Insättning",
   eligibility: "Vem kan öppna",
   requires_other_products: "Kräver andra produkter",
@@ -38,6 +39,7 @@ function fmt(k, v) {
     case "rate_percent": return pct.format(v) + " %";
     case "binding_months": return v === 0 ? "Ingen" : v % 12 === 0 ? `${v / 12} år` : `${v} mån`;
     case "min_deposit_sek": case "max_deposit_sek": return kr.format(v) + " kr";
+    case "monthly_deposit_cap_sek": return kr.format(v) + " kr/mån";
     case "guarantee_country": return COUNTRY[v] || v;
     default: return String(v);
   }
@@ -59,6 +61,16 @@ function guaranteeSek(text) {
   return n > 10000 ? n : null;
 }
 
+/** Tak per månad: schemafältet, annars ur den belagda insättningstexten ("2 000 kr/månad"). */
+function monthlyCap(p) {
+  const v = val(p, "monthly_deposit_cap_sek");
+  if (v != null) return v;
+  const f = p.fields.deposit_terms;
+  if (!f || f.value == null) return null;
+  const m = (f.value + " " + (f.quote || "")).match(/(\d[\d\s]*)\s*(?:kr|kronor)\s*(?:\/|per|i)\s*mån/i);
+  return m ? parseInt(m[1].replace(/\s/g, ""), 10) : null;
+}
+
 function rows() {
   const out = [];
   for (const b of DATA.banks) {
@@ -77,7 +89,7 @@ function render() {
   const bind = +document.querySelector('input[name="bind"]:checked').value;
   const f = {
     se: $("#se-guarantee").checked, free: $("#free-wd").checked, noIntro: $("#no-intro").checked,
-    noBundle: $("#no-bundle").checked, verified: $("#verified-only").checked,
+    noBundle: $("#no-bundle").checked, verified: $("#verified-only").checked, monthly: $("#monthly").checked,
   };
   const q = $("#q").value.trim().toLowerCase();
   const items = rows()
@@ -94,6 +106,8 @@ function render() {
       if (f.noIntro && val(p, "intro_rate") === true) return false;
       if (f.noBundle && val(p, "requires_other_products") === true) return false;
       if (f.verified && p.status !== "verifierad") return false;
+      const cap = monthlyCap(p);
+      if (cap != null && amount > cap && !f.monthly) return false;
       const min = val(p, "min_deposit_sek");
       if (min != null && amount < min) return false;
       return true;
@@ -129,10 +143,13 @@ function row({ bank, p, rate }, amount) {
   const gc = val(p, "guarantee_country");
   if (gc && gc !== "SE") tags.append(badge("garanti: " + (COUNTRY[gc] || gc), "note"));
   if (val(p, "intro_rate")) tags.append(badge("kampanj", "note"));
+  const cap = monthlyCap(p);
+  if (cap != null) tags.append(badge(`månadsspar max ${kr.format(cap)} kr/mån`, "note"));
 
   el.querySelector(".rate").textContent = pct.format(rate) + " %";
   const max = val(p, "max_deposit_sek");
-  const base = max != null ? Math.min(amount, max) : amount;
+  // Månadsspar: genomsnittligt saldo under första året är ca 6,5 månadsinsättningar.
+  const base = cap != null ? Math.min(amount, cap * 12) * 6.5 / 12 : max != null ? Math.min(amount, max) : amount;
   const net = base * rate / 100 * (1 - TAX);
   el.querySelector(".yield").textContent = `+${kr.format(net)} kr/år`;
 
@@ -174,6 +191,21 @@ function row({ bank, p, rate }, amount) {
   return el;
 }
 
+function renderMissing() {
+  const miss = DATA.banks.filter((b) => !(b.products || []).some((p) => val(p, "rate_percent") != null));
+  const el = $("#missing");
+  el.hidden = miss.length === 0;
+  el.querySelector("summary").textContent = `${miss.length} banker kunde inte läsas automatiskt`;
+  el.querySelector("ul").replaceChildren(...miss.sort((a, b) => a.bank.name.localeCompare(b.bank.name, "sv")).map((b) => {
+    const li = document.createElement("li");
+    const a = document.createElement("a");
+    a.href = b.bank.homepage; a.rel = "noopener nofollow"; a.target = "_blank";
+    a.textContent = b.bank.name;
+    li.append(a);
+    return li;
+  }));
+}
+
 function bindFilters() {
   $("#filters").addEventListener("input", (e) => {
     if (e.target.id === "amount") {
@@ -191,5 +223,6 @@ fetch("data/rates.json", { cache: "no-cache" })
     $("#updated").textContent = `Data uppdaterad ${new Date(d.generated_at).toLocaleString("sv-SE", { dateStyle: "long", timeStyle: "short" })}.`;
     bindFilters();
     render();
+    renderMissing();
   })
   .catch(() => { $("#summary").textContent = "Kunde inte läsa in räntorna."; });

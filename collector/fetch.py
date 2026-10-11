@@ -21,6 +21,12 @@ UA = (
 )
 HEADERS = {"User-Agent": UA, "Accept-Language": "sv-SE,sv;q=0.9,en;q=0.5"}
 MIN_TEXT = 600  # färre tecken än så => troligen JS-renderad sida
+PCT = re.compile(r"\d+(?:[.,]\d+)?\s?%")
+RATE_WORD = re.compile(r"ränta|räntan|sparränta|räntesats", re.I)
+
+
+def _rates_missing(text: str) -> bool:
+    return bool(RATE_WORD.search(text)) and not PCT.search(text)
 
 
 @dataclass
@@ -136,7 +142,19 @@ def get(url: str, allow_browser: bool = True) -> Page:
         if "pdf" in ctype or url.lower().endswith(".pdf"):
             return pdf_to_page(str(r.url), r.content)
         page = html_to_page(str(r.url), r.text)
-        if len(page.text) >= MIN_TEXT or not allow_browser:
+        if not allow_browser:
+            return page
+        if len(page.text) >= MIN_TEXT and not _rates_missing(page.text):
+            return page
+        # Sidan talar om ränta men visar ingen procentsats – troligen ritas
+        # räntan upp med JavaScript. Prova webbläsaren och behåll den bästa.
+        try:
+            bp = _browser_get(url)
+            if not bp.error and len(PCT.findall(bp.text)) > len(PCT.findall(page.text)):
+                return bp
+        except Exception:
+            pass
+        if len(page.text) >= MIN_TEXT:
             return page
     except Exception as e:
         if not allow_browser:

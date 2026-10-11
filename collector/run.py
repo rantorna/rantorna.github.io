@@ -22,6 +22,7 @@ from . import discover, extract, fetch, jev, llm, verify
 ROOT = Path(__file__).resolve().parent.parent
 DATA = ROOT / "data"
 PRODUCTS = DATA / "products"
+RAW = DATA / "raw"  # Claudes råsvar, så att kontrollen kan köras om utan nya anrop
 MAX_TOTAL_CHARS = 250_000
 
 RELEVANT = re.compile(r"(%|ränt|rant|uttag|insätt|insatt|bind|villkor|garanti|kr\b|sek\b|belopp|månad|år\b)", re.I)
@@ -60,7 +61,25 @@ def load_banks() -> list[dict]:
     return [b for b in out if not b.get("skip")]
 
 
-def collect_pages(bank: dict, log) -> list[fetch.Page]:
+REDISCOVER_DAYS = 7
+
+
+def collect_pages(bank: dict, log, previous: dict | None = None, rediscover: bool = False) -> list[fetch.Page]:
+    """Återanvänder förra körningens sidor (så att hashen bara ändras när innehållet
+    gör det) och letar nya sidor en gång i veckan eller när en gammal sida fallerat."""
+    prev_urls = [s["url"] for s in (previous or {}).get("sources", [])]
+    disc = (previous or {}).get("discovered_at")
+    stale = not disc or (dt.datetime.now(dt.timezone.utc) - dt.datetime.fromisoformat(disc)).days >= REDISCOVER_DAYS
+    if prev_urls and not stale and not rediscover:
+        pages = []
+        for u in prev_urls:
+            p = fetch.get(u) if not u.lower().endswith(".pdf") else fetch.get(u, allow_browser=False)
+            if p.error or len(p.text) < 200:
+                log(f"  - {u}: {p.error or 'för lite text'} – letar nya sidor")
+                return collect_pages(bank, log, previous, rediscover=True)
+            pages.append(p)
+        log(f"  {len(pages)} kända sidor")
+        return pages
     found = discover.candidates(bank, log=log)
     urls = discover.choose(bank, found, log=log)
     pages = []
@@ -86,14 +105,17 @@ def collect_pages(bank: dict, log) -> list[fetch.Page]:
     return pages
 
 
-def process(bank: dict, discover_only: bool, force: bool, log) -> dict | None:
+def process(bank: dict, discover_only: bool, force: bool, log, rediscover: bool = False,
+            reverify: bool = False) -> dict | None:
     log(f"\n== {bank['name']}")
     out_path = PRODUCTS / f"{bank['id']}.json"
     previous = json.loads(out_path.read_text()) if out_path.exists() else None
-    pages = collect_pages(bank, log)
+    pages = collect_pages(bank, log, previous, rediscover=rediscover)
+    reused = previous and [s["url"] for s in previous.get("sources", [])] == [p.url for p in pages]
     record = {
         "bank": {k: bank.get(k) for k in ("id", "name", "homepage", "home_country", "kind", "legal_name")},
         "checked_at": now(),
+        "discovered_at": (previous or {}).get("discovered_at") if reused else now(),
         "sources": [{"url": p.url, "title": p.title, "kind": p.kind, "via": p.via, "chars": len(p.text)} for p in pages],
     }
     if not pages:
@@ -107,16 +129,28 @@ def process(bank: dict, discover_only: bool, force: bool, log) -> dict | None:
     if discover_only:
         log(f"  hash {h}")
         return None
-    if previous and previous.get("source_hash") == h and not force:
+    if previous and previous.get("source_hash") == h and not force and not reverify:
         log("  oförändrat – ingen ny tolkning")
         previous["checked_at"] = record["checked_at"]
+        previous["discovered_at"] = record["discovered_at"]
+        previous["sources"] = record["sources"]
         out_path.write_text(json.dumps(previous, ensure_ascii=False, indent=1))
         return previous
     if not llm.available():
         log("  ! ingen LLM – hoppar över tolkning")
         return None
+    raw_path = RAW / f"{bank['id']}.json"
+    if reverify:
+        if not raw_path.exists():
+            log("  ingen sparad tolkning – hoppar över")
+            return previous
+        raw = json.loads(raw_path.read_text())["extraction"]
+        record["source_hash"] = h
+        return finish(bank, record, raw, pages, previous, out_path, log)
     try:
         raw = extract.extract(bank, pages)
+        RAW.mkdir(exist_ok=True)
+        raw_path.write_text(json.dumps({"model": llm.model(), "at": now(), "extraction": raw}, ensure_ascii=False, indent=1))
     except Exception as e:
         log(f"  ! tolkning misslyckades: {e}")
         if previous:
@@ -124,6 +158,12 @@ def process(bank: dict, discover_only: bool, force: bool, log) -> dict | None:
             previous["status"] = f"senaste tolkning misslyckades ({str(e)[:80]})"
             out_path.write_text(json.dumps(previous, ensure_ascii=False, indent=1))
         return previous
+    return finish(bank, record, raw, pages, previous, out_path, log, h)
+
+
+def finish(bank, record, raw, pages, previous, out_path, log, h=None):
+    """Kontroll (citat, tal, Jev, rimlighet) av en tolkning och sparande."""
+    h = h or record.get("source_hash")
     docs = [p.text for p in pages]
     prev_by_name = {p["name"]: p for p in (previous or {}).get("products", [])}
     products = [verify.verify_product(p, docs, prev_by_name.get(p["name"])) for p in raw.get("products", [])]
@@ -140,7 +180,7 @@ def process(bank: dict, discover_only: bool, force: bool, log) -> dict | None:
         "products": products,
         "source_hash": h,
         "changed_at": record["checked_at"],
-        "model": llm.MODEL,
+        "model": llm.model(),
     }
     for p in products:
         f = p["fields"]
@@ -177,6 +217,8 @@ def main():
     ap.add_argument("--discover-only", action="store_true")
     ap.add_argument("--force", action="store_true", help="tolka även om källorna inte ändrats")
     ap.add_argument("--workers", type=int, default=4)
+    ap.add_argument("--reverify", action="store_true", help="kör om kontrollen mot sparade tolkningar (inga nya Claude-anrop)")
+    ap.add_argument("--rediscover", action="store_true", help="leta sidor på nytt i stället för att återanvända förra körningens")
     args = ap.parse_args()
     PRODUCTS.mkdir(parents=True, exist_ok=True)
     banks = [b for b in load_banks() if not args.bank or b["id"] in args.bank]
@@ -186,7 +228,8 @@ def main():
     def work(b):
         lines = []
         try:
-            process(b, args.discover_only, args.force, lines.append)
+            process(b, args.discover_only, args.force, lines.append, rediscover=args.rediscover,
+                    reverify=args.reverify)
             ok = True
         except Exception as e:  # en trasig bank ska inte stoppa resten
             lines.append(f"  ! {b['id']}: {type(e).__name__}: {e}")
@@ -201,7 +244,7 @@ def main():
     failures = results.count(False)
     if not args.discover_only:
         build_site_data()
-    log(f"\nLLM: {llm.usage}  Jev: {jev.usage}")
+    print(f"\nLLM: {llm.usage}  Jev: {jev.usage}", flush=True)
     sys.exit(1 if failures == len(banks) and banks else 0)
 
 

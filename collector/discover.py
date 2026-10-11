@@ -110,25 +110,28 @@ def choose(bank: dict, found: dict[str, str], max_pages: int = 8, log=print) -> 
     forced = list(bank.get("start_urls", []))
     if not shortlist:
         return forced[:max_pages]
-    if llm.available():
+    if llm.available() and not llm.limit_hit:
         listing = "\n".join(f"{i}. {u}  [{found[u][:80]}]" for i, u in enumerate(shortlist))
-        res = llm.json_call(
-            task="choose_pages",
-            system=(
-                "Du hjälper en svensk jämförelsesajt för sparkonton. Välj de sidor som mest sannolikt "
-                "innehåller aktuella räntesatser och villkor för sparkonton/inlåning för privatpersoner i "
-                "Sverige (rörliga sparkonton, fasträntekonton, villkorsdokument, räntetabeller, "
-                "insättningsgaranti). Välj inte lån, kort, fonder, företagskonton eller nyheter."
-            ),
-            user=f"Bank: {bank['name']}\nKandidater:\n{listing}\n\nVälj högst {max_pages} index, viktigast först.",
-            schema={
-                "type": "object",
-                "properties": {"indices": {"type": "array", "items": {"type": "integer"}}},
-                "required": ["indices"],
-                "additionalProperties": False,
-            },
-            cheap=True,
-        )
+        try:
+            res = llm.json_call(
+                task="choose_pages",
+                system=(
+                    "Du hjälper en svensk jämförelsesajt för sparkonton. Välj de sidor som mest sannolikt "
+                    "innehåller aktuella räntesatser och villkor för sparkonton/inlåning för privatpersoner i "
+                    "Sverige (rörliga sparkonton, fasträntekonton, villkorsdokument, räntetabeller, "
+                    "insättningsgaranti). Välj inte lån, kort, fonder, företagskonton eller nyheter."
+                ),
+                user=f"Bank: {bank['name']}\nKandidater:\n{listing}\n\nVälj högst {max_pages} index, viktigast först.",
+                schema={
+                    "type": "object",
+                    "properties": {"indices": {"type": "array", "items": {"type": "integer"}}},
+                    "required": ["indices"],
+                    "additionalProperties": False,
+                },
+                cheap=True,
+            )
+        except llm.LLMError:
+            res = {"indices": list(range(len(shortlist)))}
         picked = [shortlist[i] for i in res.get("indices", []) if 0 <= i < len(shortlist)]
     else:
         picked = shortlist

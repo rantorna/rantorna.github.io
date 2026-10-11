@@ -7,7 +7,8 @@
   "kind": "neobank",
   "legal_name": null
  },
- "checked_at": "2026-10-10T13:26:48+00:00",
+ "checked_at": "2026-10-11T13:48:44+00:00",
+ "discovered_at": "2026-10-10T17:00:32+00:00",
  "sources": [
   {
    "url": "https://www.klarna.com/se/bankkonto/",
@@ -24,18 +25,18 @@
    "chars": 8763
   },
   {
-   "url": "https://www.klarna.com/se/flexkonto/",
-   "title": "Klarna flexkonto | Ett sparkonto med rörlig ränta",
-   "kind": "html",
-   "via": "http",
-   "chars": 6171
-  },
-  {
    "url": "https://www.klarna.com/se/fastkonto/",
    "title": "Klarna fastkonto | Få vår högsta ränta",
    "kind": "html",
    "via": "http",
    "chars": 4072
+  },
+  {
+   "url": "https://www.klarna.com/se/flexkonto/",
+   "title": "Klarna flexkonto | Ett sparkonto med rörlig ränta",
+   "kind": "html",
+   "via": "http",
+   "chars": 6171
   },
   {
    "url": "https://www.klarna.com/se/bankkonto/",
@@ -50,10 +51,24 @@
    "kind": "html",
    "via": "http",
    "chars": 995
+  },
+  {
+   "url": "https://www.klarna.com/se/flexkonto/",
+   "title": "Klarna flexkonto | Ett sparkonto med rörlig ränta",
+   "kind": "html",
+   "via": "http",
+   "chars": 6171
+  },
+  {
+   "url": "https://www.klarna.com/se/sakerhet/",
+   "title": "Säkerhet 24/7 | Klarna Sverige",
+   "kind": "html",
+   "via": "http",
+   "chars": 7841
   }
  ],
  "status": "ok",
- "notes": "Inget datum anges för när räntorna började gälla. Inget i källorna säger om räntorna är kampanjräntor, så intro_rate saknar värde. Alla sparkonton kräver ett Klarna bankkonto (gratis), därför requires_other_products=true. Flexkontots medlemsvarianter (Plus/Premium/Max) kräver dessutom ett betalt Klarna-medlemskap och redovisas som egna produkter. Källorna säger emot varandra om insättningar på fastkonto. Dok 3 säger att man kan 'göra insättningar när som helst', men jämförelsetabellen i dok 1 visar ✗ för 'Sätt in eller ta ut när du vill'. Dok 3 beskriver också att sparsumman förs över vid öppning. Fastkonto 12 mån faller utanför FAQ:ns regler för räntebetalning ('kortare än'/'längre än' 12 mån). Där har jag använt beskrivningen av utbetalning vid löptidens slut. Bankkontot (privatkontot) har ingen angiven egen ränta och är inte med som sparprodukt. Bankkontots FAQ nämner både boende i ett EU-land och folkbokföring i Sverige. Jag har använt de svenska kraven (folkbokföring, personnummer, Mobilt BankID).",
+ "notes": "Källorna är oeniga om påfyllning på fastkonto: sidan /fastkonto/ säger att man kan göra insättningar när som helst, medan /sparkonton/ markerar att man inte kan sätta in eller ta ut när som helst. Flexkontot och fastkontot kräver ett igångsatt (gratis) Klarna bankkonto; requires_other_products är satt till true endast för de betalda medlemskapsvarianterna. Medlemskapsavgiftens storlek anges inte i källorna. Ingen ränta-ikraftdatum anges. Räntorna \"kan komma att ändras\". Fastkonto 12 månader saknar uttryckligt utbetalningsintervall.",
  "products": [
   {
    "name": "Flexkonto",
@@ -61,8 +76,8 @@
    "fields": {
     "product_type": {
      "value": "rörligt sparkonto",
-     "quote": "Klarna flexkonto | Ett sparkonto med rörlig ränta",
-     "source": 2,
+     "quote": "kan du öppna ditt sparkonto med rörlig ränta på några minuter",
+     "source": 3,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
@@ -71,18 +86,18 @@
     },
     "rate_percent": {
      "value": 1.55,
-     "quote": "Få 1,55% ränta",
-     "source": 2,
+     "quote": "Flexkonto | 1,55% på årsbasis",
+     "source": 1,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 1.0
+      "confidence": 0.8
      }
     },
     "rate_type": {
      "value": "rörlig",
-     "quote": "I Klarna-appen kan du öppna ditt sparkonto med rörlig ränta på några minuter",
-     "source": 2,
+     "quote": "kan du öppna ditt sparkonto med rörlig ränta på några minuter",
+     "source": 3,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
@@ -101,12 +116,12 @@
     },
     "withdrawals": {
      "value": "fria",
-     "quote": "Du kan lägga till och ta ut pengar från flexkonton när du vill, utan avgifter för uttag.",
-     "source": 2,
+     "quote": "Lägg till och ta ut pengar när du vill",
+     "source": 1,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 1.0
+      "confidence": 0.97
      }
     },
     "free_withdrawals_per_year": {
@@ -116,13 +131,13 @@
      "status": "okänt"
     },
     "withdrawal_terms": {
-     "value": "Fria uttag utan avgift och ingen bindningstid.",
-     "quote": "ett Klarna sparkonto har ingen bindningstid och inga uttagsavgifter",
-     "source": 1,
+     "value": "Insättning och uttag när som helst utan uttagsavgifter.",
+     "quote": "Ja. Du kan lägga till och ta ut pengar från flexkonton när du vill, utan avgifter för uttag.",
+     "source": 3,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.89
+      "confidence": 1.0
      }
     },
     "early_withdrawal": {
@@ -134,7 +149,7 @@
     "min_deposit_sek": {
      "value": null,
      "quote": "Nej, det finns inget minimibelopp för att öppna ett konto eller att börja få ränta.",
-     "source": 2,
+     "source": 3,
      "status": "talet finns inte i citatet",
      "claimed": 0
     },
@@ -145,19 +160,19 @@
      "status": "okänt"
     },
     "deposit_terms": {
-     "value": "Insättningar när som helst; högst tre flexkonton åt gången.",
+     "value": "Insättning när som helst; upp till tre flexkonton åt gången.",
      "quote": "Du kan ha upp till tre flexkonton åt gången.",
-     "source": 2,
+     "source": 3,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.94
+      "confidence": 0.8
      }
     },
     "eligibility": {
-     "value": "Minst 18 år, svenskt personnummer, folkbokförd i Sverige, Mobilt BankID; kräver Klarna bankkonto.",
-     "quote": "Vara minst 18 år\nHa ett svenskt personnummer\nVara folkbokförd i Sverige\nKunna verifiera dig med Mobilt BankID",
-     "source": 0,
+     "value": "Kräver Klarna bankkonto: minst 18 år, svenskt personnummer, folkbokförd i Sverige och Mobilt BankID.",
+     "quote": "Vara folkbokförd i Sverige",
+     "source": 4,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
@@ -165,13 +180,13 @@
      }
     },
     "requires_other_products": {
-     "value": true,
-     "quote": "För att öppna ett flex- eller fasträntekonto måste ditt bankkonto vara igång. Kontona är alltid kopplade till ditt bankkonto.",
+     "value": false,
+     "quote": "Nej, både flex- eller fasträntekonto är sparkonton utan avgift – det kostar inget att öppna och inga månadsavgifter tillkommer.",
      "source": 1,
-     "status": "osäkert",
+     "status": "belagt",
      "jev": {
-      "verdict": "contradicts",
-      "confidence": 0.31
+      "verdict": "supports",
+      "confidence": 0.33
      }
     },
     "intro_rate": {
@@ -181,9 +196,9 @@
      "status": "okänt"
     },
     "interest_paid": {
-     "value": "Månadsvis (räntan beräknas dagligen)",
-     "quote": "Ränta beräknas dagligen och betalas ut månadsvis.",
-     "source": 2,
+     "value": "Beräknas dagligen, betalas ut månadsvis",
+     "quote": "Räntan beräknas dagligen och betalas ut månadsvis till ditt flexkonto.",
+     "source": 3,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
@@ -193,7 +208,7 @@
     "guarantee_country": {
      "value": "SE",
      "quote": "Kontot omfattas av den svenska insättningsgarantin.",
-     "source": 2,
+     "source": 3,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
@@ -203,11 +218,11 @@
     "guarantee_amount": {
      "value": "1 150 000 kr",
      "quote": "Högsta ersättning per kund: 1 150 000 SEK.",
-     "source": 2,
+     "source": 3,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.98
+      "confidence": 1.0
      }
     },
     "rate_valid_from": {
@@ -227,12 +242,12 @@
    "fields": {
     "product_type": {
      "value": "rörligt sparkonto",
-     "quote": "Klarna flexkonto | Ett sparkonto med rörlig ränta",
-     "source": 2,
+     "quote": "kan du öppna ditt sparkonto med rörlig ränta på några minuter",
+     "source": 3,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.69
+      "confidence": 0.79
      }
     },
     "rate_percent": {
@@ -242,17 +257,17 @@
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.76
+      "confidence": 0.18
      }
     },
     "rate_type": {
      "value": "rörlig",
-     "quote": "I Klarna-appen kan du öppna ditt sparkonto med rörlig ränta på några minuter",
-     "source": 2,
+     "quote": "kan du öppna ditt sparkonto med rörlig ränta på några minuter",
+     "source": 3,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.56
+      "confidence": 0.67
      }
     },
     "binding_months": {
@@ -262,17 +277,17 @@
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.67
+      "confidence": 0.72
      }
     },
     "withdrawals": {
      "value": "fria",
-     "quote": "Du kan lägga till och ta ut pengar från flexkonton när du vill, utan avgifter för uttag.",
-     "source": 2,
+     "quote": "Lägg till och ta ut pengar när du vill",
+     "source": 1,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.46
+      "confidence": 0.66
      }
     },
     "free_withdrawals_per_year": {
@@ -282,13 +297,13 @@
      "status": "okänt"
     },
     "withdrawal_terms": {
-     "value": "Fria uttag utan avgift och ingen bindningstid.",
-     "quote": "ett Klarna sparkonto har ingen bindningstid och inga uttagsavgifter",
-     "source": 1,
+     "value": "Insättning och uttag när som helst utan uttagsavgifter.",
+     "quote": "Ja. Du kan lägga till och ta ut pengar från flexkonton när du vill, utan avgifter för uttag.",
+     "source": 3,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.67
+      "confidence": 0.91
      }
     },
     "early_withdrawal": {
@@ -300,7 +315,7 @@
     "min_deposit_sek": {
      "value": null,
      "quote": "Nej, det finns inget minimibelopp för att öppna ett konto eller att börja få ränta.",
-     "source": 2,
+     "source": 3,
      "status": "talet finns inte i citatet",
      "claimed": 0
     },
@@ -311,9 +326,9 @@
      "status": "okänt"
     },
     "deposit_terms": {
-     "value": "Insättningar när som helst; högst tre flexkonton åt gången.",
+     "value": "Insättning när som helst; upp till tre flexkonton åt gången.",
      "quote": "Du kan ha upp till tre flexkonton åt gången.",
-     "source": 2,
+     "source": 3,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
@@ -321,13 +336,13 @@
      }
     },
     "eligibility": {
-     "value": "Minst 18 år, svenskt personnummer, folkbokförd i Sverige, Mobilt BankID; kräver Klarna bankkonto och Plus-medlemskap.",
-     "quote": "Vara minst 18 år\nHa ett svenskt personnummer\nVara folkbokförd i Sverige\nKunna verifiera dig med Mobilt BankID",
-     "source": 0,
+     "value": "Kräver Klarna bankkonto och Plus-medlemskap: minst 18 år, svenskt personnummer, folkbokförd i Sverige och Mobilt BankID.",
+     "quote": "Vara folkbokförd i Sverige",
+     "source": 4,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.2
+      "confidence": 0.33
      }
     },
     "requires_other_products": {
@@ -337,7 +352,7 @@
      "status": "osäkert",
      "jev": {
       "verdict": "says_nothing",
-      "confidence": 0.35
+      "confidence": 0.38
      }
     },
     "intro_rate": {
@@ -347,33 +362,33 @@
      "status": "okänt"
     },
     "interest_paid": {
-     "value": "Månadsvis (räntan beräknas dagligen)",
-     "quote": "Ränta beräknas dagligen och betalas ut månadsvis.",
-     "source": 2,
+     "value": "Beräknas dagligen, betalas ut månadsvis",
+     "quote": "Räntan beräknas dagligen och betalas ut månadsvis till ditt flexkonto.",
+     "source": 3,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.31
+      "confidence": 0.79
      }
     },
     "guarantee_country": {
      "value": "SE",
      "quote": "Kontot omfattas av den svenska insättningsgarantin.",
-     "source": 2,
+     "source": 3,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.8
+      "confidence": 0.88
      }
     },
     "guarantee_amount": {
      "value": "1 150 000 kr",
      "quote": "Högsta ersättning per kund: 1 150 000 SEK.",
-     "source": 2,
+     "source": 3,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.88
+      "confidence": 0.91
      }
     },
     "rate_valid_from": {
@@ -393,12 +408,12 @@
    "fields": {
     "product_type": {
      "value": "rörligt sparkonto",
-     "quote": "Klarna flexkonto | Ett sparkonto med rörlig ränta",
-     "source": 2,
+     "quote": "kan du öppna ditt sparkonto med rörlig ränta på några minuter",
+     "source": 3,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.66
+      "confidence": 0.85
      }
     },
     "rate_percent": {
@@ -408,17 +423,17 @@
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.86
+      "confidence": 0.79
      }
     },
     "rate_type": {
      "value": "rörlig",
-     "quote": "I Klarna-appen kan du öppna ditt sparkonto med rörlig ränta på några minuter",
-     "source": 2,
+     "quote": "kan du öppna ditt sparkonto med rörlig ränta på några minuter",
+     "source": 3,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.31
+      "confidence": 0.48
      }
     },
     "binding_months": {
@@ -428,17 +443,17 @@
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.66
+      "confidence": 0.73
      }
     },
     "withdrawals": {
      "value": "fria",
-     "quote": "Du kan lägga till och ta ut pengar från flexkonton när du vill, utan avgifter för uttag.",
-     "source": 2,
+     "quote": "Lägg till och ta ut pengar när du vill",
+     "source": 1,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.69
+      "confidence": 0.52
      }
     },
     "free_withdrawals_per_year": {
@@ -448,13 +463,13 @@
      "status": "okänt"
     },
     "withdrawal_terms": {
-     "value": "Fria uttag utan avgift och ingen bindningstid.",
-     "quote": "ett Klarna sparkonto har ingen bindningstid och inga uttagsavgifter",
-     "source": 1,
+     "value": "Insättning och uttag när som helst utan uttagsavgifter.",
+     "quote": "Ja. Du kan lägga till och ta ut pengar från flexkonton när du vill, utan avgifter för uttag.",
+     "source": 3,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.64
+      "confidence": 0.83
      }
     },
     "early_withdrawal": {
@@ -466,7 +481,7 @@
     "min_deposit_sek": {
      "value": null,
      "quote": "Nej, det finns inget minimibelopp för att öppna ett konto eller att börja få ränta.",
-     "source": 2,
+     "source": 3,
      "status": "talet finns inte i citatet",
      "claimed": 0
     },
@@ -477,23 +492,23 @@
      "status": "okänt"
     },
     "deposit_terms": {
-     "value": "Insättningar när som helst; högst tre flexkonton åt gången.",
+     "value": "Insättning när som helst; upp till tre flexkonton åt gången.",
      "quote": "Du kan ha upp till tre flexkonton åt gången.",
-     "source": 2,
+     "source": 3,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.82
+      "confidence": 0.85
      }
     },
     "eligibility": {
-     "value": "Minst 18 år, svenskt personnummer, folkbokförd i Sverige, Mobilt BankID; kräver Klarna bankkonto och Premium-medlemskap.",
-     "quote": "Vara minst 18 år\nHa ett svenskt personnummer\nVara folkbokförd i Sverige\nKunna verifiera dig med Mobilt BankID",
-     "source": 0,
+     "value": "Kräver Klarna bankkonto och Premium-medlemskap: minst 18 år, svenskt personnummer, folkbokförd i Sverige och Mobilt BankID.",
+     "quote": "Vara folkbokförd i Sverige",
+     "source": 4,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.2
+      "confidence": 0.31
      }
     },
     "requires_other_products": {
@@ -503,7 +518,7 @@
      "status": "osäkert",
      "jev": {
       "verdict": "says_nothing",
-      "confidence": 0.3
+      "confidence": 0.34
      }
     },
     "intro_rate": {
@@ -513,33 +528,33 @@
      "status": "okänt"
     },
     "interest_paid": {
-     "value": "Månadsvis (räntan beräknas dagligen)",
-     "quote": "Ränta beräknas dagligen och betalas ut månadsvis.",
-     "source": 2,
+     "value": "Beräknas dagligen, betalas ut månadsvis",
+     "quote": "Räntan beräknas dagligen och betalas ut månadsvis till ditt flexkonto.",
+     "source": 3,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.27
+      "confidence": 0.76
      }
     },
     "guarantee_country": {
      "value": "SE",
      "quote": "Kontot omfattas av den svenska insättningsgarantin.",
-     "source": 2,
+     "source": 3,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.85
+      "confidence": 0.91
      }
     },
     "guarantee_amount": {
      "value": "1 150 000 kr",
      "quote": "Högsta ersättning per kund: 1 150 000 SEK.",
-     "source": 2,
+     "source": 3,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.88
+      "confidence": 0.92
      }
     },
     "rate_valid_from": {
@@ -559,12 +574,12 @@
    "fields": {
     "product_type": {
      "value": "rörligt sparkonto",
-     "quote": "Klarna flexkonto | Ett sparkonto med rörlig ränta",
-     "source": 2,
+     "quote": "kan du öppna ditt sparkonto med rörlig ränta på några minuter",
+     "source": 3,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.69
+      "confidence": 0.88
      }
     },
     "rate_percent": {
@@ -574,17 +589,17 @@
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.52
+      "confidence": 0.16
      }
     },
     "rate_type": {
      "value": "rörlig",
-     "quote": "I Klarna-appen kan du öppna ditt sparkonto med rörlig ränta på några minuter",
-     "source": 2,
+     "quote": "kan du öppna ditt sparkonto med rörlig ränta på några minuter",
+     "source": 3,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.18
+      "confidence": 0.52
      }
     },
     "binding_months": {
@@ -594,17 +609,17 @@
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.66
+      "confidence": 0.58
      }
     },
     "withdrawals": {
      "value": "fria",
-     "quote": "Du kan lägga till och ta ut pengar från flexkonton när du vill, utan avgifter för uttag.",
-     "source": 2,
+     "quote": "Lägg till och ta ut pengar när du vill",
+     "source": 1,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.64
+      "confidence": 0.59
      }
     },
     "free_withdrawals_per_year": {
@@ -614,13 +629,13 @@
      "status": "okänt"
     },
     "withdrawal_terms": {
-     "value": "Fria uttag utan avgift och ingen bindningstid.",
-     "quote": "ett Klarna sparkonto har ingen bindningstid och inga uttagsavgifter",
-     "source": 1,
+     "value": "Insättning och uttag när som helst utan uttagsavgifter.",
+     "quote": "Ja. Du kan lägga till och ta ut pengar från flexkonton när du vill, utan avgifter för uttag.",
+     "source": 3,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.66
+      "confidence": 0.89
      }
     },
     "early_withdrawal": {
@@ -632,7 +647,7 @@
     "min_deposit_sek": {
      "value": null,
      "quote": "Nej, det finns inget minimibelopp för att öppna ett konto eller att börja få ränta.",
-     "source": 2,
+     "source": 3,
      "status": "talet finns inte i citatet",
      "claimed": 0
     },
@@ -643,23 +658,23 @@
      "status": "okänt"
     },
     "deposit_terms": {
-     "value": "Insättningar när som helst; högst tre flexkonton åt gången.",
+     "value": "Insättning när som helst; upp till tre flexkonton åt gången.",
      "quote": "Du kan ha upp till tre flexkonton åt gången.",
-     "source": 2,
+     "source": 3,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.91
+      "confidence": 0.86
      }
     },
     "eligibility": {
-     "value": "Minst 18 år, svenskt personnummer, folkbokförd i Sverige, Mobilt BankID; kräver Klarna bankkonto och Max-medlemskap.",
-     "quote": "Vara minst 18 år\nHa ett svenskt personnummer\nVara folkbokförd i Sverige\nKunna verifiera dig med Mobilt BankID",
-     "source": 0,
+     "value": "Kräver Klarna bankkonto och Max-medlemskap: minst 18 år, svenskt personnummer, folkbokförd i Sverige och Mobilt BankID.",
+     "quote": "Vara folkbokförd i Sverige",
+     "source": 4,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.07
+      "confidence": 0.28
      }
     },
     "requires_other_products": {
@@ -669,7 +684,7 @@
      "status": "osäkert",
      "jev": {
       "verdict": "says_nothing",
-      "confidence": 0.35
+      "confidence": 0.46
      }
     },
     "intro_rate": {
@@ -679,33 +694,33 @@
      "status": "okänt"
     },
     "interest_paid": {
-     "value": "Månadsvis (räntan beräknas dagligen)",
-     "quote": "Ränta beräknas dagligen och betalas ut månadsvis.",
-     "source": 2,
+     "value": "Beräknas dagligen, betalas ut månadsvis",
+     "quote": "Räntan beräknas dagligen och betalas ut månadsvis till ditt flexkonto.",
+     "source": 3,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.23
+      "confidence": 0.73
      }
     },
     "guarantee_country": {
      "value": "SE",
      "quote": "Kontot omfattas av den svenska insättningsgarantin.",
-     "source": 2,
+     "source": 3,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.8
+      "confidence": 0.94
      }
     },
     "guarantee_amount": {
      "value": "1 150 000 kr",
      "quote": "Högsta ersättning per kund: 1 150 000 SEK.",
-     "source": 2,
+     "source": 3,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.82
+      "confidence": 0.89
      }
     },
     "rate_valid_from": {
@@ -725,42 +740,42 @@
    "fields": {
     "product_type": {
      "value": "fasträntekonto",
-     "quote": "I Klarna-appen kan du öppna ditt fasträntekonto på några minuter",
-     "source": 3,
-     "status": "osäkert",
+     "quote": "Klarna fastkonto är ett sparkonto med fast löptid",
+     "source": 2,
+     "status": "belagt",
      "jev": {
-      "verdict": "contradicts",
-      "confidence": 0.25
+      "verdict": "supports",
+      "confidence": 0.7
      }
     },
     "rate_percent": {
      "value": 1.61,
      "quote": "3 månader | 1,61% på årsbasis",
-     "source": 3,
+     "source": 2,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.86
+      "confidence": 0.98
      }
     },
     "rate_type": {
      "value": "fast",
-     "quote": "Välj en löptid som passar dig och börja spara tryggt med fast ränta.",
-     "source": 3,
+     "quote": "Du kan spara pengar under en bestämd tid till en fast ränta",
+     "source": 2,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.82
+      "confidence": 0.91
      }
     },
     "binding_months": {
      "value": 3,
      "quote": "3 månader | 1,61% på årsbasis",
-     "source": 3,
+     "source": 2,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.33
+      "confidence": 0.91
      }
     },
     "withdrawals": {
@@ -780,13 +795,13 @@
      "status": "okänt"
     },
     "withdrawal_terms": {
-     "value": "Pengarna är låsta under löptiden; vid slutet betalas insättning plus ränta till privatkontot och kontot stängs.",
-     "quote": "När löptiden har löpt ut skickas det ursprungliga insättningsbeloppet tillsammans med upplupen ränta tillbaka till ditt personliga konto. Samtidigt stängs fastkontot automatiskt.",
-     "source": 3,
+     "value": "Pengarna är låsta till löptidens slut; därefter betalas insättning och ränta tillbaka och kontot stängs.",
+     "quote": "Pengarna på ett fasträntekonto är låsta tills bindningstiden du valt är slut.",
+     "source": 1,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.97
+      "confidence": 0.74
      }
     },
     "early_withdrawal": {
@@ -796,13 +811,13 @@
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.97
+      "confidence": 1.0
      }
     },
     "min_deposit_sek": {
      "value": null,
-     "quote": "Det finns inget minsta belopp för att öppna ett flex- eller fasträntekonto eller för att börja få ränta.",
-     "source": 1,
+     "quote": "Vi tar inte ut några avgifter för kontohantering eller uttag, och det finns ingen minimiinsättning.",
+     "source": 2,
      "status": "talet finns inte i citatet",
      "claimed": 0
     },
@@ -813,33 +828,33 @@
      "status": "okänt"
     },
     "deposit_terms": {
-     "value": "Sparsumman förs över från bankkontot vid öppning (uppgifter om senare insättningar är motstridiga).",
+     "value": "Sparsumman förs över vid öppnandet; källorna är oeniga om påfyllning under löptiden.",
      "quote": "Välj den löptid som passar dig och överför sparsumman till ditt nya fastkonto.",
-     "source": 3,
+     "source": 2,
      "status": "osäkert",
      "jev": {
       "verdict": "contradicts",
-      "confidence": 0.59
+      "confidence": 0.25
      }
     },
     "eligibility": {
-     "value": "Minst 18 år, svenskt personnummer, folkbokförd i Sverige, Mobilt BankID; kräver Klarna bankkonto.",
-     "quote": "Vara minst 18 år\nHa ett svenskt personnummer\nVara folkbokförd i Sverige\nKunna verifiera dig med Mobilt BankID",
-     "source": 0,
+     "value": "Kräver Klarna bankkonto: minst 18 år, svenskt personnummer, folkbokförd i Sverige och Mobilt BankID.",
+     "quote": "Vara folkbokförd i Sverige",
+     "source": 4,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.67
+      "confidence": 0.69
      }
     },
     "requires_other_products": {
-     "value": true,
-     "quote": "För att öppna ett flex- eller fasträntekonto måste ditt bankkonto vara igång. Kontona är alltid kopplade till ditt bankkonto.",
-     "source": 3,
+     "value": false,
+     "quote": "Det finns inga avgifter för fastkonton.",
+     "source": 2,
      "status": "osäkert",
      "jev": {
       "verdict": "contradicts",
-      "confidence": 0.14
+      "confidence": 0.21
      }
     },
     "intro_rate": {
@@ -851,7 +866,7 @@
     "interest_paid": {
      "value": "Vid löptidens slut",
      "quote": "Om den fasta löptiden är kortare än 12 månader betalas räntan ut när löptiden har förfallit.",
-     "source": 3,
+     "source": 2,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
@@ -861,21 +876,21 @@
     "guarantee_country": {
      "value": "SE",
      "quote": "Kontot omfattas av den svenska insättningsgarantin.",
-     "source": 3,
+     "source": 2,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.86
+      "confidence": 0.83
      }
     },
     "guarantee_amount": {
      "value": "1 150 000 kr",
      "quote": "Högsta ersättning per kund: 1 150 000 SEK.",
-     "source": 3,
+     "source": 2,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.97
+      "confidence": 0.98
      }
     },
     "rate_valid_from": {
@@ -895,42 +910,42 @@
    "fields": {
     "product_type": {
      "value": "fasträntekonto",
-     "quote": "I Klarna-appen kan du öppna ditt fasträntekonto på några minuter",
-     "source": 3,
-     "status": "osäkert",
+     "quote": "Klarna fastkonto är ett sparkonto med fast löptid",
+     "source": 2,
+     "status": "belagt",
      "jev": {
-      "verdict": "contradicts",
-      "confidence": 0.33
+      "verdict": "supports",
+      "confidence": 0.67
      }
     },
     "rate_percent": {
      "value": 1.81,
      "quote": "6 månader | 1,81% på årsbasis",
-     "source": 3,
+     "source": 2,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.95
+      "confidence": 0.97
      }
     },
     "rate_type": {
      "value": "fast",
-     "quote": "Välj en löptid som passar dig och börja spara tryggt med fast ränta.",
-     "source": 3,
+     "quote": "Du kan spara pengar under en bestämd tid till en fast ränta",
+     "source": 2,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.86
+      "confidence": 0.91
      }
     },
     "binding_months": {
      "value": 6,
      "quote": "6 månader | 1,81% på årsbasis",
-     "source": 3,
+     "source": 2,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.43
+      "confidence": 0.7
      }
     },
     "withdrawals": {
@@ -950,13 +965,13 @@
      "status": "okänt"
     },
     "withdrawal_terms": {
-     "value": "Pengarna är låsta under löptiden; vid slutet betalas insättning plus ränta till privatkontot och kontot stängs.",
-     "quote": "När löptiden har löpt ut skickas det ursprungliga insättningsbeloppet tillsammans med upplupen ränta tillbaka till ditt personliga konto. Samtidigt stängs fastkontot automatiskt.",
-     "source": 3,
+     "value": "Pengarna är låsta till löptidens slut; därefter betalas insättning och ränta tillbaka och kontot stängs.",
+     "quote": "Pengarna på ett fasträntekonto är låsta tills bindningstiden du valt är slut.",
+     "source": 1,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.98
+      "confidence": 0.73
      }
     },
     "early_withdrawal": {
@@ -966,13 +981,13 @@
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.98
+      "confidence": 1.0
      }
     },
     "min_deposit_sek": {
      "value": null,
-     "quote": "Det finns inget minsta belopp för att öppna ett flex- eller fasträntekonto eller för att börja få ränta.",
-     "source": 1,
+     "quote": "Vi tar inte ut några avgifter för kontohantering eller uttag, och det finns ingen minimiinsättning.",
+     "source": 2,
      "status": "talet finns inte i citatet",
      "claimed": 0
     },
@@ -983,33 +998,33 @@
      "status": "okänt"
     },
     "deposit_terms": {
-     "value": "Sparsumman förs över från bankkontot vid öppning (uppgifter om senare insättningar är motstridiga).",
+     "value": "Sparsumman förs över vid öppnandet; källorna är oeniga om påfyllning under löptiden.",
      "quote": "Välj den löptid som passar dig och överför sparsumman till ditt nya fastkonto.",
-     "source": 3,
+     "source": 2,
      "status": "osäkert",
      "jev": {
       "verdict": "contradicts",
-      "confidence": 0.55
+      "confidence": 0.33
      }
     },
     "eligibility": {
-     "value": "Minst 18 år, svenskt personnummer, folkbokförd i Sverige, Mobilt BankID; kräver Klarna bankkonto.",
-     "quote": "Vara minst 18 år\nHa ett svenskt personnummer\nVara folkbokförd i Sverige\nKunna verifiera dig med Mobilt BankID",
-     "source": 0,
+     "value": "Kräver Klarna bankkonto: minst 18 år, svenskt personnummer, folkbokförd i Sverige och Mobilt BankID.",
+     "quote": "Vara folkbokförd i Sverige",
+     "source": 4,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.66
+      "confidence": 0.79
      }
     },
     "requires_other_products": {
-     "value": true,
-     "quote": "För att öppna ett flex- eller fasträntekonto måste ditt bankkonto vara igång. Kontona är alltid kopplade till ditt bankkonto.",
-     "source": 3,
+     "value": false,
+     "quote": "Det finns inga avgifter för fastkonton.",
+     "source": 2,
      "status": "osäkert",
      "jev": {
       "verdict": "contradicts",
-      "confidence": 0.16
+      "confidence": 0.2
      }
     },
     "intro_rate": {
@@ -1021,31 +1036,31 @@
     "interest_paid": {
      "value": "Vid löptidens slut",
      "quote": "Om den fasta löptiden är kortare än 12 månader betalas räntan ut när löptiden har förfallit.",
-     "source": 3,
+     "source": 2,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.98
+      "confidence": 1.0
      }
     },
     "guarantee_country": {
      "value": "SE",
      "quote": "Kontot omfattas av den svenska insättningsgarantin.",
-     "source": 3,
+     "source": 2,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.85
+      "confidence": 0.8
      }
     },
     "guarantee_amount": {
      "value": "1 150 000 kr",
      "quote": "Högsta ersättning per kund: 1 150 000 SEK.",
-     "source": 3,
+     "source": 2,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.98
+      "confidence": 0.94
      }
     },
     "rate_valid_from": {
@@ -1065,42 +1080,42 @@
    "fields": {
     "product_type": {
      "value": "fasträntekonto",
-     "quote": "I Klarna-appen kan du öppna ditt fasträntekonto på några minuter",
-     "source": 3,
-     "status": "osäkert",
+     "quote": "Klarna fastkonto är ett sparkonto med fast löptid",
+     "source": 2,
+     "status": "belagt",
      "jev": {
-      "verdict": "contradicts",
-      "confidence": 0.23
+      "verdict": "supports",
+      "confidence": 0.66
      }
     },
     "rate_percent": {
      "value": 2.01,
      "quote": "9 månader | 2,01% på årsbasis",
-     "source": 3,
+     "source": 2,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.92
+      "confidence": 0.97
      }
     },
     "rate_type": {
      "value": "fast",
-     "quote": "Välj en löptid som passar dig och börja spara tryggt med fast ränta.",
-     "source": 3,
+     "quote": "Du kan spara pengar under en bestämd tid till en fast ränta",
+     "source": 2,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.83
+      "confidence": 0.85
      }
     },
     "binding_months": {
      "value": 9,
      "quote": "9 månader | 2,01% på årsbasis",
-     "source": 3,
+     "source": 2,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.27
+      "confidence": 0.66
      }
     },
     "withdrawals": {
@@ -1110,7 +1125,7 @@
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.98
+      "confidence": 1.0
      }
     },
     "free_withdrawals_per_year": {
@@ -1120,13 +1135,13 @@
      "status": "okänt"
     },
     "withdrawal_terms": {
-     "value": "Pengarna är låsta under löptiden; vid slutet betalas insättning plus ränta till privatkontot och kontot stängs.",
-     "quote": "När löptiden har löpt ut skickas det ursprungliga insättningsbeloppet tillsammans med upplupen ränta tillbaka till ditt personliga konto. Samtidigt stängs fastkontot automatiskt.",
-     "source": 3,
+     "value": "Pengarna är låsta till löptidens slut; därefter betalas insättning och ränta tillbaka och kontot stängs.",
+     "quote": "Pengarna på ett fasträntekonto är låsta tills bindningstiden du valt är slut.",
+     "source": 1,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.97
+      "confidence": 0.74
      }
     },
     "early_withdrawal": {
@@ -1141,8 +1156,8 @@
     },
     "min_deposit_sek": {
      "value": null,
-     "quote": "Det finns inget minsta belopp för att öppna ett flex- eller fasträntekonto eller för att börja få ränta.",
-     "source": 1,
+     "quote": "Vi tar inte ut några avgifter för kontohantering eller uttag, och det finns ingen minimiinsättning.",
+     "source": 2,
      "status": "talet finns inte i citatet",
      "claimed": 0
     },
@@ -1153,33 +1168,33 @@
      "status": "okänt"
     },
     "deposit_terms": {
-     "value": "Sparsumman förs över från bankkontot vid öppning (uppgifter om senare insättningar är motstridiga).",
+     "value": "Sparsumman förs över vid öppnandet; källorna är oeniga om påfyllning under löptiden.",
      "quote": "Välj den löptid som passar dig och överför sparsumman till ditt nya fastkonto.",
-     "source": 3,
+     "source": 2,
      "status": "osäkert",
      "jev": {
       "verdict": "contradicts",
-      "confidence": 0.67
+      "confidence": 0.25
      }
     },
     "eligibility": {
-     "value": "Minst 18 år, svenskt personnummer, folkbokförd i Sverige, Mobilt BankID; kräver Klarna bankkonto.",
-     "quote": "Vara minst 18 år\nHa ett svenskt personnummer\nVara folkbokförd i Sverige\nKunna verifiera dig med Mobilt BankID",
-     "source": 0,
+     "value": "Kräver Klarna bankkonto: minst 18 år, svenskt personnummer, folkbokförd i Sverige och Mobilt BankID.",
+     "quote": "Vara folkbokförd i Sverige",
+     "source": 4,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.64
+      "confidence": 0.76
      }
     },
     "requires_other_products": {
-     "value": true,
-     "quote": "För att öppna ett flex- eller fasträntekonto måste ditt bankkonto vara igång. Kontona är alltid kopplade till ditt bankkonto.",
-     "source": 3,
+     "value": false,
+     "quote": "Det finns inga avgifter för fastkonton.",
+     "source": 2,
      "status": "osäkert",
      "jev": {
       "verdict": "contradicts",
-      "confidence": 0.22
+      "confidence": 0.18
      }
     },
     "intro_rate": {
@@ -1191,7 +1206,7 @@
     "interest_paid": {
      "value": "Vid löptidens slut",
      "quote": "Om den fasta löptiden är kortare än 12 månader betalas räntan ut när löptiden har förfallit.",
-     "source": 3,
+     "source": 2,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
@@ -1201,21 +1216,21 @@
     "guarantee_country": {
      "value": "SE",
      "quote": "Kontot omfattas av den svenska insättningsgarantin.",
-     "source": 3,
+     "source": 2,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.88
+      "confidence": 0.74
      }
     },
     "guarantee_amount": {
      "value": "1 150 000 kr",
      "quote": "Högsta ersättning per kund: 1 150 000 SEK.",
-     "source": 3,
+     "source": 2,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.98
+      "confidence": 0.97
      }
     },
     "rate_valid_from": {
@@ -1235,42 +1250,42 @@
    "fields": {
     "product_type": {
      "value": "fasträntekonto",
-     "quote": "I Klarna-appen kan du öppna ditt fasträntekonto på några minuter",
-     "source": 3,
-     "status": "osäkert",
+     "quote": "Klarna fastkonto är ett sparkonto med fast löptid",
+     "source": 2,
+     "status": "belagt",
      "jev": {
-      "verdict": "contradicts",
-      "confidence": 0.4
+      "verdict": "supports",
+      "confidence": 0.7
      }
     },
     "rate_percent": {
      "value": 2.45,
      "quote": "12 månader | 2,45% på årsbasis",
-     "source": 3,
+     "source": 2,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.98
+     }
+    },
+    "rate_type": {
+     "value": "fast",
+     "quote": "Du kan spara pengar under en bestämd tid till en fast ränta",
+     "source": 2,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
       "confidence": 0.94
      }
     },
-    "rate_type": {
-     "value": "fast",
-     "quote": "Välj en löptid som passar dig och börja spara tryggt med fast ränta.",
-     "source": 3,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.92
-     }
-    },
     "binding_months": {
      "value": 12,
      "quote": "12 månader | 2,45% på årsbasis",
-     "source": 3,
+     "source": 2,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.49
+      "confidence": 0.64
      }
     },
     "withdrawals": {
@@ -1290,13 +1305,13 @@
      "status": "okänt"
     },
     "withdrawal_terms": {
-     "value": "Pengarna är låsta under löptiden; vid slutet betalas insättning plus ränta till privatkontot och kontot stängs.",
-     "quote": "När löptiden har löpt ut skickas det ursprungliga insättningsbeloppet tillsammans med upplupen ränta tillbaka till ditt personliga konto. Samtidigt stängs fastkontot automatiskt.",
-     "source": 3,
+     "value": "Pengarna är låsta till löptidens slut; därefter betalas insättning och ränta tillbaka och kontot stängs.",
+     "quote": "Pengarna på ett fasträntekonto är låsta tills bindningstiden du valt är slut.",
+     "source": 1,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 1.0
+      "confidence": 0.76
      }
     },
     "early_withdrawal": {
@@ -1311,8 +1326,8 @@
     },
     "min_deposit_sek": {
      "value": null,
-     "quote": "Det finns inget minsta belopp för att öppna ett flex- eller fasträntekonto eller för att börja få ränta.",
-     "source": 1,
+     "quote": "Vi tar inte ut några avgifter för kontohantering eller uttag, och det finns ingen minimiinsättning.",
+     "source": 2,
      "status": "talet finns inte i citatet",
      "claimed": 0
     },
@@ -1323,33 +1338,33 @@
      "status": "okänt"
     },
     "deposit_terms": {
-     "value": "Sparsumman förs över från bankkontot vid öppning (uppgifter om senare insättningar är motstridiga).",
+     "value": "Sparsumman förs över vid öppnandet; källorna är oeniga om påfyllning under löptiden.",
      "quote": "Välj den löptid som passar dig och överför sparsumman till ditt nya fastkonto.",
-     "source": 3,
+     "source": 2,
      "status": "osäkert",
      "jev": {
       "verdict": "contradicts",
-      "confidence": 0.66
+      "confidence": 0.23
      }
     },
     "eligibility": {
-     "value": "Minst 18 år, svenskt personnummer, folkbokförd i Sverige, Mobilt BankID; kräver Klarna bankkonto.",
-     "quote": "Vara minst 18 år\nHa ett svenskt personnummer\nVara folkbokförd i Sverige\nKunna verifiera dig med Mobilt BankID",
-     "source": 0,
+     "value": "Kräver Klarna bankkonto: minst 18 år, svenskt personnummer, folkbokförd i Sverige och Mobilt BankID.",
+     "quote": "Vara folkbokförd i Sverige",
+     "source": 4,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.66
+      "confidence": 0.8
      }
     },
     "requires_other_products": {
-     "value": true,
-     "quote": "För att öppna ett flex- eller fasträntekonto måste ditt bankkonto vara igång. Kontona är alltid kopplade till ditt bankkonto.",
-     "source": 3,
+     "value": false,
+     "quote": "Det finns inga avgifter för fastkonton.",
+     "source": 2,
      "status": "osäkert",
      "jev": {
       "verdict": "contradicts",
-      "confidence": 0.14
+      "confidence": 0.23
      }
     },
     "intro_rate": {
@@ -1359,19 +1374,15 @@
      "status": "okänt"
     },
     "interest_paid": {
-     "value": "Vid löptidens slut",
-     "quote": "När löptiden har löpt ut skickas det ursprungliga insättningsbeloppet tillsammans med upplupen ränta tillbaka till ditt personliga konto.",
-     "source": 3,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.95
-     }
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
     },
     "guarantee_country": {
      "value": "SE",
      "quote": "Kontot omfattas av den svenska insättningsgarantin.",
-     "source": 3,
+     "source": 2,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
@@ -1381,7 +1392,7 @@
     "guarantee_amount": {
      "value": "1 150 000 kr",
      "quote": "Högsta ersättning per kund: 1 150 000 SEK.",
-     "source": 3,
+     "source": 2,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
@@ -1405,28 +1416,28 @@
    "fields": {
     "product_type": {
      "value": "fasträntekonto",
-     "quote": "I Klarna-appen kan du öppna ditt fasträntekonto på några minuter",
-     "source": 3,
-     "status": "osäkert",
+     "quote": "Klarna fastkonto är ett sparkonto med fast löptid",
+     "source": 2,
+     "status": "belagt",
      "jev": {
-      "verdict": "contradicts",
-      "confidence": 0.34
+      "verdict": "supports",
+      "confidence": 0.56
      }
     },
     "rate_percent": {
      "value": 2.62,
      "quote": "18 månader | 2,62% på årsbasis",
-     "source": 3,
+     "source": 2,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.92
+      "confidence": 0.98
      }
     },
     "rate_type": {
      "value": "fast",
-     "quote": "Välj en löptid som passar dig och börja spara tryggt med fast ränta.",
-     "source": 3,
+     "quote": "Du kan spara pengar under en bestämd tid till en fast ränta",
+     "source": 2,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
@@ -1436,11 +1447,11 @@
     "binding_months": {
      "value": 18,
      "quote": "18 månader | 2,62% på årsbasis",
-     "source": 3,
+     "source": 2,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.53
+      "confidence": 0.74
      }
     },
     "withdrawals": {
@@ -1460,13 +1471,13 @@
      "status": "okänt"
     },
     "withdrawal_terms": {
-     "value": "Pengarna är låsta under löptiden; vid slutet betalas insättning plus ränta till privatkontot och kontot stängs.",
-     "quote": "När löptiden har löpt ut skickas det ursprungliga insättningsbeloppet tillsammans med upplupen ränta tillbaka till ditt personliga konto. Samtidigt stängs fastkontot automatiskt.",
-     "source": 3,
+     "value": "Pengarna är låsta till löptidens slut; därefter betalas insättning och ränta tillbaka och kontot stängs.",
+     "quote": "Pengarna på ett fasträntekonto är låsta tills bindningstiden du valt är slut.",
+     "source": 1,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 1.0
+      "confidence": 0.72
      }
     },
     "early_withdrawal": {
@@ -1476,13 +1487,13 @@
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.98
+      "confidence": 1.0
      }
     },
     "min_deposit_sek": {
      "value": null,
-     "quote": "Det finns inget minsta belopp för att öppna ett flex- eller fasträntekonto eller för att börja få ränta.",
-     "source": 1,
+     "quote": "Vi tar inte ut några avgifter för kontohantering eller uttag, och det finns ingen minimiinsättning.",
+     "source": 2,
      "status": "talet finns inte i citatet",
      "claimed": 0
     },
@@ -1493,33 +1504,33 @@
      "status": "okänt"
     },
     "deposit_terms": {
-     "value": "Sparsumman förs över från bankkontot vid öppning (uppgifter om senare insättningar är motstridiga).",
+     "value": "Sparsumman förs över vid öppnandet; källorna är oeniga om påfyllning under löptiden.",
      "quote": "Välj den löptid som passar dig och överför sparsumman till ditt nya fastkonto.",
-     "source": 3,
+     "source": 2,
      "status": "osäkert",
      "jev": {
       "verdict": "contradicts",
-      "confidence": 0.66
+      "confidence": 0.19
      }
     },
     "eligibility": {
-     "value": "Minst 18 år, svenskt personnummer, folkbokförd i Sverige, Mobilt BankID; kräver Klarna bankkonto.",
-     "quote": "Vara minst 18 år\nHa ett svenskt personnummer\nVara folkbokförd i Sverige\nKunna verifiera dig med Mobilt BankID",
-     "source": 0,
+     "value": "Kräver Klarna bankkonto: minst 18 år, svenskt personnummer, folkbokförd i Sverige och Mobilt BankID.",
+     "quote": "Vara folkbokförd i Sverige",
+     "source": 4,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.69
+      "confidence": 0.77
      }
     },
     "requires_other_products": {
-     "value": true,
-     "quote": "För att öppna ett flex- eller fasträntekonto måste ditt bankkonto vara igång. Kontona är alltid kopplade till ditt bankkonto.",
-     "source": 3,
+     "value": false,
+     "quote": "Det finns inga avgifter för fastkonton.",
+     "source": 2,
      "status": "osäkert",
      "jev": {
       "verdict": "contradicts",
-      "confidence": 0.2
+      "confidence": 0.1
      }
     },
     "intro_rate": {
@@ -1531,27 +1542,27 @@
     "interest_paid": {
      "value": "Årligen och vid löptidens slut",
      "quote": "Om den fasta löptiden är längre än 12 månader betalas räntan ut årligen och vid löptidens slut.",
-     "source": 3,
+     "source": 2,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.98
+      "confidence": 1.0
      }
     },
     "guarantee_country": {
      "value": "SE",
      "quote": "Kontot omfattas av den svenska insättningsgarantin.",
-     "source": 3,
+     "source": 2,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.92
+      "confidence": 0.8
      }
     },
     "guarantee_amount": {
      "value": "1 150 000 kr",
      "quote": "Högsta ersättning per kund: 1 150 000 SEK.",
-     "source": 3,
+     "source": 2,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
@@ -1575,42 +1586,42 @@
    "fields": {
     "product_type": {
      "value": "fasträntekonto",
-     "quote": "I Klarna-appen kan du öppna ditt fasträntekonto på några minuter",
-     "source": 3,
-     "status": "osäkert",
+     "quote": "Klarna fastkonto är ett sparkonto med fast löptid",
+     "source": 2,
+     "status": "belagt",
      "jev": {
-      "verdict": "contradicts",
-      "confidence": 0.37
+      "verdict": "supports",
+      "confidence": 0.55
      }
     },
     "rate_percent": {
      "value": 2.72,
      "quote": "24 månader | 2,72% på årsbasis",
-     "source": 3,
+     "source": 2,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.79
+      "confidence": 0.92
      }
     },
     "rate_type": {
      "value": "fast",
-     "quote": "Välj en löptid som passar dig och börja spara tryggt med fast ränta.",
-     "source": 3,
+     "quote": "Du kan spara pengar under en bestämd tid till en fast ränta",
+     "source": 2,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.76
+      "confidence": 0.77
      }
     },
     "binding_months": {
      "value": 24,
      "quote": "24 månader | 2,72% på årsbasis",
-     "source": 3,
+     "source": 2,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.3
+      "confidence": 0.49
      }
     },
     "withdrawals": {
@@ -1620,7 +1631,7 @@
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 1.0
+      "confidence": 0.98
      }
     },
     "free_withdrawals_per_year": {
@@ -1630,13 +1641,13 @@
      "status": "okänt"
     },
     "withdrawal_terms": {
-     "value": "Pengarna är låsta under löptiden; vid slutet betalas insättning plus ränta till privatkontot och kontot stängs.",
-     "quote": "När löptiden har löpt ut skickas det ursprungliga insättningsbeloppet tillsammans med upplupen ränta tillbaka till ditt personliga konto. Samtidigt stängs fastkontot automatiskt.",
-     "source": 3,
+     "value": "Pengarna är låsta till löptidens slut; därefter betalas insättning och ränta tillbaka och kontot stängs.",
+     "quote": "Pengarna på ett fasträntekonto är låsta tills bindningstiden du valt är slut.",
+     "source": 1,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 1.0
+      "confidence": 0.77
      }
     },
     "early_withdrawal": {
@@ -1646,13 +1657,13 @@
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.97
+      "confidence": 1.0
      }
     },
     "min_deposit_sek": {
      "value": null,
-     "quote": "Det finns inget minsta belopp för att öppna ett flex- eller fasträntekonto eller för att börja få ränta.",
-     "source": 1,
+     "quote": "Vi tar inte ut några avgifter för kontohantering eller uttag, och det finns ingen minimiinsättning.",
+     "source": 2,
      "status": "talet finns inte i citatet",
      "claimed": 0
     },
@@ -1663,33 +1674,33 @@
      "status": "okänt"
     },
     "deposit_terms": {
-     "value": "Sparsumman förs över från bankkontot vid öppning (uppgifter om senare insättningar är motstridiga).",
+     "value": "Sparsumman förs över vid öppnandet; källorna är oeniga om påfyllning under löptiden.",
      "quote": "Välj den löptid som passar dig och överför sparsumman till ditt nya fastkonto.",
-     "source": 3,
-     "status": "osäkert",
-     "jev": {
-      "verdict": "contradicts",
-      "confidence": 0.64
-     }
-    },
-    "eligibility": {
-     "value": "Minst 18 år, svenskt personnummer, folkbokförd i Sverige, Mobilt BankID; kräver Klarna bankkonto.",
-     "quote": "Vara minst 18 år\nHa ett svenskt personnummer\nVara folkbokförd i Sverige\nKunna verifiera dig med Mobilt BankID",
-     "source": 0,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.73
-     }
-    },
-    "requires_other_products": {
-     "value": true,
-     "quote": "För att öppna ett flex- eller fasträntekonto måste ditt bankkonto vara igång. Kontona är alltid kopplade till ditt bankkonto.",
-     "source": 3,
+     "source": 2,
      "status": "osäkert",
      "jev": {
       "verdict": "contradicts",
       "confidence": 0.23
+     }
+    },
+    "eligibility": {
+     "value": "Kräver Klarna bankkonto: minst 18 år, svenskt personnummer, folkbokförd i Sverige och Mobilt BankID.",
+     "quote": "Vara folkbokförd i Sverige",
+     "source": 4,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.77
+     }
+    },
+    "requires_other_products": {
+     "value": false,
+     "quote": "Det finns inga avgifter för fastkonton.",
+     "source": 2,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.02
      }
     },
     "intro_rate": {
@@ -1701,27 +1712,27 @@
     "interest_paid": {
      "value": "Årligen och vid löptidens slut",
      "quote": "Om den fasta löptiden är längre än 12 månader betalas räntan ut årligen och vid löptidens slut.",
-     "source": 3,
+     "source": 2,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.92
+      "confidence": 0.98
      }
     },
     "guarantee_country": {
      "value": "SE",
      "quote": "Kontot omfattas av den svenska insättningsgarantin.",
-     "source": 3,
+     "source": 2,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.85
+      "confidence": 0.79
      }
     },
     "guarantee_amount": {
      "value": "1 150 000 kr",
      "quote": "Högsta ersättning per kund: 1 150 000 SEK.",
-     "source": 3,
+     "source": 2,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
@@ -1745,42 +1756,42 @@
    "fields": {
     "product_type": {
      "value": "fasträntekonto",
-     "quote": "I Klarna-appen kan du öppna ditt fasträntekonto på några minuter",
-     "source": 3,
-     "status": "osäkert",
+     "quote": "Klarna fastkonto är ett sparkonto med fast löptid",
+     "source": 2,
+     "status": "belagt",
      "jev": {
-      "verdict": "contradicts",
-      "confidence": 0.43
+      "verdict": "supports",
+      "confidence": 0.69
      }
     },
     "rate_percent": {
      "value": 2.84,
      "quote": "36 månader | 2,84% på årsbasis",
-     "source": 3,
+     "source": 2,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.85
+      "confidence": 0.95
      }
     },
     "rate_type": {
      "value": "fast",
-     "quote": "Välj en löptid som passar dig och börja spara tryggt med fast ränta.",
-     "source": 3,
+     "quote": "Du kan spara pengar under en bestämd tid till en fast ränta",
+     "source": 2,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.85
+      "confidence": 0.8
      }
     },
     "binding_months": {
      "value": 36,
      "quote": "36 månader | 2,84% på årsbasis",
-     "source": 3,
+     "source": 2,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.48
+      "confidence": 0.62
      }
     },
     "withdrawals": {
@@ -1800,13 +1811,13 @@
      "status": "okänt"
     },
     "withdrawal_terms": {
-     "value": "Pengarna är låsta under löptiden; vid slutet betalas insättning plus ränta till privatkontot och kontot stängs.",
-     "quote": "När löptiden har löpt ut skickas det ursprungliga insättningsbeloppet tillsammans med upplupen ränta tillbaka till ditt personliga konto. Samtidigt stängs fastkontot automatiskt.",
-     "source": 3,
+     "value": "Pengarna är låsta till löptidens slut; därefter betalas insättning och ränta tillbaka och kontot stängs.",
+     "quote": "Pengarna på ett fasträntekonto är låsta tills bindningstiden du valt är slut.",
+     "source": 1,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.97
+      "confidence": 0.73
      }
     },
     "early_withdrawal": {
@@ -1816,13 +1827,13 @@
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.98
+      "confidence": 1.0
      }
     },
     "min_deposit_sek": {
      "value": null,
-     "quote": "Det finns inget minsta belopp för att öppna ett flex- eller fasträntekonto eller för att börja få ränta.",
-     "source": 1,
+     "quote": "Vi tar inte ut några avgifter för kontohantering eller uttag, och det finns ingen minimiinsättning.",
+     "source": 2,
      "status": "talet finns inte i citatet",
      "claimed": 0
     },
@@ -1833,33 +1844,33 @@
      "status": "okänt"
     },
     "deposit_terms": {
-     "value": "Sparsumman förs över från bankkontot vid öppning (uppgifter om senare insättningar är motstridiga).",
+     "value": "Sparsumman förs över vid öppnandet; källorna är oeniga om påfyllning under löptiden.",
      "quote": "Välj den löptid som passar dig och överför sparsumman till ditt nya fastkonto.",
-     "source": 3,
+     "source": 2,
      "status": "osäkert",
      "jev": {
       "verdict": "contradicts",
-      "confidence": 0.67
+      "confidence": 0.22
      }
     },
     "eligibility": {
-     "value": "Minst 18 år, svenskt personnummer, folkbokförd i Sverige, Mobilt BankID; kräver Klarna bankkonto.",
-     "quote": "Vara minst 18 år\nHa ett svenskt personnummer\nVara folkbokförd i Sverige\nKunna verifiera dig med Mobilt BankID",
-     "source": 0,
+     "value": "Kräver Klarna bankkonto: minst 18 år, svenskt personnummer, folkbokförd i Sverige och Mobilt BankID.",
+     "quote": "Vara folkbokförd i Sverige",
+     "source": 4,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.62
+      "confidence": 0.73
      }
     },
     "requires_other_products": {
-     "value": true,
-     "quote": "För att öppna ett flex- eller fasträntekonto måste ditt bankkonto vara igång. Kontona är alltid kopplade till ditt bankkonto.",
-     "source": 3,
+     "value": false,
+     "quote": "Det finns inga avgifter för fastkonton.",
+     "source": 2,
      "status": "osäkert",
      "jev": {
       "verdict": "contradicts",
-      "confidence": 0.2
+      "confidence": 0.19
      }
     },
     "intro_rate": {
@@ -1871,7 +1882,7 @@
     "interest_paid": {
      "value": "Årligen och vid löptidens slut",
      "quote": "Om den fasta löptiden är längre än 12 månader betalas räntan ut årligen och vid löptidens slut.",
-     "source": 3,
+     "source": 2,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
@@ -1881,17 +1892,17 @@
     "guarantee_country": {
      "value": "SE",
      "quote": "Kontot omfattas av den svenska insättningsgarantin.",
-     "source": 3,
+     "source": 2,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.88
+      "confidence": 0.8
      }
     },
     "guarantee_amount": {
      "value": "1 150 000 kr",
      "quote": "Högsta ersättning per kund: 1 150 000 SEK.",
-     "source": 3,
+     "source": 2,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
@@ -1915,42 +1926,42 @@
    "fields": {
     "product_type": {
      "value": "fasträntekonto",
-     "quote": "I Klarna-appen kan du öppna ditt fasträntekonto på några minuter",
-     "source": 3,
-     "status": "osäkert",
+     "quote": "Klarna fastkonto är ett sparkonto med fast löptid",
+     "source": 2,
+     "status": "belagt",
      "jev": {
-      "verdict": "contradicts",
-      "confidence": 0.35
+      "verdict": "supports",
+      "confidence": 0.72
      }
     },
     "rate_percent": {
      "value": 2.93,
      "quote": "48 månader | 2,93% på årsbasis",
-     "source": 3,
+     "source": 2,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.94
+      "confidence": 0.95
      }
     },
     "rate_type": {
      "value": "fast",
-     "quote": "Välj en löptid som passar dig och börja spara tryggt med fast ränta.",
-     "source": 3,
+     "quote": "Du kan spara pengar under en bestämd tid till en fast ränta",
+     "source": 2,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.79
+      "confidence": 0.66
      }
     },
     "binding_months": {
      "value": 48,
      "quote": "48 månader | 2,93% på årsbasis",
-     "source": 3,
+     "source": 2,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.37
+      "confidence": 0.67
      }
     },
     "withdrawals": {
@@ -1960,7 +1971,7 @@
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.98
+      "confidence": 1.0
      }
     },
     "free_withdrawals_per_year": {
@@ -1970,13 +1981,13 @@
      "status": "okänt"
     },
     "withdrawal_terms": {
-     "value": "Pengarna är låsta under löptiden; vid slutet betalas insättning plus ränta till privatkontot och kontot stängs.",
-     "quote": "När löptiden har löpt ut skickas det ursprungliga insättningsbeloppet tillsammans med upplupen ränta tillbaka till ditt personliga konto. Samtidigt stängs fastkontot automatiskt.",
-     "source": 3,
+     "value": "Pengarna är låsta till löptidens slut; därefter betalas insättning och ränta tillbaka och kontot stängs.",
+     "quote": "Pengarna på ett fasträntekonto är låsta tills bindningstiden du valt är slut.",
+     "source": 1,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 1.0
+      "confidence": 0.74
      }
     },
     "early_withdrawal": {
@@ -1986,13 +1997,13 @@
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.95
+      "confidence": 0.98
      }
     },
     "min_deposit_sek": {
      "value": null,
-     "quote": "Det finns inget minsta belopp för att öppna ett flex- eller fasträntekonto eller för att börja få ränta.",
-     "source": 1,
+     "quote": "Vi tar inte ut några avgifter för kontohantering eller uttag, och det finns ingen minimiinsättning.",
+     "source": 2,
      "status": "talet finns inte i citatet",
      "claimed": 0
     },
@@ -2003,33 +2014,33 @@
      "status": "okänt"
     },
     "deposit_terms": {
-     "value": "Sparsumman förs över från bankkontot vid öppning (uppgifter om senare insättningar är motstridiga).",
+     "value": "Sparsumman förs över vid öppnandet; källorna är oeniga om påfyllning under löptiden.",
      "quote": "Välj den löptid som passar dig och överför sparsumman till ditt nya fastkonto.",
-     "source": 3,
-     "status": "osäkert",
-     "jev": {
-      "verdict": "contradicts",
-      "confidence": 0.56
-     }
-    },
-    "eligibility": {
-     "value": "Minst 18 år, svenskt personnummer, folkbokförd i Sverige, Mobilt BankID; kräver Klarna bankkonto.",
-     "quote": "Vara minst 18 år\nHa ett svenskt personnummer\nVara folkbokförd i Sverige\nKunna verifiera dig med Mobilt BankID",
-     "source": 0,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.58
-     }
-    },
-    "requires_other_products": {
-     "value": true,
-     "quote": "För att öppna ett flex- eller fasträntekonto måste ditt bankkonto vara igång. Kontona är alltid kopplade till ditt bankkonto.",
-     "source": 3,
+     "source": 2,
      "status": "osäkert",
      "jev": {
       "verdict": "contradicts",
       "confidence": 0.19
+     }
+    },
+    "eligibility": {
+     "value": "Kräver Klarna bankkonto: minst 18 år, svenskt personnummer, folkbokförd i Sverige och Mobilt BankID.",
+     "quote": "Vara folkbokförd i Sverige",
+     "source": 4,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.71
+     }
+    },
+    "requires_other_products": {
+     "value": false,
+     "quote": "Det finns inga avgifter för fastkonton.",
+     "source": 2,
+     "status": "osäkert",
+     "jev": {
+      "verdict": "contradicts",
+      "confidence": 0.11
      }
     },
     "intro_rate": {
@@ -2041,31 +2052,31 @@
     "interest_paid": {
      "value": "Årligen och vid löptidens slut",
      "quote": "Om den fasta löptiden är längre än 12 månader betalas räntan ut årligen och vid löptidens slut.",
-     "source": 3,
+     "source": 2,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.98
+      "confidence": 1.0
      }
     },
     "guarantee_country": {
      "value": "SE",
      "quote": "Kontot omfattas av den svenska insättningsgarantin.",
-     "source": 3,
+     "source": 2,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.86
+      "confidence": 0.82
      }
     },
     "guarantee_amount": {
      "value": "1 150 000 kr",
      "quote": "Högsta ersättning per kund: 1 150 000 SEK.",
-     "source": 3,
+     "source": 2,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.97
+      "confidence": 0.94
      }
     },
     "rate_valid_from": {
@@ -2080,7 +2091,7 @@
    "status": "verifierad"
   }
  ],
- "source_hash": "b3c61641cbd5b9e1",
- "changed_at": "2026-10-10T13:26:48+00:00",
- "model": "claude-opus-5-5"
+ "source_hash": "4356b0cadce27907",
+ "changed_at": "2026-10-10T17:00:32+00:00",
+ "model": "claude-sonnet-5-5"
 }

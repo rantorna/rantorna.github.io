@@ -71,6 +71,38 @@ def number_in(value: float, quote: str) -> bool:
     return float(value).is_integer() and any(w in words for w in WORDS.get(int(value), ()))
 
 
+def number_near(value: float, quote: str, doc: str) -> str | None:
+    """Om talet står i samma tabellrad som citatet (eller raden direkt under,
+    där etiketten står ovanför värdet): returnera ett utökat citat med båda."""
+    q = " ".join(quote.split()).lower()
+    lines = [" ".join(l.split()) for l in doc.splitlines()]
+    for i, line in enumerate(lines):
+        if q[:60] not in line.lower():
+            continue
+        spans = [line]
+        if not re.search(r"\d\s*%", line) and i + 1 < len(lines):
+            spans.append(line + " " + lines[i + 1])  # etikett ovanför värdet
+        for span in spans:
+            for v in _num_variants(value):
+                if re.search(r"(?<![\d,.])" + re.escape(v) + r"(?!\d)", span):
+                    return span[:400]
+    return None
+
+
+PERIOD_WORDS = {"halvår": 6, "halvt år": 6, "kvartal": 3}
+
+
+def binding_in(months: float, quote: str) -> bool:
+    """Bindningstid uttryckt i år, dagar eller ord."""
+    if number_in(months / 12, quote):
+        return True
+    q = _norm(quote)
+    for days in {round(months * 30), round(months * 365 / 12), round(months * 365 / 12) + 1}:
+        if re.search(rf"(?<!\d){days}\s*(dagar|dgr|d\b)", q):
+            return True
+    return any(w in q and v == months for w, v in PERIOD_WORDS.items())
+
+
 def check_field(name, ev: dict, docs: list[str]) -> dict:
     """Returnerar {value, quote, source, status}."""
     value, quote, src = ev.get("value"), ev.get("quote"), ev.get("source")
@@ -87,9 +119,12 @@ def check_field(name, ev: dict, docs: list[str]) -> dict:
     if isinstance(value, (int, float)) and not isinstance(value, bool):
         if name in ("binding_months", "free_withdrawals_per_year") and value == 0:
             pass  # "ingen bindning" står sällan som siffran 0
-        elif name in ("binding_months",) and number_in(value / 12, quote):
-            pass  # "1 år", "3 år"
+        elif name == "binding_months" and binding_in(value, quote):
+            pass  # "1 år", "90 dagar", "ett halvår"
         elif not number_in(value, quote):
+            wider = number_near(value, quote, docs[src])
+            if wider:
+                return {"value": value, "quote": wider, "source": src, "status": "belagt"}
             return {"value": None, "quote": quote, "source": src, "status": "talet finns inte i citatet", "claimed": value}
     return {"value": value, "quote": quote, "source": src, "status": "belagt"}
 

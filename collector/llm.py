@@ -12,14 +12,34 @@ import os
 import shutil
 import subprocess
 
-MODEL = os.environ.get("RANTORNA_MODEL", "claude-opus-5-5")
-CHEAP_MODEL = os.environ.get("RANTORNA_CHEAP_MODEL", "claude-haiku-5-5")
+def model() -> str:
+    """Läses vid varje anrop, så att .env (som laddas efter import) får effekt."""
+    return os.environ.get("RANTORNA_MODEL", "claude-opus-5-5")
+
+
+def cheap_model() -> str:
+    return os.environ.get("RANTORNA_CHEAP_MODEL", "claude-haiku-5-5")
 
 usage = {"calls": 0, "input_tokens": 0, "output_tokens": 0}
 
 
 class LLMError(RuntimeError):
     pass
+
+
+class LimitReached(LLMError):
+    """Användnings-/sessionsgräns nådd – inga fler anrop i den här körningen."""
+
+
+limit_hit = False
+_LIMIT = ("session limit", "usage limit", "rate limit", "rate_limit", "429", "overloaded")
+
+
+def _check_limit(text: str):
+    global limit_hit
+    if any(k in text.lower() for k in _LIMIT):
+        limit_hit = True
+        raise LimitReached(text[:200])
 
 
 def backend() -> str | None:
@@ -43,7 +63,9 @@ def available() -> bool:
 
 def json_call(task: str, system: str, user: str, schema: dict, cheap: bool = False,
               max_tokens: int = 32000) -> dict:
-    model = CHEAP_MODEL if cheap else MODEL
+    model = cheap_model() if cheap else globals()["model"]()
+    if limit_hit:
+        raise LimitReached("gränsen redan nådd i den här körningen")
     b = backend()
     usage["calls"] += 1
     if b == "api":
@@ -57,6 +79,14 @@ def _api(model, system, user, schema, max_tokens, effort):
     import anthropic
 
     client = anthropic.Anthropic()
+    try:
+        return _api_inner(client, model, system, user, schema, max_tokens, effort)
+    except anthropic.RateLimitError as e:
+        _check_limit(f"rate limit {e}")
+        raise
+
+
+def _api_inner(client, model, system, user, schema, max_tokens, effort):
     with client.messages.stream(
         model=model,
         max_tokens=max_tokens,
@@ -88,8 +118,10 @@ def _cli(model, system, user, schema, tools: str = ""):
     try:
         out = json.loads(r.stdout)
     except json.JSONDecodeError:
+        _check_limit(r.stderr + r.stdout)
         raise LLMError(f"claude -p: {r.stderr[:300] or r.stdout[:300]}")
     if out.get("is_error"):
+        _check_limit(str(out.get("result", "")))
         raise LLMError(f"claude -p: {out.get('result', '')[:300]}")
     u = out.get("usage", {})
     usage["input_tokens"] += u.get("input_tokens", 0) + u.get("cache_read_input_tokens", 0)
@@ -102,7 +134,9 @@ def _cli(model, system, user, schema, tools: str = ""):
 
 def research_call(system: str, user: str, schema: dict) -> dict:
     """Som json_call men med webbsökning och webbhämtning tillgängliga."""
-    model = os.environ.get("RANTORNA_RESEARCH_MODEL", MODEL)
+    model = os.environ.get("RANTORNA_RESEARCH_MODEL") or globals()["model"]()
+    if limit_hit:
+        raise LimitReached("gränsen redan nådd i den här körningen")
     b = backend()
     usage["calls"] += 1
     if b == "cli":

@@ -42,6 +42,7 @@ FIELDS = [
     ("early_withdrawal", _enum("ej tillåtet", "tillåtet mot avgift/ränteavdrag", "tillåtet utan kostnad"), "Uttag före bindningstidens slut (för bundna konton)."),
     ("min_deposit_sek", NUM, "Lägsta insättning/behållning i kronor för att få räntan. 0 om inget minimum."),
     ("max_deposit_sek", NUM, "Högsta belopp i kronor som räntan gäller för eller som får sättas in. null om inget tak anges."),
+    ("monthly_deposit_cap_sek", NUM, "Högsta insättning per månad i kronor om kontot är ett månadssparkonto eller har ett månadstak. null om inget sådant tak finns."),
     ("deposit_terms", STR, "Kort sammanfattning av insättningsregler (t.ex. engångsinsättning, påfyllning tillåten)."),
     ("eligibility", STR, "Vem kan öppna kontot (ålder, folkbokföring i Sverige, BankID, kund i banken)."),
     ("requires_other_products", BOOL, "Krävs andra produkter (lönekonto, kort, paket) för räntan?"),
