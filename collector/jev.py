@@ -22,12 +22,18 @@ DESC = {name: desc for name, _, desc in FIELDS}
 usage = {"calls": 0, "input_tokens": 0, "output_tokens": 0}
 
 
+def number_in_quote(field: dict) -> bool:
+    from .verify import number_in
+
+    return number_in(field["value"], field["quote"])
+
+
 def binding_in_name(name: str, field: dict) -> bool:
     from .verify import binding_in, number_in
 
     v = field["value"]
     in_name = number_in(v, name) or binding_in(v, name)
-    return in_name and any(t in field["quote"].lower() for t in name.lower().split() if len(t) > 3)
+    return in_name and (binding_in(v, field["quote"]) or number_in(v, field["quote"]))
 
 
 def available() -> bool:
@@ -51,6 +57,16 @@ def check_product(product: dict, docs: list[str], bank_name: str) -> None:
     b = fields.get("binding_months")
     if b and b["value"] and binding_in_name(product["name"], b):
         fields.pop("binding_months")
+    # Räntan som i citatet står ihop med periodens namn ("2,95 % / 9 månader") ska inte heller nollas.
+    r = fields.get("rate_percent")
+    from .verify import period_months
+
+    months = period_months(product["name"])
+    if r and months and number_in_quote(r):
+        from .verify import binding_in, number_in
+        if binding_in(months, r["quote"]) or number_in(months, r["quote"]):
+            fields.pop("rate_percent")
+
     if not fields:
         return
     state = {"bank": bank_name, "product": product["name"]}

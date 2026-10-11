@@ -22,7 +22,7 @@ def _norm(s: str) -> str:
     s = s.replace("­", "")
     s = re.sub(r"[‐-‒–—−]", "-", s)
     s = re.sub(r"[\"'“”‘’«»]", "", s)
-    s = re.sub(r"(\d)[   ](?=\d{3}\b)", r"\1", s)  # 100 000 -> 100000
+    s = re.sub(r"(\d)[ \u00a0\u202f](?=\d{3}(?!\d))", r"\1", s)  # 100 000 -> 100000
     s = re.sub(r"[^\w%,.\-]+", " ", s)
     return " ".join(s.split())
 
@@ -49,9 +49,9 @@ def quote_in(quote: str, source: str) -> bool:
 
 def _num_variants(x: float) -> set[str]:
     out = set()
-    for d in (0, 1, 2, 3):
+    for d in (0, 1, 2, 3, 4):
         s = f"{x:.{d}f}"
-        if float(s) == round(x, 3):
+        if float(s) == round(x, 4):
             out |= {s, s.replace(".", ",")}
     if float(x).is_integer():
         out.add(str(int(x)))
@@ -63,9 +63,12 @@ WORDS = {1: ("ett", "en", "ettårigt"), 2: ("två",), 3: ("tre",), 4: ("fyra",),
 
 
 def number_in(value: float, quote: str) -> bool:
-    q = _norm(quote).replace(" ", "")
-    if any(v.replace(" ", "") in q for v in _num_variants(value)):
-        return True
+    """Talet som eget tal i citatet – "2" ska inte matcha "2,10" eller "12".
+    _norm har redan slagit ihop tusental ("100 000" -> "100000")."""
+    q = _norm(quote)
+    for v in _num_variants(value):
+        if re.search(r"(?<![\d,.])" + re.escape(v) + r"(?![\d]|[,.]\d)", q):
+            return True
     # Små heltal skrivs ofta med ord ("tre månader", "två år").
     words = set(re.findall(r"\w+", _norm(quote)))
     return float(value).is_integer() and any(w in words for w in WORDS.get(int(value), ()))
@@ -119,6 +122,8 @@ def check_field(name, ev: dict, docs: list[str]) -> dict:
     if isinstance(value, (int, float)) and not isinstance(value, bool):
         if name in ("binding_months", "free_withdrawals_per_year") and value == 0:
             pass  # "ingen bindning" står sällan som siffran 0
+        elif name == "min_deposit_sek" and value == 0 and re.search(r"första kronan|inget (lägsta|minsta)", quote, re.I):
+            pass
         elif name == "binding_months" and binding_in(value, quote):
             pass  # "1 år", "90 dagar", "ett halvår"
         elif not number_in(value, quote):
@@ -129,8 +134,46 @@ def check_field(name, ev: dict, docs: list[str]) -> dict:
     return {"value": value, "quote": quote, "source": src, "status": "belagt"}
 
 
+SPECIAL_PURPOSE = re.compile(r"skogs|upphovsman|klientmedel|pensionsspar", re.I)
+
+
+def in_scope(prod: dict) -> bool:
+    """Konton för särskilda ändamål är inte vanligt sparande och jämförs inte."""
+    return not SPECIAL_PURPOSE.search(prod.get("name", ""))
+
+
+def period_months(name: str) -> int | None:
+    """Bindningstid ur produktnamnet: "Fix 24 mån" -> 24, "1 år" -> 12, "90 dagar" -> 3."""
+    m = re.search(r"(\d+(?:[,.]5)?)\s*(mån|månad|år|dag)", name, re.I)
+    if not m:
+        return None
+    n = float(m.group(1).replace(",", "."))
+    unit = m.group(2).lower()
+    return round(n * 12) if unit == "år" else round(n / 30) if unit == "dag" else round(n)
+
+
+def with_period(field: dict, months: int, docs: list[str]) -> dict:
+    """Citat som bara är räntan ("3,15 %") utökas med raden intill om den raden
+    anger produktens period ("24 månader"), så att belägget står för sig självt."""
+    q = field.get("quote") or ""
+    if field.get("status") != "belagt" or binding_in(months, q) or number_in(months, q):
+        return field
+    lines = [" ".join(l.split()) for l in docs[field["source"]].splitlines()]
+    target = " ".join(q.split())
+    for i, line in enumerate(lines):
+        if target and target in line:
+            for j in (i + 1, i - 1):
+                if 0 <= j < len(lines) and lines[j] and (binding_in(months, lines[j]) or number_in(months, lines[j])):
+                    pair = (line, lines[j]) if j > i else (lines[j], line)
+                    return {**field, "quote": " / ".join(pair)}
+    return field
+
+
 def verify_product(prod: dict, docs: list[str], previous: dict | None) -> dict:
     fields = {name: check_field(name, prod["fields"].get(name, {}), docs) for name, _, _ in FIELDS}
+    months = period_months(prod.get("name", ""))
+    if months:
+        fields["rate_percent"] = with_period(fields["rate_percent"], months, docs)
     tiers = []
     for t in prod.get("rate_tiers", []):
         ok = (
@@ -166,7 +209,7 @@ def restatus(p: dict) -> None:
     """Sätter produktens samlade status utifrån fälten (körs igen efter Jev)."""
     f = p["fields"]
     bound = f["binding_months"]["value"] not in (None, 0)
-    core = [c for c in CORE if not (c == "withdrawals" and bound)]
+    core = list(CORE)
     if f["rate_percent"]["value"] is None or p["flags"]:
         p["status"] = "ej verifierad"
     elif all(f[c]["status"] in ("belagt", "osäkert") and f[c]["value"] is not None for c in core):

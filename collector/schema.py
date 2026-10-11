@@ -36,10 +36,12 @@ FIELDS = [
     ("rate_percent", NUM, "Gällande nominell årsränta i procent för en vanlig privatkund och ett normalt belopp (t.ex. 100 000 kr). Vid trappa: räntan som gäller för 100 000 kr."),
     ("rate_type", _enum("rörlig", "fast"), "Rörlig eller fast ränta."),
     ("binding_months", INT, "Bindningstid i månader. 0 om ingen bindning."),
-    ("withdrawals", _enum("fria", "begränsade", "ej under bindningstid"), "Hur uttag fungerar."),
+    ("withdrawals", _enum("fria", "begränsade", "mot avgift", "ej tillåtna"),
+     "Uttag under kontots löptid (för bundna konton: före bindningstidens slut). fria = när som helst utan kostnad; "
+     "begränsade = ett visst antal fria uttag eller uppsägningstid; mot avgift = tillåtet men kostar (avgift eller ränteavdrag); "
+     "ej tillåtna = pengarna är låsta."),
     ("free_withdrawals_per_year", INT, "Antal fria uttag per år om det är begränsat."),
     ("withdrawal_terms", STR, "Kort sammanfattning (svenska, max 200 tecken) av uttagsregler, avgifter och uppsägningstid."),
-    ("early_withdrawal", _enum("ej tillåtet", "tillåtet mot avgift/ränteavdrag", "tillåtet utan kostnad"), "Uttag före bindningstidens slut (för bundna konton)."),
     ("min_deposit_sek", NUM, "Lägsta insättning/behållning i kronor för att få räntan. 0 om inget minimum."),
     ("max_deposit_sek", NUM, "Högsta belopp i kronor som räntan gäller för eller som får sättas in. null om inget tak anges."),
     ("monthly_deposit_cap_sek", NUM, "Högsta insättning per månad i kronor om kontot är ett månadssparkonto eller har ett månadstak. null om inget sådant tak finns."),

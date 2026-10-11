@@ -9,7 +9,6 @@ const LABELS = {
   withdrawals: "Uttag",
   free_withdrawals_per_year: "Fria uttag per år",
   withdrawal_terms: "Uttagsregler",
-  early_withdrawal: "Uttag i förtid",
   min_deposit_sek: "Lägsta belopp",
   max_deposit_sek: "Högsta belopp",
   monthly_deposit_cap_sek: "Högst per månad",
@@ -138,8 +137,8 @@ function row({ bank, p, rate }, amount) {
   const bm = val(p, "binding_months");
   if (bm) tags.append(badge(fmt("binding_months", bm) + " bindning"));
   const wd = val(p, "withdrawals");
-  if (wd === "fria") tags.append(badge("fria uttag"));
-  else if (wd === "begränsade") tags.append(badge("begränsade uttag"));
+  const WD = { "fria": "fria uttag", "begränsade": "begränsade uttag", "mot avgift": "uttag mot avgift", "ej tillåtna": "låst under bindningstiden" };
+  if (WD[wd]) tags.append(badge(WD[wd]));
   const gc = val(p, "guarantee_country");
   if (gc && gc !== "SE") tags.append(badge("garanti: " + (COUNTRY[gc] || gc), "note"));
   if (val(p, "intro_rate")) tags.append(badge("kampanj", "note"));

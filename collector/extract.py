@@ -10,7 +10,7 @@ MAX_DOC_CHARS = 60_000
 SYSTEM = """Du extraherar fakta om sparkonton (inlåning) för privatpersoner i Sverige ur en banks egna webbsidor och villkorsdokument, för en oberoende jämförelsesajt.
 
 Regler:
-- Ta med varje separat sparprodukt med egen ränta eller egna villkor som en privatperson i Sverige kan öppna (varje bindningstid för fasträntekonton är en egen produkt). Hoppa över företagskonton, barnkonton, ISK/depåer, lån och produkter som inte längre säljs.
+- Ta med varje separat sparprodukt med egen ränta eller egna villkor som en privatperson i Sverige kan öppna (varje bindningstid för fasträntekonton är en egen produkt). Hoppa över företagskonton, barnkonton, ISK/depåer, lån, produkter som inte längre säljs och konton för särskilda ändamål (skogskonto, skogsskadekonto, upphovsmannakonto, klientmedelskonto, pensionssparkonto).
 - Om samma konto har olika ränta beroende på medlemskap, betalpaket eller kundnivå (t.ex. "Plus", "Premium"): ta med varje variant som en egen produkt med variantens namn, och sätt requires_other_products till true för de betalda varianterna.
 - Varje värde måste beläggas med ett ORDAGRANT citat ur dokumenten (kopiera tecken för tecken, inklusive siffror och procenttecken, max ~300 tecken) och dokumentets index i "source".
 - Finns inget belägg: sätt value, quote och source till null. Gissa aldrig och dra inga slutsatser från allmän kunskap om banken.

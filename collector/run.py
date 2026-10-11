@@ -166,7 +166,8 @@ def finish(bank, record, raw, pages, previous, out_path, log, h=None):
     h = h or record.get("source_hash")
     docs = [p.text for p in pages]
     prev_by_name = {p["name"]: p for p in (previous or {}).get("products", [])}
-    products = [verify.verify_product(p, docs, prev_by_name.get(p["name"])) for p in raw.get("products", [])]
+    products = [verify.verify_product(p, docs, prev_by_name.get(p["name"]))
+                for p in raw.get("products", []) if verify.in_scope(p)]
     if jev.available():
         for p in products:
             try:
