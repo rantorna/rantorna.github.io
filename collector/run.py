@@ -106,10 +106,21 @@ def collect_pages(bank: dict, log, previous: dict | None = None, rediscover: boo
 
 
 def process(bank: dict, discover_only: bool, force: bool, log, rediscover: bool = False,
-            reverify: bool = False) -> dict | None:
+            reverify: bool = False, relink_only: bool = False) -> dict | None:
     log(f"\n== {bank['name']}")
     out_path = PRODUCTS / f"{bank['id']}.json"
     previous = json.loads(out_path.read_text()) if out_path.exists() else None
+    if relink_only:
+        if not previous or not previous.get("sources"):
+            return previous
+        pages = []
+        for src in previous["sources"]:
+            pg = fetch.get(src["url"], allow_browser=src.get("via") == "browser")
+            pages.append(pg if not pg.error else fetch.Page(url=src["url"], title=src.get("title", ""), text=""))
+        n = relink(previous, pages)
+        log(f"  {n} källindex rättade")
+        out_path.write_text(json.dumps(previous, ensure_ascii=False, indent=1))
+        return previous
     pages = collect_pages(bank, log, previous, rediscover=rediscover)
     reused = previous and [s["url"] for s in previous.get("sources", [])] == [p.url for p in pages]
     record = {
@@ -133,7 +144,9 @@ def process(bank: dict, discover_only: bool, force: bool, log, rediscover: bool 
         log("  oförändrat – ingen ny tolkning")
         previous["checked_at"] = record["checked_at"]
         previous["discovered_at"] = record["discovered_at"]
-        previous["sources"] = record["sources"]
+        # Källistan behålls i sin gamla ordning – produkternas källindex pekar dit.
+        if [x["url"] for x in previous.get("sources", [])] != [x["url"] for x in record["sources"]]:
+            relink(previous, pages)
         out_path.write_text(json.dumps(previous, ensure_ascii=False, indent=1))
         return previous
     if not llm.available():
@@ -159,6 +172,27 @@ def process(bank: dict, discover_only: bool, force: bool, log, rediscover: bool 
             out_path.write_text(json.dumps(previous, ensure_ascii=False, indent=1))
         return previous
     return finish(bank, record, raw, pages, previous, out_path, log, h)
+
+
+def relink(record: dict, pages: list[fetch.Page]) -> int:
+    """Kopplar varje citat till den hämtade sida där det faktiskt står och
+    ersätter källistan med `pages`. Returnerar antalet ändrade index."""
+    docs = [p.text for p in pages]
+    changed = 0
+    for prod in record.get("products", []):
+        items = list(prod["fields"].values()) + prod.get("rate_tiers", [])
+        for f in items:
+            q = f.get("quote")
+            if not q:
+                continue
+            idx = next((i for i, d in enumerate(docs) if verify.quote_in(q, d)), None)
+            if idx is None:
+                continue
+            if idx != f.get("source"):
+                changed += 1
+            f["source"] = idx
+    record["sources"] = [{"url": p.url, "title": p.title, "kind": p.kind, "via": p.via, "chars": len(p.text)} for p in pages]
+    return changed
 
 
 def finish(bank, record, raw, pages, previous, out_path, log, h=None):
@@ -218,6 +252,7 @@ def main():
     ap.add_argument("--discover-only", action="store_true")
     ap.add_argument("--force", action="store_true", help="tolka även om källorna inte ändrats")
     ap.add_argument("--workers", type=int, default=4)
+    ap.add_argument("--relink", action="store_true", help="hämta källorna och koppla om citat till rätt sida (inga Claude-anrop)")
     ap.add_argument("--reverify", action="store_true", help="kör om kontrollen mot sparade tolkningar (inga nya Claude-anrop)")
     ap.add_argument("--rediscover", action="store_true", help="leta sidor på nytt i stället för att återanvända förra körningens")
     args = ap.parse_args()
@@ -230,7 +265,7 @@ def main():
         lines = []
         try:
             process(b, args.discover_only, args.force, lines.append, rediscover=args.rediscover,
-                    reverify=args.reverify)
+                    reverify=args.reverify, relink_only=args.relink)
             ok = True
         except Exception as e:  # en trasig bank ska inte stoppa resten
             lines.append(f"  ! {b['id']}: {type(e).__name__}: {e}")

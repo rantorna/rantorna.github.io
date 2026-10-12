@@ -144,7 +144,7 @@ def in_scope(prod: dict) -> bool:
 
 def period_months(name: str) -> int | None:
     """Bindningstid ur produktnamnet: "Fix 24 mån" -> 24, "1 år" -> 12, "90 dagar" -> 3."""
-    m = re.search(r"(\d+(?:[,.]5)?)\s*(mån|månad|år|dag)", name, re.I)
+    m = re.search(r"(\d+(?:[,.]5)?)\s*(?:[–-]\s*\d+\s*)?(mån|månad|år|dag)", name, re.I)  # "6–11 mån" -> 6
     if not m:
         return None
     n = float(m.group(1).replace(",", "."))
@@ -173,7 +173,13 @@ def verify_product(prod: dict, docs: list[str], previous: dict | None) -> dict:
     fields = {name: check_field(name, prod["fields"].get(name, {}), docs) for name, _, _ in FIELDS}
     months = period_months(prod.get("name", ""))
     if months:
-        fields["rate_percent"] = with_period(fields["rate_percent"], months, docs)
+        r = fields["rate_percent"] = with_period(fields["rate_percent"], months, docs)
+        b = fields["binding_months"]
+        claimed = b["value"] if b["value"] is not None else b.get("claimed")
+        if b["status"] != "belagt" and claimed == months and r["status"] == "belagt" \
+                and (binding_in(months, r["quote"]) or number_in(months, r["quote"])):
+            # Räntans citat ("2,75 % / 3 månader") belägger också produktens bindningstid.
+            fields["binding_months"] = {"value": months, "quote": r["quote"], "source": r["source"], "status": "belagt"}
     tiers = []
     for t in prod.get("rate_tiers", []):
         ok = (

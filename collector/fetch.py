@@ -29,6 +29,14 @@ def _rates_missing(text: str) -> bool:
     return bool(RATE_WORD.search(text)) and not PCT.search(text)
 
 
+COLLAPSED = re.compile(r'aria-expanded="false"[^>]*>(?:(?!</button>|</a>).){0,300}?ränt', re.I | re.S)
+
+
+def _collapsed_rates(html: str) -> bool:
+    """En hopfälld knapp/ruta som handlar om räntor ("Aktuella räntor för FIX-konton")."""
+    return bool(COLLAPSED.search(html)) or bool(re.search(r"<details(?![^>]*\bopen\b)[^>]*>\s*<summary[^>]*>[^<]*ränt", html, re.I))
+
+
 @dataclass
 class Page:
     url: str
@@ -144,7 +152,7 @@ def get(url: str, allow_browser: bool = True) -> Page:
         page = html_to_page(str(r.url), r.text)
         if not allow_browser:
             return page
-        if len(page.text) >= MIN_TEXT and not _rates_missing(page.text):
+        if len(page.text) >= MIN_TEXT and not _rates_missing(page.text) and not _collapsed_rates(r.text):
             return page
         # Sidan talar om ränta men visar ingen procentsats – troligen ritas
         # räntan upp med JavaScript. Prova webbläsaren och behåll den bästa.
