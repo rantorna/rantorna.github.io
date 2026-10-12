@@ -7,15 +7,15 @@
   "kind": "nischbank",
   "legal_name": "Bankaktiebolaget Nordiska (publ)"
  },
- "checked_at": "2026-10-12T11:08:17+00:00",
- "discovered_at": "2026-10-11T14:30:17+00:00",
+ "checked_at": "2026-10-12T09:11:20+00:00",
+ "discovered_at": "2026-10-12T09:09:47+00:00",
  "sources": [
   {
    "url": "https://www.nordiska.com/se/spara/",
    "title": "Sparkonton med hög ränta | Nordiska",
    "kind": "html",
-   "via": "http",
-   "chars": 7782
+   "via": "browser",
+   "chars": 13988
   },
   {
    "url": "https://www.nordiska.com/se/spara/insattningsgarantin/",
@@ -23,13 +23,6 @@
    "kind": "html",
    "via": "http",
    "chars": 4637
-  },
-  {
-   "url": "https://www.nordiska.com/se/",
-   "title": "Embedded finance & finansiella tjänster för företag och privatpersoner | Nordiska",
-   "kind": "html",
-   "via": "http",
-   "chars": 5198
   },
   {
    "url": "https://assets.ctfassets.net/ezgr8f4kwvjb/4hqaW3a2RvwPcqrHX8b7b4/98f9c36f68e84999b8235da96a856965/allmanna-villkor-nordiska-fix-version-2026-1.pdf",
@@ -60,53 +53,54 @@
    "chars": 19048
   }
  ],
+ "source_hash": "c98622fdb37c70a5",
  "status": "ok",
- "notes": "Räntorna för enskilda FIX-bindningstider ligger i en hopfälld ruta (\"Aktuella räntor för FIX-konton\") som saknas i källtexten. Därför finns bara en samlad FIX-produkt, utan exakt ränta eller bindningstid. Webbsidan anger \"upp till 3,00 %\" och bindningstider mellan 1 månad och 5 år. Flex och Flex Grön har ingen angiven minimiinsättning.",
+ "notes": "Flex och Flex Grön har ingen angiven minimiinsättning. Flex Plus: ränta kan sänkas till noll om saldot understiger 10 000 kr. Räntorna är hämtade från bankens webbsida (doc 0); ingen datumangivelse för när de började gälla. Fix-kontots villkor anger att insättning endast görs vid ett tillfälle.",
  "products": [
   {
-   "name": "Nordiska FIX",
+   "name": "Nordiska FIX 1 månad",
    "flags": [],
    "fields": {
     "product_type": {
      "value": "fasträntekonto",
-     "quote": "Passar både kort- och långsiktigt sparande med fast ränta under den period du väljer.",
-     "source": 0,
+     "quote": "Nordiska Fix är ett inlåningskonto med fast ränta",
+     "source": 2,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.2
+      "confidence": 0.74
      }
     },
     "rate_percent": {
-     "value": null,
-     "quote": null,
-     "source": null,
-     "status": "okänt"
+     "value": 2.3,
+     "quote": "1 månad 2,30 %",
+     "source": 0,
+     "status": "belagt"
     },
     "rate_type": {
      "value": "fast",
-     "quote": "Passar både kort- och långsiktigt sparande med fast ränta under den period du väljer.",
-     "source": 0,
+     "quote": "Nordiska Fix är ett inlåningskonto med fast ränta",
+     "source": 2,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.88
+      "confidence": 0.98
      }
     },
     "binding_months": {
-     "value": null,
-     "quote": null,
-     "source": null,
-     "status": "okänt"
+     "value": 1,
+     "quote": "Bindningstid mellan 1 månad och 5 år",
+     "source": 0,
+     "status": "belagt"
     },
     "withdrawals": {
      "value": "ej tillåtna",
-     "quote": "Det är inte möjligt att göra uttag från Nordiska Fix innan",
-     "source": 3,
+     "quote": "Det är inte möjligt att göra uttag från Nordiska Fix innan löptidens slut.",
+     "source": 2,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.94
+      "confidence": 1.0
      }
     },
     "free_withdrawals_per_year": {
@@ -116,13 +110,13 @@
      "status": "okänt"
     },
     "withdrawal_terms": {
-     "value": "Inga uttag före löptidens slut; därefter överförs pengarna automatiskt till Nordiska Flex.",
-     "quote": "Det är inte möjligt att göra uttag från Nordiska Fix innan",
-     "source": 3,
+     "value": "Inga uttag före löptidens slut; därefter flyttas pengarna automatiskt till Nordiska Flex.",
+     "quote": "Det är inte möjligt att göra uttag från Nordiska Fix innan löptidens slut.",
+     "source": 2,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.51
+      "confidence": 0.89
      }
     },
     "min_deposit_sek": {
@@ -132,7 +126,7 @@
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.88
+      "confidence": 0.95
      }
     },
     "max_deposit_sek": {
@@ -148,9 +142,9 @@
      "status": "okänt"
     },
     "deposit_terms": {
-     "value": "Engångsinsättning om minst 10 000 kr",
-     "quote": "Engångsinsättning om minst 10 000 kr",
-     "source": 0,
+     "value": "Engångsinsättning, ingen påfyllning.",
+     "quote": "Insättning av pengar till Kontot kan endast ske vid ett tillfälle",
+     "source": 2,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
@@ -158,20 +152,24 @@
      }
     },
     "eligibility": {
-     "value": "Minst 18 år, fysisk person, svenskt personnummer, folkbokförd i Sverige, BankID och konto i svensk bank för uttag",
-     "quote": "Vara minst 18 år",
+     "value": "Minst 18 år, fysisk person, svenskt personnummer, folkbokförd i Sverige, BankID.",
+     "quote": "Vara minst 18 år Vara en fysisk person Ha ett svenskt personnummer Vara folkbokförd i Sverige Ha BankID",
      "source": 0,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.97
+      "confidence": 0.77
      }
     },
     "requires_other_products": {
-     "value": null,
-     "quote": null,
-     "source": null,
-     "status": "okänt"
+     "value": false,
+     "quote": "Till Nordiska Fix kan inga tilläggstjänster knytas.",
+     "source": 2,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.72
+     }
     },
     "intro_rate": {
      "value": null,
@@ -180,9 +178,9 @@
      "status": "okänt"
     },
     "interest_paid": {
-     "value": "Vid löptidens slut kapitaliseras räntan",
-     "quote": "Hela ditt sparade belopp kapitaliseras, inklusive den intjänade räntan efter skatt.",
-     "source": 0,
+     "value": "Vid löptidens slut.",
+     "quote": "Vid löptidens slut beräknas ränta till och med löptidens sista dag, varefter medlen överförs till Nordiska Flex.",
+     "source": 2,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
@@ -191,22 +189,22 @@
     },
     "guarantee_country": {
      "value": "SE",
-     "quote": "Riksgälden Insättnings­­­­garantin",
-     "source": 1,
+     "quote": "Nordiska Fix har prövats av Riksgälden och omfattas av den statliga insättningsgarantin.",
+     "source": 2,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.55
+      "confidence": 0.34
      }
     },
     "guarantee_amount": {
      "value": "1 150 000 kronor",
-     "quote": "1 150 000 kronor per insättare och institut",
-     "source": 1,
+     "quote": "Garantin ger en maximal ersättning motsvarande 1 150 000 kronor per kund och institut.",
+     "source": 2,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.92
+      "confidence": 1.0
      }
     },
     "rate_valid_from": {
@@ -218,36 +216,32 @@
    },
    "rate_tiers": [],
    "pending_rate": null,
-   "status": "ej verifierad"
+   "status": "verifierad"
   },
   {
-   "name": "Nordiska FLEX PLUS",
+   "name": "Nordiska FIX 2 månader",
    "flags": [],
    "fields": {
     "product_type": {
-     "value": "rörligt sparkonto",
-     "quote": "För dig som vill ha ett flexibelt sparande med rörlig ränta. Fria insättningar och uttag.",
-     "source": 0,
-     "status": "osäkert",
-     "jev": {
-      "verdict": "says_nothing",
-      "confidence": 0.35
-     }
-    },
-    "rate_percent": {
-     "value": 2.1,
-     "quote": "2,10 %",
-     "source": 0,
+     "value": "fasträntekonto",
+     "quote": "Nordiska Fix är ett inlåningskonto med fast ränta",
+     "source": 2,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
       "confidence": 0.94
      }
     },
-    "rate_type": {
-     "value": "rörlig",
-     "quote": "För dig som vill ha ett flexibelt sparande med rörlig ränta. Fria insättningar och uttag.",
+    "rate_percent": {
+     "value": 3,
+     "quote": "2 månader 3,00 %",
      "source": 0,
+     "status": "belagt"
+    },
+    "rate_type": {
+     "value": "fast",
+     "quote": "Nordiska Fix är ett inlåningskonto med fast ränta",
+     "source": 2,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
@@ -255,23 +249,19 @@
      }
     },
     "binding_months": {
-     "value": 0,
-     "quote": "Ingen bindningstid",
+     "value": 2,
+     "quote": "2 månader 3,00 %",
      "source": 0,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.79
-     }
+     "status": "belagt"
     },
     "withdrawals": {
-     "value": "fria",
-     "quote": "För dig som vill ha ett flexibelt sparande med rörlig ränta. Fria insättningar och uttag.",
-     "source": 0,
+     "value": "ej tillåtna",
+     "quote": "Det är inte möjligt att göra uttag från Nordiska Fix innan löptidens slut.",
+     "source": 2,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.83
+      "confidence": 1.0
      }
     },
     "free_withdrawals_per_year": {
@@ -281,23 +271,23 @@
      "status": "okänt"
     },
     "withdrawal_terms": {
-     "value": "Fria uttag; pengarna finns normalt på uttagskontot efter 1–2 bankdagar.",
-     "quote": "Efter att överföringen har bekräftats tar det vanligtvis 1–2 bankdagar innan pengarna finns på ditt konto.",
-     "source": 0,
+     "value": "Inga uttag före löptidens slut; därefter flyttas pengarna automatiskt till Nordiska Flex.",
+     "quote": "Det är inte möjligt att göra uttag från Nordiska Fix innan löptidens slut.",
+     "source": 2,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.86
+      "confidence": 0.89
      }
     },
     "min_deposit_sek": {
      "value": 10000,
-     "quote": "Min. saldo 10 000 kr",
+     "quote": "Engångsinsättning om minst 10 000 kr",
      "source": 0,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.91
+      "confidence": 0.92
      }
     },
     "max_deposit_sek": {
@@ -313,30 +303,34 @@
      "status": "okänt"
     },
     "deposit_terms": {
-     "value": "Fria insättningar; minst 10 000 kr vid öppning och i saldo för att få räntan",
-     "quote": "Min. saldo 10 000 kr",
-     "source": 0,
+     "value": "Engångsinsättning, ingen påfyllning.",
+     "quote": "Insättning av pengar till Kontot kan endast ske vid ett tillfälle",
+     "source": 2,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.52
+      "confidence": 1.0
      }
     },
     "eligibility": {
-     "value": "Minst 18 år, fysisk person, svenskt personnummer, folkbokförd i Sverige, BankID och konto i svensk bank för uttag",
-     "quote": "Vara minst 18 år",
+     "value": "Minst 18 år, fysisk person, svenskt personnummer, folkbokförd i Sverige, BankID.",
+     "quote": "Vara minst 18 år Vara en fysisk person Ha ett svenskt personnummer Vara folkbokförd i Sverige Ha BankID",
      "source": 0,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.97
+      "confidence": 0.79
      }
     },
     "requires_other_products": {
-     "value": null,
-     "quote": null,
-     "source": null,
-     "status": "okänt"
+     "value": false,
+     "quote": "Till Nordiska Fix kan inga tilläggstjänster knytas.",
+     "source": 2,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.72
+     }
     },
     "intro_rate": {
      "value": null,
@@ -345,9 +339,9 @@
      "status": "okänt"
     },
     "interest_paid": {
-     "value": "Gottgörs årligen den 31 december eller när kontot avslutas",
-     "quote": "gottgörs Kontot per den 31 december varje år eller då Kontot avslutas.",
-     "source": 4,
+     "value": "Vid löptidens slut.",
+     "quote": "Vid löptidens slut beräknas ränta till och med löptidens sista dag, varefter medlen överförs till Nordiska Flex.",
+     "source": 2,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
@@ -356,22 +350,1479 @@
     },
     "guarantee_country": {
      "value": "SE",
-     "quote": "Riksgälden Insättnings­­­­garantin",
-     "source": 1,
-     "status": "belagt",
+     "quote": "Nordiska Fix har prövats av Riksgälden och omfattas av den statliga insättningsgarantin.",
+     "source": 2,
+     "status": "osäkert",
      "jev": {
-      "verdict": "supports",
-      "confidence": 0.53
+      "verdict": "says_nothing",
+      "confidence": 0.27
      }
     },
     "guarantee_amount": {
      "value": "1 150 000 kronor",
-     "quote": "1 150 000 kronor per insättare och institut",
-     "source": 1,
+     "quote": "Garantin ger en maximal ersättning motsvarande 1 150 000 kronor per kund och institut.",
+     "source": 2,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 1.0
+     }
+    },
+    "rate_valid_from": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    }
+   },
+   "rate_tiers": [],
+   "pending_rate": null,
+   "status": "verifierad"
+  },
+  {
+   "name": "Nordiska FIX 3 månader",
+   "flags": [],
+   "fields": {
+    "product_type": {
+     "value": "fasträntekonto",
+     "quote": "Nordiska Fix är ett inlåningskonto med fast ränta",
+     "source": 2,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.98
+     }
+    },
+    "rate_percent": {
+     "value": 2.75,
+     "quote": "3 månader 2,75 %",
+     "source": 0,
+     "status": "belagt"
+    },
+    "rate_type": {
+     "value": "fast",
+     "quote": "Nordiska Fix är ett inlåningskonto med fast ränta",
+     "source": 2,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.98
+     }
+    },
+    "binding_months": {
+     "value": 3,
+     "quote": "3 månader 2,75 %",
+     "source": 0,
+     "status": "belagt"
+    },
+    "withdrawals": {
+     "value": "ej tillåtna",
+     "quote": "Det är inte möjligt att göra uttag från Nordiska Fix innan löptidens slut.",
+     "source": 2,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 1.0
+     }
+    },
+    "free_withdrawals_per_year": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "withdrawal_terms": {
+     "value": "Inga uttag före löptidens slut; därefter flyttas pengarna automatiskt till Nordiska Flex.",
+     "quote": "Det är inte möjligt att göra uttag från Nordiska Fix innan löptidens slut.",
+     "source": 2,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.89
+     }
+    },
+    "min_deposit_sek": {
+     "value": 10000,
+     "quote": "Engångsinsättning om minst 10 000 kr",
+     "source": 0,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
       "confidence": 0.95
+     }
+    },
+    "max_deposit_sek": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "monthly_deposit_cap_sek": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "deposit_terms": {
+     "value": "Engångsinsättning, ingen påfyllning.",
+     "quote": "Insättning av pengar till Kontot kan endast ske vid ett tillfälle",
+     "source": 2,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.98
+     }
+    },
+    "eligibility": {
+     "value": "Minst 18 år, fysisk person, svenskt personnummer, folkbokförd i Sverige, BankID.",
+     "quote": "Vara minst 18 år Vara en fysisk person Ha ett svenskt personnummer Vara folkbokförd i Sverige Ha BankID",
+     "source": 0,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.77
+     }
+    },
+    "requires_other_products": {
+     "value": false,
+     "quote": "Till Nordiska Fix kan inga tilläggstjänster knytas.",
+     "source": 2,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.83
+     }
+    },
+    "intro_rate": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "interest_paid": {
+     "value": "Vid löptidens slut.",
+     "quote": "Vid löptidens slut beräknas ränta till och med löptidens sista dag, varefter medlen överförs till Nordiska Flex.",
+     "source": 2,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 1.0
+     }
+    },
+    "guarantee_country": {
+     "value": "SE",
+     "quote": "Nordiska Fix har prövats av Riksgälden och omfattas av den statliga insättningsgarantin.",
+     "source": 2,
+     "status": "osäkert",
+     "jev": {
+      "verdict": "says_nothing",
+      "confidence": 0.28
+     }
+    },
+    "guarantee_amount": {
+     "value": "1 150 000 kronor",
+     "quote": "Garantin ger en maximal ersättning motsvarande 1 150 000 kronor per kund och institut.",
+     "source": 2,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 1.0
+     }
+    },
+    "rate_valid_from": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    }
+   },
+   "rate_tiers": [],
+   "pending_rate": null,
+   "status": "verifierad"
+  },
+  {
+   "name": "Nordiska FIX 6 månader",
+   "flags": [],
+   "fields": {
+    "product_type": {
+     "value": "fasträntekonto",
+     "quote": "Nordiska Fix är ett inlåningskonto med fast ränta",
+     "source": 2,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.83
+     }
+    },
+    "rate_percent": {
+     "value": 2.9,
+     "quote": "6 månader 2,90 %",
+     "source": 0,
+     "status": "belagt"
+    },
+    "rate_type": {
+     "value": "fast",
+     "quote": "Nordiska Fix är ett inlåningskonto med fast ränta",
+     "source": 2,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.98
+     }
+    },
+    "binding_months": {
+     "value": 6,
+     "quote": "6 månader 2,90 %",
+     "source": 0,
+     "status": "belagt"
+    },
+    "withdrawals": {
+     "value": "ej tillåtna",
+     "quote": "Det är inte möjligt att göra uttag från Nordiska Fix innan löptidens slut.",
+     "source": 2,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 1.0
+     }
+    },
+    "free_withdrawals_per_year": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "withdrawal_terms": {
+     "value": "Inga uttag före löptidens slut; därefter flyttas pengarna automatiskt till Nordiska Flex.",
+     "quote": "Det är inte möjligt att göra uttag från Nordiska Fix innan löptidens slut.",
+     "source": 2,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.89
+     }
+    },
+    "min_deposit_sek": {
+     "value": 10000,
+     "quote": "Engångsinsättning om minst 10 000 kr",
+     "source": 0,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.95
+     }
+    },
+    "max_deposit_sek": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "monthly_deposit_cap_sek": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "deposit_terms": {
+     "value": "Engångsinsättning, ingen påfyllning.",
+     "quote": "Insättning av pengar till Kontot kan endast ske vid ett tillfälle",
+     "source": 2,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 1.0
+     }
+    },
+    "eligibility": {
+     "value": "Minst 18 år, fysisk person, svenskt personnummer, folkbokförd i Sverige, BankID.",
+     "quote": "Vara minst 18 år Vara en fysisk person Ha ett svenskt personnummer Vara folkbokförd i Sverige Ha BankID",
+     "source": 0,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.76
+     }
+    },
+    "requires_other_products": {
+     "value": false,
+     "quote": "Till Nordiska Fix kan inga tilläggstjänster knytas.",
+     "source": 2,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.82
+     }
+    },
+    "intro_rate": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "interest_paid": {
+     "value": "Vid löptidens slut.",
+     "quote": "Vid löptidens slut beräknas ränta till och med löptidens sista dag, varefter medlen överförs till Nordiska Flex.",
+     "source": 2,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 1.0
+     }
+    },
+    "guarantee_country": {
+     "value": "SE",
+     "quote": "Nordiska Fix har prövats av Riksgälden och omfattas av den statliga insättningsgarantin.",
+     "source": 2,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.31
+     }
+    },
+    "guarantee_amount": {
+     "value": "1 150 000 kronor",
+     "quote": "Garantin ger en maximal ersättning motsvarande 1 150 000 kronor per kund och institut.",
+     "source": 2,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 1.0
+     }
+    },
+    "rate_valid_from": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    }
+   },
+   "rate_tiers": [],
+   "pending_rate": null,
+   "status": "verifierad"
+  },
+  {
+   "name": "Nordiska FIX 9 månader",
+   "flags": [],
+   "fields": {
+    "product_type": {
+     "value": "fasträntekonto",
+     "quote": "Nordiska Fix är ett inlåningskonto med fast ränta",
+     "source": 2,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.88
+     }
+    },
+    "rate_percent": {
+     "value": 2.8,
+     "quote": "9 månader 2,80 %",
+     "source": 0,
+     "status": "belagt"
+    },
+    "rate_type": {
+     "value": "fast",
+     "quote": "Nordiska Fix är ett inlåningskonto med fast ränta",
+     "source": 2,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.98
+     }
+    },
+    "binding_months": {
+     "value": 9,
+     "quote": "9 månader 2,80 %",
+     "source": 0,
+     "status": "belagt"
+    },
+    "withdrawals": {
+     "value": "ej tillåtna",
+     "quote": "Det är inte möjligt att göra uttag från Nordiska Fix innan löptidens slut.",
+     "source": 2,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 1.0
+     }
+    },
+    "free_withdrawals_per_year": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "withdrawal_terms": {
+     "value": "Inga uttag före löptidens slut; därefter flyttas pengarna automatiskt till Nordiska Flex.",
+     "quote": "Det är inte möjligt att göra uttag från Nordiska Fix innan löptidens slut.",
+     "source": 2,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.89
+     }
+    },
+    "min_deposit_sek": {
+     "value": 10000,
+     "quote": "Engångsinsättning om minst 10 000 kr",
+     "source": 0,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.94
+     }
+    },
+    "max_deposit_sek": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "monthly_deposit_cap_sek": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "deposit_terms": {
+     "value": "Engångsinsättning, ingen påfyllning.",
+     "quote": "Insättning av pengar till Kontot kan endast ske vid ett tillfälle",
+     "source": 2,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 1.0
+     }
+    },
+    "eligibility": {
+     "value": "Minst 18 år, fysisk person, svenskt personnummer, folkbokförd i Sverige, BankID.",
+     "quote": "Vara minst 18 år Vara en fysisk person Ha ett svenskt personnummer Vara folkbokförd i Sverige Ha BankID",
+     "source": 0,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.79
+     }
+    },
+    "requires_other_products": {
+     "value": false,
+     "quote": "Till Nordiska Fix kan inga tilläggstjänster knytas.",
+     "source": 2,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.88
+     }
+    },
+    "intro_rate": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "interest_paid": {
+     "value": "Vid löptidens slut.",
+     "quote": "Vid löptidens slut beräknas ränta till och med löptidens sista dag, varefter medlen överförs till Nordiska Flex.",
+     "source": 2,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 1.0
+     }
+    },
+    "guarantee_country": {
+     "value": "SE",
+     "quote": "Nordiska Fix har prövats av Riksgälden och omfattas av den statliga insättningsgarantin.",
+     "source": 2,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.34
+     }
+    },
+    "guarantee_amount": {
+     "value": "1 150 000 kronor",
+     "quote": "Garantin ger en maximal ersättning motsvarande 1 150 000 kronor per kund och institut.",
+     "source": 2,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 1.0
+     }
+    },
+    "rate_valid_from": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    }
+   },
+   "rate_tiers": [],
+   "pending_rate": null,
+   "status": "verifierad"
+  },
+  {
+   "name": "Nordiska FIX 1 år",
+   "flags": [],
+   "fields": {
+    "product_type": {
+     "value": "fasträntekonto",
+     "quote": "Nordiska Fix är ett inlåningskonto med fast ränta",
+     "source": 2,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.85
+     }
+    },
+    "rate_percent": {
+     "value": 2.9,
+     "quote": "1 år 2,90 %",
+     "source": 0,
+     "status": "belagt"
+    },
+    "rate_type": {
+     "value": "fast",
+     "quote": "Nordiska Fix är ett inlåningskonto med fast ränta",
+     "source": 2,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.98
+     }
+    },
+    "binding_months": {
+     "value": 12,
+     "quote": "Bindningstid mellan 1 månad och 5 år",
+     "source": 0,
+     "status": "belagt"
+    },
+    "withdrawals": {
+     "value": "ej tillåtna",
+     "quote": "Det är inte möjligt att göra uttag från Nordiska Fix innan löptidens slut.",
+     "source": 2,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 1.0
+     }
+    },
+    "free_withdrawals_per_year": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "withdrawal_terms": {
+     "value": "Inga uttag före löptidens slut; därefter flyttas pengarna automatiskt till Nordiska Flex.",
+     "quote": "Det är inte möjligt att göra uttag från Nordiska Fix innan löptidens slut.",
+     "source": 2,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.89
+     }
+    },
+    "min_deposit_sek": {
+     "value": 10000,
+     "quote": "Engångsinsättning om minst 10 000 kr",
+     "source": 0,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.97
+     }
+    },
+    "max_deposit_sek": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "monthly_deposit_cap_sek": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "deposit_terms": {
+     "value": "Engångsinsättning, ingen påfyllning.",
+     "quote": "Insättning av pengar till Kontot kan endast ske vid ett tillfälle",
+     "source": 2,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 1.0
+     }
+    },
+    "eligibility": {
+     "value": "Minst 18 år, fysisk person, svenskt personnummer, folkbokförd i Sverige, BankID.",
+     "quote": "Vara minst 18 år Vara en fysisk person Ha ett svenskt personnummer Vara folkbokförd i Sverige Ha BankID",
+     "source": 0,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.77
+     }
+    },
+    "requires_other_products": {
+     "value": false,
+     "quote": "Till Nordiska Fix kan inga tilläggstjänster knytas.",
+     "source": 2,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.82
+     }
+    },
+    "intro_rate": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "interest_paid": {
+     "value": "Vid löptidens slut.",
+     "quote": "Vid löptidens slut beräknas ränta till och med löptidens sista dag, varefter medlen överförs till Nordiska Flex.",
+     "source": 2,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 1.0
+     }
+    },
+    "guarantee_country": {
+     "value": "SE",
+     "quote": "Nordiska Fix har prövats av Riksgälden och omfattas av den statliga insättningsgarantin.",
+     "source": 2,
+     "status": "osäkert",
+     "jev": {
+      "verdict": "says_nothing",
+      "confidence": 0.25
+     }
+    },
+    "guarantee_amount": {
+     "value": "1 150 000 kronor",
+     "quote": "Garantin ger en maximal ersättning motsvarande 1 150 000 kronor per kund och institut.",
+     "source": 2,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 1.0
+     }
+    },
+    "rate_valid_from": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    }
+   },
+   "rate_tiers": [],
+   "pending_rate": null,
+   "status": "verifierad"
+  },
+  {
+   "name": "Nordiska FIX 2 år",
+   "flags": [],
+   "fields": {
+    "product_type": {
+     "value": "fasträntekonto",
+     "quote": "Nordiska Fix är ett inlåningskonto med fast ränta",
+     "source": 2,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.61
+     }
+    },
+    "rate_percent": {
+     "value": 2.8,
+     "quote": "2 år 2,80 %",
+     "source": 0,
+     "status": "belagt"
+    },
+    "rate_type": {
+     "value": "fast",
+     "quote": "Nordiska Fix är ett inlåningskonto med fast ränta",
+     "source": 2,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.97
+     }
+    },
+    "binding_months": {
+     "value": 24,
+     "quote": "2 år 2,80 %",
+     "source": 0,
+     "status": "belagt"
+    },
+    "withdrawals": {
+     "value": "ej tillåtna",
+     "quote": "Det är inte möjligt att göra uttag från Nordiska Fix innan löptidens slut.",
+     "source": 2,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 1.0
+     }
+    },
+    "free_withdrawals_per_year": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "withdrawal_terms": {
+     "value": "Inga uttag före löptidens slut; därefter flyttas pengarna automatiskt till Nordiska Flex.",
+     "quote": "Det är inte möjligt att göra uttag från Nordiska Fix innan löptidens slut.",
+     "source": 2,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.83
+     }
+    },
+    "min_deposit_sek": {
+     "value": 10000,
+     "quote": "Engångsinsättning om minst 10 000 kr",
+     "source": 0,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.95
+     }
+    },
+    "max_deposit_sek": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "monthly_deposit_cap_sek": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "deposit_terms": {
+     "value": "Engångsinsättning, ingen påfyllning.",
+     "quote": "Insättning av pengar till Kontot kan endast ske vid ett tillfälle",
+     "source": 2,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.98
+     }
+    },
+    "eligibility": {
+     "value": "Minst 18 år, fysisk person, svenskt personnummer, folkbokförd i Sverige, BankID.",
+     "quote": "Vara minst 18 år Vara en fysisk person Ha ett svenskt personnummer Vara folkbokförd i Sverige Ha BankID",
+     "source": 0,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.73
+     }
+    },
+    "requires_other_products": {
+     "value": false,
+     "quote": "Till Nordiska Fix kan inga tilläggstjänster knytas.",
+     "source": 2,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.83
+     }
+    },
+    "intro_rate": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "interest_paid": {
+     "value": "Vid löptidens slut.",
+     "quote": "Vid löptidens slut beräknas ränta till och med löptidens sista dag, varefter medlen överförs till Nordiska Flex.",
+     "source": 2,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 1.0
+     }
+    },
+    "guarantee_country": {
+     "value": "SE",
+     "quote": "Nordiska Fix har prövats av Riksgälden och omfattas av den statliga insättningsgarantin.",
+     "source": 2,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.23
+     }
+    },
+    "guarantee_amount": {
+     "value": "1 150 000 kronor",
+     "quote": "Garantin ger en maximal ersättning motsvarande 1 150 000 kronor per kund och institut.",
+     "source": 2,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 1.0
+     }
+    },
+    "rate_valid_from": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    }
+   },
+   "rate_tiers": [],
+   "pending_rate": null,
+   "status": "verifierad"
+  },
+  {
+   "name": "Nordiska FIX 3 år",
+   "flags": [],
+   "fields": {
+    "product_type": {
+     "value": "fasträntekonto",
+     "quote": "Nordiska Fix är ett inlåningskonto med fast ränta",
+     "source": 2,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.88
+     }
+    },
+    "rate_percent": {
+     "value": 2.8,
+     "quote": "3 år 2,80 %",
+     "source": 0,
+     "status": "belagt"
+    },
+    "rate_type": {
+     "value": "fast",
+     "quote": "Nordiska Fix är ett inlåningskonto med fast ränta",
+     "source": 2,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.98
+     }
+    },
+    "binding_months": {
+     "value": 36,
+     "quote": "3 år 2,80 %",
+     "source": 0,
+     "status": "belagt"
+    },
+    "withdrawals": {
+     "value": "ej tillåtna",
+     "quote": "Det är inte möjligt att göra uttag från Nordiska Fix innan löptidens slut.",
+     "source": 2,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 1.0
+     }
+    },
+    "free_withdrawals_per_year": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "withdrawal_terms": {
+     "value": "Inga uttag före löptidens slut; därefter flyttas pengarna automatiskt till Nordiska Flex.",
+     "quote": "Det är inte möjligt att göra uttag från Nordiska Fix innan löptidens slut.",
+     "source": 2,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.85
+     }
+    },
+    "min_deposit_sek": {
+     "value": 10000,
+     "quote": "Engångsinsättning om minst 10 000 kr",
+     "source": 0,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.97
+     }
+    },
+    "max_deposit_sek": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "monthly_deposit_cap_sek": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "deposit_terms": {
+     "value": "Engångsinsättning, ingen påfyllning.",
+     "quote": "Insättning av pengar till Kontot kan endast ske vid ett tillfälle",
+     "source": 2,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.98
+     }
+    },
+    "eligibility": {
+     "value": "Minst 18 år, fysisk person, svenskt personnummer, folkbokförd i Sverige, BankID.",
+     "quote": "Vara minst 18 år Vara en fysisk person Ha ett svenskt personnummer Vara folkbokförd i Sverige Ha BankID",
+     "source": 0,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.76
+     }
+    },
+    "requires_other_products": {
+     "value": false,
+     "quote": "Till Nordiska Fix kan inga tilläggstjänster knytas.",
+     "source": 2,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.91
+     }
+    },
+    "intro_rate": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "interest_paid": {
+     "value": "Vid löptidens slut.",
+     "quote": "Vid löptidens slut beräknas ränta till och med löptidens sista dag, varefter medlen överförs till Nordiska Flex.",
+     "source": 2,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 1.0
+     }
+    },
+    "guarantee_country": {
+     "value": "SE",
+     "quote": "Nordiska Fix har prövats av Riksgälden och omfattas av den statliga insättningsgarantin.",
+     "source": 2,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.23
+     }
+    },
+    "guarantee_amount": {
+     "value": "1 150 000 kronor",
+     "quote": "Garantin ger en maximal ersättning motsvarande 1 150 000 kronor per kund och institut.",
+     "source": 2,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 1.0
+     }
+    },
+    "rate_valid_from": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    }
+   },
+   "rate_tiers": [],
+   "pending_rate": null,
+   "status": "verifierad"
+  },
+  {
+   "name": "Nordiska FIX 4 år",
+   "flags": [],
+   "fields": {
+    "product_type": {
+     "value": "fasträntekonto",
+     "quote": "Nordiska Fix är ett inlåningskonto med fast ränta",
+     "source": 2,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.85
+     }
+    },
+    "rate_percent": {
+     "value": 2.8,
+     "quote": "4 år 2,80 %",
+     "source": 0,
+     "status": "belagt"
+    },
+    "rate_type": {
+     "value": "fast",
+     "quote": "Nordiska Fix är ett inlåningskonto med fast ränta",
+     "source": 2,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.98
+     }
+    },
+    "binding_months": {
+     "value": 48,
+     "quote": "4 år 2,80 %",
+     "source": 0,
+     "status": "belagt"
+    },
+    "withdrawals": {
+     "value": "ej tillåtna",
+     "quote": "Det är inte möjligt att göra uttag från Nordiska Fix innan löptidens slut.",
+     "source": 2,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 1.0
+     }
+    },
+    "free_withdrawals_per_year": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "withdrawal_terms": {
+     "value": "Inga uttag före löptidens slut; därefter flyttas pengarna automatiskt till Nordiska Flex.",
+     "quote": "Det är inte möjligt att göra uttag från Nordiska Fix innan löptidens slut.",
+     "source": 2,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.86
+     }
+    },
+    "min_deposit_sek": {
+     "value": 10000,
+     "quote": "Engångsinsättning om minst 10 000 kr",
+     "source": 0,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.95
+     }
+    },
+    "max_deposit_sek": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "monthly_deposit_cap_sek": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "deposit_terms": {
+     "value": "Engångsinsättning, ingen påfyllning.",
+     "quote": "Insättning av pengar till Kontot kan endast ske vid ett tillfälle",
+     "source": 2,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.98
+     }
+    },
+    "eligibility": {
+     "value": "Minst 18 år, fysisk person, svenskt personnummer, folkbokförd i Sverige, BankID.",
+     "quote": "Vara minst 18 år Vara en fysisk person Ha ett svenskt personnummer Vara folkbokförd i Sverige Ha BankID",
+     "source": 0,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.8
+     }
+    },
+    "requires_other_products": {
+     "value": false,
+     "quote": "Till Nordiska Fix kan inga tilläggstjänster knytas.",
+     "source": 2,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.85
+     }
+    },
+    "intro_rate": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "interest_paid": {
+     "value": "Vid löptidens slut.",
+     "quote": "Vid löptidens slut beräknas ränta till och med löptidens sista dag, varefter medlen överförs till Nordiska Flex.",
+     "source": 2,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 1.0
+     }
+    },
+    "guarantee_country": {
+     "value": "SE",
+     "quote": "Nordiska Fix har prövats av Riksgälden och omfattas av den statliga insättningsgarantin.",
+     "source": 2,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.33
+     }
+    },
+    "guarantee_amount": {
+     "value": "1 150 000 kronor",
+     "quote": "Garantin ger en maximal ersättning motsvarande 1 150 000 kronor per kund och institut.",
+     "source": 2,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 1.0
+     }
+    },
+    "rate_valid_from": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    }
+   },
+   "rate_tiers": [],
+   "pending_rate": null,
+   "status": "verifierad"
+  },
+  {
+   "name": "Nordiska FIX 5 år",
+   "flags": [],
+   "fields": {
+    "product_type": {
+     "value": "fasträntekonto",
+     "quote": "Nordiska Fix är ett inlåningskonto med fast ränta",
+     "source": 2,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.92
+     }
+    },
+    "rate_percent": {
+     "value": 2.85,
+     "quote": "5 år 2,85 %",
+     "source": 0,
+     "status": "belagt"
+    },
+    "rate_type": {
+     "value": "fast",
+     "quote": "Nordiska Fix är ett inlåningskonto med fast ränta",
+     "source": 2,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.97
+     }
+    },
+    "binding_months": {
+     "value": 60,
+     "quote": "Bindningstid mellan 1 månad och 5 år",
+     "source": 0,
+     "status": "belagt"
+    },
+    "withdrawals": {
+     "value": "ej tillåtna",
+     "quote": "Det är inte möjligt att göra uttag från Nordiska Fix innan löptidens slut.",
+     "source": 2,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 1.0
+     }
+    },
+    "free_withdrawals_per_year": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "withdrawal_terms": {
+     "value": "Inga uttag före löptidens slut; därefter flyttas pengarna automatiskt till Nordiska Flex.",
+     "quote": "Det är inte möjligt att göra uttag från Nordiska Fix innan löptidens slut.",
+     "source": 2,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.86
+     }
+    },
+    "min_deposit_sek": {
+     "value": 10000,
+     "quote": "Engångsinsättning om minst 10 000 kr",
+     "source": 0,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.97
+     }
+    },
+    "max_deposit_sek": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "monthly_deposit_cap_sek": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "deposit_terms": {
+     "value": "Engångsinsättning, ingen påfyllning.",
+     "quote": "Insättning av pengar till Kontot kan endast ske vid ett tillfälle",
+     "source": 2,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 1.0
+     }
+    },
+    "eligibility": {
+     "value": "Minst 18 år, fysisk person, svenskt personnummer, folkbokförd i Sverige, BankID.",
+     "quote": "Vara minst 18 år Vara en fysisk person Ha ett svenskt personnummer Vara folkbokförd i Sverige Ha BankID",
+     "source": 0,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.76
+     }
+    },
+    "requires_other_products": {
+     "value": false,
+     "quote": "Till Nordiska Fix kan inga tilläggstjänster knytas.",
+     "source": 2,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.86
+     }
+    },
+    "intro_rate": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "interest_paid": {
+     "value": "Vid löptidens slut.",
+     "quote": "Vid löptidens slut beräknas ränta till och med löptidens sista dag, varefter medlen överförs till Nordiska Flex.",
+     "source": 2,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 1.0
+     }
+    },
+    "guarantee_country": {
+     "value": "SE",
+     "quote": "Nordiska Fix har prövats av Riksgälden och omfattas av den statliga insättningsgarantin.",
+     "source": 2,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.27
+     }
+    },
+    "guarantee_amount": {
+     "value": "1 150 000 kronor",
+     "quote": "Garantin ger en maximal ersättning motsvarande 1 150 000 kronor per kund och institut.",
+     "source": 2,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 1.0
+     }
+    },
+    "rate_valid_from": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    }
+   },
+   "rate_tiers": [],
+   "pending_rate": null,
+   "status": "verifierad"
+  },
+  {
+   "name": "Nordiska FLEX PLUS",
+   "flags": [],
+   "fields": {
+    "product_type": {
+     "value": "rörligt sparkonto",
+     "quote": "Nordiska Flex Plus.är ett inlåningskonto med rörlig ränta med svenska kronor som valuta och utan bindningstid.",
+     "source": 3,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.72
+     }
+    },
+    "rate_percent": {
+     "value": 2.1,
+     "quote": "Nordiska FLEX PLUS 2,10 %",
+     "source": 0,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.98
+     }
+    },
+    "rate_type": {
+     "value": "rörlig",
+     "quote": "Nordiska Flex Plus.är ett inlåningskonto med rörlig ränta",
+     "source": 3,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 1.0
+     }
+    },
+    "binding_months": {
+     "value": 0,
+     "quote": "Ingen bindningstid",
+     "source": 0,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.8
+     }
+    },
+    "withdrawals": {
+     "value": "fria",
+     "quote": "Fria insättningar och uttag.",
+     "source": 0,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.72
+     }
+    },
+    "free_withdrawals_per_year": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "withdrawal_terms": {
+     "value": "Obegränsade uttag till föranmält konto, 1–2 bankdagar, inga avgifter angivna.",
+     "quote": "Transaktionstiden för begärda uttag är 1–2 bankdagar.",
+     "source": 3,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.76
+     }
+    },
+    "min_deposit_sek": {
+     "value": 10000,
+     "quote": "Min. saldo 10 000 kr",
+     "source": 0,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.86
+     }
+    },
+    "max_deposit_sek": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "monthly_deposit_cap_sek": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "deposit_terms": {
+     "value": "Obegränsade insättningar; minst 10 000 kr vid öppning.",
+     "quote": "Vid öppning av Nordiska Flex Plus ska en insättning om minst 10 000 kronor ske.",
+     "source": 3,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.48
+     }
+    },
+    "eligibility": {
+     "value": "Minst 18 år, fysisk person, svenskt personnummer, folkbokförd i Sverige, BankID.",
+     "quote": "Vara minst 18 år Vara en fysisk person Ha ett svenskt personnummer Vara folkbokförd i Sverige Ha BankID",
+     "source": 0,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.82
+     }
+    },
+    "requires_other_products": {
+     "value": false,
+     "quote": "Till Nordiska Flex Plus kan inga tilläggstjänster knytas.",
+     "source": 3,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.92
+     }
+    },
+    "intro_rate": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "interest_paid": {
+     "value": "Årsvis, den 31 december eller vid avslut.",
+     "quote": "Räntan på Nordiska Flex Plus gottgörs Kontot per den 31 december varje år eller då Kontot avslutas.",
+     "source": 3,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 1.0
+     }
+    },
+    "guarantee_country": {
+     "value": "SE",
+     "quote": "Nordiska Flex Plus har prövats av Riksgälden och omfattas av den statliga insättningsgarantin.",
+     "source": 3,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.3
+     }
+    },
+    "guarantee_amount": {
+     "value": "1 150 000 kronor",
+     "quote": "1 150 000 kronor per kund och institut.",
+     "source": 2,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 1.0
      }
     },
     "rate_valid_from": {
@@ -391,32 +1842,32 @@
    "fields": {
     "product_type": {
      "value": "rörligt sparkonto",
-     "quote": "För dig som vill ha ett flexibelt sparande med rörlig ränta. Fria insättningar och uttag.",
-     "source": 0,
+     "quote": "Nordiska Flex är ett inlåningskonto med rörlig ränta med svenska kronor som valuta och utan bindningstid.",
+     "source": 4,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.2
+      "confidence": 0.58
      }
     },
     "rate_percent": {
      "value": 2,
-     "quote": "2,00 %",
+     "quote": "Nordiska FLEX 2,00 %",
      "source": 0,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.49
+      "confidence": 0.97
      }
     },
     "rate_type": {
      "value": "rörlig",
-     "quote": "För dig som vill ha ett flexibelt sparande med rörlig ränta. Fria insättningar och uttag.",
-     "source": 0,
+     "quote": "Nordiska Flex är ett inlåningskonto med rörlig ränta",
+     "source": 4,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 1.0
+      "confidence": 0.98
      }
     },
     "binding_months": {
@@ -426,17 +1877,17 @@
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.82
+      "confidence": 0.69
      }
     },
     "withdrawals": {
      "value": "fria",
-     "quote": "För dig som vill ha ett flexibelt sparande med rörlig ränta. Fria insättningar och uttag.",
+     "quote": "Fria insättningar och uttag.",
      "source": 0,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.7
+      "confidence": 0.56
      }
     },
     "free_withdrawals_per_year": {
@@ -446,13 +1897,13 @@
      "status": "okänt"
     },
     "withdrawal_terms": {
-     "value": "Fria uttag; pengarna finns normalt på uttagskontot efter 1–2 bankdagar.",
-     "quote": "Efter att överföringen har bekräftats tar det vanligtvis 1–2 bankdagar innan pengarna finns på ditt konto.",
-     "source": 0,
+     "value": "Obegränsade uttag till föranmält konto, 1–2 bankdagar, inga avgifter angivna.",
+     "quote": "Transaktionstiden för begärda uttag är 1–2 bankdagar.",
+     "source": 3,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.88
+      "confidence": 0.73
      }
     },
     "min_deposit_sek": {
@@ -474,30 +1925,34 @@
      "status": "okänt"
     },
     "deposit_terms": {
-     "value": "Fria insättningar",
-     "quote": "Fria insättningar och uttag.",
-     "source": 0,
+     "value": "Obegränsade insättningar och uttag.",
+     "quote": "Det finns en obegränsad möjlighet att göra insättningar till och uttag från Kontot.",
+     "source": 3,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.94
+      "confidence": 0.92
      }
     },
     "eligibility": {
-     "value": "Minst 18 år, fysisk person, svenskt personnummer, folkbokförd i Sverige, BankID och konto i svensk bank för uttag",
-     "quote": "Vara minst 18 år",
+     "value": "Minst 18 år, fysisk person, svenskt personnummer, folkbokförd i Sverige, BankID.",
+     "quote": "Vara minst 18 år Vara en fysisk person Ha ett svenskt personnummer Vara folkbokförd i Sverige Ha BankID",
      "source": 0,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.97
+      "confidence": 0.85
      }
     },
     "requires_other_products": {
-     "value": null,
-     "quote": null,
-     "source": null,
-     "status": "okänt"
+     "value": false,
+     "quote": "Till Nordiska Flex kan inga tilläggstjänster knytas.",
+     "source": 4,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.3
+     }
     },
     "intro_rate": {
      "value": null,
@@ -506,9 +1961,9 @@
      "status": "okänt"
     },
     "interest_paid": {
-     "value": "Gottgörs årligen den 31 december eller när kontot avslutas",
-     "quote": "den 31 december varje år eller då Kontot avslutas.",
-     "source": 5,
+     "value": "Årsvis, den 31 december eller vid avslut.",
+     "quote": "Räntan på Nordiska Flex gottgörs Kontot per den 31 december varje år eller då Kontot avslutas.",
+     "source": 4,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
@@ -517,22 +1972,22 @@
     },
     "guarantee_country": {
      "value": "SE",
-     "quote": "Riksgälden Insättnings­­­­garantin",
-     "source": 1,
+     "quote": "Nordiska Flex har prövats av Riksgälden och omfattas av den statliga insättningsgarantin.",
+     "source": 4,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.58
+      "confidence": 0.61
      }
     },
     "guarantee_amount": {
      "value": "1 150 000 kronor",
-     "quote": "1 150 000 kronor per insättare och institut",
-     "source": 1,
+     "quote": "1 150 000 kronor per kund och institut.",
+     "source": 2,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.92
+      "confidence": 1.0
      }
     },
     "rate_valid_from": {
@@ -552,28 +2007,28 @@
    "fields": {
     "product_type": {
      "value": "rörligt sparkonto",
-     "quote": "Nordiska Flex Grön är ett inlåningskonto med",
-     "source": 6,
+     "quote": "Nordiska Flex Grön är ett inlåningskonto med rörlig ränta med svenska kronor som valuta och utan bindningstid.",
+     "source": 5,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.91
+      "confidence": 0.67
      }
     },
     "rate_percent": {
      "value": 2.1,
-     "quote": "2,10 %",
+     "quote": "Nordiska FLEX GRÖN 2,10 %",
      "source": 0,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.71
+      "confidence": 0.98
      }
     },
     "rate_type": {
      "value": "rörlig",
-     "quote": "Nordiska Flex Grön är ett inlåningskonto med",
-     "source": 6,
+     "quote": "Nordiska Flex Grön är ett inlåningskonto med rörlig ränta",
+     "source": 5,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
@@ -587,17 +2042,17 @@
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.98
+      "confidence": 0.7
      }
     },
     "withdrawals": {
      "value": "fria",
-     "quote": "Det finns en obegränsad möjlighet att göra insättningar till och uttag från",
-     "source": 6,
+     "quote": "Fria insättningar och uttag.",
+     "source": 0,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.92
+      "confidence": 0.48
      }
     },
     "free_withdrawals_per_year": {
@@ -607,13 +2062,13 @@
      "status": "okänt"
     },
     "withdrawal_terms": {
-     "value": "Obegränsade uttag; pengarna finns normalt på uttagskontot efter 1–2 bankdagar.",
-     "quote": "Efter att överföringen har bekräftats tar det vanligtvis 1–2 bankdagar innan pengarna finns på ditt konto.",
-     "source": 0,
+     "value": "Obegränsade uttag till föranmält konto, 1–2 bankdagar, inga avgifter angivna.",
+     "quote": "Transaktionstiden för begärda uttag är 1–2 bankdagar.",
+     "source": 3,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.09
+      "confidence": 0.59
      }
     },
     "min_deposit_sek": {
@@ -635,30 +2090,34 @@
      "status": "okänt"
     },
     "deposit_terms": {
-     "value": "Obegränsade insättningar; minst 70 % av insättningarna ska användas till hållbar finansiering",
-     "quote": "Det finns en obegränsad möjlighet att göra insättningar till och uttag från",
-     "source": 6,
+     "value": "Obegränsade insättningar och uttag.",
+     "quote": "Det finns en obegränsad möjlighet att göra insättningar till och uttag från Kontot.",
+     "source": 3,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.4
+      "confidence": 0.86
      }
     },
     "eligibility": {
-     "value": "Minst 18 år, fysisk person, svenskt personnummer, folkbokförd i Sverige, BankID och konto i svensk bank för uttag",
-     "quote": "Vara minst 18 år",
+     "value": "Minst 18 år, fysisk person, svenskt personnummer, folkbokförd i Sverige, BankID.",
+     "quote": "Vara minst 18 år Vara en fysisk person Ha ett svenskt personnummer Vara folkbokförd i Sverige Ha BankID",
      "source": 0,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.79
+      "confidence": 0.8
      }
     },
     "requires_other_products": {
-     "value": null,
-     "quote": null,
-     "source": null,
-     "status": "okänt"
+     "value": false,
+     "quote": "Till Nordiska Flex Grön kan inga tilläggstjänster knytas.",
+     "source": 5,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.74
+     }
     },
     "intro_rate": {
      "value": null,
@@ -667,9 +2126,9 @@
      "status": "okänt"
     },
     "interest_paid": {
-     "value": "Gottgörs årligen den 31 december eller när kontot avslutas",
-     "quote": "per den 31 december varje år eller då Kontot avslutas.",
-     "source": 6,
+     "value": "Årsvis, den 31 december eller vid avslut.",
+     "quote": "Räntan på Nordiska Flex Grön gottgörs Kontot per den 31 december varje år eller då Kontot avslutas.",
+     "source": 5,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
@@ -678,8 +2137,8 @@
     },
     "guarantee_country": {
      "value": "SE",
-     "quote": "Riksgälden Insättnings­­­­garantin",
-     "source": 1,
+     "quote": "Nordiska Flex Grön har prövats av Riksgälden och omfattas av den statliga insättningsgarantin.",
+     "source": 5,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
@@ -688,12 +2147,12 @@
     },
     "guarantee_amount": {
      "value": "1 150 000 kronor",
-     "quote": "1 150 000 kronor per insättare och institut",
-     "source": 1,
+     "quote": "1 150 000 kronor per kund och institut.",
+     "source": 2,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.92
+      "confidence": 1.0
      }
     },
     "rate_valid_from": {
@@ -708,7 +2167,6 @@
    "status": "verifierad"
   }
  ],
- "source_hash": "9a2d0ce7ce3ba804",
- "changed_at": "2026-10-11T20:14:44+00:00",
+ "changed_at": "2026-10-12T09:11:20+00:00",
  "model": "claude-sonnet-5-5"
 }
