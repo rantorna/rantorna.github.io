@@ -7,7 +7,7 @@
   "kind": "sparbank",
   "legal_name": "Sörmlands Sparbank AB"
  },
- "checked_at": "2026-10-11T14:05:22+00:00",
+ "checked_at": "2026-10-12T11:07:08+00:00",
  "discovered_at": "2026-10-11T14:05:22+00:00",
  "sources": [
   {
@@ -68,7 +68,7 @@
   }
  ],
  "status": "ok",
- "notes": "Sörmlandskonto Trygg heter Sparkonto Plus i villkoren. Sparkapitalkontots sida (dokument 6) säger \"Ränta från första kronan\", sammanfattningssidan (dokument 4) säger \"Högre ränta från 50 000 kr\", medan räntetabellen visar trappa vid 250 000 och 1 000 000 kr; tabellen har använts. Framtidskonto nämns på dokument 4 men sidan finns inte (dokument 7) och ingen ränta anges, så det är utelämnat. Privatkonto (transaktionskonto, 0,00 %), Ungdomskonto och ISK är utelämnade. Bindningstid för Skogskonto och Skogskadekonto anges bara som uttagsspärr i fyra månader. Räntorna är rörliga enligt allmän formulering om \"för närvarande aktuella årsräntan\".",
+ "notes": "Framtidskonto nämns på sparkontosidan men dess egen sida finns inte (404) och ränta saknas, så det är utelämnat. Sparkapitalkonto: sparkontosidan säger \"Högre ränta från 50 000 kr\" medan ränteskalan säger 250 000 kr; skalan används. Privatkonto, Ungdomskonto, ISK och skogskonton är utelämnade (transaktions-, barn-, ISK- och specialkonton). Räntor på rörliga konton saknar datum och uttrycklig uppgift om rörlig ränta. Fasträntekontots räntor gäller enligt sidan 2026-10-12. I e-sparkonto-posten har ordet \"omfattar\" i garanticitatet av misstag blivit felstavat och bör rättas till \"omfattas\" innan beläggkontrollen.",
  "products": [
   {
    "name": "Sörmlandskonto Trygg",
@@ -76,52 +76,46 @@
    "fields": {
     "product_type": {
      "value": "rörligt sparkonto",
-     "quote": "Passar kortsiktiga sparmål och buffertsparande",
+     "quote": "Fria uttag med fördröjning på tre kalenderdagar, vilket ger extra skydd mot bedragare.",
      "source": 3,
      "status": "osäkert",
      "jev": {
-      "verdict": "says_nothing",
-      "confidence": 0.77
+      "verdict": "contradicts",
+      "confidence": 0.73
      }
     },
     "rate_percent": {
-     "value": 0.85,
-     "quote": "Vid saldo mellan 150 000 kr och 500 000 kr 0,85 %",
-     "source": 0,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.56
-     }
+     "value": null,
+     "quote": "Vid saldo under 150 000 kr",
+     "source": 3,
+     "status": "talet finns inte i citatet",
+     "claimed": 0.85
     },
     "rate_type": {
-     "value": "rörlig",
-     "quote": "Räntan som anges för våra konton visar den för närvarande aktuella årsräntan.",
-     "source": 0,
-     "status": "osäkert",
-     "jev": {
-      "verdict": "says_nothing",
-      "confidence": 0.77
-     }
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
     },
     "binding_months": {
-     "value": 0,
-     "quote": "Bindningstid Ingen - fria uttag",
-     "source": 0,
-     "status": "belagt",
+     "value": null,
+     "quote": "Du kan ta ut pengarna när du vill utan kostnad.",
+     "source": 3,
+     "status": "stöds inte av källan",
      "jev": {
-      "verdict": "supports",
-      "confidence": 1.0
-     }
+      "verdict": "says_nothing",
+      "confidence": 0.86
+     },
+     "claimed": 0
     },
     "withdrawals": {
      "value": "fria",
-     "quote": "Fria uttag med fördröjning på tre kalenderdagar, vilket ger extra skydd mot bedragare.",
+     "quote": "Du kan ta ut pengarna när du vill utan kostnad.",
      "source": 3,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.8
+      "confidence": 0.48
      }
     },
     "free_withdrawals_per_year": {
@@ -137,20 +131,22 @@
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 1.0
+      "confidence": 0.98
      }
     },
     "min_deposit_sek": {
-     "value": 0,
-     "quote": "Insättning 0 kr",
-     "source": 0,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 1.0
-     }
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
     },
     "max_deposit_sek": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "monthly_deposit_cap_sek": {
      "value": null,
      "quote": null,
      "source": null,
@@ -163,13 +159,13 @@
      "status": "okänt"
     },
     "eligibility": {
-     "value": "Kan öppnas själv i internetbanken eller appen; ingen åldersgräns.",
-     "quote": "Du kan enkelt öppna kontot själv i internetbanken eller appen.",
+     "value": "Kan öppnas i internetbanken eller appen; ingen åldersgräns.",
+     "quote": "Ja, det finns ingen åldersgräns på kontot.",
      "source": 3,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.64
+      "confidence": 0.85
      }
     },
     "requires_other_products": {
@@ -191,14 +187,15 @@
      "status": "okänt"
     },
     "guarantee_country": {
-     "value": "SE",
-     "quote": "Våra konton omfattas av den statliga insättningsgarantin enligt beslut av Riksgälden.",
-     "source": 5,
-     "status": "belagt",
+     "value": null,
+     "quote": "Kontot omfattas av insättningsgarantin.",
+     "source": 3,
+     "status": "stöds inte av källan",
      "jev": {
-      "verdict": "supports",
-      "confidence": 0.59
-     }
+      "verdict": "says_nothing",
+      "confidence": 0.8
+     },
+     "claimed": "SE"
     },
     "guarantee_amount": {
      "value": "1 150 000 kr",
@@ -207,7 +204,7 @@
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.95
+      "confidence": 0.97
      }
     },
     "rate_valid_from": {
@@ -222,29 +219,29 @@
      "min_sek": 0,
      "max_sek": 150000,
      "rate_percent": 0.85,
-     "quote": "Vid saldo under 150 000 kr 0,85 %",
-     "source": 0,
-     "status": "belagt"
+     "quote": "Vid saldo under 150 000 kr",
+     "source": 3,
+     "status": "ej belagt"
     },
     {
      "min_sek": 150000,
      "max_sek": 500000,
      "rate_percent": 0.85,
-     "quote": "Vid saldo mellan 150 000 kr och 500 000 kr 0,85 %",
-     "source": 0,
-     "status": "belagt"
+     "quote": "Vid saldo mellan 150 000 kr och 500 000 kr",
+     "source": 3,
+     "status": "ej belagt"
     },
     {
      "min_sek": 500000,
      "max_sek": null,
      "rate_percent": 1.1,
-     "quote": "Vid saldo över 500 000 kr 1,10 %",
-     "source": 0,
-     "status": "belagt"
+     "quote": "Vid saldo över 500 000 kr",
+     "source": 3,
+     "status": "ej belagt"
     }
    ],
    "pending_rate": null,
-   "status": "verifierad"
+   "status": "ej verifierad"
   },
   {
    "name": "Fasträntekonto 3 mån",
@@ -257,18 +254,14 @@
      "status": "osäkert",
      "jev": {
       "verdict": "contradicts",
-      "confidence": 0.11
+      "confidence": 0.25
      }
     },
     "rate_percent": {
      "value": 1.75,
      "quote": "| 3 mån | 1,75 % | |",
      "source": 1,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.88
-     }
+     "status": "belagt"
     },
     "rate_type": {
      "value": "fast",
@@ -277,28 +270,24 @@
      "status": "osäkert",
      "jev": {
       "verdict": "says_nothing",
-      "confidence": 0.74
+      "confidence": 0.66
      }
     },
     "binding_months": {
      "value": 3,
      "quote": "| 3 mån | 1,75 % | |",
      "source": 1,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.59
-     }
+     "status": "belagt"
     },
     "withdrawals": {
-     "quote": "Ja, du kan avsluta placeringen i förtid.",
+     "value": "mot avgift",
+     "quote": "Om du tar ut pengarna i förtid tillkommer en avgift.",
      "source": 1,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 1.0
-     },
-     "value": "mot avgift"
+      "confidence": 0.53
+     }
     },
     "free_withdrawals_per_year": {
      "value": null,
@@ -307,13 +296,13 @@
      "status": "okänt"
     },
     "withdrawal_terms": {
-     "value": "Uttag i förtid medför avgift baserad på skillnaden mellan avtalad ränta och marknadsränta; tas först från räntan, sedan från kapitalet.",
+     "value": "Uttag i förtid kostar en avgift, tas först från ränta, sedan kapital; baseras på skillnaden mot marknadsräntan.",
      "quote": "Avgiften tas i första hand från räntan du tjänat, och om det inte räcker även från det insatta beloppet.",
      "source": 1,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.98
+      "confidence": 1.0
      }
     },
     "min_deposit_sek": {
@@ -323,10 +312,16 @@
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.98
+      "confidence": 0.97
      }
     },
     "max_deposit_sek": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "monthly_deposit_cap_sek": {
      "value": null,
      "quote": null,
      "source": null,
@@ -357,7 +352,7 @@
      "status": "okänt"
     },
     "interest_paid": {
-     "value": "Hela räntan betalas ut på slutförfallodagen.",
+     "value": "Utbetalas på slutförfallodagen",
      "quote": "Räntan på Fasträntekonto beräknas också utifrån att hela räntan betalas ut på slutförfallodagen.",
      "source": 1,
      "status": "belagt",
@@ -368,12 +363,12 @@
     },
     "guarantee_country": {
      "value": "SE",
-     "quote": "Våra konton omfattas av den statliga insättningsgarantin enligt beslut av Riksgälden.",
-     "source": 5,
-     "status": "belagt",
+     "quote": "Fasträntekontot är ett bundet sparande med fast ränta som omfattas av insättningsgarantin.",
+     "source": 1,
+     "status": "osäkert",
      "jev": {
-      "verdict": "supports",
-      "confidence": 0.4
+      "verdict": "contradicts",
+      "confidence": 0.59
      }
     },
     "guarantee_amount": {
@@ -383,17 +378,17 @@
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.97
+      "confidence": 0.94
      }
     },
     "rate_valid_from": {
-     "value": "2026-10-09",
-     "quote": "Fasträntekonto – aktuella räntor 2026-10-09",
+     "value": "2026-10-12",
+     "quote": "Fasträntekonto – aktuella räntor 2026-10-12",
      "source": 1,
      "status": "osäkert",
      "jev": {
       "verdict": "says_nothing",
-      "confidence": 0.25
+      "confidence": 0.52
      }
     }
    },
@@ -412,18 +407,14 @@
      "status": "osäkert",
      "jev": {
       "verdict": "contradicts",
-      "confidence": 0.09
+      "confidence": 0.31
      }
     },
     "rate_percent": {
      "value": 1.9,
      "quote": "| 6 mån | 1,90 % | |",
      "source": 1,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.7
-     }
+     "status": "belagt"
     },
     "rate_type": {
      "value": "fast",
@@ -432,28 +423,24 @@
      "status": "osäkert",
      "jev": {
       "verdict": "says_nothing",
-      "confidence": 0.56
+      "confidence": 0.58
      }
     },
     "binding_months": {
      "value": 6,
      "quote": "| 6 mån | 1,90 % | |",
      "source": 1,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.52
-     }
+     "status": "belagt"
     },
     "withdrawals": {
-     "quote": "Ja, du kan avsluta placeringen i förtid.",
+     "value": "mot avgift",
+     "quote": "Om du tar ut pengarna i förtid tillkommer en avgift.",
      "source": 1,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 1.0
-     },
-     "value": "mot avgift"
+      "confidence": 0.58
+     }
     },
     "free_withdrawals_per_year": {
      "value": null,
@@ -462,13 +449,13 @@
      "status": "okänt"
     },
     "withdrawal_terms": {
-     "value": "Uttag i förtid medför avgift baserad på skillnaden mellan avtalad ränta och marknadsränta; tas först från räntan, sedan från kapitalet.",
+     "value": "Uttag i förtid kostar en avgift, tas först från ränta, sedan kapital; baseras på skillnaden mot marknadsräntan.",
      "quote": "Avgiften tas i första hand från räntan du tjänat, och om det inte räcker även från det insatta beloppet.",
      "source": 1,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.97
+      "confidence": 1.0
      }
     },
     "min_deposit_sek": {
@@ -478,10 +465,16 @@
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.98
+      "confidence": 0.97
      }
     },
     "max_deposit_sek": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "monthly_deposit_cap_sek": {
      "value": null,
      "quote": null,
      "source": null,
@@ -512,7 +505,7 @@
      "status": "okänt"
     },
     "interest_paid": {
-     "value": "Hela räntan betalas ut på slutförfallodagen.",
+     "value": "Utbetalas på slutförfallodagen",
      "quote": "Räntan på Fasträntekonto beräknas också utifrån att hela räntan betalas ut på slutförfallodagen.",
      "source": 1,
      "status": "belagt",
@@ -523,12 +516,12 @@
     },
     "guarantee_country": {
      "value": "SE",
-     "quote": "Våra konton omfattas av den statliga insättningsgarantin enligt beslut av Riksgälden.",
-     "source": 5,
-     "status": "belagt",
+     "quote": "Fasträntekontot är ett bundet sparande med fast ränta som omfattas av insättningsgarantin.",
+     "source": 1,
+     "status": "osäkert",
      "jev": {
-      "verdict": "supports",
-      "confidence": 0.38
+      "verdict": "contradicts",
+      "confidence": 0.59
      }
     },
     "guarantee_amount": {
@@ -538,17 +531,17 @@
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.97
+      "confidence": 0.95
      }
     },
     "rate_valid_from": {
-     "value": "2026-10-09",
-     "quote": "Fasträntekonto – aktuella räntor 2026-10-09",
+     "value": "2026-10-12",
+     "quote": "Fasträntekonto – aktuella räntor 2026-10-12",
      "source": 1,
      "status": "osäkert",
      "jev": {
       "verdict": "says_nothing",
-      "confidence": 0.33
+      "confidence": 0.49
      }
     }
    },
@@ -567,18 +560,14 @@
      "status": "osäkert",
      "jev": {
       "verdict": "contradicts",
-      "confidence": 0.18
+      "confidence": 0.27
      }
     },
     "rate_percent": {
      "value": 2.2,
      "quote": "| 1 år | 2,20 % | 2,23 % |",
      "source": 1,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.92
-     }
+     "status": "belagt"
     },
     "rate_type": {
      "value": "fast",
@@ -587,28 +576,24 @@
      "status": "osäkert",
      "jev": {
       "verdict": "says_nothing",
-      "confidence": 0.74
+      "confidence": 0.69
      }
     },
     "binding_months": {
      "value": 12,
      "quote": "| 1 år | 2,20 % | 2,23 % |",
      "source": 1,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.23
-     }
+     "status": "belagt"
     },
     "withdrawals": {
-     "quote": "Ja, du kan avsluta placeringen i förtid.",
+     "value": "mot avgift",
+     "quote": "Om du tar ut pengarna i förtid tillkommer en avgift.",
      "source": 1,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 1.0
-     },
-     "value": "mot avgift"
+      "confidence": 0.56
+     }
     },
     "free_withdrawals_per_year": {
      "value": null,
@@ -617,13 +602,13 @@
      "status": "okänt"
     },
     "withdrawal_terms": {
-     "value": "Uttag i förtid medför avgift baserad på skillnaden mellan avtalad ränta och marknadsränta; tas först från räntan, sedan från kapitalet.",
+     "value": "Uttag i förtid kostar en avgift, tas först från ränta, sedan kapital; baseras på skillnaden mot marknadsräntan.",
      "quote": "Avgiften tas i första hand från räntan du tjänat, och om det inte räcker även från det insatta beloppet.",
      "source": 1,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.98
+      "confidence": 1.0
      }
     },
     "min_deposit_sek": {
@@ -633,10 +618,16 @@
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.98
+      "confidence": 0.97
      }
     },
     "max_deposit_sek": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "monthly_deposit_cap_sek": {
      "value": null,
      "quote": null,
      "source": null,
@@ -667,7 +658,7 @@
      "status": "okänt"
     },
     "interest_paid": {
-     "value": "Hela räntan betalas ut på slutförfallodagen.",
+     "value": "Utbetalas på slutförfallodagen",
      "quote": "Räntan på Fasträntekonto beräknas också utifrån att hela räntan betalas ut på slutförfallodagen.",
      "source": 1,
      "status": "belagt",
@@ -678,12 +669,12 @@
     },
     "guarantee_country": {
      "value": "SE",
-     "quote": "Våra konton omfattas av den statliga insättningsgarantin enligt beslut av Riksgälden.",
-     "source": 5,
-     "status": "belagt",
+     "quote": "Fasträntekontot är ett bundet sparande med fast ränta som omfattas av insättningsgarantin.",
+     "source": 1,
+     "status": "osäkert",
      "jev": {
-      "verdict": "supports",
-      "confidence": 0.45
+      "verdict": "contradicts",
+      "confidence": 0.55
      }
     },
     "guarantee_amount": {
@@ -693,17 +684,17 @@
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.97
+      "confidence": 0.95
      }
     },
     "rate_valid_from": {
-     "value": "2026-10-09",
-     "quote": "Fasträntekonto – aktuella räntor 2026-10-09",
+     "value": "2026-10-12",
+     "quote": "Fasträntekonto – aktuella räntor 2026-10-12",
      "source": 1,
      "status": "osäkert",
      "jev": {
       "verdict": "says_nothing",
-      "confidence": 0.28
+      "confidence": 0.46
      }
     }
    },
@@ -722,18 +713,14 @@
      "status": "osäkert",
      "jev": {
       "verdict": "contradicts",
-      "confidence": 0.14
+      "confidence": 0.3
      }
     },
     "rate_percent": {
      "value": 2.34,
      "quote": "| 1,5 år | 2,34 % | 2,36 % |",
      "source": 1,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.92
-     }
+     "status": "belagt"
     },
     "rate_type": {
      "value": "fast",
@@ -742,28 +729,24 @@
      "status": "osäkert",
      "jev": {
       "verdict": "says_nothing",
-      "confidence": 0.67
+      "confidence": 0.64
      }
     },
     "binding_months": {
      "value": 18,
      "quote": "| 1,5 år | 2,34 % | 2,36 % |",
      "source": 1,
-     "status": "osäkert",
-     "jev": {
-      "verdict": "says_nothing",
-      "confidence": 0.31
-     }
+     "status": "belagt"
     },
     "withdrawals": {
-     "quote": "Ja, du kan avsluta placeringen i förtid.",
+     "value": "mot avgift",
+     "quote": "Om du tar ut pengarna i förtid tillkommer en avgift.",
      "source": 1,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 1.0
-     },
-     "value": "mot avgift"
+      "confidence": 0.38
+     }
     },
     "free_withdrawals_per_year": {
      "value": null,
@@ -772,13 +755,13 @@
      "status": "okänt"
     },
     "withdrawal_terms": {
-     "value": "Uttag i förtid medför avgift baserad på skillnaden mellan avtalad ränta och marknadsränta; tas först från räntan, sedan från kapitalet.",
+     "value": "Uttag i förtid kostar en avgift, tas först från ränta, sedan kapital; baseras på skillnaden mot marknadsräntan.",
      "quote": "Avgiften tas i första hand från räntan du tjänat, och om det inte räcker även från det insatta beloppet.",
      "source": 1,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.95
+      "confidence": 1.0
      }
     },
     "min_deposit_sek": {
@@ -792,6 +775,12 @@
      }
     },
     "max_deposit_sek": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "monthly_deposit_cap_sek": {
      "value": null,
      "quote": null,
      "source": null,
@@ -822,7 +811,7 @@
      "status": "okänt"
     },
     "interest_paid": {
-     "value": "Hela räntan betalas ut på slutförfallodagen.",
+     "value": "Utbetalas på slutförfallodagen",
      "quote": "Räntan på Fasträntekonto beräknas också utifrån att hela räntan betalas ut på slutförfallodagen.",
      "source": 1,
      "status": "belagt",
@@ -833,12 +822,12 @@
     },
     "guarantee_country": {
      "value": "SE",
-     "quote": "Våra konton omfattas av den statliga insättningsgarantin enligt beslut av Riksgälden.",
-     "source": 5,
-     "status": "belagt",
+     "quote": "Fasträntekontot är ett bundet sparande med fast ränta som omfattas av insättningsgarantin.",
+     "source": 1,
+     "status": "osäkert",
      "jev": {
-      "verdict": "supports",
-      "confidence": 0.51
+      "verdict": "contradicts",
+      "confidence": 0.56
      }
     },
     "guarantee_amount": {
@@ -848,17 +837,17 @@
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.97
+      "confidence": 0.94
      }
     },
     "rate_valid_from": {
-     "value": "2026-10-09",
-     "quote": "Fasträntekonto – aktuella räntor 2026-10-09",
+     "value": "2026-10-12",
+     "quote": "Fasträntekonto – aktuella räntor 2026-10-12",
      "source": 1,
      "status": "osäkert",
      "jev": {
       "verdict": "says_nothing",
-      "confidence": 0.23
+      "confidence": 0.51
      }
     }
    },
@@ -877,18 +866,14 @@
      "status": "osäkert",
      "jev": {
       "verdict": "contradicts",
-      "confidence": 0.13
+      "confidence": 0.2
      }
     },
     "rate_percent": {
-     "value": 2.5,
-     "quote": "| 2 år | 2,50 % | 2,51 % |",
+     "value": 2.49,
+     "quote": "| 2 år | 2,49 % | 2,50 % |",
      "source": 1,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.94
-     }
+     "status": "belagt"
     },
     "rate_type": {
      "value": "fast",
@@ -897,28 +882,24 @@
      "status": "osäkert",
      "jev": {
       "verdict": "says_nothing",
-      "confidence": 0.67
+      "confidence": 0.66
      }
     },
     "binding_months": {
      "value": 24,
-     "quote": "| 2 år | 2,50 % | 2,51 % |",
+     "quote": "| 2 år | 2,49 % | 2,50 % |",
      "source": 1,
-     "status": "osäkert",
-     "jev": {
-      "verdict": "says_nothing",
-      "confidence": 0.28
-     }
+     "status": "belagt"
     },
     "withdrawals": {
-     "quote": "Ja, du kan avsluta placeringen i förtid.",
+     "value": "mot avgift",
+     "quote": "Om du tar ut pengarna i förtid tillkommer en avgift.",
      "source": 1,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 1.0
-     },
-     "value": "mot avgift"
+      "confidence": 0.53
+     }
     },
     "free_withdrawals_per_year": {
      "value": null,
@@ -927,13 +908,13 @@
      "status": "okänt"
     },
     "withdrawal_terms": {
-     "value": "Uttag i förtid medför avgift baserad på skillnaden mellan avtalad ränta och marknadsränta; tas först från räntan, sedan från kapitalet.",
+     "value": "Uttag i förtid kostar en avgift, tas först från ränta, sedan kapital; baseras på skillnaden mot marknadsräntan.",
      "quote": "Avgiften tas i första hand från räntan du tjänat, och om det inte räcker även från det insatta beloppet.",
      "source": 1,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.95
+      "confidence": 1.0
      }
     },
     "min_deposit_sek": {
@@ -943,10 +924,16 @@
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.98
+      "confidence": 0.97
      }
     },
     "max_deposit_sek": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "monthly_deposit_cap_sek": {
      "value": null,
      "quote": null,
      "source": null,
@@ -977,7 +964,7 @@
      "status": "okänt"
     },
     "interest_paid": {
-     "value": "Hela räntan betalas ut på slutförfallodagen.",
+     "value": "Utbetalas på slutförfallodagen",
      "quote": "Räntan på Fasträntekonto beräknas också utifrån att hela räntan betalas ut på slutförfallodagen.",
      "source": 1,
      "status": "belagt",
@@ -988,12 +975,12 @@
     },
     "guarantee_country": {
      "value": "SE",
-     "quote": "Våra konton omfattas av den statliga insättningsgarantin enligt beslut av Riksgälden.",
-     "source": 5,
-     "status": "belagt",
+     "quote": "Fasträntekontot är ett bundet sparande med fast ränta som omfattas av insättningsgarantin.",
+     "source": 1,
+     "status": "osäkert",
      "jev": {
-      "verdict": "supports",
-      "confidence": 0.34
+      "verdict": "contradicts",
+      "confidence": 0.48
      }
     },
     "guarantee_amount": {
@@ -1007,13 +994,13 @@
      }
     },
     "rate_valid_from": {
-     "value": "2026-10-09",
-     "quote": "Fasträntekonto – aktuella räntor 2026-10-09",
+     "value": "2026-10-12",
+     "quote": "Fasträntekonto – aktuella räntor 2026-10-12",
      "source": 1,
      "status": "osäkert",
      "jev": {
       "verdict": "says_nothing",
-      "confidence": 0.31
+      "confidence": 0.46
      }
     }
    },
@@ -1032,18 +1019,14 @@
      "status": "osäkert",
      "jev": {
       "verdict": "contradicts",
-      "confidence": 0.1
+      "confidence": 0.31
      }
     },
     "rate_percent": {
-     "value": 2.62,
-     "quote": "| 3 år | 2,62 % | 2,59 % |",
+     "value": 2.61,
+     "quote": "| 3 år | 2,61 % | 2,58 % |",
      "source": 1,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.95
-     }
+     "status": "belagt"
     },
     "rate_type": {
      "value": "fast",
@@ -1052,28 +1035,24 @@
      "status": "osäkert",
      "jev": {
       "verdict": "says_nothing",
-      "confidence": 0.79
+      "confidence": 0.62
      }
     },
     "binding_months": {
      "value": 36,
-     "quote": "| 3 år | 2,62 % | 2,59 % |",
+     "quote": "| 3 år | 2,61 % | 2,58 % |",
      "source": 1,
-     "status": "osäkert",
-     "jev": {
-      "verdict": "says_nothing",
-      "confidence": 0.22
-     }
+     "status": "belagt"
     },
     "withdrawals": {
-     "quote": "Ja, du kan avsluta placeringen i förtid.",
+     "value": "mot avgift",
+     "quote": "Om du tar ut pengarna i förtid tillkommer en avgift.",
      "source": 1,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 1.0
-     },
-     "value": "mot avgift"
+      "confidence": 0.52
+     }
     },
     "free_withdrawals_per_year": {
      "value": null,
@@ -1082,13 +1061,13 @@
      "status": "okänt"
     },
     "withdrawal_terms": {
-     "value": "Uttag i förtid medför avgift baserad på skillnaden mellan avtalad ränta och marknadsränta; tas först från räntan, sedan från kapitalet.",
+     "value": "Uttag i förtid kostar en avgift, tas först från ränta, sedan kapital; baseras på skillnaden mot marknadsräntan.",
      "quote": "Avgiften tas i första hand från räntan du tjänat, och om det inte räcker även från det insatta beloppet.",
      "source": 1,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.98
+      "confidence": 1.0
      }
     },
     "min_deposit_sek": {
@@ -1098,10 +1077,16 @@
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 1.0
+      "confidence": 0.97
      }
     },
     "max_deposit_sek": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "monthly_deposit_cap_sek": {
      "value": null,
      "quote": null,
      "source": null,
@@ -1132,7 +1117,7 @@
      "status": "okänt"
     },
     "interest_paid": {
-     "value": "Hela räntan betalas ut på slutförfallodagen.",
+     "value": "Utbetalas på slutförfallodagen",
      "quote": "Räntan på Fasträntekonto beräknas också utifrån att hela räntan betalas ut på slutförfallodagen.",
      "source": 1,
      "status": "belagt",
@@ -1143,12 +1128,12 @@
     },
     "guarantee_country": {
      "value": "SE",
-     "quote": "Våra konton omfattas av den statliga insättningsgarantin enligt beslut av Riksgälden.",
-     "source": 5,
-     "status": "belagt",
+     "quote": "Fasträntekontot är ett bundet sparande med fast ränta som omfattas av insättningsgarantin.",
+     "source": 1,
+     "status": "osäkert",
      "jev": {
-      "verdict": "supports",
-      "confidence": 0.41
+      "verdict": "contradicts",
+      "confidence": 0.58
      }
     },
     "guarantee_amount": {
@@ -1158,17 +1143,17 @@
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.97
+      "confidence": 0.94
      }
     },
     "rate_valid_from": {
-     "value": "2026-10-09",
-     "quote": "Fasträntekonto – aktuella räntor 2026-10-09",
+     "value": "2026-10-12",
+     "quote": "Fasträntekonto – aktuella räntor 2026-10-12",
      "source": 1,
-     "status": "belagt",
+     "status": "osäkert",
      "jev": {
-      "verdict": "supports",
-      "confidence": 0.25
+      "verdict": "says_nothing",
+      "confidence": 0.49
      }
     }
    },
@@ -1187,18 +1172,14 @@
      "status": "osäkert",
      "jev": {
       "verdict": "contradicts",
-      "confidence": 0.16
+      "confidence": 0.23
      }
     },
     "rate_percent": {
-     "value": 2.7,
-     "quote": "| 4 år | 2,70 % | 2,63 % |",
+     "value": 2.68,
+     "quote": "| 4 år | 2,68 % | 2,61 % |",
      "source": 1,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.85
-     }
+     "status": "belagt"
     },
     "rate_type": {
      "value": "fast",
@@ -1207,28 +1188,24 @@
      "status": "osäkert",
      "jev": {
       "verdict": "says_nothing",
-      "confidence": 0.38
+      "confidence": 0.64
      }
     },
     "binding_months": {
      "value": 48,
-     "quote": "| 4 år | 2,70 % | 2,63 % |",
+     "quote": "| 4 år | 2,68 % | 2,61 % |",
      "source": 1,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.2
-     }
+     "status": "belagt"
     },
     "withdrawals": {
-     "quote": "Ja, du kan avsluta placeringen i förtid.",
+     "value": "mot avgift",
+     "quote": "Om du tar ut pengarna i förtid tillkommer en avgift.",
      "source": 1,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 1.0
-     },
-     "value": "mot avgift"
+      "confidence": 0.55
+     }
     },
     "free_withdrawals_per_year": {
      "value": null,
@@ -1237,13 +1214,13 @@
      "status": "okänt"
     },
     "withdrawal_terms": {
-     "value": "Uttag i förtid medför avgift baserad på skillnaden mellan avtalad ränta och marknadsränta; tas först från räntan, sedan från kapitalet.",
+     "value": "Uttag i förtid kostar en avgift, tas först från ränta, sedan kapital; baseras på skillnaden mot marknadsräntan.",
      "quote": "Avgiften tas i första hand från räntan du tjänat, och om det inte räcker även från det insatta beloppet.",
      "source": 1,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.8
+      "confidence": 1.0
      }
     },
     "min_deposit_sek": {
@@ -1262,6 +1239,12 @@
      "source": null,
      "status": "okänt"
     },
+    "monthly_deposit_cap_sek": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
     "deposit_terms": {
      "value": null,
      "quote": null,
@@ -1287,7 +1270,7 @@
      "status": "okänt"
     },
     "interest_paid": {
-     "value": "Hela räntan betalas ut på slutförfallodagen.",
+     "value": "Utbetalas på slutförfallodagen",
      "quote": "Räntan på Fasträntekonto beräknas också utifrån att hela räntan betalas ut på slutförfallodagen.",
      "source": 1,
      "status": "belagt",
@@ -1298,12 +1281,12 @@
     },
     "guarantee_country": {
      "value": "SE",
-     "quote": "Våra konton omfattas av den statliga insättningsgarantin enligt beslut av Riksgälden.",
-     "source": 5,
-     "status": "belagt",
+     "quote": "Fasträntekontot är ett bundet sparande med fast ränta som omfattas av insättningsgarantin.",
+     "source": 1,
+     "status": "osäkert",
      "jev": {
-      "verdict": "supports",
-      "confidence": 0.43
+      "verdict": "contradicts",
+      "confidence": 0.53
      }
     },
     "guarantee_amount": {
@@ -1313,17 +1296,17 @@
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.95
+      "confidence": 0.97
      }
     },
     "rate_valid_from": {
-     "value": "2026-10-09",
-     "quote": "Fasträntekonto – aktuella räntor 2026-10-09",
+     "value": "2026-10-12",
+     "quote": "Fasträntekonto – aktuella räntor 2026-10-12",
      "source": 1,
      "status": "osäkert",
      "jev": {
       "verdict": "says_nothing",
-      "confidence": 0.41
+      "confidence": 0.49
      }
     }
    },
@@ -1342,49 +1325,40 @@
      "status": "osäkert",
      "jev": {
       "verdict": "contradicts",
-      "confidence": 0.16
+      "confidence": 0.28
      }
     },
     "rate_percent": {
-     "value": 2.77,
-     "quote": "| 5 år | 2,77 % | 2,66 % |",
+     "value": 2.74,
+     "quote": "| 5 år | 2,74 % | 2,64 % |",
      "source": 1,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.85
-     }
+     "status": "belagt"
     },
     "rate_type": {
-     "value": null,
+     "value": "fast",
      "quote": "Fast ränta under bindningstiden",
      "source": 1,
-     "status": "stöds inte av källan",
+     "status": "osäkert",
      "jev": {
       "verdict": "says_nothing",
-      "confidence": 0.82
-     },
-     "claimed": "fast"
+      "confidence": 0.73
+     }
     },
     "binding_months": {
      "value": 60,
-     "quote": "| 5 år | 2,77 % | 2,66 % |",
+     "quote": "| 5 år | 2,74 % | 2,64 % |",
      "source": 1,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.3
-     }
+     "status": "belagt"
     },
     "withdrawals": {
-     "quote": "Ja, du kan avsluta placeringen i förtid.",
+     "value": "mot avgift",
+     "quote": "Om du tar ut pengarna i förtid tillkommer en avgift.",
      "source": 1,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 1.0
-     },
-     "value": "mot avgift"
+      "confidence": 0.59
+     }
     },
     "free_withdrawals_per_year": {
      "value": null,
@@ -1393,13 +1367,13 @@
      "status": "okänt"
     },
     "withdrawal_terms": {
-     "value": "Uttag i förtid medför avgift baserad på skillnaden mellan avtalad ränta och marknadsränta; tas först från räntan, sedan från kapitalet.",
+     "value": "Uttag i förtid kostar en avgift, tas först från ränta, sedan kapital; baseras på skillnaden mot marknadsräntan.",
      "quote": "Avgiften tas i första hand från räntan du tjänat, och om det inte räcker även från det insatta beloppet.",
      "source": 1,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.62
+      "confidence": 1.0
      }
     },
     "min_deposit_sek": {
@@ -1409,10 +1383,16 @@
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.95
+      "confidence": 0.97
      }
     },
     "max_deposit_sek": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "monthly_deposit_cap_sek": {
      "value": null,
      "quote": null,
      "source": null,
@@ -1443,7 +1423,7 @@
      "status": "okänt"
     },
     "interest_paid": {
-     "value": "Hela räntan betalas ut på slutförfallodagen.",
+     "value": "Utbetalas på slutförfallodagen",
      "quote": "Räntan på Fasträntekonto beräknas också utifrån att hela räntan betalas ut på slutförfallodagen.",
      "source": 1,
      "status": "belagt",
@@ -1454,12 +1434,12 @@
     },
     "guarantee_country": {
      "value": "SE",
-     "quote": "Våra konton omfattas av den statliga insättningsgarantin enligt beslut av Riksgälden.",
-     "source": 5,
-     "status": "belagt",
+     "quote": "Fasträntekontot är ett bundet sparande med fast ränta som omfattas av insättningsgarantin.",
+     "source": 1,
+     "status": "osäkert",
      "jev": {
-      "verdict": "supports",
-      "confidence": 0.35
+      "verdict": "contradicts",
+      "confidence": 0.43
      }
     },
     "guarantee_amount": {
@@ -1473,13 +1453,13 @@
      }
     },
     "rate_valid_from": {
-     "value": "2026-10-09",
-     "quote": "Fasträntekonto – aktuella räntor 2026-10-09",
+     "value": "2026-10-12",
+     "quote": "Fasträntekonto – aktuella räntor 2026-10-12",
      "source": 1,
-     "status": "belagt",
+     "status": "osäkert",
      "jev": {
-      "verdict": "supports",
-      "confidence": 0.33
+      "verdict": "says_nothing",
+      "confidence": 0.51
      }
     }
    },
@@ -1503,43 +1483,38 @@
     },
     "rate_percent": {
      "value": 0.1,
-     "quote": "Aktuell ränta 0,10 %",
+     "quote": "0,10 %",
      "source": 2,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.94
+      "confidence": 0.89
      }
     },
     "rate_type": {
      "value": null,
-     "quote": "Räntan som anges för våra konton visar den för närvarande aktuella årsräntan.",
-     "source": 0,
-     "status": "stöds inte av källan",
-     "jev": {
-      "verdict": "says_nothing",
-      "confidence": 0.89
-     },
-     "claimed": "rörlig"
+     "quote": null,
+     "source": null,
+     "status": "okänt"
     },
     "binding_months": {
      "value": 0,
-     "quote": "Bindningstid Ingen, fria uttag.",
+     "quote": "Ingen, fria uttag.",
      "source": 2,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.98
+      "confidence": 0.89
      }
     },
     "withdrawals": {
      "value": "fria",
-     "quote": "Enkelt att sätta in eller ta ut pengar",
+     "quote": "Ingen, fria uttag.",
      "source": 2,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.8
+      "confidence": 0.91
      }
     },
     "free_withdrawals_per_year": {
@@ -1549,23 +1524,23 @@
      "status": "okänt"
     },
     "withdrawal_terms": {
-     "value": "Fria uttag utan bindningstid.",
-     "quote": "Pengarna finns tillgängliga när du behöver dem.",
+     "value": "Fria uttag, ingen bindningstid.",
+     "quote": "Ingen, fria uttag.",
      "source": 2,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.98
+      "confidence": 0.97
      }
     },
     "min_deposit_sek": {
      "value": 0,
-     "quote": "Minsta insättning 0 kr",
+     "quote": "Minsta insättning\n\n0 kr",
      "source": 2,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 1.0
+      "confidence": 0.97
      }
     },
     "max_deposit_sek": {
@@ -1574,20 +1549,30 @@
      "source": null,
      "status": "okänt"
     },
-    "deposit_terms": {
+    "monthly_deposit_cap_sek": {
      "value": null,
      "quote": null,
      "source": null,
      "status": "okänt"
     },
+    "deposit_terms": {
+     "value": "Månadssparande kan skapas; max tre e-sparkonton kan öppnas själv.",
+     "quote": "Du kan enkelt skapa ett månadssparande till ditt konto.",
+     "source": 2,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.43
+     }
+    },
     "eligibility": {
-     "value": "Kräver inloggning med säkerhetsdosa eller Mobilt BankID; max tre e-sparkonton via internetbank/app.",
+     "value": "Öppnas i internetbank/app med säkerhetsdosa eller Mobilt BankID.",
      "quote": "Du behöver vara inloggad med säkerhetsdosa eller Mobilt BankID.",
      "source": 2,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 1.0
+      "confidence": 0.97
      }
     },
     "requires_other_products": {
@@ -1609,14 +1594,11 @@
      "status": "okänt"
     },
     "guarantee_country": {
-     "value": "SE",
-     "quote": "Våra konton omfattas av den statliga insättningsgarantin enligt beslut av Riksgälden.",
-     "source": 5,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.46
-     }
+     "value": null,
+     "quote": "Kontot omfattar av insättningsgarantin.",
+     "source": 2,
+     "status": "citat hittades inte",
+     "claimed": "SE"
     },
     "guarantee_amount": {
      "value": "1 150 000 kr",
@@ -1645,53 +1627,45 @@
    "fields": {
     "product_type": {
      "value": "rörligt sparkonto",
-     "quote": "Sparkapitalkontot omfattas av insättningsgarantin och passar dig som vill spara tryggt och långsiktigt.",
+     "quote": "Fria uttag gör att du kan ta ut pengarna när du behöver dem.",
      "source": 6,
      "status": "osäkert",
      "jev": {
-      "verdict": "says_nothing",
-      "confidence": 0.58
+      "verdict": "contradicts",
+      "confidence": 0.33
      }
     },
     "rate_percent": {
-     "value": 0.2,
-     "quote": "Aktuell ränta (saldo upp till 250 000 kr) 0,20 %",
+     "value": null,
+     "quote": "Aktuell ränta (saldo upp till 250 000 kr)",
+     "source": 6,
+     "status": "talet finns inte i citatet",
+     "claimed": 0.2
+    },
+    "rate_type": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "binding_months": {
+     "value": 0,
+     "quote": "Ingen, fria uttag.",
+     "source": 6,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.82
+     }
+    },
+    "withdrawals": {
+     "value": "fria",
+     "quote": "Ingen, fria uttag.",
      "source": 6,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
       "confidence": 0.98
-     }
-    },
-    "rate_type": {
-     "value": null,
-     "quote": "Räntan som anges för våra konton visar den för närvarande aktuella årsräntan.",
-     "source": 0,
-     "status": "stöds inte av källan",
-     "jev": {
-      "verdict": "says_nothing",
-      "confidence": 0.88
-     },
-     "claimed": "rörlig"
-    },
-    "binding_months": {
-     "value": 0,
-     "quote": "Bindningstid Ingen, fria uttag.",
-     "source": 6,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 1.0
-     }
-    },
-    "withdrawals": {
-     "value": "fria",
-     "quote": "Fria uttag gör att du kan ta ut pengarna när du behöver dem.",
-     "source": 6,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 1.0
      }
     },
     "free_withdrawals_per_year": {
@@ -1701,18 +1675,8 @@
      "status": "okänt"
     },
     "withdrawal_terms": {
-     "value": "Fria uttag utan bindningstid.",
-     "quote": "Fria uttag gör att du kan ta ut pengarna när du behöver dem.",
-     "source": 6,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.97
-     }
-    },
-    "min_deposit_sek": {
-     "value": 0,
-     "quote": "Minsta insättning 0 kr",
+     "value": "Fria uttag, ingen bindningstid.",
+     "quote": "Ingen, fria uttag.",
      "source": 6,
      "status": "belagt",
      "jev": {
@@ -1720,7 +1684,23 @@
       "confidence": 1.0
      }
     },
+    "min_deposit_sek": {
+     "value": 0,
+     "quote": "Minsta insättning\n\n0 kr",
+     "source": 6,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.98
+     }
+    },
     "max_deposit_sek": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "monthly_deposit_cap_sek": {
      "value": null,
      "quote": null,
      "source": null,
@@ -1737,14 +1717,10 @@
      }
     },
     "eligibility": {
-     "value": "Öppnas via telefon eller kontor.",
-     "quote": "Ring oss på 0771-350 350 eller besök något av våra kontor.",
-     "source": 6,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.52
-     }
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
     },
     "requires_other_products": {
      "value": null,
@@ -1765,14 +1741,15 @@
      "status": "okänt"
     },
     "guarantee_country": {
-     "value": "SE",
-     "quote": "Våra konton omfattas av den statliga insättningsgarantin enligt beslut av Riksgälden.",
-     "source": 5,
-     "status": "belagt",
+     "value": null,
+     "quote": "Sparkapitalkontot omfattas av insättningsgarantin",
+     "source": 6,
+     "status": "stöds inte av källan",
      "jev": {
-      "verdict": "supports",
-      "confidence": 0.51
-     }
+      "verdict": "says_nothing",
+      "confidence": 0.83
+     },
+     "claimed": "SE"
     },
     "guarantee_amount": {
      "value": "1 150 000 kr",
@@ -1796,32 +1773,32 @@
      "min_sek": 0,
      "max_sek": 250000,
      "rate_percent": 0.2,
-     "quote": "Aktuell ränta (saldo upp till 250 000 kr) 0,20 %",
+     "quote": "Aktuell ränta (saldo upp till 250 000 kr)",
      "source": 6,
-     "status": "belagt"
+     "status": "ej belagt"
     },
     {
      "min_sek": 250000,
      "max_sek": 1000000,
      "rate_percent": 0.75,
-     "quote": "Aktuell ränta (saldo över 250 000 kr) 0,75 %",
+     "quote": "Aktuell ränta (saldo över 250 000 kr)",
      "source": 6,
-     "status": "belagt"
+     "status": "ej belagt"
     },
     {
      "min_sek": 1000000,
      "max_sek": null,
      "rate_percent": 1.05,
-     "quote": "Aktuell ränta (saldo över 1 000 000 kr) 1,05 %",
+     "quote": "Aktuell ränta (saldo över 1 000 000 kr)",
      "source": 6,
-     "status": "belagt"
+     "status": "ej belagt"
     }
    ],
    "pending_rate": null,
-   "status": "verifierad"
+   "status": "ej verifierad"
   }
  ],
- "source_hash": "0b5ce488e6f0afa9",
- "changed_at": "2026-10-11T14:05:22+00:00",
+ "source_hash": "624240ba00866f71",
+ "changed_at": "2026-10-12T09:36:23+00:00",
  "model": "claude-sonnet-5-5"
 }
