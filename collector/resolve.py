@@ -1,11 +1,12 @@
-"""Tar reda på vilka institut som erbjuder sparkonton till privatpersoner i Sverige,
-under vilka varumärken och på vilka webbplatser. Claude söker på webben.
+"""Tar reda på vilka institut som erbjuder segmentets produkt (sparkonton, bolån …) till
+privatpersoner i Sverige, under vilka varumärken och på vilka webbplatser. Claude söker på webben.
 
-    python -m collector.resolve                  # svenska institut + ledtrådar, sedan utländska i mån av utrymme
-    python -m collector.resolve --limit 40       # högst 40 uppslag i den här körningen
-    python -m collector.resolve --only "Lunar"   # bara institut/ledtrådar vars namn innehåller texten
+    python -m collector.resolve                       # sparkonton: ledtrådar, svenska institut, sedan utländska
+    python -m collector.resolve --segment mortgage    # bolån
+    python -m collector.resolve --limit 40            # högst 40 uppslag i den här körningen
+    python -m collector.resolve --only "Lunar"        # bara institut/ledtrådar vars namn innehåller texten
 
-Resultatet sparas i data/institutions.json och återanvänds. Uppslag görs om efter RECHECK_DAYS.
+Resultatet sparas i segmentets resolve_out och återanvänds. Uppslag görs om efter RECHECK_DAYS.
 """
 from __future__ import annotations
 
@@ -21,26 +22,19 @@ from urllib.parse import urlparse
 
 import yaml
 
-from . import llm
+from . import llm, segments
 
 DATA = Path(__file__).resolve().parent.parent / "data"
-OUT = DATA / "institutions.json"
 RECHECK_DAYS = 120
 WORKERS = 6
 
-SYSTEM = """Du kartlägger den svenska marknaden för sparkonton åt en oberoende jämförelsesajt. Använd webbsökning och kontrollera på institutets egna webbplatser.
-
-Avgör om institutet, under eget namn eller under ett annat varumärke, i dag erbjuder sparkonton eller annan inlåning som privatpersoner i Sverige kan öppna (svensk webbplats eller svenskspråkig sida, öppnas med t.ex. BankID). Räkna inte med: bara företagskunder, bara lån eller kort, ISK/fonder/aktier, pensionsprodukter, eller sparkonton som bara erbjuds i andra länder.
-
-För plattformar som förmedlar sparkonton hos andra banker (t.ex. Avanza, Nordnet eller Sambla): ta med varumärket om kunden öppnar sparkontot via plattformen, och skriv i notes vilka banker som står för inlåningen.
-
-Ange för varje varumärke den officiella svenska webbplatsen (homepage) och den sida som bäst listar sparkontona och deras räntor (savings_url). Hitta aldrig på adresser. Ange bara adresser du faktiskt har sett."""
+# Frågan till modellen kommer från segmentet (collector/segments.py).
 
 SCHEMA = {
     "type": "object",
     "properties": {
         "legal_name": {"type": "string"},
-        "offers_savings_in_sweden": {"type": "boolean"},
+        "offers_in_sweden": {"type": "boolean", "description": "Erbjuder institutet produkten till privatpersoner i Sverige?"},
         "home_country": {"type": ["string", "null"], "description": "ISO-landskod för landet där institutet har sitt banktillstånd."},
         "brands": {
             "type": "array",
@@ -49,16 +43,16 @@ SCHEMA = {
                 "properties": {
                     "brand": {"type": "string"},
                     "homepage": {"type": "string"},
-                    "savings_url": {"type": ["string", "null"]},
+                    "product_url": {"type": ["string", "null"], "description": "Sidan som bäst visar produkterna och räntorna."},
                     "kind": {"type": "string", "enum": ["storbank", "sparbank", "nischbank", "neobank", "utlandsk_bank", "kreditmarknadsbolag", "plattform", "medlemsbank", "annat"]},
                 },
-                "required": ["brand", "homepage", "savings_url", "kind"],
+                "required": ["brand", "homepage", "product_url", "kind"],
                 "additionalProperties": False,
             },
         },
         "notes": {"type": "string", "description": "Kort motivering och källor, max 400 tecken."},
     },
-    "required": ["legal_name", "offers_savings_in_sweden", "home_country", "brands", "notes"],
+    "required": ["legal_name", "offers_in_sweden", "home_country", "brands", "notes"],
     "additionalProperties": False,
 }
 
@@ -70,12 +64,15 @@ def now() -> str:
 
 
 def load() -> dict:
-    return json.loads(OUT.read_text()) if OUT.exists() else {}
+    out = segments.cur().resolve_out
+    return json.loads(out.read_text()) if out.exists() else {}
 
 
 def save(db: dict) -> None:
     with _lock:
-        OUT.write_text(json.dumps(dict(sorted(db.items())), ensure_ascii=False, indent=1))
+        out = segments.cur().resolve_out
+        out.parent.mkdir(parents=True, exist_ok=True)
+        out.write_text(json.dumps(dict(sorted(db.items())), ensure_ascii=False, indent=1))
 
 
 def queue(db: dict, only: str | None) -> list[tuple[str, str]]:
@@ -87,10 +84,13 @@ def queue(db: dict, only: str | None) -> list[tuple[str, str]]:
         return not e or dt.datetime.fromisoformat(e["checked_at"]) < fresh_after
 
     items = []
-    hints = yaml.safe_load((DATA / "brand_hints.yaml").read_text()) or []
+    seg = segments.cur()
+    hints = yaml.safe_load(seg.resolve_hints.read_text()) or [] if seg.resolve_hints.exists() else []
     for h in hints:
-        items.append((0, f"hint:{h}", f'Varumärket/företaget "{h}" marknadsförs för sparande i Sverige. Vilket institut står bakom, och vilka varumärken med egna sparkonton finns?'))
+        items.append((0, f"hint:{h}", f'Varumärket/företaget "{h}" marknadsförs i Sverige. Vilket institut står bakom, och vilka varumärken finns?'))
     for r in json.loads((DATA / "fi_register.json").read_text()):
+        if seg.resolve_categories and r["category"] not in seg.resolve_categories:
+            continue
         prio = 2 if r["category"] in ("UTLBGH", "UTLKGH") else 1
         items.append((prio, f"fi:{r['fi_id']}",
                       f'Institut i Finansinspektionens register: "{r["name"]}" (FI-id {r["fi_id"]}, kategori: {r["category_name"]}).'))
@@ -102,11 +102,11 @@ def queue(db: dict, only: str | None) -> list[tuple[str, str]]:
 
 
 def resolve_one(key: str, question: str) -> dict:
-    res = llm.research_call(SYSTEM, question + "\n\nSvara enligt schemat.", SCHEMA)
+    res = llm.research_call(segments.cur().resolve_system, question + "\n\nSvara enligt schemat.", SCHEMA)
     res["checked_at"] = now()
     res["query"] = question
     for b in res.get("brands", []):
-        for f in ("homepage", "savings_url"):
+        for f in ("homepage", "product_url"):
             if b.get(f) and not b[f].startswith("http"):
                 b[f] = "https://" + b[f].lstrip("/")
     return res
@@ -131,12 +131,13 @@ def banks_from_institutions() -> list[dict]:
     db = load()
     out, seen = [], set()
     for key, e in sorted(db.items()):
-        if not e.get("offers_savings_in_sweden"):
+        if not e.get("offers_in_sweden", e.get("offers_savings_in_sweden")):
             continue
         for b in e.get("brands", []):
-            if not b.get("savings_url") and b.get("kind") == "annat":
+            url = b.get("product_url") or b.get("savings_url")
+            if not url and b.get("kind") == "annat":
                 continue
-            sk = site_key(b.get("savings_url") or b["homepage"])
+            sk = site_key(url or b["homepage"])
             if sk in seen:
                 continue
             seen.add(sk)
@@ -149,8 +150,8 @@ def banks_from_institutions() -> list[dict]:
                 "legal_name": e.get("legal_name"),
                 "source": key,
             }
-            if b.get("savings_url"):
-                entry["start_urls"] = [b["savings_url"]]
+            if url:
+                entry["start_urls"] = [url]
             out.append(entry)
     return out
 
@@ -163,7 +164,9 @@ def main():
     ap.add_argument("--limit", type=int, default=60)
     ap.add_argument("--only")
     ap.add_argument("--domestic-only", action="store_true")
+    ap.add_argument("--segment", default="savings")
     args = ap.parse_args()
+    segments.use(args.segment)
     db = load()
     todo = queue(db, args.only)
     if args.domestic_only:
@@ -183,8 +186,8 @@ def main():
             with _lock:
                 db[k] = res
             done += 1
-            brands = ", ".join(f"{b['brand']} <{b.get('savings_url') or b['homepage']}>" for b in res.get("brands", []))
-            print(f"  {'+' if res['offers_savings_in_sweden'] else '-'} {res['legal_name']}: {brands}", flush=True)
+            brands = ", ".join(f"{b['brand']} <{b.get('product_url') or b['homepage']}>" for b in res.get("brands", []))
+            print(f"  {'+' if res['offers_in_sweden'] else '-'} {res['legal_name']}: {brands}", flush=True)
             if done % 5 == 0:
                 save(db)
     save(db)

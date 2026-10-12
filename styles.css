@@ -13,7 +13,7 @@
   --note-soft: #e8ecf6;
   --note: #2c437a;
   --radius: 10px;
-  --series-1: #2a78d6; --series-2: #eb6834; --series-3: #1baf7a;
+  --series-1: #2a78d6; --series-2: #eb6834; --series-3: #1baf7a; --series-4: #eda100;
   color-scheme: light;
 }
 @media (prefers-color-scheme: dark) {
@@ -21,7 +21,7 @@
     --bg: #141517; --surface: #1c1e21; --text: #ecebe6; --muted: #a2a5ab; --line: #2e3136;
     --accent: #5cc79f; --accent-soft: #163329; --part: #e8b75a; --part-soft: #3a2c10;
     --warn: #f08b84; --warn-soft: #3d1d1b; --note: #a9bdf0; --note-soft: #1f2840;
-    --series-1: #3987e5; --series-2: #d95926; --series-3: #199e70;
+    --series-1: #3987e5; --series-2: #d95926; --series-3: #199e70; --series-4: #c98500;
     color-scheme: dark;
   }
 }
@@ -29,7 +29,7 @@
   --bg: #141517; --surface: #1c1e21; --text: #ecebe6; --muted: #a2a5ab; --line: #2e3136;
   --accent: #5cc79f; --accent-soft: #163329; --part: #e8b75a; --part-soft: #3a2c10;
   --warn: #f08b84; --warn-soft: #3d1d1b; --note: #a9bdf0; --note-soft: #1f2840;
-  --series-1: #3987e5; --series-2: #d95926; --series-3: #199e70;
+  --series-1: #3987e5; --series-2: #d95926; --series-3: #199e70; --series-4: #c98500;
   color-scheme: dark;
 }
 
@@ -132,7 +132,7 @@ summary:hover { color: var(--text); }
 }
 
 /* ---------- ränteläget ---------- */
-.sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+.sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; margin: -1px; padding: 0; border: 0; }
 .regions { display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 12px; }
 @media (max-width: 400px) { .regions { grid-template-columns: 1fr; } .sparkcell { display: none; } }
 .region { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 14px 12px; min-width: 0; }
@@ -184,3 +184,28 @@ summary:hover { color: var(--text); }
   .tabs .short { display: inline; }
   .tabs a { padding: 0 7px; }
 }
+
+/* ---------- bolån ---------- */
+.market { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 12px; }
+.market .hero { margin-bottom: 0; }
+.sortby { flex-direction: row; align-items: center; gap: 8px; }
+.sortby select { font: inherit; text-transform: none; letter-spacing: 0; color: var(--text); background: var(--bg);
+  border: 1px solid var(--line); border-radius: 8px; padding: 6px 8px; }
+.table-scroll { overflow-x: auto; margin-top: 12px; position: relative; }
+.mtg { width: 100%; border-collapse: collapse; font-size: .9rem; min-width: 640px; }
+.mtg th, .mtg td { padding: 8px 6px; border-top: 1px solid var(--line); text-align: left; font-weight: 400; }
+.mtg thead th { border-top: 0; color: var(--muted); font-size: .78rem; }
+.mtg .num { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.mtg .muted { color: var(--muted); }
+.mtg .best { font-weight: 700; }
+.mtg .tag { font-size: .7rem; padding: 0 5px; }
+.expand { all: unset; cursor: pointer; font-weight: 600; }
+.expand::before { content: "▸ "; color: var(--muted); }
+.expand[aria-expanded="true"]::before { content: "▾ "; }
+.expand:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 4px; }
+.mtg-detail td { background: var(--bg); }
+.mtg-detail .terms { margin: 4px 0 8px; }
+.mtg-detail .sources { margin: 0 0 4px; }
+.sub { color: var(--muted); font-size: .85rem; }
+.panel-head .check { font-size: .88rem; display: flex; gap: 6px; align-items: center; }
+.panel-head .check input { accent-color: var(--accent); }

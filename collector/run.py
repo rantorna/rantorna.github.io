@@ -17,14 +17,13 @@ from pathlib import Path
 
 import yaml
 
-from . import discover, extract, fetch, jev, llm, verify
+from . import discover, extract, fetch, jev, llm, segments, verify
 
 ROOT = Path(__file__).resolve().parent.parent
 DATA = ROOT / "data"
-PRODUCTS = DATA / "products"
-RAW = DATA / "raw"  # Claudes råsvar, så att kontrollen kan köras om utan nya anrop
 MAX_TOTAL_CHARS = 250_000
 
+RATE_URL = re.compile(r"rant|r%c3%a4nt|ränt", re.I)  # räntesidor: hämta även via webbläsaren
 RELEVANT = re.compile(r"(%|ränt|rant|uttag|insätt|insatt|bind|villkor|garanti|kr\b|sek\b|belopp|månad|år\b)", re.I)
 
 
@@ -45,10 +44,11 @@ def relevant_hash(pages: list[fetch.Page]) -> str:
 
 
 def load_banks() -> list[dict]:
-    """Banker från uppslagen i FI-registret, plus/överstyrda av data/banks.yaml."""
+    """Banker från uppslagen i FI-registret, plus/överstyrda av segmentets manuella lista."""
     from .resolve import banks_from_institutions, site_key
 
-    manual = yaml.safe_load((DATA / "banks.yaml").read_text()) or []
+    mb = segments.cur().manual_banks
+    manual = (yaml.safe_load(mb.read_text()) or []) if mb and mb.exists() else []
     ids = {b["id"] for b in manual}
     sites = {site_key(b["homepage"]) for b in manual}
     sites |= {site_key(u) for b in manual for u in b.get("start_urls", [])}
@@ -72,8 +72,9 @@ def collect_pages(bank: dict, log, previous: dict | None = None, rediscover: boo
     stale = not disc or (dt.datetime.now(dt.timezone.utc) - dt.datetime.fromisoformat(disc)).days >= REDISCOVER_DAYS
     if prev_urls and not stale and not rediscover:
         pages = []
+        starts = set(bank.get("start_urls", []))
         for u in prev_urls:
-            p = fetch.get(u) if not u.lower().endswith(".pdf") else fetch.get(u, allow_browser=False)
+            p = fetch.get(u, rich=u in starts or bool(RATE_URL.search(u))) if not u.lower().endswith(".pdf") else fetch.get(u, allow_browser=False)
             if p.error or len(p.text) < 200:
                 log(f"  - {u}: {p.error or 'för lite text'} – letar nya sidor")
                 return collect_pages(bank, log, previous, rediscover=True)
@@ -83,8 +84,9 @@ def collect_pages(bank: dict, log, previous: dict | None = None, rediscover: boo
     found = discover.candidates(bank, log=log)
     urls = discover.choose(bank, found, log=log)
     pages = []
+    starts = set(bank.get("start_urls", []))
     for u in urls:
-        p = fetch.get(u)
+        p = fetch.get(u, rich=u in starts or bool(RATE_URL.search(u)))
         if p.error or len(p.text) < 200:
             log(f"  - {u}: {p.error or 'för lite text'}")
             continue
@@ -108,7 +110,7 @@ def collect_pages(bank: dict, log, previous: dict | None = None, rediscover: boo
 def process(bank: dict, discover_only: bool, force: bool, log, rediscover: bool = False,
             reverify: bool = False, relink_only: bool = False) -> dict | None:
     log(f"\n== {bank['name']}")
-    out_path = PRODUCTS / f"{bank['id']}.json"
+    out_path = segments.cur().products / f"{bank['id']}.json"
     previous = json.loads(out_path.read_text()) if out_path.exists() else None
     if relink_only:
         if not previous or not previous.get("sources"):
@@ -152,7 +154,7 @@ def process(bank: dict, discover_only: bool, force: bool, log, rediscover: bool 
     if not llm.available():
         log("  ! ingen LLM – hoppar över tolkning")
         return None
-    raw_path = RAW / f"{bank['id']}.json"
+    raw_path = segments.cur().raw / f"{bank['id']}.json"
     if reverify:
         if not raw_path.exists():
             log("  ingen sparad tolkning – hoppar över")
@@ -162,7 +164,7 @@ def process(bank: dict, discover_only: bool, force: bool, log, rediscover: bool 
         return finish(bank, record, raw, pages, previous, out_path, log)
     try:
         raw = extract.extract(bank, pages)
-        RAW.mkdir(exist_ok=True)
+        raw_path.parent.mkdir(parents=True, exist_ok=True)
         raw_path.write_text(json.dumps({"model": llm.model(), "at": now(), "extraction": raw}, ensure_ascii=False, indent=1))
     except Exception as e:
         log(f"  ! tolkning misslyckades: {e}")
@@ -226,12 +228,13 @@ def finish(bank, record, raw, pages, previous, out_path, log, h=None):
 
 
 def build_site_data():
-    """Slår ihop allt till data/rates.json som sidan läser."""
+    """Slår ihop segmentets banker till filen som sidan läser (t.ex. data/rates.json)."""
     banks = []
-    for f in sorted(PRODUCTS.glob("*.json")):
+    seg = segments.cur()
+    for f in sorted(seg.products.glob("*.json")):
         r = json.loads(f.read_text())
         banks.append({k: r.get(k) for k in ("bank", "checked_at", "changed_at", "status", "notes", "sources", "products")})
-    (DATA / "rates.json").write_text(json.dumps({"generated_at": now(), "banks": banks}, ensure_ascii=False))
+    seg.site_file.write_text(json.dumps({"generated_at": now(), "banks": banks}, ensure_ascii=False))
 
 
 def load_dotenv():
@@ -252,11 +255,13 @@ def main():
     ap.add_argument("--discover-only", action="store_true")
     ap.add_argument("--force", action="store_true", help="tolka även om källorna inte ändrats")
     ap.add_argument("--workers", type=int, default=4)
+    ap.add_argument("--segment", default="savings", help="savings (sparkonton) eller mortgage (bolån)")
     ap.add_argument("--relink", action="store_true", help="hämta källorna och koppla om citat till rätt sida (inga Claude-anrop)")
     ap.add_argument("--reverify", action="store_true", help="kör om kontrollen mot sparade tolkningar (inga nya Claude-anrop)")
     ap.add_argument("--rediscover", action="store_true", help="leta sidor på nytt i stället för att återanvända förra körningens")
     args = ap.parse_args()
-    PRODUCTS.mkdir(parents=True, exist_ok=True)
+    segments.use(args.segment)
+    segments.cur().products.mkdir(parents=True, exist_ok=True)
     banks = [b for b in load_banks() if not args.bank or b["id"] in args.bank]
     print(f"{len(banks)} banker", flush=True)
     failures = 0

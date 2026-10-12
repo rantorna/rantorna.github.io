@@ -29,6 +29,8 @@ CATEGORIES = {
     "UTLBGH": ("Utländsk bank, gränsöverskridande handel", True),
     "UTLKGH": ("Utländskt kreditmarknadsbolag, gränsöverskridande handel", True),
     "INLÅN": ("Inlåningsföretag (ingen insättningsgaranti)", False),
+    "BKRI": ("Bostadskreditinstitut", False),
+    "UTBKRF": ("Utländskt bostadskreditinstitut, svensk filial", True),
 }
 
 

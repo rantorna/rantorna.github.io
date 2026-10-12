@@ -31,6 +31,15 @@ SERIES = {
     "se_gvb5y": ("SE", "lång", "Statsobligation 5 år", 60, "riksbank", "SEGVB5YC"),
     "se_gvb10y": ("SE", "lång", "Statsobligation 10 år", 120, "riksbank", "SEGVB10YC"),
     "se_mb5y": ("SE", "lång", "Bostadsobligation 5 år", None, "riksbank", "SEMB5YCACOMB"),
+    # Sverige – bolåneräntor (SCB, nya avtal resp. alla utestående lån, månadsvis)
+    "se_mtg_new_var": ("SE", "bolån", "Nya bolån, rörlig (≤ 3 mån)", 3, "scb", "0100:1.1.1"),
+    "se_mtg_new_3m1y": ("SE", "bolån", "Nya bolån, 3 mån–1 år", 12, "scb", "0100:1.1.2.1"),
+    "se_mtg_new_1y2y": ("SE", "bolån", "Nya bolån, 1–2 år", 24, "scb", "0100:1.1.2.2.1.1"),
+    "se_mtg_new_2y3y": ("SE", "bolån", "Nya bolån, 2–3 år", 36, "scb", "0100:1.1.2.2.1.2"),
+    "se_mtg_new_3y5y": ("SE", "bolån", "Nya bolån, 3–5 år", 60, "scb", "0100:1.1.2.2.2"),
+    "se_mtg_new_5y": ("SE", "bolån", "Nya bolån, över 5 år", 120, "scb", "0100:1.1.2.3"),
+    "se_mtg_new_all": ("SE", "bolån", "Nya bolån, alla bindningstider", None, "scb", "0100:1"),
+    "se_mtg_stock": ("SE", "bolån", "Alla utestående bolån", None, "scb", "0200:1"),
     # Euroområdet
     "eu_dfr": ("EU", "styr", "Inlåningsränta (ECB)", None, "ecb", "FM/D.U2.EUR.4F.KR.DFR.LEV"),
     "eu_estr": ("EU", "kort", "€STR (dagslåneränta)", 0, "ecb", "EST/B.EU000A2X2A25.WT"),
@@ -55,6 +64,7 @@ SOURCES = {
     "ecb": ("ECB", "https://data.ecb.europa.eu/"),
     "nyfed": ("Federal Reserve Bank of New York", "https://www.newyorkfed.org/markets/reference-rates"),
     "nyfed_target": ("Federal Reserve Bank of New York", "https://www.newyorkfed.org/markets/reference-rates/effr"),
+    "scb": ("SCB", "https://www.scb.se/hitta-statistik/statistik-efter-amne/finansmarknad/finansmarknadsstatistik/"),
     "treasury": ("U.S. Department of the Treasury", "https://home.treasury.gov/policy-issues/financing-the-government/interest-rate-statistics"),
 }
 
@@ -107,6 +117,31 @@ def fetch_nyfed_target(key):
                   if x.get("targetRateTo") is not None)
 
 
+_scb_cache: dict[str, list] = {}
+
+
+def fetch_scb(key):
+    """SCB tabell RantaT04N: bolåneräntor till hushåll (MFI + bostadskreditinstitut)."""
+    if not _scb_cache:
+        q = {"query": [
+            {"code": "Referenssektor", "selection": {"filter": "item", "values": ["1"]}},
+            {"code": "Motpartssektor", "selection": {"filter": "item", "values": ["2c"]}},
+            {"code": "Avtal", "selection": {"filter": "item", "values": ["0100", "0200"]}},
+            {"code": "Tid", "selection": {"filter": "all", "values": ["*"]}},
+        ], "response": {"format": "json"}}
+        r = httpx.post("https://api.scb.se/OV0104/v1/doris/sv/ssd/FM/FM5001/FM5001C/RantaT04N",
+                       json=q, headers=UA, timeout=120)
+        r.raise_for_status()
+        for row in r.json()["data"]:
+            _, _, avtal, bind, month = row["key"]
+            v = row["values"][0]
+            if v in ("..", "", None) or month < f"{START.year}M01":
+                continue
+            date = f"{month[:4]}-{month[5:]}-01"
+            _scb_cache.setdefault(f"{avtal}:{bind}", []).append((date, float(v)))
+    return sorted(_scb_cache.get(key, []))
+
+
 _treasury_cache: dict[str, list] = {}
 
 
@@ -127,7 +162,7 @@ def fetch_treasury(col):
     return sorted(_treasury_cache.get(col, []))
 
 
-FETCHERS = {"riksbank": fetch_riksbank, "swestr": fetch_swestr, "ecb": fetch_ecb, "nyfed": fetch_nyfed,
+FETCHERS = {"scb": fetch_scb, "riksbank": fetch_riksbank, "swestr": fetch_swestr, "ecb": fetch_ecb, "nyfed": fetch_nyfed,
             "nyfed_target": fetch_nyfed_target, "treasury": fetch_treasury}
 
 
@@ -176,7 +211,8 @@ def main():
             obs = FETCHERS[src](key)
             if not obs:
                 raise ValueError("inga observationer")
-            if (dt.date.today() - dt.date.fromisoformat(obs[-1][0])).days > 30:
+            max_age = 75 if src == "scb" else 30  # månadsstatistik publiceras med eftersläpning
+            if (dt.date.today() - dt.date.fromisoformat(obs[-1][0])).days > max_age:
                 raise ValueError(f"senaste värdet är från {obs[-1][0]} – serien verkar ha upphört")
             out[sid] = {"region": region, "group": group, "name": name, "tenor_months": tenor,
                         "source": SOURCES[src][0], "source_url": SOURCES[src][1], "key": key,

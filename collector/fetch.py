@@ -141,7 +141,31 @@ def _browser_get(url: str) -> Page:
         ctx.close()
 
 
-def get(url: str, allow_browser: bool = True) -> Page:
+SOFT_404 = re.compile(r"sidan (hittades|finns) inte|page not found|sidan kunde inte hittas|404", re.I)
+
+
+def _soft_404(page: Page) -> bool:
+    """En kort sida som säger att den inte finns, fast servern svarade 200."""
+    return len(page.text) < 2500 and bool(SOFT_404.search(page.title + " " + page.text[:600]))
+
+
+def get(url: str, allow_browser: bool = True, rich: bool = False) -> Page:
+    """rich=True: hämta även via webbläsaren och behåll versionen med flest räntor
+    (för huvudsidan med räntor, där tabeller ofta laddas med JavaScript)."""
+    page = _get(url, allow_browser)
+    if rich and allow_browser and page.via != "browser":
+        try:
+            bp = _browser_get(url)
+            if not bp.error and len(PCT.findall(bp.text)) > len(PCT.findall(page.text)):
+                page = bp
+        except Exception:
+            pass
+    if not page.error and _soft_404(page):
+        page.error = "sidan finns inte (soft 404)"
+    return page
+
+
+def _get(url: str, allow_browser: bool = True) -> Page:
     try:
         r = client().get(url)
         ctype = r.headers.get("content-type", "")

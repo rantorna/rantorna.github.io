@@ -71,6 +71,14 @@ jobs:
           if [ "$FORCE" = "true" ]; then args="$args --force"; fi
           python -m collector.run --workers 4 $args
 
+      - name: Bolån – slå upp nya långivare
+        if: ${{ !inputs.bank }}
+        run: python -m collector.resolve --segment mortgage --limit 20
+
+      - name: Bolån – hämta och tolka
+        if: ${{ !inputs.bank }}
+        run: python -m collector.run --segment mortgage --workers 4
+
       - name: Spara ändringar
         run: |
           git config user.name "rantorna-bot"

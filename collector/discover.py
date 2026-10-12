@@ -10,7 +10,7 @@ import re
 import unicodedata
 from urllib.parse import urlparse
 
-from . import fetch, llm
+from . import fetch, llm, segments
 
 POS = {
     "sparkonto": 6, "sparkonton": 6, "spar": 3, "spara": 3, "ranta": 4, "rantor": 4,
@@ -31,7 +31,6 @@ NEG = {
 }
 LOCALE = re.compile(r"^/([a-z]{2}(?:-[a-z]{2})?)(?:/|$)", re.I)
 APP_HOSTS = re.compile(r"^(online|app|login|secure|internetbank|ib)\.", re.I)
-KEEP_TERMS_PDF = re.compile(r"(villkor|ranta|ränt|spar|insattning|insättning|prislista|terms|savings)", re.I)
 
 
 def _norm(s: str) -> str:
@@ -43,7 +42,9 @@ def score(url: str, label: str = "") -> int:
     path = _norm(urlparse(url).path + " " + label)
     tokens = [t for t in re.split(r"[^a-z0-9-]+", path) if t]
     parts = set(tokens) | {p for t in tokens for p in t.split("-")}
-    s = sum(POS.get(p, 0) for p in parts) + sum(NEG.get(p, 0) for p in parts)
+    pos = POS | segments.cur().pos
+    neg = {k: v for k, v in NEG.items() if k not in segments.cur().pos}
+    s = sum(pos.get(p, 0) for p in parts) + sum(neg.get(p, 0) for p in parts)
     if url.lower().endswith(".pdf"):
         s += 1
     depth = len([x for x in urlparse(url).path.split("/") if x])
@@ -115,12 +116,7 @@ def choose(bank: dict, found: dict[str, str], max_pages: int = 8, log=print) -> 
         try:
             res = llm.json_call(
                 task="choose_pages",
-                system=(
-                    "Du hjälper en svensk jämförelsesajt för sparkonton. Välj de sidor som mest sannolikt "
-                    "innehåller aktuella räntesatser och villkor för sparkonton/inlåning för privatpersoner i "
-                    "Sverige (rörliga sparkonton, fasträntekonton, villkorsdokument, räntetabeller, "
-                    "insättningsgaranti). Välj inte lån, kort, fonder, företagskonton eller nyheter."
-                ),
+                system=segments.cur().choose_system,
                 user=f"Bank: {bank['name']}\nKandidater:\n{listing}\n\nVälj högst {max_pages} index, viktigast först.",
                 schema={
                     "type": "object",
@@ -147,7 +143,7 @@ def linked_terms(pages: list[fetch.Page], home: str, already: set[str], limit: i
         for u, label in p.links:
             if u in already or not same_site(u, home) and not u.lower().endswith(".pdf"):
                 continue
-            if KEEP_TERMS_PDF.search(_norm(u + " " + label)) and (
+            if re.search(segments.cur().terms_re, _norm(u + " " + label), re.I) and (
                 u.lower().endswith(".pdf") or "villkor" in _norm(u + label)
             ):
                 if score(u, label) > 0:

@@ -9,11 +9,9 @@ from __future__ import annotations
 import re
 import unicodedata
 
-from .schema import FIELDS
+from . import segments
 
 # Fält som måste vara belagda för att produkten ska räknas som verifierad.
-CORE = ("rate_percent", "binding_months", "withdrawals")
-MAX_PLAUSIBLE_RATE = 8.0
 MAX_JUMP_PP = 1.5  # procentenheter mellan två körningar innan vi kräver bekräftelse
 
 
@@ -24,6 +22,7 @@ def _norm(s: str) -> str:
     s = re.sub(r"[\"'“”‘’«»]", "", s)
     s = re.sub(r"(\d)[ \u00a0\u202f](?=\d{3}(?!\d))", r"\1", s)  # 100 000 -> 100000
     s = re.sub(r"[^\w%,.\-]+", " ", s)
+    s = re.sub(r"\s+([,.])", r"\1", s)  # länkad text: "kredit\n, vilket" -> "kredit, vilket"
     return " ".join(s.split())
 
 
@@ -170,7 +169,7 @@ def with_period(field: dict, months: int, docs: list[str]) -> dict:
 
 
 def verify_product(prod: dict, docs: list[str], previous: dict | None) -> dict:
-    fields = {name: check_field(name, prod["fields"].get(name, {}), docs) for name, _, _ in FIELDS}
+    fields = {name: check_field(name, prod["fields"].get(name, {}), docs) for name, _, _ in segments.cur().fields}
     months = period_months(prod.get("name", ""))
     if months:
         r = fields["rate_percent"] = with_period(fields["rate_percent"], months, docs)
@@ -191,7 +190,7 @@ def verify_product(prod: dict, docs: list[str], previous: dict | None) -> dict:
 
     flags = []
     rate = fields["rate_percent"]["value"]
-    if rate is not None and not (0 <= rate <= MAX_PLAUSIBLE_RATE):
+    if rate is not None and not (0 <= rate <= segments.cur().max_rate):
         flags.append(f"orimlig ränta {rate} %")
     if previous and rate is not None:
         prev_rate = previous.get("fields", {}).get("rate_percent", {}).get("value")
@@ -215,7 +214,7 @@ def restatus(p: dict) -> None:
     """Sätter produktens samlade status utifrån fälten (körs igen efter Jev)."""
     f = p["fields"]
     bound = f["binding_months"]["value"] not in (None, 0)
-    core = list(CORE)
+    core = [c for c in segments.cur().core if c in f]
     if f["rate_percent"]["value"] is None or p["flags"]:
         p["status"] = "ej verifierad"
     elif all(f[c]["status"] in ("belagt", "osäkert") and f[c]["value"] is not None for c in core):
