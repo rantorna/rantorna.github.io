@@ -32,6 +32,8 @@ class Segment:
     terms_re: str = r"(villkor|ranta|ränt|spar|insattning|insättning|prislista|terms|savings)"
     manual_banks: Path | None = None
     max_rate: float = 8.0
+    url_field: str = "product_url"        # vilken adress i uppslaget insamlingen startar från
+    resolve_secondary: str | None = None  # beskrivning av en extra adress i uppslaget (t.ex. företagssparande)
 
     @property
     def products(self) -> Path:
@@ -128,6 +130,80 @@ SEGMENTS = {
         max_rate=12.0,
     ),
 }
+
+BUSINESS_RESOLVE = """Du kartlägger den svenska marknaden för bankkonton för företag åt en oberoende jämförelsesajt. Använd webbsökning och kontrollera på institutets egna webbplatser.
+
+Avgör om institutet, under eget namn eller under ett annat varumärke, i dag erbjuder företagskonton (transaktionskonto för företag) och/eller sparkonton/placeringskonton för företag i Sverige – för svenska aktiebolag, enskilda firmor, handelsbolag eller föreningar. Räkna inte med: bara privatkunder, bara lån/factoring, bara stora koncerner via förfrågan utan publicerat erbjudande, eller konton bara i andra länder.
+
+Ange för varje varumärke den svenska webbplatsen (homepage), sidan som beskriver företagskontot (product_url, null om inget företagskonto) och sidan som beskriver sparande/placeringskonto för företag med räntor (secondary_url, null om inget sådant). Hitta aldrig på adresser. Ange bara adresser du faktiskt har sett."""
+
+BUSINESS_ACCOUNT_EXTRACT = """Du extraherar fakta om företagskonton (transaktionskonton för företag) i Sverige ur en banks egna webbsidor och dokument, för en oberoende sajt som hjälper företagare att se vilka banker som tar emot dem.
+
+Regler:
+- Ta med varje företagskonto eller företagspaket (med konto) som banken erbjuder svenska företag. Hoppa över privatkonton, lån, factoring, kortkrediter och erbjudanden bara för storföretag.
+- Viktigast: vilka företagsformer som kan öppna kontot, om nystartade företag tas emot, om kontot kan öppnas digitalt, om flera personer kan få behörighet, och vad det kostar.
+- Varje värde måste beläggas med ett ORDAGRANT citat ur dokumenten (kopiera tecken för tecken, max ~300 tecken) och dokumentets index i "source".
+- Finns inget belägg: sätt value, quote och source till null. Gissa aldrig – särskilt inte om nystartade eller flera användare.
+- Belopp i kronor som tal (månadsavgift 99 kr -> 99). Räntor i procent som tal.
+- Sammanfattande textfält skrivs på svenska, korta och sakliga, men måste ändå ha ett citat som stöd."""
+
+BUSINESS_SAVINGS_EXTRACT = SAVINGS_EXTRACT.replace(
+    "för privatpersoner i Sverige", "för företag och föreningar i Sverige"
+).replace(
+    "som en privatperson i Sverige kan öppna", "som ett svenskt företag eller en förening kan öppna"
+).replace(
+    "Hoppa över företagskonton, barnkonton, ISK/depåer, lån,", "Hoppa över privatkonton, barnkonton, ISK/depåer, lån, rena transaktionskonton utan sparränta,"
+)
+
+_BUSINESS_SHARED = dict(
+    resolve_system=BUSINESS_RESOLVE,
+    resolve_out=DATA / "business" / "institutions.json",
+    resolve_hints=DATA / "business" / "brand_hints.yaml",
+    resolve_categories=("BANK", "SPAR", "MBANK", "KMB", "UTLFIL", "FILBK", "UTLKMF"),
+    resolve_secondary="Sidan om sparande/placeringskonto för företag med räntor, eller null.",
+)
+
+SEGMENTS["business_accounts"] = Segment(
+    key="business_accounts",
+    fields=schema.BUSINESS_ACCOUNT_FIELDS,
+    extraction=schema.BUSINESS_ACCOUNT_EXTRACTION,
+    extract_system=BUSINESS_ACCOUNT_EXTRACT,
+    choose_system=(
+        "Du hjälper en svensk sajt som jämför företagskonton. Välj de sidor som mest sannolikt beskriver "
+        "bankens företagskonto eller företagspaket: vilka företag som kan bli kund, nystartade företag, "
+        "behörigheter för flera användare, avgifter/prislistor och villkor. Välj inte privatsidor, lån, "
+        "kortkrediter, nyheter eller storföretagstjänster."
+    ),
+    core=("company_forms", "monthly_fee_sek"),
+    data_dir=DATA / "business" / "accounts",
+    site_file=DATA / "business_accounts.json",
+    pos={"foretag": 6, "foretagskonto": 8, "foretagspaket": 7, "foretagare": 5, "business": 5, "nystartad": 5,
+         "nystartat": 5, "prislista": 4, "priser": 3, "avgifter": 3, "behorighet": 4, "behorigheter": 4,
+         "bli-kund": 4, "konto": 2, "privat": -4, "lan": -3, "ranta": 0},
+    terms_re=r"(företag|foretag|prislista|priser|avgift|villkor|business)",
+    manual_banks=DATA / "business" / "banks_accounts.yaml",
+    **_BUSINESS_SHARED,
+)
+
+SEGMENTS["business_savings"] = Segment(
+    key="business_savings",
+    fields=schema.FIELDS,
+    extraction=schema.EXTRACTION,
+    extract_system=BUSINESS_SAVINGS_EXTRACT,
+    choose_system=(
+        "Du hjälper en svensk jämförelsesajt för sparande för företag. Välj de sidor som mest sannolikt "
+        "innehåller aktuella räntor och villkor för sparkonton, placeringskonton och fasträntekonton för "
+        "företag och föreningar (inte privatpersoner). Välj inte lån, kort, privatkonton eller nyheter."
+    ),
+    core=("rate_percent", "binding_months", "withdrawals"),
+    data_dir=DATA / "business" / "savings",
+    site_file=DATA / "business_savings.json",
+    pos={"foretag": 6, "foretagssparkonto": 8, "placeringskonto": 7, "foretagsspar": 7, "privat": -5,
+         "spara": 3, "sparkonto": 4, "fastrantekonto": 5, "ranta": 4, "rantor": 4},
+    url_field="secondary_url",
+    manual_banks=DATA / "business" / "banks_savings.yaml",
+    **_BUSINESS_SHARED,
+)
 
 _current = "savings"
 

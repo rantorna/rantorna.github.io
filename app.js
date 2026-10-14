@@ -28,6 +28,8 @@ const pct = new Intl.NumberFormat("sv-SE", { minimumFractionDigits: 2, maximumFr
 const $ = (s) => document.querySelector(s);
 
 let DATA = null;
+const PAGE = 50;
+let showAll = false;
 
 function val(p, k) { return p.fields[k] ? p.fields[k].value : null; }
 
@@ -114,7 +116,12 @@ function render() {
     .sort((a, b) => b.rate - a.rate);
 
   const list = $("#list");
-  list.replaceChildren(...items.map((it) => row(it, amount)));
+  // Bara de första raderna ritas direkt – resten på begäran. Håller filtreringen snabb även på långsamma datorer.
+  const shown = showAll ? items : items.slice(0, PAGE);
+  list.replaceChildren(...shown.map((it) => row(it, amount)));
+  const more = $("#more");
+  more.hidden = items.length <= shown.length;
+  more.textContent = `Visa alla ${items.length} konton`;
   $("#empty").hidden = items.length > 0;
   const nBanks = new Set(items.map((i) => i.bank.bank.id)).size;
   $("#summary").textContent = `${items.length} konton hos ${nBanks} banker · avkastning på ${kr.format(amount)} kr under ett år, efter 30 % skatt`;
@@ -152,7 +159,25 @@ function row({ bank, p, rate }, amount) {
   const net = base * rate / 100 * (1 - TAX);
   el.querySelector(".yield").textContent = `+${kr.format(net)} kr/år`;
 
-  const dl = el.querySelector(".terms");
+  // Villkor och citat byggs först när raden fälls ut – annars blir varje filtrering tung.
+  const details = el.querySelector("details");
+  details.addEventListener("toggle", () => {
+    if (details.open && !details.dataset.built) {
+      fillTerms(el.querySelector(".terms"), bank, p);
+      details.dataset.built = "1";
+    }
+  });
+  const warn = [];
+  const gLimit = guaranteeSek(val(p, "guarantee_amount"));
+  if (gLimit && amount > gLimit) warn.push(`Beloppet överstiger insättningsgarantin (${kr.format(gLimit)} kr per person och bank enligt banken).`);
+  if (max != null && amount > max) warn.push(`Räntan gäller upp till ${kr.format(max)} kr.`);
+  for (const fl of p.flags || []) warn.push(fl);
+  const srcEl = el.querySelector(".sources");
+  srcEl.textContent = (warn.length ? warn.join(" ") + " " : "") + `Senast kontrollerat ${new Date(bank.checked_at).toLocaleDateString("sv-SE")}.`;
+  return el;
+}
+
+function fillTerms(dl, bank, p) {
   for (const [k, label] of Object.entries(LABELS)) {
     const fld = p.fields[k];
     if (!fld) continue;
@@ -180,14 +205,6 @@ function row({ bank, p, rate }, amount) {
     }
     dl.append(dt, dd);
   }
-  const warn = [];
-  const gLimit = guaranteeSek(val(p, "guarantee_amount"));
-  if (gLimit && amount > gLimit) warn.push(`Beloppet överstiger insättningsgarantin (${kr.format(gLimit)} kr per person och bank enligt banken).`);
-  if (max != null && amount > max) warn.push(`Räntan gäller upp till ${kr.format(max)} kr.`);
-  for (const fl of p.flags || []) warn.push(fl);
-  const srcEl = el.querySelector(".sources");
-  srcEl.textContent = (warn.length ? warn.join(" ") + " " : "") + `Senast kontrollerat ${new Date(bank.checked_at).toLocaleDateString("sv-SE")}.`;
-  return el;
 }
 
 function renderMissing() {
@@ -205,11 +222,18 @@ function renderMissing() {
   }));
 }
 
+let renderTimer;
 function bindFilters() {
+  $("#more").addEventListener("click", () => { showAll = true; render(); });
   $("#filters").addEventListener("input", (e) => {
+    showAll = false;
     if (e.target.id === "amount") {
       const n = parseAmount();
       e.target.value = n ? kr.format(n) : "";
+      // vänta tills man slutat skriva
+      clearTimeout(renderTimer);
+      renderTimer = setTimeout(render, 200);
+      return;
     }
     render();
   });

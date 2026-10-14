@@ -101,12 +101,26 @@ def queue(db: dict, only: str | None) -> list[tuple[str, str]]:
     return out
 
 
+def schema_for(seg) -> dict:
+    """Uppslagsschemat; segment med två produktsidor (företag) får fältet secondary_url."""
+    if not seg.resolve_secondary:
+        return SCHEMA
+    import copy
+
+    sch = copy.deepcopy(SCHEMA)
+    brand = sch["properties"]["brands"]["items"]
+    brand["properties"]["secondary_url"] = {"type": ["string", "null"], "description": seg.resolve_secondary}
+    brand["required"].append("secondary_url")
+    return sch
+
+
 def resolve_one(key: str, question: str) -> dict:
-    res = llm.research_call(segments.cur().resolve_system, question + "\n\nSvara enligt schemat.", SCHEMA)
+    seg = segments.cur()
+    res = llm.research_call(seg.resolve_system, question + "\n\nSvara enligt schemat.", schema_for(seg))
     res["checked_at"] = now()
     res["query"] = question
     for b in res.get("brands", []):
-        for f in ("homepage", "product_url"):
+        for f in ("homepage", "product_url", "secondary_url"):
             if b.get(f) and not b[f].startswith("http"):
                 b[f] = "https://" + b[f].lstrip("/")
     return res
@@ -134,7 +148,10 @@ def banks_from_institutions() -> list[dict]:
         if not e.get("offers_in_sweden", e.get("offers_savings_in_sweden")):
             continue
         for b in e.get("brands", []):
-            url = b.get("product_url") or b.get("savings_url")
+            seg = segments.cur()
+            url = b.get(seg.url_field) if seg.url_field != "product_url" else (b.get("product_url") or b.get("savings_url"))
+            if (seg.url_field != "product_url" or seg.resolve_secondary) and not url:
+                continue  # t.ex. bank utan sparande för företag
             if not url and b.get("kind") == "annat":
                 continue
             sk = site_key(url or b["homepage"])

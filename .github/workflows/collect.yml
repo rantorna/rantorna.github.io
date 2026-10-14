@@ -79,6 +79,18 @@ jobs:
         if: ${{ !inputs.bank }}
         run: python -m collector.run --segment mortgage --workers 4
 
+      - name: Företag – slå upp nya banker
+        if: ${{ !inputs.bank }}
+        run: python -m collector.resolve --segment business_accounts --limit 20
+
+      - name: Företag – konton
+        if: ${{ !inputs.bank }}
+        run: python -m collector.run --segment business_accounts --workers 4
+
+      - name: Företag – sparande
+        if: ${{ !inputs.bank }}
+        run: python -m collector.run --segment business_savings --workers 4
+
       - name: Spara ändringar
         run: |
           git config user.name "rantorna-bot"

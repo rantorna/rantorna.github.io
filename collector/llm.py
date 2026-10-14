@@ -32,7 +32,7 @@ class LimitReached(LLMError):
 
 
 limit_hit = False
-_LIMIT = ("session limit", "usage limit", "rate limit", "rate_limit", "429", "overloaded")
+_LIMIT = ("session limit", "usage limit", "weekly limit", "hit your", "rate limit", "rate_limit", "429", "overloaded")
 
 
 def _check_limit(text: str):

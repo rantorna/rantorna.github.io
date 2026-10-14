@@ -16,9 +16,17 @@ from . import segments
 URL = os.environ.get("TYPESAFE_ENDPOINT", "https://api.typesafe.ai/v1/systemone")
 MODEL = os.environ.get("TYPESAFE_MODEL", "jev-latest")
 ACCEPT = 0.8
+ACCEPT_BOOL = 0.4
 CONTEXT = 700
 
 usage = {"calls": 0, "input_tokens": 0, "output_tokens": 0}
+
+
+def claim(product: str, bank: str, desc: str, value) -> str:
+    """Påståendet Jev bedömer, på naturlig svenska – särskilt ja/nej-frågor."""
+    if isinstance(value, bool):
+        return f"För produkten {product!r} hos {bank} gäller följande. Fråga: {desc} Svar: {'ja' if value else 'nej'}."
+    return f"För produkten {product!r} hos {bank}: {desc} Värde: {value}."
 
 
 def number_in_quote(field: dict) -> bool:
@@ -76,7 +84,7 @@ def check_product(product: dict, docs: list[str], bank_name: str) -> None:
         questions[k] = {
             "type": "choice",
             "instructions": {
-                "claim": f"För produkten {product['name']!r} hos {bank_name}: {desc[k]} Värde: {v['value']!r}.",
+                "claim": claim(product["name"], bank_name, desc[k], v["value"]),
                 "question": f"Hur förhåller sig texten i `{k}` till påståendet `claim`, för just denna produkt och för privatpersoner?",
             },
             "criteria": {
@@ -103,7 +111,11 @@ def check_product(product: dict, docs: list[str], bank_name: str) -> None:
         # säger emot; ett osäkert nej markeras men värdet står kvar.
         if ans["choice"] == "supports":
             continue
-        if ans["confidence"] >= ACCEPT:
+        # Ja/nej: ett tvivelaktigt nej är sämre än "okänt" (det får folk att välja bort banken),
+        # så ett nej nollas redan vid låg säkerhet. Ett ja har ett citat där saken nämns och
+        # behandlas som andra värden.
+        threshold = ACCEPT_BOOL if f["value"] is False else ACCEPT
+        if ans["confidence"] >= threshold:
             f["claimed"], f["value"] = f["value"], None
             f["status"] = "motsägs av källan" if ans["choice"] == "contradicts" else "stöds inte av källan"
         else:

@@ -95,8 +95,9 @@ function renderTable() {
     const det = document.createElement("tr");
     det.className = "mtg-detail";
     det.hidden = true;
-    det.innerHTML = `<td colspan="${BINDINGS.length + 1}">${detail(b)}</td>`;
+
     tr.querySelector(".expand").addEventListener("click", (e) => {
+      if (!det.firstChild) det.innerHTML = `<td colspan="${BINDINGS.length + 1}">${detail(b)}</td>`;  // byggs först vid utfällning
       det.hidden = !det.hidden;
       e.currentTarget.setAttribute("aria-expanded", String(!det.hidden));
     });

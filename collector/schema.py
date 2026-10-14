@@ -137,3 +137,29 @@ MORTGAGE_EXTRACTION = extraction_schema(
     TIER_LTV, "Räntor per belåningsgrad för den här bindningstiden om banken prissätter så, annars tom.",
     "Kort om något viktigt saknas (t.ex. bara snitträntor, listräntor kräver inloggning).",
 )
+
+
+# ---------- Företagskonton: vilka banker erbjuder dem, för vem och på vilka villkor ----------
+
+BUSINESS_ACCOUNT_FIELDS = [
+    ("company_forms", STR, "Vilka företagsformer kan öppna kontot (t.ex. 'aktiebolag, enskild firma, handelsbolag, ekonomisk förening, ideell förening'). Lista dem kommaseparerat med gemener."),
+    ("accepts_new_companies", BOOL, "Tar banken emot nystartade företag (utan historik/bokslut) som nya kunder för det här kontot?"),
+    ("new_company_terms", STR, "Kort: villkor eller begränsningar för nystartade (t.ex. krav på F-skatt, registrering hos Bolagsverket, affärsplan)."),
+    ("open_online", BOOL, "Kan kontot öppnas helt digitalt (t.ex. med BankID) utan besök på kontor?"),
+    ("multiple_users", BOOL, "Kan flera personer få egen behörighet till kontot (t.ex. firmatecknare, anställda, redovisningskonsult)?"),
+    ("user_terms", STR, "Kort: hur behörigheter fungerar (antal användare, roller, attest/dubbel signering, kostnad per användare)."),
+    ("monthly_fee_sek", NUM, "Lägsta månadsavgift i kronor för kontot eller det minsta paketet som innehåller ett företagskonto. 0 om gratis."),
+    ("fee_terms", STR, "Kort: avgifter och vad paketet innehåller (kort, Swish företag, bankgiro, betalningar)."),
+    ("swish", BOOL, "Kan företaget få Swish företag via banken?"),
+    ("bankgiro", BOOL, "Kan företaget få bankgiro via banken?"),
+    ("account_interest_percent", NUM, "Ränta på företagskontot (transaktionskontot) i procent, om den anges."),
+    ("requirements", STR, "Kort: krav för att bli kund (t.ex. svenskt organisationsnummer, verksamhet i Sverige, firmatecknare med BankID, viss omsättning, inga betalningsanmärkningar)."),
+    ("guarantee_country", {"type": ["string", "null"], "description": "ISO-landskod för insättningsgarantin som gäller."}, "Vilket lands insättningsgaranti gäller för företagets insättningar."),
+]
+
+BUSINESS_ACCOUNT_EXTRACTION = extraction_schema(
+    BUSINESS_ACCOUNT_FIELDS,
+    "Kontots eller paketets namn så som banken skriver det (t.ex. 'Företagskonto', 'Företagspaket Bas').",
+    TIER, "Lämna tom.",
+    "Kort om något viktigt saknas (t.ex. priser bara på förfrågan, kräver kontorsbesök).",
+)

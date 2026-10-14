@@ -221,10 +221,25 @@ def finish(bank, record, raw, pages, previous, out_path, log, h=None):
     }
     for p in products:
         f = p["fields"]
-        log(f"  * {p['name']}: {f['rate_percent']['value']} % [{p['status']}] "
+        rate = f.get('rate_percent', {}).get('value')
+        log(f"  * {p['name']}: {'' if rate is None else str(rate) + ' %'} [{p['status']}] "
             + ", ".join(f"{k}:{v['status']}" for k, v in f.items() if v["status"] not in ("belagt", "okänt")))
     out_path.write_text(json.dumps(record, ensure_ascii=False, indent=1))
     return record
+
+
+def slim(bank: dict) -> None:
+    """Sidan behöver värde, citat, källa och status – inte Jev-svar, nollade påståenden
+    eller källornas metadata. Halverar ungefär filerna som webbläsaren laddar."""
+    bank["sources"] = [{"url": s["url"]} for s in bank.get("sources") or []]
+    for p in bank.get("products") or []:
+        p.pop("pending_rate", None)
+        for f in p["fields"].values():
+            f.pop("jev", None)
+            f.pop("claimed", None)
+            if f.get("value") is None:  # okänt: citatet visas ändå inte
+                f.pop("quote", None)
+                f.pop("source", None)
 
 
 def build_site_data():
@@ -233,7 +248,8 @@ def build_site_data():
     seg = segments.cur()
     for f in sorted(seg.products.glob("*.json")):
         r = json.loads(f.read_text())
-        banks.append({k: r.get(k) for k in ("bank", "checked_at", "changed_at", "status", "notes", "sources", "products")})
+        banks.append({k: r.get(k) for k in ("bank", "checked_at", "changed_at", "status", "sources", "products")})
+        slim(banks[-1])
     seg.site_file.write_text(json.dumps({"generated_at": now(), "banks": banks}, ensure_ascii=False))
 
 

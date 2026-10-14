@@ -171,7 +171,7 @@ def with_period(field: dict, months: int, docs: list[str]) -> dict:
 def verify_product(prod: dict, docs: list[str], previous: dict | None) -> dict:
     fields = {name: check_field(name, prod["fields"].get(name, {}), docs) for name, _, _ in segments.cur().fields}
     months = period_months(prod.get("name", ""))
-    if months:
+    if months and "rate_percent" in fields and "binding_months" in fields:
         r = fields["rate_percent"] = with_period(fields["rate_percent"], months, docs)
         b = fields["binding_months"]
         claimed = b["value"] if b["value"] is not None else b.get("claimed")
@@ -189,7 +189,7 @@ def verify_product(prod: dict, docs: list[str], previous: dict | None) -> dict:
         tiers.append({**t, "status": "belagt" if ok else "ej belagt"})
 
     flags = []
-    rate = fields["rate_percent"]["value"]
+    rate = fields.get("rate_percent", {}).get("value")
     if rate is not None and not (0 <= rate <= segments.cur().max_rate):
         flags.append(f"orimlig ränta {rate} %")
     if previous and rate is not None:
@@ -213,9 +213,10 @@ def verify_product(prod: dict, docs: list[str], previous: dict | None) -> dict:
 def restatus(p: dict) -> None:
     """Sätter produktens samlade status utifrån fälten (körs igen efter Jev)."""
     f = p["fields"]
-    bound = f["binding_months"]["value"] not in (None, 0)
     core = [c for c in segments.cur().core if c in f]
-    if f["rate_percent"]["value"] is None or p["flags"]:
+    needs_rate = "rate_percent" in f
+    if (needs_rate and f["rate_percent"]["value"] is None) or p["flags"] \
+            or (not needs_rate and all(f[c]["value"] is None for c in core)):
         p["status"] = "ej verifierad"
     elif all(f[c]["status"] in ("belagt", "osäkert") and f[c]["value"] is not None for c in core):
         p["status"] = "verifierad"
