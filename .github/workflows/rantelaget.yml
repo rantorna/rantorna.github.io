@@ -1,0 +1,49 @@
+name: Ränteläget
+
+# Officiella källor, ingen AI. Körs två gånger per vardag så att ränteläget är så färskt
+# som källorna medger: efter NY Feds EFFR/SOFR (ca 12 UTC) och efter US Treasurys
+# dagliga statsräntor samt Riksbankens och ECB:s dagsnoteringar (kvällen).
+on:
+  schedule:
+    - cron: "30 13 * * 1-5"
+    - cron: "15 23 * * 1-5"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: rantelaget
+  cancel-in-progress: false
+
+jobs:
+  macro:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+          cache: pip
+
+      - name: Installera
+        run: pip install httpx pyyaml
+
+      - name: Hämta ränteläget
+        run: python -m collector.macro
+
+      - name: Spara
+        run: |
+          git config user.name "rantorna-bot"
+          git config user.email "rantorna-bot@users.noreply.github.com"
+          git add data/macro.json
+          if git diff --cached --quiet; then echo "Inga ändringar."; exit 0; fi
+          git commit -m "Ränteläget $(date -u +%Y-%m-%dT%H:%MZ)"
+          # Nattjobbet kan ha pushat under tiden – försök några gånger.
+          for i in 1 2 3 4 5; do
+            git pull --rebase -X theirs origin main && git push && exit 0
+            sleep 15
+          done
+          exit 1

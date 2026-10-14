@@ -58,6 +58,10 @@ function renderRegions() {
       ${policy ? `<div class="hero"><span class="hero-num">${pct(policy.latest.value)}</span>
         <span class="hero-label">${policy.name}</span>
         ${lc ? `<span class="hero-sub">Senast ändrad ${dateSv(lc.date)} (${pp(lc.to - lc.from)} procentenheter)</span>` : ""}</div>` : ""}
+      ${(() => {
+        const dates = ids.map((id) => S[id]).filter((x) => x.group !== "styr").map((x) => x.latest.date).sort();
+        return dates.length ? `<p class="asof">Marknadsräntor per ${dateSv(dates[dates.length - 1])}</p>` : "";
+      })()}
       <table class="rates">
         <thead><tr><th scope="col">Ränta</th><th scope="col" class="num">Nu</th><th scope="col" class="num">1 mån</th><th scope="col" class="num">1 år</th><th scope="col"><span class="sr">Trend senaste året</span></th></tr></thead>
         <tbody></tbody>

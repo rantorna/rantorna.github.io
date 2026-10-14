@@ -113,6 +113,13 @@ fetch("data/pension.json", { cache: "no-cache" }).then((r) => r.json()).then((d)
   render();
   renderMissing();
   $("#updated").textContent = `Data uppdaterad ${new Date(d.generated_at).toLocaleString("sv-SE", { dateStyle: "long", timeStyle: "short" })}.`;
-  $("#kind").addEventListener("change", render);
+  $("#kind").addEventListener("change", () => {
+    // Adressen följer menyn: ?typ=… vid ett val, ingen parameter vid "Alla" – går att dela och fastnar inte.
+    const url = new URL(location.href);
+    if ($("#kind").value) url.searchParams.set("typ", $("#kind").value);
+    else url.searchParams.delete("typ");
+    history.replaceState(null, "", url);
+    render();
+  });
   $("#sort").addEventListener("change", render);
 });
