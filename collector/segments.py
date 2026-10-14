@@ -34,6 +34,7 @@ class Segment:
     max_rate: float = 8.0
     url_field: str = "product_url"        # vilken adress i uppslaget insamlingen startar från
     resolve_secondary: str | None = None  # beskrivning av en extra adress i uppslaget (t.ex. företagssparande)
+    dedupe_by_brand: bool = False         # flera varumärken kan dela webbplats (t.ex. SEB och Gamla Liv)
 
     @property
     def products(self) -> Path:
@@ -203,6 +204,53 @@ SEGMENTS["business_savings"] = Segment(
     url_field="secondary_url",
     manual_banks=DATA / "business" / "banks_savings.yaml",
     **_BUSINESS_SHARED,
+)
+
+PENSION_RESOLVE = """Du kartlägger svenska livförsäkrings- och tjänstepensionsbolag åt en oberoende jämförelsesajt. Använd webbsökning och kontrollera på bolagets egna webbplatser.
+
+Avgör om bolaget, under eget namn eller under ett annat varumärke, i dag förvaltar traditionell försäkring (garanterad pension/kapital, med återbäringsränta eller avkastningsränta) för kunder i Sverige – tjänstepension, privat pensionsförsäkring eller kapitalförsäkring. Räkna inte med: bara fondförsäkring/depåförsäkring, bara risk-/sjukförsäkringar, eller bestånd som är helt stängda utan publicerade räntor.
+
+Ange för varje varumärke den svenska webbplatsen (homepage) och sidan som visar återbäringsränta, avkastning och konsolideringsgrad för den traditionella förvaltningen (product_url). Hitta aldrig på adresser. Ange bara adresser du faktiskt har sett."""
+
+PENSION_EXTRACT = """Du extraherar nyckeltal för traditionell pensions- och kapitalförsäkring (garanterad förvaltning) ur ett svenskt försäkringsbolags egna webbsidor och rapporter, för en oberoende jämförelsesajt.
+
+Regler:
+- Ta med varje traditionell förvaltning eller produktlinje som har egna publicerade nyckeltal (t.ex. 'Traditionell förvaltning', 'Kapitalförsäkring Traditionell', separata portföljer för olika avtal). Hoppa över fondförsäkring, risk- och sjukförsäkring och stängda bestånd utan aktuella siffror.
+- Ta bara med förvaltningar som tillhör det angivna bolaget/varumärket. Dokument om systerbolag eller andra bestånd på samma webbplats (t.ex. SEB Pension och Försäkring respektive Gamla Liv) ska ignoreras.
+- rate_percent måste vara ett årstal som går att jämföra mellan bolag. Bolag med deklarerad årlig återbäringsränta: ta den (rate_kind = deklarerad årlig återbäringsränta). Bolag som redovisar avkastningsränta per månad (t.ex. "augusti 1,4 %", kolumner som "månad", "hittills i år", "senaste 12 månader"): rate_kind = månadsvis avkastningsränta, rate_percent = senaste 12 månaderna, monthly_rate_percent = senaste månaden. Använd aldrig en enskild månad eller "hittills i år" som rate_percent – finns ingen tolvmånaderssiffra, sätt null.
+- Återbäringsräntan är inte totalavkastningen. Ange månaden den gäller (rate_month) och om den är före eller efter avgifter och avkastningsskatt (rate_basis) om bolaget anger det.
+- Totalavkastning och konsolideringsgrad: ta de senast publicerade siffrorna och ange perioden.
+- Varje värde måste beläggas med ett ORDAGRANT citat ur dokumenten (kopiera tecken för tecken, max ~300 tecken; vid tabeller hela tabellraden) och dokumentets index i "source".
+- Finns inget belägg: sätt value, quote och source till null. Gissa aldrig.
+- Procent som tal (4,5 % -> 4.5). Negativ avkastning som negativt tal.
+- Om dokumenten motsäger varandra: använd det som ser mest aktuellt ut och nämn det i notes."""
+
+SEGMENTS["pension"] = Segment(
+    key="pension",
+    fields=schema.PENSION_FIELDS,
+    extraction=schema.PENSION_EXTRACTION,
+    extract_system=PENSION_EXTRACT,
+    choose_system=(
+        "Du hjälper en svensk jämförelsesajt för traditionell pensions- och kapitalförsäkring. Välj de sidor "
+        "som mest sannolikt innehåller aktuell återbäringsränta, totalavkastning, konsolideringsgrad, "
+        "garantiränta och avgifter för den traditionella förvaltningen. Välj inte fondsidor, risk- eller "
+        "sjukförsäkringar, nyheter eller allmänna pensionsguider."
+    ),
+    core=("rate_percent",),
+    data_dir=DATA / "pension",
+    site_file=DATA / "pension.json",
+    resolve_system=PENSION_RESOLVE,
+    resolve_out=DATA / "pension" / "institutions.json",
+    resolve_hints=DATA / "pension" / "brand_hints.yaml",
+    resolve_categories=("RIKSLI", "TJPAB", "TJPE", "TJPÖMS", "UTLFFL"),
+    pos={"aterbaringsranta": 9, "aterbaring": 7, "avkastningsranta": 8, "traditionell": 7, "trad": 5,
+         "konsolidering": 7, "konsolideringsgrad": 9, "konsolideringsniva": 9, "garanterad": 4, "garantiranta": 6,
+         "avkastning": 5, "nyckeltal": 6, "pension": 2, "kapitalforsakring": 4, "fond": -4, "fonder": -4,
+         "sjukforsakring": -5, "livforsakring": 0},
+    terms_re=r"(återbäring|aterbaring|avkastning|konsolider|nyckeltal|traditionell|villkor|avgift)",
+    manual_banks=DATA / "pension" / "banks.yaml",
+    max_rate=20.0,
+    dedupe_by_brand=True,
 )
 
 _current = "savings"

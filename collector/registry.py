@@ -30,6 +30,11 @@ CATEGORIES = {
     "UTLKGH": ("Utländskt kreditmarknadsbolag, gränsöverskridande handel", True),
     "INLÅN": ("Inlåningsföretag (ingen insättningsgaranti)", False),
     "BKRI": ("Bostadskreditinstitut", False),
+    "RIKSLI": ("Riksbolag, livförsäkringar", False),
+    "TJPAB": ("Tjänstepensionsaktiebolag", False),
+    "TJPE": ("Tjänstepensionsförening", False),
+    "TJPÖMS": ("Ömsesidigt tjänstepensionsbolag", False),
+    "UTLFFL": ("Utländskt försäkringsbolag, svensk filial, liv", True),
     "UTBKRF": ("Utländskt bostadskreditinstitut, svensk filial", True),
 }
 

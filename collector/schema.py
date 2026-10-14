@@ -163,3 +163,34 @@ BUSINESS_ACCOUNT_EXTRACTION = extraction_schema(
     TIER, "Lämna tom.",
     "Kort om något viktigt saknas (t.ex. priser bara på förfrågan, kräver kontorsbesök).",
 )
+
+
+# ---------- Traditionell pensions- och kapitalförsäkring ----------
+
+PENSION_FIELDS = [
+    ("product_kind", _enum("tjänstepension", "privat pensionsförsäkring", "kapitalförsäkring", "flera"),
+     "Vilka försäkringar den traditionella förvaltningen gäller: tjänstepension (via kollektivavtal eller arbetsgivare), privat pensionsförsäkring, kapitalförsäkring (privat eller för företag), eller flera."),
+    ("rate_kind", _enum("deklarerad årlig återbäringsränta", "månadsvis avkastningsränta"),
+     "Hur bolaget sätter räntan: en deklarerad årlig återbäringsränta (t.ex. 8 %), eller en avkastningsränta som följer den faktiska avkastningen och redovisas per månad."),
+    ("rate_percent", NUM, "Räntan som årstal, jämförbar mellan bolag: den deklarerade årliga återbäringsräntan, ELLER – om bolaget redovisar månadsvis avkastningsränta – den samlade räntan för de senaste tolv månaderna (aldrig en enskild månad eller hittills i år)."),
+    ("rate_month", STR, "Månaden räntan gäller från eller avser (för tolvmånadersräntan: sista månaden i perioden), format ÅÅÅÅ-MM."),
+    ("monthly_rate_percent", NUM, "Om bolaget redovisar månadsvis avkastningsränta: den senaste enskilda månadens ränta i procent."),
+    ("rate_basis", STR, "Kort: om återbäringsräntan anges före eller efter avgifter och avkastningsskatt, enligt bolaget."),
+    ("return_1y_percent", NUM, "Totalavkastning för förvaltningen senaste helåret eller senaste tolv månaderna, i procent."),
+    ("return_5y_avg_percent", NUM, "Genomsnittlig årlig totalavkastning över fem år, i procent, om bolaget anger den."),
+    ("return_period", STR, "Vilken period avkastningssiffrorna avser (t.ex. '2025', 'sep 2025–aug 2026', '2021–2025')."),
+    ("consolidation_percent", NUM, "Kollektiv konsolideringsgrad/konsolideringsnivå i procent (t.ex. 115). Visar hur mycket tillgångarna överstiger de utlovade beloppen."),
+    ("guaranteed_rate_percent", NUM, "Garantiränta (garanterad ränta) för nya inbetalningar i procent, om den anges."),
+    ("fee_capital_percent", NUM, "Årlig avgift i procent av kapitalet för den traditionella förvaltningen, om den anges."),
+    ("fee_fixed_sek", NUM, "Fast avgift i kronor per år, om den anges."),
+    ("fee_terms", STR, "Kort: avgifter och vad de beror på (avtal, kapitalstorlek, inbetalningar)."),
+    ("equity_share_percent", NUM, "Andel aktier i förvaltningen i procent, om den anges."),
+    ("available_to", STR, "Kort: vem kan teckna eller får försäkringen (t.ex. via ITP, SAF-LO, KAP-KL, egen firma, privatperson, företag)."),
+]
+
+PENSION_EXTRACTION = extraction_schema(
+    PENSION_FIELDS,
+    "Produktens eller förvaltningens namn så som bolaget skriver det (t.ex. 'Traditionell försäkring', 'Alecta Pensionsförsäkring', 'Kapitalförsäkring Traditionell').",
+    TIER, "Lämna tom.",
+    "Kort om något viktigt saknas (t.ex. återbäringsräntan bara i inloggat läge, avkastning före avgifter).",
+)

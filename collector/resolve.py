@@ -155,6 +155,8 @@ def banks_from_institutions() -> list[dict]:
             if not url and b.get("kind") == "annat":
                 continue
             sk = site_key(url or b["homepage"])
+            if seg.dedupe_by_brand:
+                sk = (sk, slug(b["brand"]))
             if sk in seen:
                 continue
             seen.add(sk)

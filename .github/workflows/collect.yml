@@ -91,6 +91,14 @@ jobs:
         if: ${{ !inputs.bank }}
         run: python -m collector.run --segment business_savings --workers 4
 
+      - name: Pension – slå upp nya bolag
+        if: ${{ !inputs.bank }}
+        run: python -m collector.resolve --segment pension --limit 10
+
+      - name: Pension – hämta och tolka
+        if: ${{ !inputs.bank }}
+        run: python -m collector.run --segment pension --workers 4
+
       - name: Spara ändringar
         run: |
           git config user.name "rantorna-bot"
