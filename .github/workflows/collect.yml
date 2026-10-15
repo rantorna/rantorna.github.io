@@ -99,10 +99,16 @@ jobs:
         run: |
           git config user.name "rantorna-bot"
           git config user.email "rantorna-bot@users.noreply.github.com"
+          python -m collector.check_data
           git add data/
           if git diff --cached --quiet; then
             echo "Inga ändringar."
           else
             git commit -m "Räntor $(date -u +%Y-%m-%d)"
-            git push
+            # Ränteläge-jobbet kan ha pushat under tiden – hämta och försök igen.
+            for i in 1 2 3 4 5; do
+              git pull --rebase -X theirs origin main && git push && exit 0
+              sleep 20
+            done
+            exit 1
           fi
