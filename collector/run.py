@@ -242,6 +242,22 @@ def slim(bank: dict) -> None:
                 f.pop("source", None)
 
 
+def savings_context() -> dict:
+    """Inflation och ISK-regler från ränteläget, så att sparkontosidan kan visa
+    räntan efter skatt och inflation utan att ladda hela macro.json."""
+    path = DATA / "macro.json"
+    if not path.exists():
+        return {}
+    series = json.loads(path.read_text()).get("series", {})
+    latest = lambda sid: (series.get(sid) or {}).get("latest") or {}
+    return {
+        "kpif": latest("se_kpif").get("value"), "kpif_month": latest("se_kpif").get("date"),
+        "isk_year": (latest("se_isk_schablon").get("date") or "")[:4] or None,
+        "isk_schablon": latest("se_isk_schablon").get("value"), "isk_skatt": latest("se_isk_skatt").get("value"),
+        "isk_grund": latest("se_isk_grund").get("value"),
+    }
+
+
 def build_site_data():
     """Slår ihop segmentets banker till filen som sidan läser (t.ex. data/rates.json)."""
     banks = []
@@ -250,7 +266,10 @@ def build_site_data():
         r = json.loads(f.read_text())
         banks.append({k: r.get(k) for k in ("bank", "checked_at", "changed_at", "status", "sources", "products")})
         slim(banks[-1])
-    seg.site_file.write_text(json.dumps({"generated_at": now(), "banks": banks}, ensure_ascii=False))
+    out = {"generated_at": now(), "banks": banks}
+    if seg.key == "savings":
+        out["context"] = savings_context()
+    seg.site_file.write_text(json.dumps(out, ensure_ascii=False))
 
 
 def load_dotenv():

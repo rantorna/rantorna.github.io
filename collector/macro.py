@@ -40,6 +40,20 @@ SERIES = {
     "se_mtg_new_5y": ("SE", "bolån", "Nya bolån, över 5 år", 120, "scb", "0100:1.1.2.3"),
     "se_mtg_new_all": ("SE", "bolån", "Nya bolån, alla bindningstider", None, "scb", "0100:1"),
     "se_mtg_stock": ("SE", "bolån", "Alla utestående bolån", None, "scb", "0200:1"),
+    # Sverige – officiella räntor och inflation
+    "se_slr": ("SE", "officiell", "Statslåneränta", None, "riksgalden", "slr"),
+    "se_ref": ("SE", "officiell", "Referensränta", None, "riksbank_ref", "SECBREFEFF"),
+    "se_drojsmal": ("SE", "officiell", "Dröjsmålsränta", None, "derived", "se_ref+8"),
+    "se_skv_bas": ("SE", "officiell", "Skattekontot, basränta", None, "skv", "bas"),
+    "se_skv_intakt": ("SE", "officiell", "Skattekontot, intäktsränta (skattefri)", None, "skv", "intakt"),
+    "se_skv_kost_lag": ("SE", "officiell", "Skattekontot, låg kostnadsränta", None, "skv", "kost_lag"),
+    "se_skv_kost_hog": ("SE", "officiell", "Skattekontot, hög kostnadsränta", None, "skv", "kost_hog"),
+    "se_isk_schablon": ("SE", "officiell", "ISK/KF, schablonränta för året", None, "isk", "schablon"),
+    "se_isk_skatt": ("SE", "officiell", "ISK/KF, skatt på kapitalunderlaget", None, "isk", "skatt"),
+    "se_isk_grund": ("SE", "officiell", "ISK/KF/PEPP, skattefri grundnivå (kr)", None, "isk", "grund"),
+    "se_csn": ("SE", "officiell", "CSN studielån", None, "csn", "studielan"),
+    "se_csn_aterkrav": ("SE", "officiell", "CSN, ränta på återkrav", None, "csn", "aterkrav"),
+    "se_kpif": ("SE", "inflation", "Inflation, KPIF (12 mån)", None, "scb_kpif", "000007ZM"),
     # Euroområdet
     "eu_dfr": ("EU", "styr", "Inlåningsränta (ECB)", None, "ecb", "FM/D.U2.EUR.4F.KR.DFR.LEV"),
     "eu_estr": ("EU", "kort", "€STR (dagslåneränta)", 0, "ecb", "EST/B.EU000A2X2A25.WT"),
@@ -64,6 +78,13 @@ SOURCES = {
     "ecb": ("ECB", "https://data.ecb.europa.eu/"),
     "nyfed": ("Federal Reserve Bank of New York", "https://www.newyorkfed.org/markets/reference-rates"),
     "nyfed_target": ("Federal Reserve Bank of New York", "https://www.newyorkfed.org/markets/reference-rates/effr"),
+    "riksgalden": ("Riksgälden", "https://www.riksgalden.se/var-verksamhet/statslanerantan/statslanerantan-per-vecka/"),
+    "riksbank_ref": ("Riksbanken", "https://www.riksbank.se/sv/statistik/rantor-och-valutakurser/referensranta-och-diskonto/"),
+    "derived": ("Räntelagen (referensräntan + 8 procentenheter)", "https://www.riksdagen.se/sv/dokument-och-lagar/dokument/svensk-forfattningssamling/rantelag-1975635_sfs-1975-635/"),
+    "skv": ("Skatteverket", "https://www.skatteverket.se/rantesatser"),
+    "isk": ("Skatteverket", "https://www.skatteverket.se/privat/skatter/vardepapper/investeringssparkontoisk"),
+    "csn": ("CSN", "https://www.csn.se/betala-tillbaka/betala-tillbaka-studielan/ranta-och-avgifter.html"),
+    "scb_kpif": ("SCB", "https://www.scb.se/hitta-statistik/statistik-efter-amne/priser-och-konsumtion/konsumentprisindex/"),
     "scb": ("SCB", "https://www.scb.se/hitta-statistik/statistik-efter-amne/finansmarknad/finansmarknadsstatistik/"),
     "treasury": ("U.S. Department of the Treasury", "https://home.treasury.gov/policy-issues/financing-the-government/interest-rate-statistics"),
 }
@@ -142,6 +163,129 @@ def fetch_scb(key):
     return sorted(_scb_cache.get(key, []))
 
 
+# ---------- officiella räntor ----------
+
+PREV: dict = {}  # förra körningens serier – sidor utan historik byggs upp en observation i taget
+MONTHS = {m: i + 1 for i, m in enumerate(["januari", "februari", "mars", "april", "maj", "juni", "juli",
+                                          "augusti", "september", "oktober", "november", "december"])}
+
+
+def _num(s: str) -> float:
+    return float(s.replace("\xa0", "").replace(" ", "").replace(",", "."))
+
+
+def _sv_date(s: str) -> str:
+    d, m, y = s.split()
+    return dt.date(int(y), MONTHS[m.lower()], int(d)).isoformat()
+
+
+def _page_text(url: str) -> str:
+    import html as _html
+    import re as _re
+
+    t = get(url).text
+    t = _re.sub(r"<(script|style)[^>]*>.*?</\1>", "", t, flags=_re.S)
+    t = _html.unescape(_re.sub(r"<[^>]+>", " ", t))
+    return " ".join(t.replace("\xa0", " ").split())
+
+
+def _accumulate(sid: str, date: str, value: float) -> list:
+    """Lägg till observationen i förra körningens historik (sidan visar bara nuläget)."""
+    obs = {d: v for d, v in (PREV.get(sid, {}).get("obs") or [])}
+    obs[date] = value
+    return sorted(obs.items())
+
+
+def fetch_riksgalden(key):
+    r = get("https://www.riksgalden.se/globalassets/dokument_sve/statslaneranta/statslanerantor.csv")
+    rows = csv.reader(io.StringIO(r.content.decode("utf-8-sig")), delimiter=";")
+    next(rows)
+    out = [(d, _num(v)) for d, v, *_ in rows if d[:4].isdigit() and d >= START.isoformat() and v.strip()]
+    return sorted(out)
+
+
+def fetch_riksbank_ref(key):
+    obs = fetch_riksbank(key)
+    # Referensräntan sätts halvårsvis; behåll bara datumen då den ändrades, plus senaste dagen.
+    out = [o for i, o in enumerate(obs) if i == 0 or o[1] != obs[i - 1][1]]
+    return out + ([obs[-1]] if obs and out[-1] != obs[-1] else [])
+
+
+_skv: dict = {}
+
+
+def fetch_skv(key):
+    import re as _re
+
+    if not _skv:
+        t = _page_text("https://www.skatteverket.se/rantesatser")
+        m = _re.search(r"Basräntan på skattekontot är ([\d,]+) procent från och med (\d{1,2} \w+ \d{4})", t)
+        if not m:
+            raise ValueError("Skatteverket: hittar inte basräntan på sidan")
+        date = _sv_date(m.group(2))
+        _skv["bas"] = (date, _num(m.group(1)))
+        if (mi := _re.search(r"(?:intäktsräntan (?:är|blir)|är intäktsräntan) ([\d,]+) procent", t)):
+            _skv["intakt"] = (date, _num(mi.group(1)))
+        if (mk := _re.search(r"låga kostnadsräntan ([\d,]+) procent och den höga kostnadsräntan ([\d,]+) procent", t)):
+            _skv["kost_lag"] = (date, _num(mk.group(1)))
+            _skv["kost_hog"] = (date, _num(mk.group(2)))
+    if key not in _skv:
+        raise ValueError(f"Skatteverket: hittar inte {key}")
+    return _accumulate({"bas": "se_skv_bas", "intakt": "se_skv_intakt", "kost_lag": "se_skv_kost_lag",
+                        "kost_hog": "se_skv_kost_hog"}[key], *_skv[key])
+
+
+_isk: dict = {}
+
+
+def fetch_isk(key):
+    """Schablonränta, skatt och skattefri grundnivå för det senaste inkomståret som Skatteverket beskriver."""
+    import re as _re
+
+    if not _isk:
+        t = _page_text("https://www.skatteverket.se/privat/skatter/vardepapper/investeringssparkontoisk")
+        hits = _re.findall(r"schablonintäkten för inkomståret (\d{4}) blir ([\d,]+) procent.{0,400}?din skatt blir ([\d,]+) procent"
+                           r".{0,200}?grundnivån på ([\d  ]+) kronor", t)
+        if not hits:
+            raise ValueError("Skatteverket: hittar inte schablonintäkten för ISK")
+        year, schablon, skatt, grund = max(hits, key=lambda h: h[0])
+        date = f"{year}-01-01"
+        _isk.update(schablon=(date, _num(schablon)), skatt=(date, _num(skatt)), grund=(date, _num(grund)))
+    return _accumulate({"schablon": "se_isk_schablon", "skatt": "se_isk_skatt", "grund": "se_isk_grund"}[key], *_isk[key])
+
+
+_csn: dict = {}
+
+
+def fetch_csn(key):
+    import re as _re
+
+    if not _csn:
+        t = _page_text("https://www.csn.se/betala-tillbaka/betala-tillbaka-studielan/ranta-och-avgifter.html")
+        m = _re.search(r"för (\d{4}) är räntan ([\d,]+) procent", t)
+        if not m:
+            raise ValueError("CSN: hittar inte räntan på sidan")
+        _csn["studielan"] = (f"{m.group(1)}-01-01", _num(m.group(2)))
+        if (ma := _re.search(r"Under (\d{4}) är räntan ([\d,]+) procent på det belopp", t)):
+            _csn["aterkrav"] = (f"{ma.group(1)}-01-01", _num(ma.group(2)))
+    if key not in _csn:
+        raise ValueError(f"CSN: hittar inte {key}")
+    return _accumulate({"studielan": "se_csn", "aterkrav": "se_csn_aterkrav"}[key], *_csn[key])
+
+
+def fetch_scb_kpif(key):
+    q = {"query": [{"code": "ContentsCode", "selection": {"filter": "item", "values": [key]}},
+                   {"code": "Tid", "selection": {"filter": "all", "values": ["*"]}}], "response": {"format": "json"}}
+    r = httpx.post("https://api.scb.se/OV0104/v1/doris/sv/ssd/PR/PR0101/PR0101G/KPIF2020", json=q, headers=UA, timeout=120)
+    r.raise_for_status()
+    out = []
+    for row in r.json()["data"]:
+        month, v = row["key"][0], row["values"][0]
+        if month >= f"{START.year}M01" and v not in ("..", ""):
+            out.append((f"{month[:4]}-{month[5:]}-01", float(v)))
+    return sorted(out)
+
+
 _treasury_cache: dict[str, list] = {}
 
 
@@ -162,7 +306,8 @@ def fetch_treasury(col):
     return sorted(_treasury_cache.get(col, []))
 
 
-FETCHERS = {"scb": fetch_scb, "riksbank": fetch_riksbank, "swestr": fetch_swestr, "ecb": fetch_ecb, "nyfed": fetch_nyfed,
+FETCHERS = {"riksgalden": fetch_riksgalden, "riksbank_ref": fetch_riksbank_ref, "skv": fetch_skv, "isk": fetch_isk,
+            "csn": fetch_csn, "scb_kpif": fetch_scb_kpif, "scb": fetch_scb, "riksbank": fetch_riksbank, "swestr": fetch_swestr, "ecb": fetch_ecb, "nyfed": fetch_nyfed,
             "nyfed_target": fetch_nyfed_target, "treasury": fetch_treasury}
 
 
@@ -205,14 +350,20 @@ def main():
     path = DATA / "macro.json"
     if path.exists():
         previous = json.loads(path.read_text()).get("series", {})
+    PREV.update(previous)
     out = {}
     for sid, (region, group, name, tenor, src, key) in SERIES.items():
         try:
-            obs = FETCHERS[src](key)
+            if src == "derived":  # dröjsmålsränta = referensränta + 8 procentenheter (räntelagen)
+                base, add = key.split("+")
+                obs = [(d, round(v + float(add), 4)) for d, v in out[base]["obs"]]
+            else:
+                obs = FETCHERS[src](key)
             if not obs:
                 raise ValueError("inga observationer")
-            max_age = 75 if src == "scb" else 30  # månadsstatistik publiceras med eftersläpning
-            if (dt.date.today() - dt.date.fromisoformat(obs[-1][0])).days > max_age:
+            # Månadsstatistik publiceras med eftersläpning; officiella räntor ändras sällan (datumet är när de började gälla).
+            max_age = {"scb": 75, "scb_kpif": 75}.get(src, None if src in ("skv", "isk", "csn", "riksbank_ref", "derived") else 30)
+            if max_age and (dt.date.today() - dt.date.fromisoformat(obs[-1][0])).days > max_age:
                 raise ValueError(f"senaste värdet är från {obs[-1][0]} – serien verkar ha upphört")
             out[sid] = {"region": region, "group": group, "name": name, "tenor_months": tenor,
                         "source": SOURCES[src][0], "source_url": SOURCES[src][1], "key": key,

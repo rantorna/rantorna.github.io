@@ -124,7 +124,22 @@ function render() {
   more.textContent = `Visa alla ${items.length} konton`;
   $("#empty").hidden = items.length > 0;
   const nBanks = new Set(items.map((i) => i.bank.bank.id)).size;
-  $("#summary").textContent = `${items.length} konton hos ${nBanks} banker · avkastning på ${kr.format(amount)} kr under ett år, efter 30 % skatt`;
+  const ctx = DATA.context || {};
+  const infl = ctx.kpif != null ? ` · "real" = efter skatt och ${String(ctx.kpif).replace(".", ",")} % inflation (KPIF, ${new Date(ctx.kpif_month).toLocaleDateString("sv-SE", { month: "long", year: "numeric" })})` : "";
+  $("#summary").textContent = `${items.length} konton hos ${nBanks} banker · avkastning på ${kr.format(amount)} kr under ett år, efter 30 % skatt${infl}`;
+  renderIsk(amount);
+}
+
+/** Påminnelse om ISK: under grundnivån är sparandet skattefritt – det ändrar jämförelsen. */
+function renderIsk(amount) {
+  const ctx = DATA.context || {}, el = $("#isk-note");
+  if (!el || ctx.isk_grund == null) return;
+  el.hidden = false;
+  const g = kr.format(ctx.isk_grund), sch = String(ctx.isk_schablon).replace(".", ",");
+  el.innerHTML = `<b>Tänk på ISK.</b> ${ctx.isk_year} är sparande på ISK, kapitalförsäkring och PEPP skattefritt upp till ${g} kr sammanlagt, `
+    + `och ränta på kontanter på ett ISK beskattas inte om räntan är högst ${sch} % (schablonräntan). `
+    + (amount <= ctx.isk_grund ? `Med ${kr.format(amount)} kr kan alltså en lägre ränta på ett ISK ge mer än ett sparkonto efter skatt – om banken erbjuder ränta på ISK och du inte redan använder grundnivån.` : `Över grundnivån beskattas ISK med ${String(ctx.isk_skatt).replace(".", ",")} % av kapitalet per år.`)
+    + ` <a href="rantelaget.html">Mer om skatteräntorna</a>.`;
 }
 
 function badge(text, cls) {
@@ -157,7 +172,18 @@ function row({ bank, p, rate }, amount) {
   // Månadsspar: genomsnittligt saldo under första året är ca 6,5 månadsinsättningar.
   const base = cap != null ? Math.min(amount, cap * 12) * 6.5 / 12 : max != null ? Math.min(amount, max) : amount;
   const net = base * rate / 100 * (1 - TAX);
-  el.querySelector(".yield").textContent = `+${kr.format(net)} kr/år`;
+  const ctx = DATA.context || {};
+  const yieldEl = el.querySelector(".yield");
+  yieldEl.textContent = `+${kr.format(net)} kr/år`;
+  if (ctx.kpif != null) {
+    // Real avkastning: efter skatt minus vad inflationen äter upp av hela beloppet.
+    const real = net - base * ctx.kpif / 100;
+    const r = document.createElement("span");
+    r.className = "real";
+    r.textContent = `${real >= 0 ? "+" : "−"}${kr.format(Math.abs(real))} kr real`;
+    r.title = `Efter 30 % skatt och ${String(ctx.kpif).replace(".", ",")} % inflation (KPIF)`;
+    yieldEl.append(document.createElement("br"), r);
+  }
 
   // Villkor och citat byggs först när raden fälls ut – annars blir varje filtrering tung.
   const details = el.querySelector("details");

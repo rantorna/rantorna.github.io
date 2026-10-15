@@ -48,7 +48,7 @@ function renderRegions() {
   const root = $("#regions");
   root.replaceChildren();
   for (const [code, reg] of Object.entries(REGIONS)) {
-    const ids = Object.keys(S).filter((id) => S[id].region === code && S[id].group !== "bolån");
+    const ids = Object.keys(S).filter((id) => S[id].region === code && !["bolån", "officiell", "inflation"].includes(S[id].group));
     const policy = ids.map((id) => S[id]).find((s) => s.group === "styr");
     const card = document.createElement("article");
     card.className = "region";
@@ -162,6 +162,62 @@ function renderCurve() {
   legend($("#curve-legend"), lines.filter((l) => l.pts.length > 1));
 }
 
+/** Officiella räntor: statslåneränta (och ISK-skatten den styr), skattekonto, referens-/dröjsmålsränta, CSN, inflation. */
+function renderOfficial() {
+  const g = (id) => S[id]?.latest?.value ?? null;
+  const since = (id) => {
+    const s = S[id];
+    if (!s) return "";
+    const lc = lastChange(s.obs);
+    return lc ? dateSv(lc.date) : dateSv(s.obs[0][0]);
+  };
+  const card = (title, big, label, lines, sparkId) => `<article class="region off-card">
+      <h3>${title}</h3>
+      <div class="hero"><span class="hero-num">${big}</span><span class="hero-label">${label}</span></div>
+      ${sparkId ? '<div class="off-spark" data-id="' + sparkId + '"></div>' : ""}
+      <ul class="off-lines">${lines.filter(Boolean).map((l) => `<li>${l}</li>`).join("")}</ul>
+    </article>`;
+  const slr = g("se_slr"), kpif = g("se_kpif"), pol = g("se_policy");
+  const year = S.se_isk_schablon ? S.se_isk_schablon.latest.date.slice(0, 4) : "";
+  const grund = g("se_isk_grund");
+  // Nästa års ISK-skatt avgörs av statslåneräntan 30 november – en prognos om räntan står still.
+  const nextSchablon = slr != null ? Math.max(1.25, slr + 1) : null;
+  const cards = [
+    S.se_slr && card("Statslåneräntan", pct(slr), `gäller från ${dateSv(S.se_slr.latest.date)}`, [
+      `${pp(S.se_slr.latest.chg_1y)} procentenheter på ett år`,
+      g("se_isk_schablon") != null ? `<b>ISK och kapitalförsäkring ${year}:</b> schablonränta ${pct(g("se_isk_schablon"))} – skatt ${pct(g("se_isk_skatt"), 3)} av kapitalet${grund ? ` över ${kr0(grund)} kr` : ""}` : "",
+      nextSchablon != null ? `Om räntan står kvar till 30 november blir skatten ${+year + 1} ca ${pct(nextSchablon * 0.3, 2)} (schablon ${pct(nextSchablon)})` : "",
+      "Används också för periodiseringsfonder och räntefördelning.",
+    ], "se_slr"),
+    S.se_skv_intakt && card("Skattekontot", pct(g("se_skv_intakt"), 3), "intäktsränta, skattefri", [
+      `Kostnadsränta ${pct(g("se_skv_kost_lag"), 1)} (låg) och ${pct(g("se_skv_kost_hog"), 1)} (hög)`,
+      `Basränta ${pct(g("se_skv_bas"), 1)}, gäller från ${since("se_skv_bas")}`,
+      "Intäktsräntan är skattefri – motsvarar ca " + pct(g("se_skv_intakt") / 0.7, 2) + " på ett vanligt sparkonto före skatt.",
+    ]),
+    S.se_ref && card("Referensränta", pct(g("se_ref")), `från ${since("se_ref")}`, [
+      S.se_drojsmal ? `<b>Dröjsmålsränta ${pct(g("se_drojsmal"))}</b> – referensräntan + 8 procentenheter (räntelagen)` : "",
+      "Fastställs av Riksbanken varje halvår.",
+    ]),
+    S.se_csn && card("CSN studielån", pct(g("se_csn"), 3), `räntan ${S.se_csn.latest.date.slice(0, 4)}`, [
+      S.se_csn_aterkrav ? `Ränta på återkrav ${pct(g("se_csn_aterkrav"))}` : "",
+      "Rörlig, fastställs av regeringen inför varje år. Inte avdragsgill.",
+    ]),
+    S.se_kpif && card("Inflation (KPIF)", pct(kpif, 1), `12 månader till ${new Date(S.se_kpif.latest.date).toLocaleDateString("sv-SE", { month: "long", year: "numeric" })}`, [
+      pol != null ? `Real styrränta ${pp(pol - kpif)} procentenheter` : "",
+      slr != null ? `Real statslåneränta ${pp(slr - kpif)} procentenheter` : "",
+      `På <a href="./">Sparkonton</a> kan du se räntan efter skatt och inflation.`,
+    ], "se_kpif"),
+  ].filter(Boolean);
+  $("#official").innerHTML = cards.join("");
+  document.querySelectorAll(".off-spark").forEach((d) => {
+    const sp = sparkline(S[d.dataset.id].obs);
+    sp.style.color = "var(--series-1)";
+    d.append(sp);
+  });
+}
+
+const kr0 = (v) => Math.round(v).toLocaleString("sv-SE");
+
 function renderSources() {
   const src = {};
   for (const s of Object.values(S)) src[s.source] = s.source_url;
@@ -176,6 +232,7 @@ fetch("data/macro.json", { cache: "no-cache" })
     S = d.series;
     $("#updated").textContent = `Data uppdaterad ${new Date(d.generated_at).toLocaleString("sv-SE", { dateStyle: "long", timeStyle: "short" })}.`;
     renderRegions();
+    renderOfficial();
     renderChart();
     renderCurve();
     renderSources();
