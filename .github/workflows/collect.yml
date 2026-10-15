@@ -87,6 +87,12 @@ jobs:
         if: ${{ !inputs.bank }}
         run: python -m collector.run --segment business_savings --workers 4
 
+      - name: Företag – finansiering
+        if: ${{ !inputs.bank }}
+        run: |
+          RANTORNA_RESEARCH_MODEL=claude-haiku-5-5 python -m collector.resolve --segment business_financing --limit 10
+          python -m collector.run --segment business_financing --workers 4
+
       - name: Pension – slå upp nya bolag
         if: ${{ !inputs.bank }}
         run: python -m collector.resolve --segment pension --limit 10

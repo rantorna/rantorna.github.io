@@ -32,6 +32,7 @@
   <div class="seg view-pick" role="tablist" aria-label="Välj vy">
     <label><input type="radio" name="view" value="accounts" checked><span>Hitta bank</span></label>
     <label><input type="radio" name="view" value="savings"><span>Spara överskott</span></label>
+    <label><input type="radio" name="view" value="financing"><span>Finansiering</span></label>
   </div>
 
   <section id="v-accounts" class="panel">
@@ -88,6 +89,42 @@
       </table>
     </div>
     <p class="sub" id="sav-note"></p>
+  </section>
+
+  <section id="v-financing" class="panel" hidden>
+    <div class="panel-head">
+      <h2>Finansiering för småföretag</h2>
+      <p class="sub">Vem lånar ut till vilka företag – och på vilka villkor? Banker prissätter oftast varje företag för sig; de flesta publicerade priserna kommer från fintechbolag och anges ofta som avgift per månad. Jämför därför villkoren, och fråga alltid om effektiv årsränta.</p>
+    </div>
+    <div class="market fin-market" id="fin-market"></div>
+    <div class="filters-row fin-filters">
+      <label class="amount sortby">Typ
+        <select id="fin-type">
+          <option value="">Alla</option>
+          <option value="företagslån">Företagslån</option>
+          <option value="checkkredit/rörelsekredit">Checkkredit</option>
+          <option value="fakturaköp/factoring">Fakturaköp/factoring</option>
+          <option value="startlån/mikrolån">Startlån/mikrolån</option>
+        </select>
+      </label>
+      <label class="amount sortby">Belopp
+        <span class="input-suffix"><input id="fin-amount" type="text" inputmode="numeric" placeholder="valfritt"><span>kr</span></span>
+      </label>
+    </div>
+    <div class="checks filters-row">
+      <label><input type="checkbox" id="fin-new"> Lånar ut till nystartade</label>
+      <label><input type="checkbox" id="fin-price"> Med publicerat pris</label>
+    </div>
+    <div class="table-scroll">
+      <table class="mtg" id="fin">
+        <thead><tr>
+          <th scope="col">Långivare och produkt</th><th scope="col">Belopp</th><th scope="col">Löptid</th>
+          <th scope="col">Publicerad kostnad</th><th scope="col">Nystartade</th><th scope="col">Borgen</th>
+        </tr></thead>
+        <tbody></tbody>
+      </table>
+    </div>
+    <p class="sub" id="fin-note"></p>
   </section>
 
   <details id="missing" class="missing" hidden>

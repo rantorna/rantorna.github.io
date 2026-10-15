@@ -258,6 +258,17 @@ def savings_context() -> dict:
     }
 
 
+def financing_context() -> dict:
+    """SCB:s räntor på nya företagslån som riktmärke för finansieringsvyn."""
+    path = DATA / "macro.json"
+    if not path.exists():
+        return {}
+    series = json.loads(path.read_text()).get("series", {})
+    ids = ["se_corp_new_all", "se_corp_new_var", "se_corp_new_1y5y", "se_corp_kontokredit", "se_soletrader_new_all", "se_policy"]
+    return {sid: {"name": series[sid]["name"], **{k: series[sid]["latest"].get(k) for k in ("value", "date", "chg_1y")}}
+            for sid in ids if sid in series}
+
+
 def build_site_data():
     """Slår ihop segmentets banker till filen som sidan läser (t.ex. data/rates.json)."""
     banks = []
@@ -269,6 +280,8 @@ def build_site_data():
     out = {"generated_at": now(), "banks": banks}
     if seg.key == "savings":
         out["context"] = savings_context()
+    elif seg.key == "business_financing":
+        out["context"] = financing_context()
     seg.site_file.write_text(json.dumps(out, ensure_ascii=False))
 
 

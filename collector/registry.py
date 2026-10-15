@@ -36,6 +36,7 @@ CATEGORIES = {
     "TJPÖMS": ("Ömsesidigt tjänstepensionsbolag", False),
     "UTLFFL": ("Utländskt försäkringsbolag, svensk filial, liv", True),
     "UTBKRF": ("Utländskt bostadskreditinstitut, svensk filial", True),
+    "GRÄS": ("Leverantör av gräsrotsfinansieringstjänster", False),
 }
 
 

@@ -48,7 +48,7 @@ function renderRegions() {
   const root = $("#regions");
   root.replaceChildren();
   for (const [code, reg] of Object.entries(REGIONS)) {
-    const ids = Object.keys(S).filter((id) => S[id].region === code && !["bolån", "officiell", "inflation"].includes(S[id].group));
+    const ids = Object.keys(S).filter((id) => S[id].region === code && !["bolån", "officiell", "inflation", "företag"].includes(S[id].group));
     const policy = ids.map((id) => S[id]).find((s) => s.group === "styr");
     const card = document.createElement("article");
     card.className = "region";

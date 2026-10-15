@@ -194,3 +194,34 @@ PENSION_EXTRACTION = extraction_schema(
     TIER, "Lämna tom.",
     "Kort om något viktigt saknas (t.ex. återbäringsräntan bara i inloggat läge, avkastning före avgifter).",
 )
+
+
+# ---------- Företagsfinansiering: vem lånar ut till vilka företag, och på vilka villkor ----------
+
+FINANCING_FIELDS = [
+    ("product_type", _enum("företagslån", "checkkredit/rörelsekredit", "fakturaköp/factoring", "startlån/mikrolån", "annat"),
+     "Typ av finansiering."),
+    ("min_amount_sek", NUM, "Lägsta belopp i kronor som går att låna/finansiera."),
+    ("max_amount_sek", NUM, "Högsta belopp i kronor som går att låna/finansiera (enligt publicerat erbjudande)."),
+    ("term_min_months", INT, "Kortaste löptid i månader."),
+    ("term_max_months", INT, "Längsta löptid i månader."),
+    ("rate_from_percent", NUM, "Lägsta årsränta i procent som långivaren publicerar ('från X %'), om den anges som årsränta."),
+    ("monthly_fee_percent", NUM, "Om kostnaden anges som månadsavgift/månadsränta i procent av lånebeloppet: lägsta sådan procentsats per månad."),
+    ("effective_rate_percent", NUM, "Effektiv årsränta i procent om långivaren anger den (t.ex. i ett räkneexempel)."),
+    ("cost_terms", STR, "Kort (max 200 tecken): hur priset sätts och vad som ingår (uppläggningsavgift, månadsavgift, individuell prissättning)."),
+    ("accepts_new_companies", BOOL, "Lånar långivaren ut till nystartade företag (utan bokslut/historik)?"),
+    ("min_months_in_business", INT, "Krav på minsta tid som företaget har bedrivit verksamhet, i månader."),
+    ("min_turnover_sek", NUM, "Krav på lägsta omsättning i kronor per år."),
+    ("personal_guarantee", BOOL, "Krävs personlig borgen (av ägare/firmatecknare)?"),
+    ("collateral", STR, "Kort: krav på säkerhet (t.ex. företagsinteckning, fastighet, kundfordringar, ingen säkerhet)."),
+    ("payout_speed", STR, "Kort: hur snabbt pengarna betalas ut enligt långivaren (t.ex. 'samma dag', 'inom 24 timmar')."),
+    ("company_forms", STR, "Vilka företagsformer kan få finansieringen, kommaseparerat med gemener."),
+    ("requirements", STR, "Kort: övriga krav (t.ex. F-skatt, inga betalningsanmärkningar, verksamhet i Sverige, affärsplan)."),
+]
+
+FINANCING_EXTRACTION = extraction_schema(
+    FINANCING_FIELDS,
+    "Produktens namn så som långivaren skriver det (t.ex. 'Företagslån', 'Checkkredit', 'Fakturaköp', 'Almi Startlån').",
+    TIER, "Lämna tom.",
+    "Kort om något viktigt saknas (t.ex. priser bara efter ansökan, kräver kontakt med rådgivare).",
+)

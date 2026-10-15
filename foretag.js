@@ -12,7 +12,7 @@ const ACC_DETAIL = {
   guarantee_country: "Insättningsgaranti",
 };
 
-let A = null, S = null;
+let A = null, S = null, F = null;
 const val = (p, k) => (p.fields[k] || {}).value ?? null;
 const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
 const kr = new Intl.NumberFormat("sv-SE", { maximumFractionDigits: 0 });
@@ -130,7 +130,7 @@ function renderSavings() {
 function renderMissing() {
   const seen = new Set();
   const miss = [];
-  for (const [d, ok] of [[A, (b) => (b.products || []).length], [S, (b) => (b.products || []).some((p) => val(p, "rate_percent") != null)]]) {
+  for (const [d, ok] of [[A, (b) => (b.products || []).length], [S, (b) => (b.products || []).some((p) => val(p, "rate_percent") != null)], [F, (b) => (b.products || []).length]]) {
     for (const b of d.banks) if (!ok(b) && !seen.has(b.bank.name)) { seen.add(b.bank.name); miss.push(b); }
   }
   const el = $("#missing");
@@ -144,15 +144,102 @@ function showView() {
   const v = document.querySelector('input[name="view"]:checked').value;
   $("#v-accounts").hidden = v !== "accounts";
   $("#v-savings").hidden = v !== "savings";
+  $("#v-financing").hidden = v !== "financing";
   try { localStorage.setItem("foretag-view", v); } catch (e) { /* privat läge */ }
+}
+
+/* ---------- Finansiering ---------- */
+
+const FIN_DETAIL = {
+  cost_terms: "Kostnad", effective_rate_percent: "Effektiv ränta", min_months_in_business: "Tid i drift",
+  min_turnover_sek: "Lägsta omsättning", collateral: "Säkerhet", payout_speed: "Utbetalning",
+  company_forms: "Företagsformer", requirements: "Övriga krav",
+};
+const krAmt = (v) => v == null ? null : v >= 1e6 ? `${(v / 1e6).toLocaleString("sv-SE", { maximumFractionDigits: 1 })} mkr` : `${kr.format(v)} kr`;
+const months = (m) => m == null ? null : m % 12 === 0 ? `${m / 12} år` : `${m} mån`;
+const range = (a, b, f) => a == null && b == null ? '<span class="muted">–</span>' : a != null && b != null ? `${f(a)}–${f(b)}` : a != null ? `från ${f(a)}` : `upp till ${f(b)}`;
+
+function finCost(p) {
+  const r = val(p, "rate_from_percent"), m = val(p, "monthly_fee_percent"), e = val(p, "effective_rate_percent");
+  const parts = [];
+  if (r != null) parts.push(`från ${pct(r, 2)} per år`);
+  if (m != null) parts.push(`från ${pct(m, 2)} per månad`);
+  if (e != null) parts.push(`effektiv ${pct(e, 2)}`);
+  return parts.length ? parts.join("<br>") : '<span class="muted">individuell</span>';
+}
+
+function finDetail(b, p) {
+  const rows = Object.entries(FIN_DETAIL).map(([k, label]) => {
+    const f = p.fields[k];
+    if (!f || f.value == null) return "";
+    let v = f.value;
+    if (k === "min_months_in_business") v = months(v);
+    else if (k === "min_turnover_sek") v = krAmt(v);
+    else if (k === "effective_rate_percent") v = pct(v);
+    return `<dt>${label}</dt><dd>${esc(v)} ${quote(b, f)}</dd>`;
+  }).join("");
+  const main = ["min_amount_sek", "max_amount_sek", "term_max_months", "rate_from_percent", "monthly_fee_percent", "accepts_new_companies", "personal_guarantee"]
+    .map((k) => p.fields[k]?.value != null && p.fields[k].quote ? `<dt>${{ min_amount_sek: "Lägsta belopp", max_amount_sek: "Högsta belopp", term_max_months: "Längsta löptid", rate_from_percent: "Årsränta från", monthly_fee_percent: "Månadskostnad från", accepts_new_companies: "Nystartade", personal_guarantee: "Personlig borgen" }[k]}</dt><dd>${quote(b, p.fields[k])}</dd>` : "").join("");
+  return `<dl class="terms">${rows}${main}</dl><p class="sources">${b.bank.legal_name && b.bank.legal_name !== b.bank.name ? esc(b.bank.legal_name) + ". " : ""}Senast kontrollerat ${new Date(b.checked_at).toLocaleDateString("sv-SE")}. <a href="${b.bank.homepage}" rel="noopener nofollow" target="_blank">Till långivaren</a></p>`;
+}
+
+function renderFinMarket() {
+  const c = F.context || {};
+  const card = (id, title) => c[id] ? `<article class="region"><h2>${title}</h2><div class="hero"><span class="hero-num">${pct(c[id].value)}</span>
+    <span class="hero-label">${esc(c[id].name)}${id !== "se_policy" ? ", " + new Date(c[id].date).toLocaleDateString("sv-SE", { month: "long", year: "numeric" }) : ""}</span>
+    <span class="hero-sub">${pp(c[id].chg_1y)} på ett år · SCB</span></div></article>` : "";
+  $("#fin-market").innerHTML = card("se_corp_new_all", "Snittränta nya företagslån") + card("se_soletrader_new_all", "Enskilda näringsidkare")
+    + card("se_corp_kontokredit", "Kontokredit") + card("se_policy", "Styrräntan");
+}
+
+function renderFinancing() {
+  const type = $("#fin-type").value;
+  const amount = parseInt(($("#fin-amount").value || "").replace(/\D/g, ""), 10) || null;
+  const f = { new: $("#fin-new").checked, price: $("#fin-price").checked };
+  const items = [];
+  for (const b of F.banks) for (const p of b.products || []) {
+    if (val(p, "product_type") == null && val(p, "max_amount_sek") == null) continue;
+    if (type && val(p, "product_type") !== type) continue;
+    if (amount != null) {
+      const lo = val(p, "min_amount_sek"), hi = val(p, "max_amount_sek");
+      if ((lo != null && amount < lo) || (hi != null && amount > hi)) continue;
+    }
+    if (f.new && val(p, "accepts_new_companies") !== true) continue;
+    if (f.price && val(p, "rate_from_percent") == null && val(p, "monthly_fee_percent") == null && val(p, "effective_rate_percent") == null) continue;
+    items.push({ b, p });
+  }
+  items.sort((x, y) => (val(y.p, "max_amount_sek") ?? -1) - (val(x.p, "max_amount_sek") ?? -1) || x.b.bank.name.localeCompare(y.b.bank.name, "sv"));
+  const tb = $("#fin tbody");
+  tb.replaceChildren();
+  for (const { b, p } of items) {
+    const tr = document.createElement("tr");
+    tr.className = "mtg-row";
+    const t = val(p, "product_type");
+    tr.innerHTML = `<th scope="row"><button class="expand" aria-expanded="false">${esc(b.bank.name)}</button><br><span class="muted">${esc(p.name)}${t ? " · " + esc(t) : ""}</span></th>
+      <td>${range(val(p, "min_amount_sek"), val(p, "max_amount_sek"), krAmt)}</td>
+      <td>${range(val(p, "term_min_months"), val(p, "term_max_months"), months)}</td>
+      <td>${finCost(p)}</td><td>${yn(val(p, "accepts_new_companies"))}</td>
+      <td>${val(p, "personal_guarantee") === true ? '<span class="yn no">Krävs</span>' : val(p, "personal_guarantee") === false ? '<span class="yn yes">✓ Ingen</span>' : '<span class="yn unk">? Okänt</span>'}</td>`;
+    const det = document.createElement("tr");
+    det.className = "mtg-detail";
+    det.hidden = true;
+    tr.querySelector(".expand").addEventListener("click", (e) => {
+      if (!det.firstChild) det.innerHTML = `<td colspan="6">${finDetail(b, p)}</td>`;
+      det.hidden = !det.hidden;
+      e.currentTarget.setAttribute("aria-expanded", String(!det.hidden));
+    });
+    tb.append(tr, det);
+  }
+  $("#fin-note").textContent = `${items.length} erbjudanden. Kostnaden visas så som långivaren själv anger den – en månadskostnad på 1,5 % motsvarar mycket mer än 1,5 % per år. "Okänt" betyder att långivaren inte skriver det uttryckligen.`;
 }
 
 const empty = { banks: [] };
 Promise.all([
   fetch("data/business_accounts.json", { cache: "no-cache" }).then((r) => r.ok ? r.json() : empty).catch(() => empty),
   fetch("data/business_savings.json", { cache: "no-cache" }).then((r) => r.ok ? r.json() : empty).catch(() => empty),
-]).then(([acc, sav]) => {
-  A = acc; S = sav;
+  fetch("data/business_financing.json", { cache: "no-cache" }).then((r) => r.ok ? r.json() : empty).catch(() => empty),
+]).then(([acc, sav, fin]) => {
+  A = acc; S = sav; F = fin;
   try {
     const v = localStorage.getItem("foretag-view");
     if (v) document.querySelector(`input[name="view"][value="${v}"]`).checked = true;
@@ -160,10 +247,20 @@ Promise.all([
   showView();
   renderAccounts();
   renderSavings();
+  renderFinMarket();
+  renderFinancing();
   renderMissing();
   const at = acc.generated_at || sav.generated_at;
   if (at) $("#updated").textContent = `Data uppdaterad ${new Date(at).toLocaleString("sv-SE", { dateStyle: "long", timeStyle: "short" })}.`;
   document.querySelectorAll('input[name="view"]').forEach((i) => i.addEventListener("change", showView));
   ["#form", "#f-new", "#f-online", "#f-users", "#f-swish"].forEach((s) => $(s).addEventListener("change", renderAccounts));
   document.querySelectorAll('input[name="bind"]').forEach((i) => i.addEventListener("change", renderSavings));
+  ["#fin-type", "#fin-new", "#fin-price"].forEach((s) => $(s).addEventListener("change", renderFinancing));
+  let finTimer;
+  $("#fin-amount").addEventListener("input", (e) => {
+    const n = parseInt(e.target.value.replace(/\D/g, ""), 10);
+    e.target.value = n ? kr.format(n) : "";
+    clearTimeout(finTimer);
+    finTimer = setTimeout(renderFinancing, 200);
+  });
 });

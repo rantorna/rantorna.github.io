@@ -253,6 +253,48 @@ SEGMENTS["pension"] = Segment(
     dedupe_by_brand=True,
 )
 
+FINANCING_RESOLVE = """Du kartlägger svensk finansiering för små och medelstora företag åt en oberoende sajt. Använd webbsökning och kontrollera på aktörens egna webbplatser.
+
+Avgör om aktören, under eget namn eller under ett annat varumärke, i dag erbjuder finansiering till svenska småföretag med ett publicerat erbjudande: företagslån, checkkredit/rörelsekredit, fakturaköp/factoring, startlån/mikrolån eller lån via gräsrotsfinansiering. Räkna inte med: bara privatlån, bara bolån, bara storföretag/koncerner via förfrågan, leasing av bilar eller bara förmedling utan eget utlåningserbjudande (men låneförmedlare som Lendo och plattformar som förmedlar till många långivare får tas med om de har en egen sida för företag – skriv då det i notes).
+
+Ange för varje varumärke den svenska webbplatsen (homepage) och sidan som bäst beskriver företagsfinansieringen med villkor och priser (product_url). Hitta aldrig på adresser. Ange bara adresser du faktiskt har sett."""
+
+FINANCING_EXTRACT = """Du extraherar fakta om finansiering för små och medelstora företag i Sverige ur en långivares egna webbsidor och dokument, för en oberoende sajt som hjälper företagare att hitta vem som kan finansiera dem.
+
+Regler:
+- Ta med varje finansieringsprodukt för svenska företag: företagslån, checkkredit/rörelsekredit, fakturaköp/factoring, startlån/mikrolån. Hoppa över privatlån, bolån, billeasing och tjänster bara för storföretag.
+- Viktigast: belopp från–till, löptid, om nystartade företag kan få finansiering, krav (tid i drift, omsättning, borgen, säkerhet) och hur snabbt pengarna betalas ut.
+- Kostnad: ange bara det som långivaren själv publicerar. Årsränta ('från 4,9 %') i rate_from_percent. Månadsavgift/månadsränta i procent av lånebeloppet ('från 1,5 % per månad') i monthly_fee_percent – räkna aldrig om den till årsränta själv. Effektiv ränta bara om långivaren anger den.
+- Varje värde måste beläggas med ett ORDAGRANT citat ur dokumenten (kopiera tecken för tecken, max ~300 tecken) och dokumentets index i "source".
+- Finns inget belägg: sätt value, quote och source till null. Gissa aldrig – särskilt inte om borgen eller nystartade.
+- Belopp i kronor som tal (5 MSEK -> 5000000). Löptid i månader (3 år -> 36)."""
+
+SEGMENTS["business_financing"] = Segment(
+    key="business_financing",
+    fields=schema.FINANCING_FIELDS,
+    extraction=schema.FINANCING_EXTRACTION,
+    extract_system=FINANCING_EXTRACT,
+    choose_system=(
+        "Du hjälper en svensk sajt om finansiering för småföretag. Välj de sidor som mest sannolikt beskriver "
+        "långivarens företagslån, checkkredit, fakturaköp/factoring eller startlån: belopp, löptid, priser, krav "
+        "(tid i drift, omsättning, borgen) och vilka företag som kan få finansiering. Välj inte privatlån, bolån, "
+        "sparkonton, nyheter eller allmänna guider utan villkor."
+    ),
+    core=("product_type",),
+    data_dir=DATA / "business" / "financing",
+    site_file=DATA / "business_financing.json",
+    resolve_system=FINANCING_RESOLVE,
+    resolve_out=DATA / "business" / "financing_institutions.json",
+    resolve_hints=DATA / "business" / "financing_hints.yaml",
+    resolve_categories=("BANK", "MBANK", "KMB", "UTLFIL", "FILBK", "GRÄS"),
+    pos={"foretag": 5, "foretagslan": 9, "lan": 4, "checkkredit": 8, "rorelsekredit": 8, "factoring": 8,
+         "fakturakop": 8, "fakturabelaning": 8, "finansiering": 6, "startlan": 8, "mikrolan": 8, "kredit": 3,
+         "priser": 3, "villkor": 3, "privat": -5, "bolan": -5, "privatlan": -6, "sparkonto": -5, "spara": -4},
+    terms_re=r"(företag|foretag|lån|lan|kredit|faktura|villkor|prislista|priser)",
+    manual_banks=DATA / "business" / "banks_financing.yaml",
+    max_rate=40.0,
+)
+
 _current = "savings"
 
 
