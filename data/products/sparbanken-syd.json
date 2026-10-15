@@ -7,7 +7,7 @@
   "kind": "sparbank",
   "legal_name": "Sparbanken Syd"
  },
- "checked_at": "2026-10-13T10:58:33+00:00",
+ "checked_at": "2026-10-15T08:43:09+00:00",
  "discovered_at": "2026-10-10T17:14:59+00:00",
  "sources": [
   {
@@ -28,8 +28,8 @@
    "url": "https://www.sparbankensyd.se/sv/privat/vara-tjanster/spara/sparkonto/fastrantekonto",
    "title": "Fasträntekonto",
    "kind": "html",
-   "via": "http",
-   "chars": 4576
+   "via": "browser",
+   "chars": 31889
   },
   {
    "url": "https://www.sparbankensyd.se/sv/privat/vara-tjanster/spara/sparkonto-trygg",
@@ -67,9 +67,1305 @@
    "chars": 11405
   }
  ],
- "status": "senaste tolkning misslyckades (claude -p: You've hit your weekly limit · resets 4pm (UTC))",
- "notes": "Ränteuppgifterna är hämtade från bankens räntetabell (daterad 2026-09-29). Sidan \"Fasträntekonto\" innehåller även en räkneexempeltabell med avvikande räntor (t.ex. 3 mån 1,75 %, 5 år 1,90 %); den bedöms vara ett äldre exempel och den aktuella räntetabellen har använts. Räntan på de rörliga kontona (E-sparkonto, Österlenkonto, Sparkonto Trygg, Skogskonto) anges inte uttryckligen som rörlig. Datum för när räntan började gälla anges bara för fasträntekontona (via datumet i tabellrubriken). Privatkonto, Barnsparkonto, IPS, ISK, företagskonton och Private Banking-kontot (inget ränteuppgift) är utelämnade.",
+ "status": "ok",
+ "notes": "Fasträntekontots räntor hämtades från räntetabellen (eff. ränta daterad 2026-09-29). Sidan för Fasträntekonto har också ett räkneexempel med lägre räntor (t.ex. 1,75 % för 3 mån), som ser äldre ut och inte har använts. Räntorna för E-sparkonto och Österlenkonto är hämtade från sidan Ränta på bankkonton. Raden för Österlenkonto är tvetydig i tabellen, eftersom samma rader finns för Sparkonto Företag. Källorna anger ingen insättningsgräns för de rörliga kontona. Skogskonto, Barnsparkonto, Privatkonto, Privatkonto Ung, IPS och ISK har utelämnats. Fasträntekontot med 3 månader förlängs automatiskt varje kvartal.",
  "products": [
+  {
+   "name": "Fasträntekonto 3 mån",
+   "flags": [],
+   "fields": {
+    "product_type": {
+     "value": "fasträntekonto",
+     "quote": "Fasträntekonto - aktuella räntor och bindningstider",
+     "source": 2,
+     "status": "osäkert",
+     "jev": {
+      "verdict": "contradicts",
+      "confidence": 0.18
+     }
+    },
+    "rate_percent": {
+     "value": 1.95,
+     "quote": "| 3 mån | 1,95 | 1,96 |",
+     "source": 2,
+     "status": "belagt"
+    },
+    "rate_type": {
+     "value": "fast",
+     "quote": "Du får en fast sparränta och ditt kapital och ränta betalas ut efter bindningstidens slut.",
+     "source": 2,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.3
+     }
+    },
+    "binding_months": {
+     "value": 3,
+     "quote": "| 3 mån | 1,95 | 1,96 |",
+     "source": 2,
+     "status": "belagt"
+    },
+    "withdrawals": {
+     "value": "mot avgift",
+     "quote": "Du kan förtidsinlösa kontot om du skulle behöva pengarna innan bindningstiden går ut, men då kan du behöva betala ränteskillnadsersättning.",
+     "source": 1,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.97
+     }
+    },
+    "free_withdrawals_per_year": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "withdrawal_terms": {
+     "value": "Förtidsinlösen möjlig, hela beloppet måste tas ut. Ränteskillnadsersättning 2 % av beloppet, dock högst upplupen ränta.",
+     "quote": "Banken har vid uttag i förtid rätt att ta ut en ränteskillnadsersättning motsvarande 2 % av det placerade beloppet, dock aldrig högre belopp än upplupen ränta vid dagen för uttag.",
+     "source": 2,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 1.0
+     }
+    },
+    "min_deposit_sek": {
+     "value": 50000,
+     "quote": "Det minsta beloppet för att starta är 50 000 kr.",
+     "source": 1,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.92
+     }
+    },
+    "max_deposit_sek": {
+     "value": null,
+     "quote": "Räntan kan bara garanteras upp till ett maximalt belopp om 10 miljoner kronor.",
+     "source": 2,
+     "status": "talet finns inte i citatet",
+     "claimed": 10000000
+    },
+    "monthly_deposit_cap_sek": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "deposit_terms": {
+     "value": "Engångsinsättning vid öppnandet, minst 50 000 kr.",
+     "quote": "Du sätter in ditt kapital, minst 50 000 kr, vid öppningstillfället.",
+     "source": 1,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.98
+     }
+    },
+    "eligibility": {
+     "value": "Ansökan digitalt med BankID; befintliga kunder ansöker i internetbanken.",
+     "quote": "För att gå vidare behöver du ha ett BankID.",
+     "source": 5,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.43
+     }
+    },
+    "requires_other_products": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "intro_rate": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "interest_paid": {
+     "value": "Räntan betalas ut efter 3 månader med automatisk ombindning av kapitalet.",
+     "quote": "Väljer du 3 månaders med automatisk ombindning betalas din ränta ut efter 3 månader men kapitalet binds om tills du väljer att avsluta kontot.",
+     "source": 2,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.95
+     }
+    },
+    "guarantee_country": {
+     "value": "SE",
+     "quote": "Kontot omfattas av den statliga insättningsgarantin enligt beslut av Riksgälden.",
+     "source": 1,
+     "status": "osäkert",
+     "jev": {
+      "verdict": "says_nothing",
+      "confidence": 0.67
+     }
+    },
+    "guarantee_amount": {
+     "value": "1 050 000 kr",
+     "quote": "Insättningsgarantin är ett statligt skydd som ersätter insättningar upp till 1 050 000 kronor om en bank eller ett finansinstitut går i konkurs.",
+     "source": 2,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.95
+     }
+    },
+    "rate_valid_from": {
+     "value": "2026-09-29",
+     "quote": "Eff. ränta 365/365 2026-09-29",
+     "source": 2,
+     "status": "osäkert",
+     "jev": {
+      "verdict": "says_nothing",
+      "confidence": 0.49
+     }
+    }
+   },
+   "rate_tiers": [],
+   "pending_rate": null,
+   "status": "verifierad"
+  },
+  {
+   "name": "Fasträntekonto 6 mån",
+   "flags": [],
+   "fields": {
+    "product_type": {
+     "value": "fasträntekonto",
+     "quote": "Fasträntekonto - aktuella räntor och bindningstider",
+     "source": 2,
+     "status": "osäkert",
+     "jev": {
+      "verdict": "contradicts",
+      "confidence": 0.11
+     }
+    },
+    "rate_percent": {
+     "value": 2.05,
+     "quote": "| 6 mån | 2,05 | 2,06 |",
+     "source": 2,
+     "status": "belagt"
+    },
+    "rate_type": {
+     "value": "fast",
+     "quote": "Du får en fast sparränta och ditt kapital och ränta betalas ut efter bindningstidens slut.",
+     "source": 2,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.31
+     }
+    },
+    "binding_months": {
+     "value": 6,
+     "quote": "| 6 mån | 2,05 | 2,06 |",
+     "source": 2,
+     "status": "belagt"
+    },
+    "withdrawals": {
+     "value": "mot avgift",
+     "quote": "Du kan förtidsinlösa kontot om du skulle behöva pengarna innan bindningstiden går ut, men då kan du behöva betala ränteskillnadsersättning.",
+     "source": 1,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.97
+     }
+    },
+    "free_withdrawals_per_year": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "withdrawal_terms": {
+     "value": "Förtidsinlösen möjlig, hela beloppet måste tas ut. Ränteskillnadsersättning 2 % av beloppet, dock högst upplupen ränta.",
+     "quote": "Banken har vid uttag i förtid rätt att ta ut en ränteskillnadsersättning motsvarande 2 % av det placerade beloppet, dock aldrig högre belopp än upplupen ränta vid dagen för uttag.",
+     "source": 2,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 1.0
+     }
+    },
+    "min_deposit_sek": {
+     "value": 50000,
+     "quote": "Det minsta beloppet för att starta är 50 000 kr.",
+     "source": 1,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.94
+     }
+    },
+    "max_deposit_sek": {
+     "value": null,
+     "quote": "Räntan kan bara garanteras upp till ett maximalt belopp om 10 miljoner kronor.",
+     "source": 2,
+     "status": "talet finns inte i citatet",
+     "claimed": 10000000
+    },
+    "monthly_deposit_cap_sek": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "deposit_terms": {
+     "value": "Engångsinsättning vid öppnandet, minst 50 000 kr.",
+     "quote": "Du sätter in ditt kapital, minst 50 000 kr, vid öppningstillfället.",
+     "source": 1,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.97
+     }
+    },
+    "eligibility": {
+     "value": "Ansökan digitalt med BankID; befintliga kunder ansöker i internetbanken.",
+     "quote": "För att gå vidare behöver du ha ett BankID.",
+     "source": 5,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.41
+     }
+    },
+    "requires_other_products": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "intro_rate": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "interest_paid": {
+     "value": "Kapital och ränta betalas ut vid bindningstidens slut.",
+     "quote": "När bindningstiden är slut betalas ditt kapital och ränta ut.",
+     "source": 1,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.95
+     }
+    },
+    "guarantee_country": {
+     "value": "SE",
+     "quote": "Kontot omfattas av den statliga insättningsgarantin enligt beslut av Riksgälden.",
+     "source": 1,
+     "status": "osäkert",
+     "jev": {
+      "verdict": "says_nothing",
+      "confidence": 0.67
+     }
+    },
+    "guarantee_amount": {
+     "value": "1 050 000 kr",
+     "quote": "Insättningsgarantin är ett statligt skydd som ersätter insättningar upp till 1 050 000 kronor om en bank eller ett finansinstitut går i konkurs.",
+     "source": 2,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.91
+     }
+    },
+    "rate_valid_from": {
+     "value": "2026-09-29",
+     "quote": "Eff. ränta 365/365 2026-09-29",
+     "source": 2,
+     "status": "osäkert",
+     "jev": {
+      "verdict": "says_nothing",
+      "confidence": 0.22
+     }
+    }
+   },
+   "rate_tiers": [],
+   "pending_rate": null,
+   "status": "verifierad"
+  },
+  {
+   "name": "Fasträntekonto 1 år",
+   "flags": [],
+   "fields": {
+    "product_type": {
+     "value": "fasträntekonto",
+     "quote": "Fasträntekonto - aktuella räntor och bindningstider",
+     "source": 2,
+     "status": "osäkert",
+     "jev": {
+      "verdict": "contradicts",
+      "confidence": 0.13
+     }
+    },
+    "rate_percent": {
+     "value": 2.15,
+     "quote": "| 1 år | 2,15 | 2,15 |",
+     "source": 2,
+     "status": "belagt"
+    },
+    "rate_type": {
+     "value": "fast",
+     "quote": "Du får en fast sparränta och ditt kapital och ränta betalas ut efter bindningstidens slut.",
+     "source": 2,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.4
+     }
+    },
+    "binding_months": {
+     "value": 12,
+     "quote": "| 1 år | 2,15 | 2,15 |",
+     "source": 2,
+     "status": "belagt"
+    },
+    "withdrawals": {
+     "value": "mot avgift",
+     "quote": "Du kan förtidsinlösa kontot om du skulle behöva pengarna innan bindningstiden går ut, men då kan du behöva betala ränteskillnadsersättning.",
+     "source": 1,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.97
+     }
+    },
+    "free_withdrawals_per_year": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "withdrawal_terms": {
+     "value": "Förtidsinlösen möjlig, hela beloppet måste tas ut. Ränteskillnadsersättning 2 % av beloppet, dock högst upplupen ränta.",
+     "quote": "Banken har vid uttag i förtid rätt att ta ut en ränteskillnadsersättning motsvarande 2 % av det placerade beloppet, dock aldrig högre belopp än upplupen ränta vid dagen för uttag.",
+     "source": 2,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 1.0
+     }
+    },
+    "min_deposit_sek": {
+     "value": 50000,
+     "quote": "Det minsta beloppet för att starta är 50 000 kr.",
+     "source": 1,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.92
+     }
+    },
+    "max_deposit_sek": {
+     "value": null,
+     "quote": "Räntan kan bara garanteras upp till ett maximalt belopp om 10 miljoner kronor.",
+     "source": 2,
+     "status": "talet finns inte i citatet",
+     "claimed": 10000000
+    },
+    "monthly_deposit_cap_sek": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "deposit_terms": {
+     "value": "Engångsinsättning vid öppnandet, minst 50 000 kr.",
+     "quote": "Du sätter in ditt kapital, minst 50 000 kr, vid öppningstillfället.",
+     "source": 1,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.98
+     }
+    },
+    "eligibility": {
+     "value": "Ansökan digitalt med BankID; befintliga kunder ansöker i internetbanken.",
+     "quote": "För att gå vidare behöver du ha ett BankID.",
+     "source": 5,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.38
+     }
+    },
+    "requires_other_products": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "intro_rate": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "interest_paid": {
+     "value": "Kapital och ränta betalas ut vid bindningstidens slut.",
+     "quote": "När bindningstiden är slut betalas ditt kapital och ränta ut.",
+     "source": 1,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.94
+     }
+    },
+    "guarantee_country": {
+     "value": "SE",
+     "quote": "Kontot omfattas av den statliga insättningsgarantin enligt beslut av Riksgälden.",
+     "source": 1,
+     "status": "osäkert",
+     "jev": {
+      "verdict": "says_nothing",
+      "confidence": 0.64
+     }
+    },
+    "guarantee_amount": {
+     "value": "1 050 000 kr",
+     "quote": "Insättningsgarantin är ett statligt skydd som ersätter insättningar upp till 1 050 000 kronor om en bank eller ett finansinstitut går i konkurs.",
+     "source": 2,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.89
+     }
+    },
+    "rate_valid_from": {
+     "value": "2026-09-29",
+     "quote": "Eff. ränta 365/365 2026-09-29",
+     "source": 2,
+     "status": "osäkert",
+     "jev": {
+      "verdict": "says_nothing",
+      "confidence": 0.23
+     }
+    }
+   },
+   "rate_tiers": [],
+   "pending_rate": null,
+   "status": "verifierad"
+  },
+  {
+   "name": "Fasträntekonto 1,5 år",
+   "flags": [],
+   "fields": {
+    "product_type": {
+     "value": "fasträntekonto",
+     "quote": "Fasträntekonto - aktuella räntor och bindningstider",
+     "source": 2,
+     "status": "osäkert",
+     "jev": {
+      "verdict": "contradicts",
+      "confidence": 0.22
+     }
+    },
+    "rate_percent": {
+     "value": 2.35,
+     "quote": "| 1,5 år | 2,35 | 2,34 |",
+     "source": 2,
+     "status": "belagt"
+    },
+    "rate_type": {
+     "value": "fast",
+     "quote": "Du får en fast sparränta och ditt kapital och ränta betalas ut efter bindningstidens slut.",
+     "source": 2,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.37
+     }
+    },
+    "binding_months": {
+     "value": 18,
+     "quote": "| 1,5 år | 2,35 | 2,34 |",
+     "source": 2,
+     "status": "belagt"
+    },
+    "withdrawals": {
+     "value": "mot avgift",
+     "quote": "Du kan förtidsinlösa kontot om du skulle behöva pengarna innan bindningstiden går ut, men då kan du behöva betala ränteskillnadsersättning.",
+     "source": 1,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.97
+     }
+    },
+    "free_withdrawals_per_year": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "withdrawal_terms": {
+     "value": "Förtidsinlösen möjlig, hela beloppet måste tas ut. Ränteskillnadsersättning 2 % av beloppet, dock högst upplupen ränta.",
+     "quote": "Banken har vid uttag i förtid rätt att ta ut en ränteskillnadsersättning motsvarande 2 % av det placerade beloppet, dock aldrig högre belopp än upplupen ränta vid dagen för uttag.",
+     "source": 2,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 1.0
+     }
+    },
+    "min_deposit_sek": {
+     "value": 50000,
+     "quote": "Det minsta beloppet för att starta är 50 000 kr.",
+     "source": 1,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.89
+     }
+    },
+    "max_deposit_sek": {
+     "value": null,
+     "quote": "Räntan kan bara garanteras upp till ett maximalt belopp om 10 miljoner kronor.",
+     "source": 2,
+     "status": "talet finns inte i citatet",
+     "claimed": 10000000
+    },
+    "monthly_deposit_cap_sek": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "deposit_terms": {
+     "value": "Engångsinsättning vid öppnandet, minst 50 000 kr.",
+     "quote": "Du sätter in ditt kapital, minst 50 000 kr, vid öppningstillfället.",
+     "source": 1,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.98
+     }
+    },
+    "eligibility": {
+     "value": "Ansökan digitalt med BankID; befintliga kunder ansöker i internetbanken.",
+     "quote": "För att gå vidare behöver du ha ett BankID.",
+     "source": 5,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.41
+     }
+    },
+    "requires_other_products": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "intro_rate": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "interest_paid": {
+     "value": "Kapital och ränta betalas ut vid bindningstidens slut.",
+     "quote": "När bindningstiden är slut betalas ditt kapital och ränta ut.",
+     "source": 1,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.95
+     }
+    },
+    "guarantee_country": {
+     "value": "SE",
+     "quote": "Kontot omfattas av den statliga insättningsgarantin enligt beslut av Riksgälden.",
+     "source": 1,
+     "status": "osäkert",
+     "jev": {
+      "verdict": "says_nothing",
+      "confidence": 0.67
+     }
+    },
+    "guarantee_amount": {
+     "value": "1 050 000 kr",
+     "quote": "Insättningsgarantin är ett statligt skydd som ersätter insättningar upp till 1 050 000 kronor om en bank eller ett finansinstitut går i konkurs.",
+     "source": 2,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.91
+     }
+    },
+    "rate_valid_from": {
+     "value": "2026-09-29",
+     "quote": "Eff. ränta 365/365 2026-09-29",
+     "source": 2,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.37
+     }
+    }
+   },
+   "rate_tiers": [],
+   "pending_rate": null,
+   "status": "verifierad"
+  },
+  {
+   "name": "Fasträntekonto 2 år",
+   "flags": [],
+   "fields": {
+    "product_type": {
+     "value": "fasträntekonto",
+     "quote": "Fasträntekonto - aktuella räntor och bindningstider",
+     "source": 2,
+     "status": "osäkert",
+     "jev": {
+      "verdict": "contradicts",
+      "confidence": 0.18
+     }
+    },
+    "rate_percent": {
+     "value": 2.6,
+     "quote": "| 2 år | 2,60 | 2,57 |",
+     "source": 2,
+     "status": "belagt"
+    },
+    "rate_type": {
+     "value": "fast",
+     "quote": "Du får en fast sparränta och ditt kapital och ränta betalas ut efter bindningstidens slut.",
+     "source": 2,
+     "status": "osäkert",
+     "jev": {
+      "verdict": "says_nothing",
+      "confidence": 0.33
+     }
+    },
+    "binding_months": {
+     "value": 24,
+     "quote": "| 2 år | 2,60 | 2,57 |",
+     "source": 2,
+     "status": "belagt"
+    },
+    "withdrawals": {
+     "value": "mot avgift",
+     "quote": "Du kan förtidsinlösa kontot om du skulle behöva pengarna innan bindningstiden går ut, men då kan du behöva betala ränteskillnadsersättning.",
+     "source": 1,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.97
+     }
+    },
+    "free_withdrawals_per_year": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "withdrawal_terms": {
+     "value": "Förtidsinlösen möjlig, hela beloppet måste tas ut. Ränteskillnadsersättning 2 % av beloppet, dock högst upplupen ränta.",
+     "quote": "Banken har vid uttag i förtid rätt att ta ut en ränteskillnadsersättning motsvarande 2 % av det placerade beloppet, dock aldrig högre belopp än upplupen ränta vid dagen för uttag.",
+     "source": 2,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 1.0
+     }
+    },
+    "min_deposit_sek": {
+     "value": 50000,
+     "quote": "Det minsta beloppet för att starta är 50 000 kr.",
+     "source": 1,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.94
+     }
+    },
+    "max_deposit_sek": {
+     "value": null,
+     "quote": "Räntan kan bara garanteras upp till ett maximalt belopp om 10 miljoner kronor.",
+     "source": 2,
+     "status": "talet finns inte i citatet",
+     "claimed": 10000000
+    },
+    "monthly_deposit_cap_sek": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "deposit_terms": {
+     "value": "Engångsinsättning vid öppnandet, minst 50 000 kr.",
+     "quote": "Du sätter in ditt kapital, minst 50 000 kr, vid öppningstillfället.",
+     "source": 1,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.98
+     }
+    },
+    "eligibility": {
+     "value": "Ansökan digitalt med BankID; befintliga kunder ansöker i internetbanken.",
+     "quote": "För att gå vidare behöver du ha ett BankID.",
+     "source": 5,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.35
+     }
+    },
+    "requires_other_products": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "intro_rate": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "interest_paid": {
+     "value": "Kapital och ränta betalas ut vid bindningstidens slut.",
+     "quote": "När bindningstiden är slut betalas ditt kapital och ränta ut.",
+     "source": 1,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.95
+     }
+    },
+    "guarantee_country": {
+     "value": "SE",
+     "quote": "Kontot omfattas av den statliga insättningsgarantin enligt beslut av Riksgälden.",
+     "source": 1,
+     "status": "osäkert",
+     "jev": {
+      "verdict": "says_nothing",
+      "confidence": 0.77
+     }
+    },
+    "guarantee_amount": {
+     "value": "1 050 000 kr",
+     "quote": "Insättningsgarantin är ett statligt skydd som ersätter insättningar upp till 1 050 000 kronor om en bank eller ett finansinstitut går i konkurs.",
+     "source": 2,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.88
+     }
+    },
+    "rate_valid_from": {
+     "value": "2026-09-29",
+     "quote": "Eff. ränta 365/365 2026-09-29",
+     "source": 2,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.34
+     }
+    }
+   },
+   "rate_tiers": [],
+   "pending_rate": null,
+   "status": "verifierad"
+  },
+  {
+   "name": "Fasträntekonto 3 år",
+   "flags": [],
+   "fields": {
+    "product_type": {
+     "value": "fasträntekonto",
+     "quote": "Fasträntekonto - aktuella räntor och bindningstider",
+     "source": 2,
+     "status": "osäkert",
+     "jev": {
+      "verdict": "contradicts",
+      "confidence": 0.33
+     }
+    },
+    "rate_percent": {
+     "value": 2.45,
+     "quote": "| 3 år | 2,45 | 2,39 |",
+     "source": 2,
+     "status": "belagt"
+    },
+    "rate_type": {
+     "value": "fast",
+     "quote": "Du får en fast sparränta och ditt kapital och ränta betalas ut efter bindningstidens slut.",
+     "source": 2,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.33
+     }
+    },
+    "binding_months": {
+     "value": 36,
+     "quote": "| 3 år | 2,45 | 2,39 |",
+     "source": 2,
+     "status": "belagt"
+    },
+    "withdrawals": {
+     "value": "mot avgift",
+     "quote": "Du kan förtidsinlösa kontot om du skulle behöva pengarna innan bindningstiden går ut, men då kan du behöva betala ränteskillnadsersättning.",
+     "source": 1,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.97
+     }
+    },
+    "free_withdrawals_per_year": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "withdrawal_terms": {
+     "value": "Förtidsinlösen möjlig, hela beloppet måste tas ut. Ränteskillnadsersättning 2 % av beloppet, dock högst upplupen ränta.",
+     "quote": "Banken har vid uttag i förtid rätt att ta ut en ränteskillnadsersättning motsvarande 2 % av det placerade beloppet, dock aldrig högre belopp än upplupen ränta vid dagen för uttag.",
+     "source": 2,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 1.0
+     }
+    },
+    "min_deposit_sek": {
+     "value": 50000,
+     "quote": "Det minsta beloppet för att starta är 50 000 kr.",
+     "source": 1,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.95
+     }
+    },
+    "max_deposit_sek": {
+     "value": null,
+     "quote": "Räntan kan bara garanteras upp till ett maximalt belopp om 10 miljoner kronor.",
+     "source": 2,
+     "status": "talet finns inte i citatet",
+     "claimed": 10000000
+    },
+    "monthly_deposit_cap_sek": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "deposit_terms": {
+     "value": "Engångsinsättning vid öppnandet, minst 50 000 kr.",
+     "quote": "Du sätter in ditt kapital, minst 50 000 kr, vid öppningstillfället.",
+     "source": 1,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.98
+     }
+    },
+    "eligibility": {
+     "value": "Ansökan digitalt med BankID; befintliga kunder ansöker i internetbanken.",
+     "quote": "För att gå vidare behöver du ha ett BankID.",
+     "source": 5,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.28
+     }
+    },
+    "requires_other_products": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "intro_rate": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "interest_paid": {
+     "value": "Kapital och ränta betalas ut vid bindningstidens slut.",
+     "quote": "När bindningstiden är slut betalas ditt kapital och ränta ut.",
+     "source": 1,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.94
+     }
+    },
+    "guarantee_country": {
+     "value": "SE",
+     "quote": "Kontot omfattas av den statliga insättningsgarantin enligt beslut av Riksgälden.",
+     "source": 1,
+     "status": "osäkert",
+     "jev": {
+      "verdict": "says_nothing",
+      "confidence": 0.69
+     }
+    },
+    "guarantee_amount": {
+     "value": "1 050 000 kr",
+     "quote": "Insättningsgarantin är ett statligt skydd som ersätter insättningar upp till 1 050 000 kronor om en bank eller ett finansinstitut går i konkurs.",
+     "source": 2,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.91
+     }
+    },
+    "rate_valid_from": {
+     "value": "2026-09-29",
+     "quote": "Eff. ränta 365/365 2026-09-29",
+     "source": 2,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.25
+     }
+    }
+   },
+   "rate_tiers": [],
+   "pending_rate": null,
+   "status": "verifierad"
+  },
+  {
+   "name": "Fasträntekonto 4 år",
+   "flags": [],
+   "fields": {
+    "product_type": {
+     "value": "fasträntekonto",
+     "quote": "Fasträntekonto - aktuella räntor och bindningstider",
+     "source": 2,
+     "status": "osäkert",
+     "jev": {
+      "verdict": "contradicts",
+      "confidence": 0.25
+     }
+    },
+    "rate_percent": {
+     "value": 2.55,
+     "quote": "| 4 år | 2,55 | 2,46 |",
+     "source": 2,
+     "status": "belagt"
+    },
+    "rate_type": {
+     "value": "fast",
+     "quote": "Du får en fast sparränta och ditt kapital och ränta betalas ut efter bindningstidens slut.",
+     "source": 2,
+     "status": "osäkert",
+     "jev": {
+      "verdict": "says_nothing",
+      "confidence": 0.27
+     }
+    },
+    "binding_months": {
+     "value": 48,
+     "quote": "| 4 år | 2,55 | 2,46 |",
+     "source": 2,
+     "status": "belagt"
+    },
+    "withdrawals": {
+     "value": "mot avgift",
+     "quote": "Du kan förtidsinlösa kontot om du skulle behöva pengarna innan bindningstiden går ut, men då kan du behöva betala ränteskillnadsersättning.",
+     "source": 1,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.97
+     }
+    },
+    "free_withdrawals_per_year": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "withdrawal_terms": {
+     "value": "Förtidsinlösen möjlig, hela beloppet måste tas ut. Ränteskillnadsersättning 2 % av beloppet, dock högst upplupen ränta.",
+     "quote": "Banken har vid uttag i förtid rätt att ta ut en ränteskillnadsersättning motsvarande 2 % av det placerade beloppet, dock aldrig högre belopp än upplupen ränta vid dagen för uttag.",
+     "source": 2,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 1.0
+     }
+    },
+    "min_deposit_sek": {
+     "value": 50000,
+     "quote": "Det minsta beloppet för att starta är 50 000 kr.",
+     "source": 1,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.94
+     }
+    },
+    "max_deposit_sek": {
+     "value": null,
+     "quote": "Räntan kan bara garanteras upp till ett maximalt belopp om 10 miljoner kronor.",
+     "source": 2,
+     "status": "talet finns inte i citatet",
+     "claimed": 10000000
+    },
+    "monthly_deposit_cap_sek": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "deposit_terms": {
+     "value": "Engångsinsättning vid öppnandet, minst 50 000 kr.",
+     "quote": "Du sätter in ditt kapital, minst 50 000 kr, vid öppningstillfället.",
+     "source": 1,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.98
+     }
+    },
+    "eligibility": {
+     "value": "Ansökan digitalt med BankID; befintliga kunder ansöker i internetbanken.",
+     "quote": "För att gå vidare behöver du ha ett BankID.",
+     "source": 5,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.37
+     }
+    },
+    "requires_other_products": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "intro_rate": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "interest_paid": {
+     "value": "Kapital och ränta betalas ut vid bindningstidens slut.",
+     "quote": "När bindningstiden är slut betalas ditt kapital och ränta ut.",
+     "source": 1,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.95
+     }
+    },
+    "guarantee_country": {
+     "value": "SE",
+     "quote": "Kontot omfattas av den statliga insättningsgarantin enligt beslut av Riksgälden.",
+     "source": 1,
+     "status": "osäkert",
+     "jev": {
+      "verdict": "says_nothing",
+      "confidence": 0.73
+     }
+    },
+    "guarantee_amount": {
+     "value": "1 050 000 kr",
+     "quote": "Insättningsgarantin är ett statligt skydd som ersätter insättningar upp till 1 050 000 kronor om en bank eller ett finansinstitut går i konkurs.",
+     "source": 2,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.83
+     }
+    },
+    "rate_valid_from": {
+     "value": "2026-09-29",
+     "quote": "Eff. ränta 365/365 2026-09-29",
+     "source": 2,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.34
+     }
+    }
+   },
+   "rate_tiers": [],
+   "pending_rate": null,
+   "status": "verifierad"
+  },
+  {
+   "name": "Fasträntekonto 5 år",
+   "flags": [],
+   "fields": {
+    "product_type": {
+     "value": "fasträntekonto",
+     "quote": "Fasträntekonto - aktuella räntor och bindningstider",
+     "source": 2,
+     "status": "osäkert",
+     "jev": {
+      "verdict": "contradicts",
+      "confidence": 0.28
+     }
+    },
+    "rate_percent": {
+     "value": 2.6,
+     "quote": "| 5 år | 2,60 | 2,47 |",
+     "source": 2,
+     "status": "belagt"
+    },
+    "rate_type": {
+     "value": "fast",
+     "quote": "Du får en fast sparränta och ditt kapital och ränta betalas ut efter bindningstidens slut.",
+     "source": 2,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.37
+     }
+    },
+    "binding_months": {
+     "value": 60,
+     "quote": "| 5 år | 2,60 | 2,47 |",
+     "source": 2,
+     "status": "belagt"
+    },
+    "withdrawals": {
+     "value": "mot avgift",
+     "quote": "Du kan förtidsinlösa kontot om du skulle behöva pengarna innan bindningstiden går ut, men då kan du behöva betala ränteskillnadsersättning.",
+     "source": 1,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.97
+     }
+    },
+    "free_withdrawals_per_year": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "withdrawal_terms": {
+     "value": "Förtidsinlösen möjlig, hela beloppet måste tas ut. Ränteskillnadsersättning 2 % av beloppet, dock högst upplupen ränta.",
+     "quote": "Banken har vid uttag i förtid rätt att ta ut en ränteskillnadsersättning motsvarande 2 % av det placerade beloppet, dock aldrig högre belopp än upplupen ränta vid dagen för uttag.",
+     "source": 2,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 1.0
+     }
+    },
+    "min_deposit_sek": {
+     "value": 50000,
+     "quote": "Det minsta beloppet för att starta är 50 000 kr.",
+     "source": 1,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.94
+     }
+    },
+    "max_deposit_sek": {
+     "value": null,
+     "quote": "Räntan kan bara garanteras upp till ett maximalt belopp om 10 miljoner kronor.",
+     "source": 2,
+     "status": "talet finns inte i citatet",
+     "claimed": 10000000
+    },
+    "monthly_deposit_cap_sek": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "deposit_terms": {
+     "value": "Engångsinsättning vid öppnandet, minst 50 000 kr.",
+     "quote": "Du sätter in ditt kapital, minst 50 000 kr, vid öppningstillfället.",
+     "source": 1,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.98
+     }
+    },
+    "eligibility": {
+     "value": "Ansökan digitalt med BankID; befintliga kunder ansöker i internetbanken.",
+     "quote": "För att gå vidare behöver du ha ett BankID.",
+     "source": 5,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.33
+     }
+    },
+    "requires_other_products": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "intro_rate": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "interest_paid": {
+     "value": "Kapital och ränta betalas ut vid bindningstidens slut.",
+     "quote": "När bindningstiden är slut betalas ditt kapital och ränta ut.",
+     "source": 1,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.94
+     }
+    },
+    "guarantee_country": {
+     "value": "SE",
+     "quote": "Kontot omfattas av den statliga insättningsgarantin enligt beslut av Riksgälden.",
+     "source": 1,
+     "status": "osäkert",
+     "jev": {
+      "verdict": "says_nothing",
+      "confidence": 0.72
+     }
+    },
+    "guarantee_amount": {
+     "value": "1 050 000 kr",
+     "quote": "Insättningsgarantin är ett statligt skydd som ersätter insättningar upp till 1 050 000 kronor om en bank eller ett finansinstitut går i konkurs.",
+     "source": 2,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.82
+     }
+    },
+    "rate_valid_from": {
+     "value": "2026-09-29",
+     "quote": "Eff. ränta 365/365 2026-09-29",
+     "source": 2,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.27
+     }
+    }
+   },
+   "rate_tiers": [],
+   "pending_rate": null,
+   "status": "verifierad"
+  },
   {
    "name": "E-sparkonto",
    "flags": [],
@@ -81,7 +1377,7 @@
      "status": "osäkert",
      "jev": {
       "verdict": "says_nothing",
-      "confidence": 0.28
+      "confidence": 0.25
      }
     },
     "rate_percent": {
@@ -107,7 +1403,7 @@
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.67
+      "confidence": 0.59
      }
     },
     "withdrawals": {
@@ -117,7 +1413,7 @@
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 1.0
+      "confidence": 0.94
      }
     },
     "free_withdrawals_per_year": {
@@ -127,13 +1423,13 @@
      "status": "okänt"
     },
     "withdrawal_terms": {
-     "value": "Fria uttag när som helst via internetbanken; max tre konton per kund.",
-     "quote": "Du kan ta ut pengarna när det passar dig.",
+     "value": "Fria uttag när som helst i internetbanken.",
+     "quote": "Insättningar och uttag gör du direkt i internetbanken.",
      "source": 1,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.95
+      "confidence": 0.46
      }
     },
     "min_deposit_sek": {
@@ -148,21 +1444,31 @@
      "source": null,
      "status": "okänt"
     },
+    "monthly_deposit_cap_sek": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
     "deposit_terms": {
-     "value": "Fria insättningar via internetbanken.",
+     "value": "Fria insättningar; max tre konton per kund.",
      "quote": "Fria insättningar och uttag.",
      "source": 1,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 1.0
+      "confidence": 0.98
      }
     },
     "eligibility": {
-     "value": null,
-     "quote": null,
-     "source": null,
-     "status": "okänt"
+     "value": "Ansökan digitalt med BankID.",
+     "quote": "För att gå vidare behöver du ha ett BankID.",
+     "source": 5,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.61
+     }
     },
     "requires_other_products": {
      "value": null,
@@ -189,14 +1495,18 @@
      "status": "osäkert",
      "jev": {
       "verdict": "says_nothing",
-      "confidence": 0.46
+      "confidence": 0.23
      }
     },
     "guarantee_amount": {
-     "value": null,
-     "quote": null,
-     "source": null,
-     "status": "okänt"
+     "value": "1 050 000 kr",
+     "quote": "Insättningsgarantin är ett statligt skydd som ersätter insättningar upp till 1 050 000 kronor om en bank eller ett finansinstitut går i konkurs.",
+     "source": 2,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.37
+     }
     },
     "rate_valid_from": {
      "value": null,
@@ -220,7 +1530,7 @@
      "status": "osäkert",
      "jev": {
       "verdict": "contradicts",
-      "confidence": 0.28
+      "confidence": 0.3
      }
     },
     "rate_percent": {
@@ -230,7 +1540,7 @@
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.89
+      "confidence": 0.95
      }
     },
     "rate_type": {
@@ -240,15 +1550,14 @@
      "status": "okänt"
     },
     "binding_months": {
-     "value": null,
+     "value": 0,
      "quote": "Du kan ta ut pengarna när det passar dig.",
      "source": 1,
-     "status": "stöds inte av källan",
+     "status": "osäkert",
      "jev": {
       "verdict": "says_nothing",
-      "confidence": 0.8
-     },
-     "claimed": 0
+      "confidence": 0.74
+     }
     },
     "withdrawals": {
      "value": "fria",
@@ -257,7 +1566,7 @@
      "status": "osäkert",
      "jev": {
       "verdict": "says_nothing",
-      "confidence": 0.33
+      "confidence": 0.22
      }
     },
     "free_withdrawals_per_year": {
@@ -267,13 +1576,13 @@
      "status": "okänt"
     },
     "withdrawal_terms": {
-     "value": "Fria uttag när som helst via internetbanken; max tre konton per kund.",
-     "quote": "Du kan ta ut pengarna när det passar dig.",
+     "value": "Fria uttag när som helst i internetbanken.",
+     "quote": "Insättningar och uttag gör du direkt i internetbanken.",
      "source": 1,
      "status": "osäkert",
      "jev": {
       "verdict": "says_nothing",
-      "confidence": 0.55
+      "confidence": 0.51
      }
     },
     "min_deposit_sek": {
@@ -288,14 +1597,20 @@
      "source": null,
      "status": "okänt"
     },
+    "monthly_deposit_cap_sek": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
     "deposit_terms": {
-     "value": "Fria insättningar via internetbanken.",
+     "value": "Fria insättningar; max tre konton per kund.",
      "quote": "Fria insättningar och uttag.",
      "source": 1,
      "status": "osäkert",
      "jev": {
       "verdict": "says_nothing",
-      "confidence": 0.35
+      "confidence": 0.52
      }
     },
     "eligibility": {
@@ -329,15 +1644,19 @@
      "status": "stöds inte av källan",
      "jev": {
       "verdict": "says_nothing",
-      "confidence": 0.82
+      "confidence": 0.85
      },
      "claimed": "SE"
     },
     "guarantee_amount": {
-     "value": null,
-     "quote": null,
-     "source": null,
-     "status": "okänt"
+     "value": "1 050 000 kr",
+     "quote": "Insättningsgarantin är ett statligt skydd som ersätter insättningar upp till 1 050 000 kronor om en bank eller ett finansinstitut går i konkurs.",
+     "source": 2,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.23
+     }
     },
     "rate_valid_from": {
      "value": null,
@@ -348,7 +1667,7 @@
    },
    "rate_tiers": [],
    "pending_rate": null,
-   "status": "delvis verifierad"
+   "status": "verifierad"
   },
   {
    "name": "Sparkonto Trygg",
@@ -356,22 +1675,22 @@
    "fields": {
     "product_type": {
      "value": "sparkonto med uttagsbegränsning",
-     "quote": "dina uttag betalas ut med tre bankdagars fördröjning",
-     "source": 1,
-     "status": "osäkert",
+     "quote": "Sparkonto Trygg\nger dig ett extra skydd mot bedrägerier eftersom dina uttag betalas ut med tre bankdagars fördröjning.",
+     "source": 3,
+     "status": "belagt",
      "jev": {
-      "verdict": "says_nothing",
-      "confidence": 0.66
+      "verdict": "supports",
+      "confidence": 0.49
      }
     },
     "rate_percent": {
      "value": 0.5,
      "quote": "Att öppna Sparkonto Trygg är kostnadsfritt och du får 0,50 % i ränta.",
-     "source": 1,
+     "source": 3,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.83
+      "confidence": 0.76
      }
     },
     "rate_type": {
@@ -388,12 +1707,12 @@
     },
     "withdrawals": {
      "value": "begränsade",
-     "quote": "dina uttag betalas ut med tre bankdagars fördröjning",
-     "source": 1,
-     "status": "belagt",
+     "quote": "Ta ut dina pengar eller överför pengar till dina egna konton i banken med tre dagars fördröjning, helt utan avgift",
+     "source": 3,
+     "status": "osäkert",
      "jev": {
-      "verdict": "supports",
-      "confidence": 0.76
+      "verdict": "contradicts",
+      "confidence": 0.31
      }
     },
     "free_withdrawals_per_year": {
@@ -403,13 +1722,13 @@
      "status": "okänt"
     },
     "withdrawal_terms": {
-     "value": "Uttag utan avgift men med tre bankdagars fördröjning; pengar kan bara föras över till egna konton i banken.",
-     "quote": "Ta ut dina pengar eller överför pengar till dina egna konton i banken med tre dagars fördröjning, helt utan avgift",
-     "source": 1,
+     "value": "Uttag betalas ut efter tre bankdagar, utan avgift. Pengar kan bara föras över till egna konton i banken.",
+     "quote": "Med Sparkonto Trygg får du bättre kontroll över dina sparade pengar eftersom de bara kan föras över till dina egna konton i banken.",
+     "source": 3,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.98
+      "confidence": 0.86
      }
     },
     "min_deposit_sek": {
@@ -419,6 +1738,12 @@
      "status": "okänt"
     },
     "max_deposit_sek": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "monthly_deposit_cap_sek": {
      "value": null,
      "quote": null,
      "source": null,
@@ -456,19 +1781,23 @@
     },
     "guarantee_country": {
      "value": "SE",
-     "quote": "Kontot omfattas av den statliga insättningsgarantin enligt beslut av Riksgälden.",
-     "source": 1,
+     "quote": "Kontot omfattas av den statliga insättningsgarantin",
+     "source": 3,
      "status": "osäkert",
      "jev": {
       "verdict": "says_nothing",
-      "confidence": 0.58
+      "confidence": 0.67
      }
     },
     "guarantee_amount": {
-     "value": null,
-     "quote": null,
-     "source": null,
-     "status": "okänt"
+     "value": "1 050 000 kr",
+     "quote": "Insättningsgarantin är ett statligt skydd som ersätter insättningar upp till 1 050 000 kronor om en bank eller ett finansinstitut går i konkurs.",
+     "source": 2,
+     "status": "osäkert",
+     "jev": {
+      "verdict": "contradicts",
+      "confidence": 0.13
+     }
     },
     "rate_valid_from": {
      "value": null,
@@ -480,1289 +1809,9 @@
    "rate_tiers": [],
    "pending_rate": null,
    "status": "delvis verifierad"
-  },
-  {
-   "name": "Fasträntekonto 3 mån",
-   "flags": [],
-   "fields": {
-    "product_type": {
-     "value": "fasträntekonto",
-     "quote": "Fasträntekonto - aktuella räntor och bindningstider",
-     "source": 0,
-     "status": "osäkert",
-     "jev": {
-      "verdict": "contradicts",
-      "confidence": 0.31
-     }
-    },
-    "rate_percent": {
-     "value": 1.95,
-     "quote": "| 3 mån | 1,95 | 1,96 |",
-     "source": 0,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.52
-     }
-    },
-    "rate_type": {
-     "value": "fast",
-     "quote": "Du får en fast sparränta och ditt kapital och ränta betalas ut efter bindningstidens slut.",
-     "source": 1,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.3
-     }
-    },
-    "binding_months": {
-     "value": 3,
-     "quote": "| 3 mån | 1,95 | 1,96 |",
-     "source": 0,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.82
-     }
-    },
-    "withdrawals": {
-     "quote": "Du kan förtidsinlösa kontot om du skulle behöva pengarna innan bindningstiden går ut, men då kan du behöva betala ränteskillnadsersättning.",
-     "source": 1,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 1.0
-     },
-     "value": "mot avgift"
-    },
-    "free_withdrawals_per_year": {
-     "value": null,
-     "quote": null,
-     "source": null,
-     "status": "okänt"
-    },
-    "withdrawal_terms": {
-     "value": "Förtidsinlösen möjlig, ev. ränteskillnadsersättning; prislistan anger 2 % dock max upplupen ränta. Förlängs automatiskt kvartalsvis.",
-     "quote": "Förtidsinlösen av fasträntekonto 2 % dock max upplupen ränta",
-     "source": 6,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.89
-     }
-    },
-    "min_deposit_sek": {
-     "value": 50000,
-     "quote": "Det minsta beloppet för att starta är 50 000 kr.",
-     "source": 1,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.91
-     }
-    },
-    "max_deposit_sek": {
-     "value": null,
-     "quote": "Räntan kan bara garanteras upp till ett maximalt belopp om 10 miljoner kronor.",
-     "source": 0,
-     "status": "talet finns inte i citatet",
-     "claimed": 10000000
-    },
-    "deposit_terms": {
-     "value": "Engångsinsättning vid öppnandet, minst 50 000 kr.",
-     "quote": "Du sätter in ditt kapital, minst 50 000 kr, vid öppningstillfället.",
-     "source": 1,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.94
-     }
-    },
-    "eligibility": {
-     "value": "BankID krävs för att öppna kontot digitalt.",
-     "quote": "För att gå vidare behöver du ha ett BankID.",
-     "source": 5,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.69
-     }
-    },
-    "requires_other_products": {
-     "value": null,
-     "quote": null,
-     "source": null,
-     "status": "okänt"
-    },
-    "intro_rate": {
-     "value": null,
-     "quote": null,
-     "source": null,
-     "status": "okänt"
-    },
-    "interest_paid": {
-     "value": "Ränta betalas ut efter 3 månader; kapitalet binds om automatiskt varje kvartal.",
-     "quote": "Väljer du 3 månader med automatisk ombindning betalas din ränta ut efter 3 månader men kapitalet binds om tills du väljer att avsluta kontot.",
-     "source": 1,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.95
-     }
-    },
-    "guarantee_country": {
-     "value": "SE",
-     "quote": "Kontot omfattas av den statliga insättningsgarantin enligt beslut av Riksgälden.",
-     "source": 1,
-     "status": "osäkert",
-     "jev": {
-      "verdict": "says_nothing",
-      "confidence": 0.56
-     }
-    },
-    "guarantee_amount": {
-     "value": null,
-     "quote": null,
-     "source": null,
-     "status": "okänt"
-    },
-    "rate_valid_from": {
-     "value": "2026-09-29",
-     "quote": "Eff. ränta 365/365 2026-09-29",
-     "source": 0,
-     "status": "osäkert",
-     "jev": {
-      "verdict": "says_nothing",
-      "confidence": 0.4
-     }
-    }
-   },
-   "rate_tiers": [],
-   "pending_rate": null,
-   "status": "verifierad"
-  },
-  {
-   "name": "Fasträntekonto 6 mån",
-   "flags": [],
-   "fields": {
-    "product_type": {
-     "value": "fasträntekonto",
-     "quote": "Fasträntekonto - aktuella räntor och bindningstider",
-     "source": 0,
-     "status": "osäkert",
-     "jev": {
-      "verdict": "contradicts",
-      "confidence": 0.25
-     }
-    },
-    "rate_percent": {
-     "value": 2.05,
-     "quote": "| 6 mån | 2,05 | 2,06 |",
-     "source": 0,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.62
-     }
-    },
-    "rate_type": {
-     "value": "fast",
-     "quote": "Du får en fast sparränta och ditt kapital och ränta betalas ut efter bindningstidens slut.",
-     "source": 1,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.55
-     }
-    },
-    "binding_months": {
-     "value": 6,
-     "quote": "| 6 mån | 2,05 | 2,06 |",
-     "source": 0,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.66
-     }
-    },
-    "withdrawals": {
-     "quote": "Du kan förtidsinlösa kontot om du skulle behöva pengarna innan bindningstiden går ut, men då kan du behöva betala ränteskillnadsersättning.",
-     "source": 1,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 1.0
-     },
-     "value": "mot avgift"
-    },
-    "free_withdrawals_per_year": {
-     "value": null,
-     "quote": null,
-     "source": null,
-     "status": "okänt"
-    },
-    "withdrawal_terms": {
-     "value": "Förtidsinlösen möjlig, ev. ränteskillnadsersättning; prislistan anger 2 % dock max upplupen ränta.",
-     "quote": "Förtidsinlösen av fasträntekonto 2 % dock max upplupen ränta",
-     "source": 6,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.97
-     }
-    },
-    "min_deposit_sek": {
-     "value": 50000,
-     "quote": "Det minsta beloppet för att starta är 50 000 kr.",
-     "source": 1,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.95
-     }
-    },
-    "max_deposit_sek": {
-     "value": null,
-     "quote": "Räntan kan bara garanteras upp till ett maximalt belopp om 10 miljoner kronor.",
-     "source": 0,
-     "status": "talet finns inte i citatet",
-     "claimed": 10000000
-    },
-    "deposit_terms": {
-     "value": "Engångsinsättning vid öppnandet, minst 50 000 kr.",
-     "quote": "Du sätter in ditt kapital, minst 50 000 kr, vid öppningstillfället.",
-     "source": 1,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.94
-     }
-    },
-    "eligibility": {
-     "value": "BankID krävs för att öppna kontot digitalt.",
-     "quote": "För att gå vidare behöver du ha ett BankID.",
-     "source": 5,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.64
-     }
-    },
-    "requires_other_products": {
-     "value": null,
-     "quote": null,
-     "source": null,
-     "status": "okänt"
-    },
-    "intro_rate": {
-     "value": null,
-     "quote": null,
-     "source": null,
-     "status": "okänt"
-    },
-    "interest_paid": {
-     "value": "Kapital och ränta betalas ut vid bindningstidens slut.",
-     "quote": "När bindningstiden är slut betalas ditt kapital och ränta ut.",
-     "source": 1,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.97
-     }
-    },
-    "guarantee_country": {
-     "value": "SE",
-     "quote": "Kontot omfattas av den statliga insättningsgarantin enligt beslut av Riksgälden.",
-     "source": 1,
-     "status": "osäkert",
-     "jev": {
-      "verdict": "says_nothing",
-      "confidence": 0.43
-     }
-    },
-    "guarantee_amount": {
-     "value": null,
-     "quote": null,
-     "source": null,
-     "status": "okänt"
-    },
-    "rate_valid_from": {
-     "value": "2026-09-29",
-     "quote": "Eff. ränta 365/365 2026-09-29",
-     "source": 0,
-     "status": "osäkert",
-     "jev": {
-      "verdict": "says_nothing",
-      "confidence": 0.4
-     }
-    }
-   },
-   "rate_tiers": [],
-   "pending_rate": null,
-   "status": "verifierad"
-  },
-  {
-   "name": "Fasträntekonto 1 år",
-   "flags": [],
-   "fields": {
-    "product_type": {
-     "value": "fasträntekonto",
-     "quote": "Fasträntekonto - aktuella räntor och bindningstider",
-     "source": 0,
-     "status": "osäkert",
-     "jev": {
-      "verdict": "contradicts",
-      "confidence": 0.25
-     }
-    },
-    "rate_percent": {
-     "value": 2.15,
-     "quote": "| 1 år | 2,15 | 2,15 |",
-     "source": 0,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.8
-     }
-    },
-    "rate_type": {
-     "value": "fast",
-     "quote": "Du får en fast sparränta och ditt kapital och ränta betalas ut efter bindningstidens slut.",
-     "source": 1,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.28
-     }
-    },
-    "binding_months": {
-     "value": 12,
-     "quote": "| 1 år | 2,15 | 2,15 |",
-     "source": 0,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.35
-     }
-    },
-    "withdrawals": {
-     "quote": "Du kan förtidsinlösa kontot om du skulle behöva pengarna innan bindningstiden går ut, men då kan du behöva betala ränteskillnadsersättning.",
-     "source": 1,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 1.0
-     },
-     "value": "mot avgift"
-    },
-    "free_withdrawals_per_year": {
-     "value": null,
-     "quote": null,
-     "source": null,
-     "status": "okänt"
-    },
-    "withdrawal_terms": {
-     "value": "Förtidsinlösen möjlig, ev. ränteskillnadsersättning; prislistan anger 2 % dock max upplupen ränta.",
-     "quote": "Förtidsinlösen av fasträntekonto 2 % dock max upplupen ränta",
-     "source": 6,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.94
-     }
-    },
-    "min_deposit_sek": {
-     "value": 50000,
-     "quote": "Det minsta beloppet för att starta är 50 000 kr.",
-     "source": 1,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.94
-     }
-    },
-    "max_deposit_sek": {
-     "value": null,
-     "quote": "Räntan kan bara garanteras upp till ett maximalt belopp om 10 miljoner kronor.",
-     "source": 0,
-     "status": "talet finns inte i citatet",
-     "claimed": 10000000
-    },
-    "deposit_terms": {
-     "value": "Engångsinsättning vid öppnandet, minst 50 000 kr.",
-     "quote": "Du sätter in ditt kapital, minst 50 000 kr, vid öppningstillfället.",
-     "source": 1,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.95
-     }
-    },
-    "eligibility": {
-     "value": "BankID krävs för att öppna kontot digitalt.",
-     "quote": "För att gå vidare behöver du ha ett BankID.",
-     "source": 5,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.66
-     }
-    },
-    "requires_other_products": {
-     "value": null,
-     "quote": null,
-     "source": null,
-     "status": "okänt"
-    },
-    "intro_rate": {
-     "value": null,
-     "quote": null,
-     "source": null,
-     "status": "okänt"
-    },
-    "interest_paid": {
-     "value": "Kapital och ränta betalas ut vid bindningstidens slut.",
-     "quote": "När bindningstiden är slut betalas ditt kapital och ränta ut.",
-     "source": 1,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.97
-     }
-    },
-    "guarantee_country": {
-     "value": "SE",
-     "quote": "Kontot omfattas av den statliga insättningsgarantin enligt beslut av Riksgälden.",
-     "source": 1,
-     "status": "osäkert",
-     "jev": {
-      "verdict": "says_nothing",
-      "confidence": 0.49
-     }
-    },
-    "guarantee_amount": {
-     "value": null,
-     "quote": null,
-     "source": null,
-     "status": "okänt"
-    },
-    "rate_valid_from": {
-     "value": "2026-09-29",
-     "quote": "Eff. ränta 365/365 2026-09-29",
-     "source": 0,
-     "status": "osäkert",
-     "jev": {
-      "verdict": "says_nothing",
-      "confidence": 0.3
-     }
-    }
-   },
-   "rate_tiers": [],
-   "pending_rate": null,
-   "status": "verifierad"
-  },
-  {
-   "name": "Fasträntekonto 1,5 år",
-   "flags": [],
-   "fields": {
-    "product_type": {
-     "value": "fasträntekonto",
-     "quote": "Fasträntekonto - aktuella räntor och bindningstider",
-     "source": 0,
-     "status": "osäkert",
-     "jev": {
-      "verdict": "contradicts",
-      "confidence": 0.19
-     }
-    },
-    "rate_percent": {
-     "value": 2.35,
-     "quote": "| 1,5 år | 2,35 | 2,34 |",
-     "source": 0,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.61
-     }
-    },
-    "rate_type": {
-     "value": "fast",
-     "quote": "Du får en fast sparränta och ditt kapital och ränta betalas ut efter bindningstidens slut.",
-     "source": 1,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.37
-     }
-    },
-    "binding_months": {
-     "value": 18,
-     "quote": "| 1,5 år | 2,35 | 2,34 |",
-     "source": 0,
-     "status": "osäkert",
-     "jev": {
-      "verdict": "says_nothing",
-      "confidence": 0.23
-     }
-    },
-    "withdrawals": {
-     "quote": "Du kan förtidsinlösa kontot om du skulle behöva pengarna innan bindningstiden går ut, men då kan du behöva betala ränteskillnadsersättning.",
-     "source": 1,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 1.0
-     },
-     "value": "mot avgift"
-    },
-    "free_withdrawals_per_year": {
-     "value": null,
-     "quote": null,
-     "source": null,
-     "status": "okänt"
-    },
-    "withdrawal_terms": {
-     "value": "Förtidsinlösen möjlig, ev. ränteskillnadsersättning; prislistan anger 2 % dock max upplupen ränta.",
-     "quote": "Förtidsinlösen av fasträntekonto 2 % dock max upplupen ränta",
-     "source": 6,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.95
-     }
-    },
-    "min_deposit_sek": {
-     "value": 50000,
-     "quote": "Det minsta beloppet för att starta är 50 000 kr.",
-     "source": 1,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.92
-     }
-    },
-    "max_deposit_sek": {
-     "value": null,
-     "quote": "Räntan kan bara garanteras upp till ett maximalt belopp om 10 miljoner kronor.",
-     "source": 0,
-     "status": "talet finns inte i citatet",
-     "claimed": 10000000
-    },
-    "deposit_terms": {
-     "value": "Engångsinsättning vid öppnandet, minst 50 000 kr.",
-     "quote": "Du sätter in ditt kapital, minst 50 000 kr, vid öppningstillfället.",
-     "source": 1,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.92
-     }
-    },
-    "eligibility": {
-     "value": "BankID krävs för att öppna kontot digitalt.",
-     "quote": "För att gå vidare behöver du ha ett BankID.",
-     "source": 5,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.61
-     }
-    },
-    "requires_other_products": {
-     "value": null,
-     "quote": null,
-     "source": null,
-     "status": "okänt"
-    },
-    "intro_rate": {
-     "value": null,
-     "quote": null,
-     "source": null,
-     "status": "okänt"
-    },
-    "interest_paid": {
-     "value": "Kapital och ränta betalas ut vid bindningstidens slut.",
-     "quote": "När bindningstiden är slut betalas ditt kapital och ränta ut.",
-     "source": 1,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.95
-     }
-    },
-    "guarantee_country": {
-     "value": "SE",
-     "quote": "Kontot omfattas av den statliga insättningsgarantin enligt beslut av Riksgälden.",
-     "source": 1,
-     "status": "osäkert",
-     "jev": {
-      "verdict": "says_nothing",
-      "confidence": 0.51
-     }
-    },
-    "guarantee_amount": {
-     "value": null,
-     "quote": null,
-     "source": null,
-     "status": "okänt"
-    },
-    "rate_valid_from": {
-     "value": "2026-09-29",
-     "quote": "Eff. ränta 365/365 2026-09-29",
-     "source": 0,
-     "status": "osäkert",
-     "jev": {
-      "verdict": "says_nothing",
-      "confidence": 0.48
-     }
-    }
-   },
-   "rate_tiers": [],
-   "pending_rate": null,
-   "status": "verifierad"
-  },
-  {
-   "name": "Fasträntekonto 2 år",
-   "flags": [],
-   "fields": {
-    "product_type": {
-     "value": "fasträntekonto",
-     "quote": "Fasträntekonto - aktuella räntor och bindningstider",
-     "source": 0,
-     "status": "osäkert",
-     "jev": {
-      "verdict": "contradicts",
-      "confidence": 0.28
-     }
-    },
-    "rate_percent": {
-     "value": 2.6,
-     "quote": "| 2 år | 2,60 | 2,57 |",
-     "source": 0,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.52
-     }
-    },
-    "rate_type": {
-     "value": "fast",
-     "quote": "Du får en fast sparränta och ditt kapital och ränta betalas ut efter bindningstidens slut.",
-     "source": 1,
-     "status": "osäkert",
-     "jev": {
-      "verdict": "says_nothing",
-      "confidence": 0.51
-     }
-    },
-    "binding_months": {
-     "value": 24,
-     "quote": "| 2 år | 2,60 | 2,57 |",
-     "source": 0,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.3
-     }
-    },
-    "withdrawals": {
-     "quote": "Du kan förtidsinlösa kontot om du skulle behöva pengarna innan bindningstiden går ut, men då kan du behöva betala ränteskillnadsersättning.",
-     "source": 1,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 1.0
-     },
-     "value": "mot avgift"
-    },
-    "free_withdrawals_per_year": {
-     "value": null,
-     "quote": null,
-     "source": null,
-     "status": "okänt"
-    },
-    "withdrawal_terms": {
-     "value": "Förtidsinlösen möjlig, ev. ränteskillnadsersättning; prislistan anger 2 % dock max upplupen ränta.",
-     "quote": "Förtidsinlösen av fasträntekonto 2 % dock max upplupen ränta",
-     "source": 6,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.95
-     }
-    },
-    "min_deposit_sek": {
-     "value": 50000,
-     "quote": "Det minsta beloppet för att starta är 50 000 kr.",
-     "source": 1,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.91
-     }
-    },
-    "max_deposit_sek": {
-     "value": null,
-     "quote": "Räntan kan bara garanteras upp till ett maximalt belopp om 10 miljoner kronor.",
-     "source": 0,
-     "status": "talet finns inte i citatet",
-     "claimed": 10000000
-    },
-    "deposit_terms": {
-     "value": "Engångsinsättning vid öppnandet, minst 50 000 kr.",
-     "quote": "Du sätter in ditt kapital, minst 50 000 kr, vid öppningstillfället.",
-     "source": 1,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.94
-     }
-    },
-    "eligibility": {
-     "value": "BankID krävs för att öppna kontot digitalt.",
-     "quote": "För att gå vidare behöver du ha ett BankID.",
-     "source": 5,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.66
-     }
-    },
-    "requires_other_products": {
-     "value": null,
-     "quote": null,
-     "source": null,
-     "status": "okänt"
-    },
-    "intro_rate": {
-     "value": null,
-     "quote": null,
-     "source": null,
-     "status": "okänt"
-    },
-    "interest_paid": {
-     "value": "Kapital och ränta betalas ut vid bindningstidens slut.",
-     "quote": "När bindningstiden är slut betalas ditt kapital och ränta ut.",
-     "source": 1,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.95
-     }
-    },
-    "guarantee_country": {
-     "value": "SE",
-     "quote": "Kontot omfattas av den statliga insättningsgarantin enligt beslut av Riksgälden.",
-     "source": 1,
-     "status": "osäkert",
-     "jev": {
-      "verdict": "says_nothing",
-      "confidence": 0.38
-     }
-    },
-    "guarantee_amount": {
-     "value": null,
-     "quote": null,
-     "source": null,
-     "status": "okänt"
-    },
-    "rate_valid_from": {
-     "value": "2026-09-29",
-     "quote": "Eff. ränta 365/365 2026-09-29",
-     "source": 0,
-     "status": "osäkert",
-     "jev": {
-      "verdict": "says_nothing",
-      "confidence": 0.31
-     }
-    }
-   },
-   "rate_tiers": [],
-   "pending_rate": null,
-   "status": "verifierad"
-  },
-  {
-   "name": "Fasträntekonto 3 år",
-   "flags": [],
-   "fields": {
-    "product_type": {
-     "value": "fasträntekonto",
-     "quote": "Fasträntekonto - aktuella räntor och bindningstider",
-     "source": 0,
-     "status": "osäkert",
-     "jev": {
-      "verdict": "contradicts",
-      "confidence": 0.33
-     }
-    },
-    "rate_percent": {
-     "value": 2.45,
-     "quote": "| 3 år | 2,45 | 2,39 |",
-     "source": 0,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.89
-     }
-    },
-    "rate_type": {
-     "value": "fast",
-     "quote": "Du får en fast sparränta och ditt kapital och ränta betalas ut efter bindningstidens slut.",
-     "source": 1,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.3
-     }
-    },
-    "binding_months": {
-     "value": 36,
-     "quote": "| 3 år | 2,45 | 2,39 |",
-     "source": 0,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.51
-     }
-    },
-    "withdrawals": {
-     "quote": "Du kan förtidsinlösa kontot om du skulle behöva pengarna innan bindningstiden går ut, men då kan du behöva betala ränteskillnadsersättning.",
-     "source": 1,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 1.0
-     },
-     "value": "mot avgift"
-    },
-    "free_withdrawals_per_year": {
-     "value": null,
-     "quote": null,
-     "source": null,
-     "status": "okänt"
-    },
-    "withdrawal_terms": {
-     "value": "Förtidsinlösen möjlig, ev. ränteskillnadsersättning; prislistan anger 2 % dock max upplupen ränta.",
-     "quote": "Förtidsinlösen av fasträntekonto 2 % dock max upplupen ränta",
-     "source": 6,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.76
-     }
-    },
-    "min_deposit_sek": {
-     "value": 50000,
-     "quote": "Det minsta beloppet för att starta är 50 000 kr.",
-     "source": 1,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.94
-     }
-    },
-    "max_deposit_sek": {
-     "value": null,
-     "quote": "Räntan kan bara garanteras upp till ett maximalt belopp om 10 miljoner kronor.",
-     "source": 0,
-     "status": "talet finns inte i citatet",
-     "claimed": 10000000
-    },
-    "deposit_terms": {
-     "value": "Engångsinsättning vid öppnandet, minst 50 000 kr.",
-     "quote": "Du sätter in ditt kapital, minst 50 000 kr, vid öppningstillfället.",
-     "source": 1,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.95
-     }
-    },
-    "eligibility": {
-     "value": "BankID krävs för att öppna kontot digitalt.",
-     "quote": "För att gå vidare behöver du ha ett BankID.",
-     "source": 5,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.61
-     }
-    },
-    "requires_other_products": {
-     "value": null,
-     "quote": null,
-     "source": null,
-     "status": "okänt"
-    },
-    "intro_rate": {
-     "value": null,
-     "quote": null,
-     "source": null,
-     "status": "okänt"
-    },
-    "interest_paid": {
-     "value": "Kapital och ränta betalas ut vid bindningstidens slut.",
-     "quote": "När bindningstiden är slut betalas ditt kapital och ränta ut.",
-     "source": 1,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.98
-     }
-    },
-    "guarantee_country": {
-     "value": "SE",
-     "quote": "Kontot omfattas av den statliga insättningsgarantin enligt beslut av Riksgälden.",
-     "source": 1,
-     "status": "osäkert",
-     "jev": {
-      "verdict": "says_nothing",
-      "confidence": 0.49
-     }
-    },
-    "guarantee_amount": {
-     "value": null,
-     "quote": null,
-     "source": null,
-     "status": "okänt"
-    },
-    "rate_valid_from": {
-     "value": "2026-09-29",
-     "quote": "Eff. ränta 365/365 2026-09-29",
-     "source": 0,
-     "status": "osäkert",
-     "jev": {
-      "verdict": "says_nothing",
-      "confidence": 0.38
-     }
-    }
-   },
-   "rate_tiers": [],
-   "pending_rate": null,
-   "status": "verifierad"
-  },
-  {
-   "name": "Fasträntekonto 4 år",
-   "flags": [],
-   "fields": {
-    "product_type": {
-     "value": "fasträntekonto",
-     "quote": "Fasträntekonto - aktuella räntor och bindningstider",
-     "source": 0,
-     "status": "osäkert",
-     "jev": {
-      "verdict": "contradicts",
-      "confidence": 0.28
-     }
-    },
-    "rate_percent": {
-     "value": 2.55,
-     "quote": "| 4 år | 2,55 | 2,46 |",
-     "source": 0,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.4
-     }
-    },
-    "rate_type": {
-     "value": "fast",
-     "quote": "Du får en fast sparränta och ditt kapital och ränta betalas ut efter bindningstidens slut.",
-     "source": 1,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.25
-     }
-    },
-    "binding_months": {
-     "value": 48,
-     "quote": "| 4 år | 2,55 | 2,46 |",
-     "source": 0,
-     "status": "osäkert",
-     "jev": {
-      "verdict": "says_nothing",
-      "confidence": 0.25
-     }
-    },
-    "withdrawals": {
-     "quote": "Du kan förtidsinlösa kontot om du skulle behöva pengarna innan bindningstiden går ut, men då kan du behöva betala ränteskillnadsersättning.",
-     "source": 1,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 1.0
-     },
-     "value": "mot avgift"
-    },
-    "free_withdrawals_per_year": {
-     "value": null,
-     "quote": null,
-     "source": null,
-     "status": "okänt"
-    },
-    "withdrawal_terms": {
-     "value": "Förtidsinlösen möjlig, ev. ränteskillnadsersättning; prislistan anger 2 % dock max upplupen ränta.",
-     "quote": "Förtidsinlösen av fasträntekonto 2 % dock max upplupen ränta",
-     "source": 6,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.76
-     }
-    },
-    "min_deposit_sek": {
-     "value": 50000,
-     "quote": "Det minsta beloppet för att starta är 50 000 kr.",
-     "source": 1,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.89
-     }
-    },
-    "max_deposit_sek": {
-     "value": null,
-     "quote": "Räntan kan bara garanteras upp till ett maximalt belopp om 10 miljoner kronor.",
-     "source": 0,
-     "status": "talet finns inte i citatet",
-     "claimed": 10000000
-    },
-    "deposit_terms": {
-     "value": "Engångsinsättning vid öppnandet, minst 50 000 kr.",
-     "quote": "Du sätter in ditt kapital, minst 50 000 kr, vid öppningstillfället.",
-     "source": 1,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.94
-     }
-    },
-    "eligibility": {
-     "value": "BankID krävs för att öppna kontot digitalt.",
-     "quote": "För att gå vidare behöver du ha ett BankID.",
-     "source": 5,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.59
-     }
-    },
-    "requires_other_products": {
-     "value": null,
-     "quote": null,
-     "source": null,
-     "status": "okänt"
-    },
-    "intro_rate": {
-     "value": null,
-     "quote": null,
-     "source": null,
-     "status": "okänt"
-    },
-    "interest_paid": {
-     "value": "Kapital och ränta betalas ut vid bindningstidens slut.",
-     "quote": "När bindningstiden är slut betalas ditt kapital och ränta ut.",
-     "source": 1,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.95
-     }
-    },
-    "guarantee_country": {
-     "value": "SE",
-     "quote": "Kontot omfattas av den statliga insättningsgarantin enligt beslut av Riksgälden.",
-     "source": 1,
-     "status": "osäkert",
-     "jev": {
-      "verdict": "says_nothing",
-      "confidence": 0.53
-     }
-    },
-    "guarantee_amount": {
-     "value": null,
-     "quote": null,
-     "source": null,
-     "status": "okänt"
-    },
-    "rate_valid_from": {
-     "value": "2026-09-29",
-     "quote": "Eff. ränta 365/365 2026-09-29",
-     "source": 0,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.25
-     }
-    }
-   },
-   "rate_tiers": [],
-   "pending_rate": null,
-   "status": "verifierad"
-  },
-  {
-   "name": "Fasträntekonto 5 år",
-   "flags": [],
-   "fields": {
-    "product_type": {
-     "value": "fasträntekonto",
-     "quote": "Fasträntekonto - aktuella räntor och bindningstider",
-     "source": 0,
-     "status": "osäkert",
-     "jev": {
-      "verdict": "contradicts",
-      "confidence": 0.25
-     }
-    },
-    "rate_percent": {
-     "value": 2.6,
-     "quote": "| 5 år | 2,60 | 2,47 |",
-     "source": 0,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.69
-     }
-    },
-    "rate_type": {
-     "value": "fast",
-     "quote": "Du får en fast sparränta och ditt kapital och ränta betalas ut efter bindningstidens slut.",
-     "source": 1,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.51
-     }
-    },
-    "binding_months": {
-     "value": 60,
-     "quote": "| 5 år | 2,60 | 2,47 |",
-     "source": 0,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.23
-     }
-    },
-    "withdrawals": {
-     "quote": "Du kan förtidsinlösa kontot om du skulle behöva pengarna innan bindningstiden går ut, men då kan du behöva betala ränteskillnadsersättning.",
-     "source": 1,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 1.0
-     },
-     "value": "mot avgift"
-    },
-    "free_withdrawals_per_year": {
-     "value": null,
-     "quote": null,
-     "source": null,
-     "status": "okänt"
-    },
-    "withdrawal_terms": {
-     "value": "Förtidsinlösen möjlig, ev. ränteskillnadsersättning; prislistan anger 2 % dock max upplupen ränta.",
-     "quote": "Förtidsinlösen av fasträntekonto 2 % dock max upplupen ränta",
-     "source": 6,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.95
-     }
-    },
-    "min_deposit_sek": {
-     "value": 50000,
-     "quote": "Det minsta beloppet för att starta är 50 000 kr.",
-     "source": 1,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.92
-     }
-    },
-    "max_deposit_sek": {
-     "value": null,
-     "quote": "Räntan kan bara garanteras upp till ett maximalt belopp om 10 miljoner kronor.",
-     "source": 0,
-     "status": "talet finns inte i citatet",
-     "claimed": 10000000
-    },
-    "deposit_terms": {
-     "value": "Engångsinsättning vid öppnandet, minst 50 000 kr.",
-     "quote": "Du sätter in ditt kapital, minst 50 000 kr, vid öppningstillfället.",
-     "source": 1,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.95
-     }
-    },
-    "eligibility": {
-     "value": "BankID krävs för att öppna kontot digitalt.",
-     "quote": "För att gå vidare behöver du ha ett BankID.",
-     "source": 5,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.69
-     }
-    },
-    "requires_other_products": {
-     "value": null,
-     "quote": null,
-     "source": null,
-     "status": "okänt"
-    },
-    "intro_rate": {
-     "value": null,
-     "quote": null,
-     "source": null,
-     "status": "okänt"
-    },
-    "interest_paid": {
-     "value": "Kapital och ränta betalas ut vid bindningstidens slut.",
-     "quote": "När bindningstiden är slut betalas ditt kapital och ränta ut.",
-     "source": 1,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.95
-     }
-    },
-    "guarantee_country": {
-     "value": "SE",
-     "quote": "Kontot omfattas av den statliga insättningsgarantin enligt beslut av Riksgälden.",
-     "source": 1,
-     "status": "osäkert",
-     "jev": {
-      "verdict": "says_nothing",
-      "confidence": 0.45
-     }
-    },
-    "guarantee_amount": {
-     "value": null,
-     "quote": null,
-     "source": null,
-     "status": "okänt"
-    },
-    "rate_valid_from": {
-     "value": "2026-09-29",
-     "quote": "Eff. ränta 365/365 2026-09-29",
-     "source": 0,
-     "status": "osäkert",
-     "jev": {
-      "verdict": "says_nothing",
-      "confidence": 0.28
-     }
-    }
-   },
-   "rate_tiers": [],
-   "pending_rate": null,
-   "status": "verifierad"
   }
  ],
- "source_hash": "a0a39705cbf46ed0",
- "changed_at": "2026-10-10T17:14:59+00:00",
+ "source_hash": "4c5e5f1848be727e",
+ "changed_at": "2026-10-15T08:43:09+00:00",
  "model": "claude-sonnet-5-5"
 }

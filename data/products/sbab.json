@@ -7,7 +7,7 @@
   "kind": "nischbank",
   "legal_name": null
  },
- "checked_at": "2026-10-13T10:46:13+00:00",
+ "checked_at": "2026-10-15T08:25:00+00:00",
  "discovered_at": "2026-10-10T16:57:08+00:00",
  "sources": [
   {
@@ -21,15 +21,15 @@
    "url": "https://www.sbab.se/1/privat/vara_rantor.html",
    "title": "Bolåneräntor - Här hittar du våra bästa boräntor - SBAB",
    "kind": "html",
-   "via": "http",
-   "chars": 9756
+   "via": "browser",
+   "chars": 13466
   },
   {
    "url": "https://www.sbab.se/1/privat/spara/sparkonto/fastrantekonto.html",
    "title": "Fasträntekonto – Spara tryggt med fast ränta - SBAB",
    "kind": "html",
-   "via": "http",
-   "chars": 9949
+   "via": "browser",
+   "chars": 12563
   },
   {
    "url": "https://www.sbab.se/1/privat/spara/sparkonto/vart_sparkonto.html",
@@ -74,8 +74,8 @@
    "chars": 2572
   }
  ],
- "status": "senaste tolkning misslyckades (claude -p: You've hit your weekly limit · resets 4pm (UTC))",
- "notes": "Sparkontots villkorstabell (sparräntor-sidan) säger \"Från första kronan\" men anger inget uttryckligt minimibelopp utöver det. Barnsparkonto och gemensamt sparkonto omnämns men har ingen separat ränta eller egna siffror i källorna, så de är inte med som egna produkter. Om fasträntekonto kräver ett sparkonto är tolkat som \"krävs andra produkter\" = true. Villkors-PDF:erna fanns inte i underlaget.",
+ "status": "ok",
+ "notes": "Barnsparkonto och gemensamt sparkonto är samma sparkonto/ränta och listas inte separat (barnsparkontots egna villkor och ränta framgår inte av källorna). Sparkontots ränta och intro_rate/kampanj anges inte som tidsbegränsad. Fasträntekontots eventuella avgift för förtida uttag gäller alla bindningstider. Automatisk förlängning finns bara för 3 mån.",
  "products": [
   {
    "name": "Sparkonto",
@@ -83,32 +83,32 @@
    "fields": {
     "product_type": {
      "value": "rörligt sparkonto",
-     "quote": "Ett sparkonto med rörlig ränta är ett utmärkt ställe för till exempel din buffert.",
+     "quote": "Fria uttag, inga avgifter",
      "source": 3,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.1
+      "confidence": 0.27
      }
     },
     "rate_percent": {
      "value": 1.25,
      "quote": "| Rörligt | 1,25 % |",
      "source": 5,
-     "status": "belagt",
+     "status": "osäkert",
      "jev": {
-      "verdict": "supports",
-      "confidence": 0.4
+      "verdict": "says_nothing",
+      "confidence": 0.28
      }
     },
     "rate_type": {
      "value": "rörlig",
-     "quote": "| Rörligt | 1,25 % |",
-     "source": 5,
-     "status": "osäkert",
+     "quote": "Ett sparkonto med rörlig ränta är ett utmärkt ställe för till exempel din buffert.",
+     "source": 3,
+     "status": "belagt",
      "jev": {
-      "verdict": "says_nothing",
-      "confidence": 0.23
+      "verdict": "supports",
+      "confidence": 0.53
      }
     },
     "binding_months": {
@@ -118,17 +118,17 @@
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.41
+      "confidence": 0.23
      }
     },
     "withdrawals": {
      "value": "fria",
-     "quote": "| Uttag | 0 kr | Fria uttag (max 200 000 kr per dag) |",
-     "source": 5,
+     "quote": "Fria uttag, inga avgifter",
+     "source": 3,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.95
+      "confidence": 0.91
      }
     },
     "free_withdrawals_per_year": {
@@ -138,23 +138,23 @@
      "status": "okänt"
     },
     "withdrawal_terms": {
-     "value": "Fria uttag utan avgift, max 200 000 kr per dag. Ingen bindningstid.",
+     "value": "Fria uttag utan avgift, max 200 000 kr per dag.",
      "quote": "| Uttag | 0 kr | Fria uttag (max 200 000 kr per dag) |",
      "source": 5,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.98
+      "confidence": 0.94
      }
     },
     "min_deposit_sek": {
      "value": 0,
-     "quote": "| Ränta | | Från första kronan |",
-     "source": 0,
+     "quote": "Ränta från första kronan",
+     "source": 3,
      "status": "osäkert",
      "jev": {
       "verdict": "says_nothing",
-      "confidence": 0.28
+      "confidence": 0.61
      }
     },
     "max_deposit_sek": {
@@ -176,7 +176,7 @@
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.91
+      "confidence": 0.98
      }
     },
     "eligibility": {
@@ -186,7 +186,7 @@
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.89
+      "confidence": 0.91
      }
     },
     "requires_other_products": {
@@ -202,29 +202,29 @@
      "status": "okänt"
     },
     "interest_paid": {
-     "value": "En gång per år (1 januari)",
+     "value": "Utbetalas en gång per år (1 januari).",
      "quote": "| Utbetalning av ränta | | En gång per år |",
      "source": 5,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.27
+      "confidence": 0.64
      }
     },
     "guarantee_country": {
      "value": "SE",
-     "quote": "Samtliga SBAB:s konton omfattas av",
+     "quote": "Skyddet gäller upp till 1 150 000 kronor per person och institut.",
      "source": 4,
-     "status": "osäkert",
+     "status": "belagt",
      "jev": {
-      "verdict": "says_nothing",
-      "confidence": 0.46
+      "verdict": "supports",
+      "confidence": 0.3
      }
     },
     "guarantee_amount": {
      "value": "1 150 000 kr",
      "quote": "Skyddet gäller upp till 1 150 000 kronor per person och institut.",
-     "source": 3,
+     "source": 4,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
@@ -232,13 +232,13 @@
      }
     },
     "rate_valid_from": {
-     "value": "2026-10-12",
-     "quote": "Aktuella räntor 2026-10-12",
-     "source": 2,
+     "value": "2026-10-15",
+     "quote": "Aktuella räntor 2026-10-15",
+     "source": 5,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.53
+      "confidence": 0.67
      }
     }
    },
@@ -257,7 +257,7 @@
      "status": "osäkert",
      "jev": {
       "verdict": "contradicts",
-      "confidence": 0.53
+      "confidence": 0.49
      }
     },
     "rate_percent": {
@@ -273,7 +273,7 @@
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.31
+      "confidence": 0.48
      }
     },
     "binding_months": {
@@ -284,12 +284,12 @@
     },
     "withdrawals": {
      "value": "mot avgift",
-     "quote": "Vill du ta ut pengarna tidigare kan du göra det mot en avgift.",
+     "quote": "Ja, du kan avsluta fasträntekontot i förtid mot en avgift.",
      "source": 2,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.85
+      "confidence": 1.0
      }
     },
     "free_withdrawals_per_year": {
@@ -320,7 +320,7 @@
     },
     "max_deposit_sek": {
      "value": null,
-     "quote": "Du kan spara från 10 000 kronor upp till 50 miljoner kronor på ett fasträntekonto.",
+     "quote": "När du öppnar fasträntekontot kan du sätta in mellan 10 000 och 50 miljoner kronor.",
      "source": 7,
      "status": "talet finns inte i citatet",
      "claimed": 50000000
@@ -342,7 +342,7 @@
      }
     },
     "eligibility": {
-     "value": "Kräver befintligt sparkonto hos SBAB med minst 10 000 kr.",
+     "value": "Kräver att man har ett sparkonto hos SBAB med minst 10 000 kr.",
      "quote": "För att öppna ett fasträntekonto behöver du först ha ett sparkonto med minst 10 000 kronor hos oss.",
      "source": 2,
      "status": "belagt",
@@ -355,10 +355,10 @@
      "value": true,
      "quote": "För att öppna ett fasträntekonto behöver du först ha ett sparkonto med minst 10 000 kronor hos oss.",
      "source": 2,
-     "status": "osäkert",
+     "status": "belagt",
      "jev": {
-      "verdict": "contradicts",
-      "confidence": 0.1
+      "verdict": "supports",
+      "confidence": 0.19
      }
     },
     "intro_rate": {
@@ -368,8 +368,8 @@
      "status": "okänt"
     },
     "interest_paid": {
-     "value": "Vid bindningstidens slut",
-     "quote": "Räntan betalar vi ut när bindningstiden är slut.",
+     "value": "Vid bindningstidens slut, till sparkontot.",
+     "quote": "Räntan betalas ut till ditt sparkonto när bindningstiden på ditt fasträntekonto gått ut.",
      "source": 2,
      "status": "belagt",
      "jev": {
@@ -379,12 +379,12 @@
     },
     "guarantee_country": {
      "value": "SE",
-     "quote": "Ja, fasträntekontot omfattas av den statliga insättningsgarantin.",
+     "quote": "Ersättningen är som mest på 1 150 000 kronor per person och bank/institut.",
      "source": 2,
      "status": "osäkert",
      "jev": {
       "verdict": "says_nothing",
-      "confidence": 0.45
+      "confidence": 0.56
      }
     },
     "guarantee_amount": {
@@ -398,13 +398,13 @@
      }
     },
     "rate_valid_from": {
-     "value": "2026-10-12",
-     "quote": "Aktuella räntor 2026-10-12",
+     "value": "2026-10-15",
+     "quote": "Aktuella räntor 2026-10-15",
      "source": 2,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.69
+      "confidence": 0.76
      }
     }
    },
@@ -423,7 +423,7 @@
      "status": "osäkert",
      "jev": {
       "verdict": "contradicts",
-      "confidence": 0.56
+      "confidence": 0.46
      }
     },
     "rate_percent": {
@@ -439,7 +439,7 @@
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.3
+      "confidence": 0.34
      }
     },
     "binding_months": {
@@ -450,12 +450,12 @@
     },
     "withdrawals": {
      "value": "mot avgift",
-     "quote": "Vill du ta ut pengarna tidigare kan du göra det mot en avgift.",
+     "quote": "Ja, du kan avsluta fasträntekontot i förtid mot en avgift.",
      "source": 2,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.85
+      "confidence": 0.94
      }
     },
     "free_withdrawals_per_year": {
@@ -471,7 +471,7 @@
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.95
+      "confidence": 0.97
      }
     },
     "min_deposit_sek": {
@@ -486,7 +486,7 @@
     },
     "max_deposit_sek": {
      "value": null,
-     "quote": "Du kan spara från 10 000 kronor upp till 50 miljoner kronor på ett fasträntekonto.",
+     "quote": "När du öppnar fasträntekontot kan du sätta in mellan 10 000 och 50 miljoner kronor.",
      "source": 7,
      "status": "talet finns inte i citatet",
      "claimed": 50000000
@@ -508,7 +508,7 @@
      }
     },
     "eligibility": {
-     "value": "Kräver befintligt sparkonto hos SBAB med minst 10 000 kr.",
+     "value": "Kräver att man har ett sparkonto hos SBAB med minst 10 000 kr.",
      "quote": "För att öppna ett fasträntekonto behöver du först ha ett sparkonto med minst 10 000 kronor hos oss.",
      "source": 2,
      "status": "belagt",
@@ -521,9 +521,9 @@
      "value": true,
      "quote": "För att öppna ett fasträntekonto behöver du först ha ett sparkonto med minst 10 000 kronor hos oss.",
      "source": 2,
-     "status": "osäkert",
+     "status": "belagt",
      "jev": {
-      "verdict": "contradicts",
+      "verdict": "supports",
       "confidence": 0.16
      }
     },
@@ -534,23 +534,23 @@
      "status": "okänt"
     },
     "interest_paid": {
-     "value": "Vid bindningstidens slut",
-     "quote": "Räntan betalar vi ut när bindningstiden är slut.",
+     "value": "Vid bindningstidens slut, till sparkontot.",
+     "quote": "Räntan betalas ut till ditt sparkonto när bindningstiden på ditt fasträntekonto gått ut.",
      "source": 2,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.92
+      "confidence": 0.97
      }
     },
     "guarantee_country": {
      "value": "SE",
-     "quote": "Ja, fasträntekontot omfattas av den statliga insättningsgarantin.",
+     "quote": "Ersättningen är som mest på 1 150 000 kronor per person och bank/institut.",
      "source": 2,
      "status": "osäkert",
      "jev": {
       "verdict": "says_nothing",
-      "confidence": 0.54
+      "confidence": 0.58
      }
     },
     "guarantee_amount": {
@@ -564,13 +564,13 @@
      }
     },
     "rate_valid_from": {
-     "value": "2026-10-12",
-     "quote": "Aktuella räntor 2026-10-12",
+     "value": "2026-10-15",
+     "quote": "Aktuella räntor 2026-10-15",
      "source": 2,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.64
+      "confidence": 0.8
      }
     }
    },
@@ -589,7 +589,7 @@
      "status": "osäkert",
      "jev": {
       "verdict": "contradicts",
-      "confidence": 0.64
+      "confidence": 0.46
      }
     },
     "rate_percent": {
@@ -605,7 +605,7 @@
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.34
+      "confidence": 0.43
      }
     },
     "binding_months": {
@@ -616,12 +616,12 @@
     },
     "withdrawals": {
      "value": "mot avgift",
-     "quote": "Vill du ta ut pengarna tidigare kan du göra det mot en avgift.",
+     "quote": "Ja, du kan avsluta fasträntekontot i förtid mot en avgift.",
      "source": 2,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.76
+      "confidence": 1.0
      }
     },
     "free_withdrawals_per_year": {
@@ -637,7 +637,7 @@
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.98
+      "confidence": 1.0
      }
     },
     "min_deposit_sek": {
@@ -652,7 +652,7 @@
     },
     "max_deposit_sek": {
      "value": null,
-     "quote": "Du kan spara från 10 000 kronor upp till 50 miljoner kronor på ett fasträntekonto.",
+     "quote": "När du öppnar fasträntekontot kan du sätta in mellan 10 000 och 50 miljoner kronor.",
      "source": 7,
      "status": "talet finns inte i citatet",
      "claimed": 50000000
@@ -674,13 +674,13 @@
      }
     },
     "eligibility": {
-     "value": "Kräver befintligt sparkonto hos SBAB med minst 10 000 kr.",
+     "value": "Kräver att man har ett sparkonto hos SBAB med minst 10 000 kr.",
      "quote": "För att öppna ett fasträntekonto behöver du först ha ett sparkonto med minst 10 000 kronor hos oss.",
      "source": 2,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.91
+      "confidence": 0.89
      }
     },
     "requires_other_products": {
@@ -690,7 +690,7 @@
      "status": "osäkert",
      "jev": {
       "verdict": "contradicts",
-      "confidence": 0.18
+      "confidence": 0.14
      }
     },
     "intro_rate": {
@@ -700,23 +700,23 @@
      "status": "okänt"
     },
     "interest_paid": {
-     "value": "Vid bindningstidens slut",
-     "quote": "Räntan betalar vi ut när bindningstiden är slut.",
+     "value": "Vid bindningstidens slut, till sparkontot.",
+     "quote": "Räntan betalas ut till ditt sparkonto när bindningstiden på ditt fasträntekonto gått ut.",
      "source": 2,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.91
+      "confidence": 0.98
      }
     },
     "guarantee_country": {
      "value": "SE",
-     "quote": "Ja, fasträntekontot omfattas av den statliga insättningsgarantin.",
+     "quote": "Ersättningen är som mest på 1 150 000 kronor per person och bank/institut.",
      "source": 2,
      "status": "osäkert",
      "jev": {
       "verdict": "says_nothing",
-      "confidence": 0.61
+      "confidence": 0.69
      }
     },
     "guarantee_amount": {
@@ -730,13 +730,13 @@
      }
     },
     "rate_valid_from": {
-     "value": "2026-10-12",
-     "quote": "Aktuella räntor 2026-10-12",
+     "value": "2026-10-15",
+     "quote": "Aktuella räntor 2026-10-15",
      "source": 2,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.59
+      "confidence": 0.76
      }
     }
    },
@@ -755,7 +755,7 @@
      "status": "osäkert",
      "jev": {
       "verdict": "contradicts",
-      "confidence": 0.59
+      "confidence": 0.58
      }
     },
     "rate_percent": {
@@ -771,7 +771,7 @@
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.34
+      "confidence": 0.45
      }
     },
     "binding_months": {
@@ -782,12 +782,12 @@
     },
     "withdrawals": {
      "value": "mot avgift",
-     "quote": "Vill du ta ut pengarna tidigare kan du göra det mot en avgift.",
+     "quote": "Ja, du kan avsluta fasträntekontot i förtid mot en avgift.",
      "source": 2,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.85
+      "confidence": 0.98
      }
     },
     "free_withdrawals_per_year": {
@@ -818,7 +818,7 @@
     },
     "max_deposit_sek": {
      "value": null,
-     "quote": "Du kan spara från 10 000 kronor upp till 50 miljoner kronor på ett fasträntekonto.",
+     "quote": "När du öppnar fasträntekontot kan du sätta in mellan 10 000 och 50 miljoner kronor.",
      "source": 7,
      "status": "talet finns inte i citatet",
      "claimed": 50000000
@@ -840,23 +840,23 @@
      }
     },
     "eligibility": {
-     "value": "Kräver befintligt sparkonto hos SBAB med minst 10 000 kr.",
+     "value": "Kräver att man har ett sparkonto hos SBAB med minst 10 000 kr.",
      "quote": "För att öppna ett fasträntekonto behöver du först ha ett sparkonto med minst 10 000 kronor hos oss.",
      "source": 2,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.88
+      "confidence": 0.92
      }
     },
     "requires_other_products": {
      "value": true,
      "quote": "För att öppna ett fasträntekonto behöver du först ha ett sparkonto med minst 10 000 kronor hos oss.",
      "source": 2,
-     "status": "osäkert",
+     "status": "belagt",
      "jev": {
-      "verdict": "contradicts",
-      "confidence": 0.19
+      "verdict": "supports",
+      "confidence": 0.14
      }
     },
     "intro_rate": {
@@ -866,23 +866,23 @@
      "status": "okänt"
     },
     "interest_paid": {
-     "value": "Vid bindningstidens slut",
-     "quote": "Räntan betalar vi ut när bindningstiden är slut.",
+     "value": "Vid bindningstidens slut, till sparkontot.",
+     "quote": "Räntan betalas ut till ditt sparkonto när bindningstiden på ditt fasträntekonto gått ut.",
      "source": 2,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.92
+      "confidence": 0.97
      }
     },
     "guarantee_country": {
      "value": "SE",
-     "quote": "Ja, fasträntekontot omfattas av den statliga insättningsgarantin.",
+     "quote": "Ersättningen är som mest på 1 150 000 kronor per person och bank/institut.",
      "source": 2,
      "status": "osäkert",
      "jev": {
       "verdict": "says_nothing",
-      "confidence": 0.59
+      "confidence": 0.56
      }
     },
     "guarantee_amount": {
@@ -896,13 +896,13 @@
      }
     },
     "rate_valid_from": {
-     "value": "2026-10-12",
-     "quote": "Aktuella räntor 2026-10-12",
+     "value": "2026-10-15",
+     "quote": "Aktuella räntor 2026-10-15",
      "source": 2,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.58
+      "confidence": 0.76
      }
     }
    },
@@ -921,7 +921,7 @@
      "status": "osäkert",
      "jev": {
       "verdict": "contradicts",
-      "confidence": 0.64
+      "confidence": 0.55
      }
     },
     "rate_percent": {
@@ -937,7 +937,7 @@
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.41
+      "confidence": 0.49
      }
     },
     "binding_months": {
@@ -948,12 +948,12 @@
     },
     "withdrawals": {
      "value": "mot avgift",
-     "quote": "Vill du ta ut pengarna tidigare kan du göra det mot en avgift.",
+     "quote": "Ja, du kan avsluta fasträntekontot i förtid mot en avgift.",
      "source": 2,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.85
+      "confidence": 0.98
      }
     },
     "free_withdrawals_per_year": {
@@ -969,7 +969,7 @@
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.95
+      "confidence": 1.0
      }
     },
     "min_deposit_sek": {
@@ -984,7 +984,7 @@
     },
     "max_deposit_sek": {
      "value": null,
-     "quote": "Du kan spara från 10 000 kronor upp till 50 miljoner kronor på ett fasträntekonto.",
+     "quote": "När du öppnar fasträntekontot kan du sätta in mellan 10 000 och 50 miljoner kronor.",
      "source": 7,
      "status": "talet finns inte i citatet",
      "claimed": 50000000
@@ -1006,23 +1006,23 @@
      }
     },
     "eligibility": {
-     "value": "Kräver befintligt sparkonto hos SBAB med minst 10 000 kr.",
+     "value": "Kräver att man har ett sparkonto hos SBAB med minst 10 000 kr.",
      "quote": "För att öppna ett fasträntekonto behöver du först ha ett sparkonto med minst 10 000 kronor hos oss.",
      "source": 2,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.89
+      "confidence": 0.91
      }
     },
     "requires_other_products": {
      "value": true,
      "quote": "För att öppna ett fasträntekonto behöver du först ha ett sparkonto med minst 10 000 kronor hos oss.",
      "source": 2,
-     "status": "osäkert",
+     "status": "belagt",
      "jev": {
-      "verdict": "contradicts",
-      "confidence": 0.25
+      "verdict": "supports",
+      "confidence": 0.13
      }
     },
     "intro_rate": {
@@ -1032,23 +1032,23 @@
      "status": "okänt"
     },
     "interest_paid": {
-     "value": "Vid bindningstidens slut",
-     "quote": "Räntan betalar vi ut när bindningstiden är slut.",
+     "value": "Vid bindningstidens slut, till sparkontot.",
+     "quote": "Räntan betalas ut till ditt sparkonto när bindningstiden på ditt fasträntekonto gått ut.",
      "source": 2,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.91
+      "confidence": 0.98
      }
     },
     "guarantee_country": {
      "value": "SE",
-     "quote": "Ja, fasträntekontot omfattas av den statliga insättningsgarantin.",
+     "quote": "Ersättningen är som mest på 1 150 000 kronor per person och bank/institut.",
      "source": 2,
      "status": "osäkert",
      "jev": {
       "verdict": "says_nothing",
-      "confidence": 0.49
+      "confidence": 0.61
      }
     },
     "guarantee_amount": {
@@ -1062,13 +1062,13 @@
      }
     },
     "rate_valid_from": {
-     "value": "2026-10-12",
-     "quote": "Aktuella räntor 2026-10-12",
+     "value": "2026-10-15",
+     "quote": "Aktuella räntor 2026-10-15",
      "source": 2,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.62
+      "confidence": 0.79
      }
     }
    },
@@ -1087,7 +1087,7 @@
      "status": "osäkert",
      "jev": {
       "verdict": "contradicts",
-      "confidence": 0.62
+      "confidence": 0.41
      }
     },
     "rate_percent": {
@@ -1103,7 +1103,7 @@
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.37
+      "confidence": 0.59
      }
     },
     "binding_months": {
@@ -1114,12 +1114,12 @@
     },
     "withdrawals": {
      "value": "mot avgift",
-     "quote": "Vill du ta ut pengarna tidigare kan du göra det mot en avgift.",
+     "quote": "Ja, du kan avsluta fasträntekontot i förtid mot en avgift.",
      "source": 2,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.83
+      "confidence": 0.98
      }
     },
     "free_withdrawals_per_year": {
@@ -1150,7 +1150,7 @@
     },
     "max_deposit_sek": {
      "value": null,
-     "quote": "Du kan spara från 10 000 kronor upp till 50 miljoner kronor på ett fasträntekonto.",
+     "quote": "När du öppnar fasträntekontot kan du sätta in mellan 10 000 och 50 miljoner kronor.",
      "source": 7,
      "status": "talet finns inte i citatet",
      "claimed": 50000000
@@ -1172,23 +1172,23 @@
      }
     },
     "eligibility": {
-     "value": "Kräver befintligt sparkonto hos SBAB med minst 10 000 kr.",
+     "value": "Kräver att man har ett sparkonto hos SBAB med minst 10 000 kr.",
      "quote": "För att öppna ett fasträntekonto behöver du först ha ett sparkonto med minst 10 000 kronor hos oss.",
      "source": 2,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.86
+      "confidence": 0.89
      }
     },
     "requires_other_products": {
      "value": true,
      "quote": "För att öppna ett fasträntekonto behöver du först ha ett sparkonto med minst 10 000 kronor hos oss.",
      "source": 2,
-     "status": "osäkert",
+     "status": "belagt",
      "jev": {
-      "verdict": "contradicts",
-      "confidence": 0.13
+      "verdict": "supports",
+      "confidence": 0.23
      }
     },
     "intro_rate": {
@@ -1198,23 +1198,23 @@
      "status": "okänt"
     },
     "interest_paid": {
-     "value": "Vid bindningstidens slut",
-     "quote": "Räntan betalar vi ut när bindningstiden är slut.",
+     "value": "Vid bindningstidens slut, till sparkontot.",
+     "quote": "Räntan betalas ut till ditt sparkonto när bindningstiden på ditt fasträntekonto gått ut.",
      "source": 2,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.92
+      "confidence": 0.97
      }
     },
     "guarantee_country": {
      "value": "SE",
-     "quote": "Ja, fasträntekontot omfattas av den statliga insättningsgarantin.",
+     "quote": "Ersättningen är som mest på 1 150 000 kronor per person och bank/institut.",
      "source": 2,
      "status": "osäkert",
      "jev": {
       "verdict": "says_nothing",
-      "confidence": 0.46
+      "confidence": 0.59
      }
     },
     "guarantee_amount": {
@@ -1228,13 +1228,13 @@
      }
     },
     "rate_valid_from": {
-     "value": "2026-10-12",
-     "quote": "Aktuella räntor 2026-10-12",
+     "value": "2026-10-15",
+     "quote": "Aktuella räntor 2026-10-15",
      "source": 2,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.66
+      "confidence": 0.77
      }
     }
    },
@@ -1253,7 +1253,7 @@
      "status": "osäkert",
      "jev": {
       "verdict": "contradicts",
-      "confidence": 0.59
+      "confidence": 0.55
      }
     },
     "rate_percent": {
@@ -1269,7 +1269,7 @@
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.33
+      "confidence": 0.41
      }
     },
     "binding_months": {
@@ -1280,12 +1280,12 @@
     },
     "withdrawals": {
      "value": "mot avgift",
-     "quote": "Vill du ta ut pengarna tidigare kan du göra det mot en avgift.",
+     "quote": "Ja, du kan avsluta fasträntekontot i förtid mot en avgift.",
      "source": 2,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.83
+      "confidence": 1.0
      }
     },
     "free_withdrawals_per_year": {
@@ -1316,7 +1316,7 @@
     },
     "max_deposit_sek": {
      "value": null,
-     "quote": "Du kan spara från 10 000 kronor upp till 50 miljoner kronor på ett fasträntekonto.",
+     "quote": "När du öppnar fasträntekontot kan du sätta in mellan 10 000 och 50 miljoner kronor.",
      "source": 7,
      "status": "talet finns inte i citatet",
      "claimed": 50000000
@@ -1338,23 +1338,23 @@
      }
     },
     "eligibility": {
-     "value": "Kräver befintligt sparkonto hos SBAB med minst 10 000 kr.",
+     "value": "Kräver att man har ett sparkonto hos SBAB med minst 10 000 kr.",
      "quote": "För att öppna ett fasträntekonto behöver du först ha ett sparkonto med minst 10 000 kronor hos oss.",
      "source": 2,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.92
+      "confidence": 0.83
      }
     },
     "requires_other_products": {
      "value": true,
      "quote": "För att öppna ett fasträntekonto behöver du först ha ett sparkonto med minst 10 000 kronor hos oss.",
      "source": 2,
-     "status": "osäkert",
+     "status": "belagt",
      "jev": {
-      "verdict": "contradicts",
-      "confidence": 0.2
+      "verdict": "supports",
+      "confidence": 0.14
      }
     },
     "intro_rate": {
@@ -1364,23 +1364,23 @@
      "status": "okänt"
     },
     "interest_paid": {
-     "value": "Vid bindningstidens slut",
-     "quote": "Räntan betalar vi ut när bindningstiden är slut.",
+     "value": "Vid bindningstidens slut, till sparkontot.",
+     "quote": "Räntan betalas ut till ditt sparkonto när bindningstiden på ditt fasträntekonto gått ut.",
      "source": 2,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.94
+      "confidence": 0.97
      }
     },
     "guarantee_country": {
      "value": "SE",
-     "quote": "Ja, fasträntekontot omfattas av den statliga insättningsgarantin.",
+     "quote": "Ersättningen är som mest på 1 150 000 kronor per person och bank/institut.",
      "source": 2,
      "status": "osäkert",
      "jev": {
       "verdict": "says_nothing",
-      "confidence": 0.58
+      "confidence": 0.59
      }
     },
     "guarantee_amount": {
@@ -1394,13 +1394,13 @@
      }
     },
     "rate_valid_from": {
-     "value": "2026-10-12",
-     "quote": "Aktuella räntor 2026-10-12",
+     "value": "2026-10-15",
+     "quote": "Aktuella räntor 2026-10-15",
      "source": 2,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.7
+      "confidence": 0.85
      }
     }
    },
@@ -1409,7 +1409,7 @@
    "status": "verifierad"
   }
  ],
- "source_hash": "3e2607cc6725e2d1",
- "changed_at": "2026-10-12T09:13:55+00:00",
+ "source_hash": "a4698c23c4c3ae27",
+ "changed_at": "2026-10-15T08:25:00+00:00",
  "model": "claude-sonnet-5-5"
 }
