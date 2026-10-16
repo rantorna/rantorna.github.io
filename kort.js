@@ -18,7 +18,7 @@ let K = null;
  *  (Sparbanken X)"). Visa då bolagets namn i stället. */
 function issuer(b) {
   // Kortets namn står i produktraden; här räcker utgivaren ("SAS EuroBonus Mastercard" -> "SAS EuroBonus").
-  const short = b.bank.name.replace(/\s*[(–].*$/, "").replace(/,.*$/, "").replace(/\s+(betal|kreditkort|mastercard|visa|kort)\b.*$/i, "").trim();
+  const short = b.bank.name.replace(/\s*[(–].*$/, "").replace(/,.*$/, "").replace(/\s+(betal|kreditkort|mastercard|visa|kort|gold|guld|platinum|classic)\b.*$/i, "").trim();
   // Står bara korttypen kvar ("Betal- och kreditkort Mastercard"), är bolagsnamnet bättre.
   if (short && !/^(betal|visa|mastercard|kreditkort)/i.test(short) && !/sparbank/i.test(b.bank.legal_name || "")) return short;
   const legal = (b.bank.legal_name || "").replace(/,.*$/, "").replace(/\s*\(publ\)/i, "").replace(/\s+(AB|Aktiebolag)$/i, "").trim();
