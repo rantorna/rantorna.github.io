@@ -258,13 +258,13 @@ def savings_context() -> dict:
     }
 
 
-def financing_context() -> dict:
-    """SCB:s räntor på nya företagslån som riktmärke för finansieringsvyn."""
+def financing_context(ids=("se_corp_new_all", "se_corp_new_var", "se_corp_new_1y5y", "se_corp_kontokredit",
+                            "se_soletrader_new_all", "se_policy")) -> dict:
+    """SCB:s räntor (t.ex. på nya företagslån) som riktmärke på sidan."""
     path = DATA / "macro.json"
     if not path.exists():
         return {}
     series = json.loads(path.read_text()).get("series", {})
-    ids = ["se_corp_new_all", "se_corp_new_var", "se_corp_new_1y5y", "se_corp_kontokredit", "se_soletrader_new_all", "se_policy"]
     return {sid: {"name": series[sid]["name"], **{k: series[sid]["latest"].get(k) for k in ("value", "date", "chg_1y")}}
             for sid in ids if sid in series}
 
@@ -282,6 +282,8 @@ def build_site_data():
         out["context"] = savings_context()
     elif seg.key == "business_financing":
         out["context"] = financing_context()
+    elif seg.key == "personal_loans":
+        out["context"] = financing_context(("se_consumer_new", "se_consumer_stock", "se_policy", "se_ref"))
     seg.site_file.write_text(json.dumps(out, ensure_ascii=False))
 
 
@@ -303,7 +305,7 @@ def main():
     ap.add_argument("--discover-only", action="store_true")
     ap.add_argument("--force", action="store_true", help="tolka även om källorna inte ändrats")
     ap.add_argument("--workers", type=int, default=4)
-    ap.add_argument("--segment", default="savings", help="savings (sparkonton) eller mortgage (bolån)")
+    ap.add_argument("--segment", default="savings", help=f"ett av: {', '.join(segments.SEGMENTS)}")
     ap.add_argument("--relink", action="store_true", help="hämta källorna och koppla om citat till rätt sida (inga Claude-anrop)")
     ap.add_argument("--reverify", action="store_true", help="kör om kontrollen mot sparade tolkningar (inga nya Claude-anrop)")
     ap.add_argument("--rediscover", action="store_true", help="leta sidor på nytt i stället för att återanvända förra körningens")

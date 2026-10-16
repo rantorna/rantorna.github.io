@@ -295,6 +295,49 @@ SEGMENTS["business_financing"] = Segment(
     max_rate=40.0,
 )
 
+LOAN_RESOLVE = """Du kartlägger den svenska marknaden för privatlån (lån utan säkerhet till privatpersoner) åt en oberoende jämförelsesajt. Använd webbsökning och kontrollera på aktörens egna webbplatser.
+
+Avgör om aktören, under eget namn eller under ett annat varumärke, i dag erbjuder privatlån, samlingslån eller andra konsumentlån med fast löptid till privatpersoner i Sverige. Räkna inte med: bara bolån, bara kreditkort eller kontokrediter, bara delbetalning i butik, bara företagslån, eller lån bara i andra länder. Låneförmedlare (t.ex. Lendo, Zmarta, Sambla, Advisa) tas med om privatpersoner ansöker via dem – skriv i notes att de förmedlar.
+
+Ange för varje varumärke den svenska webbplatsen (homepage) och sidan som bäst beskriver privatlånet med ränta, avgifter och representativt exempel (product_url). Hitta aldrig på adresser. Ange bara adresser du faktiskt har sett."""
+
+LOAN_EXTRACT = """Du extraherar fakta om privatlån (konsumentlån med fast löptid) i Sverige ur en långivares eller låneförmedlares egna webbsidor och dokument, för en oberoende jämförelsesajt.
+
+Regler:
+- Ta med varje lån för privatpersoner med egna villkor: privatlån/blancolån, samlingslån och lån med säkerhet (bil, båt, husvagn). Hoppa över bolån, kreditkort, kontokrediter, delbetalning i butik, SMS-lån utan fast löptid och företagslån.
+- Viktigast: räntespannet (från–till), avgifter, belopp och löptid, och det representativa exemplet som långivare måste visa ('Vid ett lån på 150 000 kr … 12 år … rörlig ränta 6,95 % … effektiv ränta 7,45 % … totalt att betala …'). Ta exemplets siffror precis som de står – räkna inte om något.
+- Om exemplet gäller ett annat lån än produkten (t.ex. ett billån på samma sida), koppla det inte till fel produkt.
+- Låneförmedlare: sätt lender_role = låneförmedlare och ta förmedlarens publicerade spann och exempel.
+- Varje värde måste beläggas med ett ORDAGRANT citat ur dokumenten (kopiera tecken för tecken, max ~300 tecken) och dokumentets index i "source".
+- Finns inget belägg: sätt value, quote och source till null. Gissa aldrig.
+- Räntor i procent som tal (6,95 % -> 6.95). Belopp i kronor som tal. Löptid i månader (12 år -> 144)."""
+
+SEGMENTS["personal_loans"] = Segment(
+    key="personal_loans",
+    fields=schema.PERSONAL_LOAN_FIELDS,
+    extraction=schema.PERSONAL_LOAN_EXTRACTION,
+    extract_system=LOAN_EXTRACT,
+    choose_system=(
+        "Du hjälper en svensk jämförelsesajt för privatlån. Välj de sidor som mest sannolikt innehåller "
+        "privatlånets räntespann, avgifter, lånebelopp, löptid och representativt exempel med effektiv ränta, "
+        "samt villkor och prislistor för lån till privatpersoner. Välj inte bolån, sparkonton, kort, företagslån, "
+        "nyheter eller allmänna guider."
+    ),
+    core=("rate_percent", "example_effective_rate_percent"),
+    data_dir=DATA / "loans",
+    site_file=DATA / "personal_loans.json",
+    resolve_system=LOAN_RESOLVE,
+    resolve_out=DATA / "loans" / "institutions.json",
+    resolve_hints=DATA / "loans" / "brand_hints.yaml",
+    resolve_categories=("BANK", "SPAR", "MBANK", "KMB", "KKRI", "UTLFIL", "FILBK", "UTLKMF"),
+    pos={"privatlan": 9, "blancolan": 9, "samlingslan": 8, "lan": 4, "lana": 5, "lana-pengar": 6,
+         "effektiv": 5, "representativt": 6, "exempel": 3, "billan": 3, "priser": 3, "prislista": 4, "villkor": 3,
+         "bolan": -6, "foretag": -6, "foretagslan": -6, "spara": -5, "sparkonto": -5, "kort": -3, "kreditkort": -4},
+    terms_re=r"(lån|lan|ränt|ranta|villkor|prislista|priser|effektiv)",
+    manual_banks=DATA / "loans" / "banks.yaml",
+    max_rate=45.0,
+)
+
 _current = "savings"
 
 

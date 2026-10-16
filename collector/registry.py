@@ -37,6 +37,7 @@ CATEGORIES = {
     "UTLFFL": ("Utländskt försäkringsbolag, svensk filial, liv", True),
     "UTBKRF": ("Utländskt bostadskreditinstitut, svensk filial", True),
     "GRÄS": ("Leverantör av gräsrotsfinansieringstjänster", False),
+    "KKRI": ("Konsumentkreditinstitut", False),
 }
 
 

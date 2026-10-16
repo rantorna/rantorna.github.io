@@ -219,10 +219,15 @@ summary:hover { color: var(--text); }
 .yn.unk { color: var(--muted); font-style: italic; }
 h3.prod { font-size: .95rem; margin: 10px 0 4px; }
 @media (max-width: 560px) {
-  .top .wrap { gap: 8px; }
-  .tabs { overflow-x: auto; scrollbar-width: none; flex: 1 1 auto; justify-content: flex-start; }
-  .tabs::-webkit-scrollbar { display: none; }
+  /* Logga på egen rad, flikarna under i hela bredden. Fler flikar än som får plats: rulla i sidled,
+     och kanten tonas ut så att det syns att det finns mer. */
+  .top .wrap { flex-wrap: wrap; height: auto; padding-top: 10px; gap: 2px; }
   .brand { flex-shrink: 0; }
+  .tabs { overflow-x: auto; scrollbar-width: none; flex: 1 0 100%; justify-content: flex-start; height: 40px; margin: 0 -16px; padding: 0 16px;
+    -webkit-mask-image: linear-gradient(to right, transparent 0, #000 16px, #000 calc(100% - 28px), transparent);
+    mask-image: linear-gradient(to right, transparent 0, #000 16px, #000 calc(100% - 28px), transparent); }
+  .tabs::-webkit-scrollbar { display: none; }
+  .tabs a:first-child { padding-left: 0; }
 }
 .more { display: block; margin: 12px auto 0; font: inherit; color: var(--accent); background: var(--surface);
   border: 1px solid var(--line); border-radius: 8px; padding: 8px 16px; cursor: pointer; }

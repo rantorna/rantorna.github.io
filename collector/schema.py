@@ -225,3 +225,37 @@ FINANCING_EXTRACTION = extraction_schema(
     TIER, "Lämna tom.",
     "Kort om något viktigt saknas (t.ex. priser bara efter ansökan, kräver kontakt med rådgivare).",
 )
+
+
+# ---------- Privatlån: räntespann, avgifter och det lagstadgade representativa exemplet ----------
+
+PERSONAL_LOAN_FIELDS = [
+    ("product_type", _enum("privatlån", "samlingslån", "lån med säkerhet", "annat"),
+     "Typ av lån: privatlån utan säkerhet (blancolån), samlingslån (för att lösa andra lån och krediter), lån med säkerhet (bil, båt, husvagn m.m.) eller annat."),
+    ("lender_role", _enum("långivare", "låneförmedlare"),
+     "Lånar aktören ut själv (långivare), eller förmedlar den ansökan till flera banker och långivare (låneförmedlare, t.ex. Lendo, Zmarta)?"),
+    ("rate_percent", NUM, "Lägsta nominella årsränta i procent som publiceras ('från X %', 'ränta X–Y %': X)."),
+    ("rate_max_percent", NUM, "Högsta nominella årsränta i procent om ett spann publiceras ('ränta X–Y %': Y)."),
+    ("rate_type", _enum("rörlig", "fast"), "Rörlig eller fast ränta."),
+    ("min_amount_sek", NUM, "Lägsta lånebelopp i kronor."),
+    ("max_amount_sek", NUM, "Högsta lånebelopp i kronor."),
+    ("term_min_months", INT, "Kortaste återbetalningstid i månader (1 år -> 12)."),
+    ("term_max_months", INT, "Längsta återbetalningstid i månader (15 år -> 180)."),
+    ("setup_fee_sek", NUM, "Uppläggningsavgift i kronor (0 om lånet uttryckligen saknar uppläggningsavgift)."),
+    ("monthly_fee_sek", NUM, "Aviavgift/administrationsavgift per månad i kronor (0 om den uttryckligen saknas). Avgift för pappersavi räknas inte om e-faktura/autogiro är gratis."),
+    ("example_amount_sek", NUM, "Det representativa exemplets lånebelopp i kronor ('Vid ett lån på 150 000 kr …')."),
+    ("example_term_months", INT, "Det representativa exemplets återbetalningstid i månader."),
+    ("example_rate_percent", NUM, "Det representativa exemplets nominella (rörliga) årsränta i procent."),
+    ("example_effective_rate_percent", NUM, "Det representativa exemplets effektiva ränta i procent ('effektiv ränta X %')."),
+    ("example_total_sek", NUM, "Det representativa exemplets totala belopp att betala i kronor ('totalt att betala X kr')."),
+    ("min_age", INT, "Lägsta ålder för att få låna."),
+    ("co_applicant", BOOL, "Går det att ansöka med medsökande?"),
+    ("requirements", STR, "Kort (max 200 tecken): övriga krav, t.ex. lägsta inkomst, folkbokförd i Sverige, inga betalningsanmärkningar, fast anställning."),
+]
+
+PERSONAL_LOAN_EXTRACTION = extraction_schema(
+    PERSONAL_LOAN_FIELDS,
+    "Lånets namn så som långivaren skriver det (t.ex. 'Privatlån', 'Samlingslån', 'Billån').",
+    TIER, "Lämna tom.",
+    "Kort om något viktigt saknas (t.ex. räntan sätts individuellt, exemplet gäller ett annat lån).",
+)

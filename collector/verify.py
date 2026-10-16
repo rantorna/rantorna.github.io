@@ -105,6 +105,19 @@ def binding_in(months: float, quote: str) -> bool:
     return any(w in q and v == months for w, v in PERIOD_WORDS.items())
 
 
+def term_in(months: float, quote: str) -> bool:
+    """Löptid i år eller månader, med enheten intill talet (även första talet i "1–15 år")."""
+    q = _norm(quote)
+    unit_y, unit_m = r"\s*(?:år|års)\b", r"\s*(?:mån|månader|månaders|man)\b"
+    rng = r"(?:\s*(?:–|-|till|och)\s*\d+(?:[,.]\d+)?)?"
+    cands = [(str(int(months)), unit_m)]
+    if months % 12 == 0:
+        cands.append((str(int(months // 12)), unit_y))
+    elif months % 6 == 0:
+        cands.append((f"{months / 12:.1f}".replace(".", ","), unit_y))
+    return any(re.search(rf"(?<![\d,.]){n}{rng}{u}", q) or re.search(rf"\d\s*(?:–|-|till|och)\s*{n}{u}", q) for n, u in cands)
+
+
 def check_field(name, ev: dict, docs: list[str]) -> dict:
     """Returnerar {value, quote, source, status}."""
     value, quote, src = ev.get("value"), ev.get("quote"), ev.get("source")
@@ -125,6 +138,10 @@ def check_field(name, ev: dict, docs: list[str]) -> dict:
             pass
         elif name == "binding_months" and binding_in(value, quote):
             pass  # "1 år", "90 dagar", "ett halvår"
+        elif name.endswith("_months") and term_in(value, quote):
+            pass  # löptid "1–15 år", "upp till 180 månader"
+        elif name.endswith("fee_sek") and value == 0 and re.search(r"\b(ingen|inga|utan|gratis|kostnadsfri|avgiftsfri)", quote, re.I):
+            pass  # "Ingen uppläggningsavgift"
         elif not number_in(value, quote):
             wider = number_near(value, quote, docs[src])
             if wider:

@@ -102,3 +102,6 @@ function lineChart(target, series, { step = false } = {}) {
   svg.addEventListener("pointerleave", leave);
 }
 
+
+// Mobil: rulla flikraden så att den aktuella fliken syns.
+document.querySelector('.tabs a[aria-current="page"]')?.scrollIntoView({ block: "nearest", inline: "center" });
