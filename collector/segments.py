@@ -338,6 +338,47 @@ SEGMENTS["personal_loans"] = Segment(
     max_rate=45.0,
 )
 
+CARD_RESOLVE = """Du kartlägger den svenska marknaden för kreditkort och betalkort åt en oberoende jämförelsesajt. Använd webbsökning och kontrollera på utgivarens egna webbplatser.
+
+Avgör om aktören, under eget namn eller under ett annat varumärke (t.ex. Eurocard, SAS EuroBonus, Coop, Volvo), i dag ger ut kreditkort eller betalkort med kredit till privatpersoner i Sverige. Räkna inte med: bara bankkort/debetkort kopplade till lönekonto, bara företagskort, förbetalda kort, eller kort bara i andra länder. Ett varumärke per kortfamilj med egen webbsida.
+
+Ange för varje varumärke den svenska webbplatsen (homepage) och sidan som bäst beskriver kortet med avgifter, ränta och prislista (product_url). Hitta aldrig på adresser. Ange bara adresser du faktiskt har sett."""
+
+CARD_EXTRACT = """Du extraherar fakta om kreditkort och betalkort för privatpersoner i Sverige ur utgivarens egna webbsidor, prislistor och villkor, för en oberoende jämförelsesajt.
+
+Regler:
+- Ta med varje kort som privatpersoner kan ansöka om (t.ex. Classic, Gold, Platinum som egna produkter). Hoppa över debetkort kopplade till lönekonto, företagskort, förbetalda kort och kort som inte längre säljs.
+- Viktigast: årsavgift, avgifter per månad, ränta, räntefria dagar, valutapåslag, uttagsavgift och det representativa exemplets effektiva ränta.
+- Avgifter står ofta i en prislista – citera tabellraden. Räkna aldrig om månadsavgift till årsavgift eller tvärtom.
+- Varje värde måste beläggas med ett ORDAGRANT citat ur dokumenten (kopiera tecken för tecken, max ~300 tecken) och dokumentets index i "source".
+- Finns inget belägg: sätt value, quote och source till null. Gissa aldrig.
+- Procent som tal (1,75 % -> 1.75). Belopp i kronor som tal."""
+
+SEGMENTS["cards"] = Segment(
+    key="cards",
+    fields=schema.CARD_FIELDS,
+    extraction=schema.CARD_EXTRACTION,
+    extract_system=CARD_EXTRACT,
+    choose_system=(
+        "Du hjälper en svensk jämförelsesajt för kreditkort. Välj de sidor som mest sannolikt innehåller kortets "
+        "årsavgift, ränta, räntefria dagar, valutapåslag, uttagsavgifter, representativt exempel, prislistor och "
+        "villkor för privatpersoner. Välj inte lån, sparkonton, företagskort, nyheter eller allmänna guider."
+    ),
+    core=("annual_fee_sek", "rate_percent"),
+    data_dir=DATA / "cards",
+    site_file=DATA / "cards.json",
+    resolve_system=CARD_RESOLVE,
+    resolve_out=DATA / "cards" / "institutions.json",
+    resolve_hints=DATA / "cards" / "brand_hints.yaml",
+    resolve_categories=("BANK", "SPAR", "MBANK", "KMB", "KKRI", "UTLFIL", "FILBK", "UTLKMF"),
+    pos={"kreditkort": 9, "kort": 5, "betalkort": 7, "prislista": 6, "priser": 4, "avgifter": 5, "villkor": 3,
+         "valutapaslag": 7, "arsavgift": 7, "effektiv": 4, "mastercard": 4, "visa": 3, "gold": 3, "platinum": 3,
+         "lan": -4, "privatlan": -6, "bolan": -6, "spara": -5, "sparkonto": -5, "foretag": -6, "foretagskort": -6},
+    terms_re=r"(kort|prislista|priser|avgift|villkor|ränt|ranta)",
+    manual_banks=DATA / "cards" / "banks.yaml",
+    max_rate=45.0,
+)
+
 _current = "savings"
 
 

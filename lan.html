@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Privatlån – räntorna.</title>
-<meta name="description" content="Jämför privatlån och samlingslån i Sverige: räntespann, avgifter, representativa exempel och vad ditt lån kostar per månad – räknat likadant för alla långivare.">
+<title>Lån och kort – räntorna.</title>
+<meta name="description" content="Jämför privatlån, samlingslån och kreditkort i Sverige: vad ditt lån kostar per månad och vad ett kort kostar per år för just din användning – räknat likadant för alla.">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <link rel="stylesheet" href="styles.css">
 </head>
@@ -15,7 +15,7 @@
     <nav class="tabs">
       <a href="./">Sparkonton</a>
       <a href="bolan.html">Bolån</a>
-      <a href="lan.html" aria-current="page"><span class="long">Privatlån</span><span class="short">Lån</span></a>
+      <a href="lan.html" aria-current="page"><span class="long">Lån &amp; kort</span><span class="short">Lån</span></a>
       <a href="foretag.html">Företag</a>
       <a href="pension.html">Pension</a>
       <a href="rantelaget.html">Ränteläget</a>
@@ -26,10 +26,16 @@
 
 <main class="wrap wide">
   <section class="intro">
-    <h1>Privatlån</h1>
-    <p>Långivarna skyltar med "från"-räntor som få får. Jämför i stället vad lånet kostar: vi räknar månadskostnad och effektiv ränta för ditt belopp och din löptid på samma sätt för alla, med långivarens egna avgifter och den ränta långivaren själv anger i sitt representativa exempel.</p>
+    <h1>Lån och kort</h1>
+    <p>Långivare och kortutgivare skyltar med det som låter billigast – "från"-räntor som få får, kort utan årsavgift. Jämför i stället vad det kostar dig: vi räknar på ditt belopp och din användning, likadant för alla, med utgivarnas egna avgifter.</p>
   </section>
 
+  <div class="seg view-pick" role="tablist" aria-label="Välj vy">
+    <label><input type="radio" name="view" value="loans" checked><span>Privatlån</span></label>
+    <label><input type="radio" name="view" value="cards"><span>Kreditkort</span></label>
+  </div>
+
+  <div id="v-loans">
   <section class="market" id="market" aria-label="Marknadsläget"></section>
 
   <section class="panel">
@@ -103,7 +109,57 @@
     <ul></ul>
   </details>
 
-  <p class="foot-note">Uppgifterna hämtas automatiskt från långivarnas egna sidor och kontrolleras mot ordagranna citat. "Ditt lån" räknas som ett vanligt annuitetslån med långivarens publicerade uppläggnings- och aviavgift. Räntan är den som långivaren själv använder i sitt representativa exempel, som konsumentkreditlagen kräver i all marknadsföring av lån. Din ränta sätts efter kreditprövning och kan bli både högre och lägre.</p>
+  </div>
+
+  <div id="v-cards" hidden>
+  <section class="panel">
+    <div class="panel-head">
+      <h2>Vad kostar kortet för dig?</h2>
+      <p class="sub">Årsavgiften säger lite. Det som kostar är valutapåslaget när du handlar utomlands och räntan om du delbetalar. Ange hur du använder kortet, så räknar vi ut årskostnaden för varje kort med utgivarens egna avgifter.</p>
+    </div>
+    <div class="filters-row fin-filters">
+      <label class="amount sortby">Köp i utländsk valuta per år
+        <span class="input-suffix"><input id="c-abroad" type="text" inputmode="numeric" value="20 000"><span>kr</span></span>
+      </label>
+      <label class="amount sortby">Skuld på kortet i snitt
+        <span class="input-suffix"><input id="c-debt" type="text" inputmode="numeric" value="0"><span>kr</span></span>
+      </label>
+      <label class="amount sortby">Sortera på
+        <select id="c-sort">
+          <option value="cost">Årskostnad för dig</option>
+          <option value="annual">Årsavgift</option>
+          <option value="fx">Valutapåslag</option>
+          <option value="rate">Ränta</option>
+        </select>
+      </label>
+    </div>
+    <div class="checks filters-row">
+      <label><input type="checkbox" id="c-charge" checked> Visa betalkort (hela fakturan betalas varje månad)</label>
+      <label><input type="checkbox" id="c-open"> Bara kort som inte kräver att man är kund i banken</label>
+    </div>
+    <div class="table-scroll">
+      <table class="mtg" id="cards">
+        <thead><tr>
+          <th scope="col">Kort</th>
+          <th scope="col" class="num">Per år för dig</th>
+          <th scope="col" class="num">Årsavgift</th>
+          <th scope="col" class="num">Valutapåslag</th>
+          <th scope="col" class="num">Ränta</th>
+          <th scope="col">Ingår</th>
+        </tr></thead>
+        <tbody></tbody>
+      </table>
+    </div>
+    <p class="sub" id="c-note"></p>
+  </section>
+  <details id="c-missing" class="missing" hidden>
+    <summary></summary>
+    <p>De här utgivarna har kreditkort, men avgifter och ränta gick inte att läsa eller belägga automatiskt. Kontrollera dem direkt hos utgivaren.</p>
+    <ul></ul>
+  </details>
+  </div>
+
+  <p class="foot-note">Uppgifterna hämtas automatiskt från långivarnas och kortutgivarnas egna sidor och kontrolleras mot ordagranna citat. "Ditt lån" räknas som ett vanligt annuitetslån med långivarens publicerade uppläggnings- och aviavgift. Räntan är den som långivaren själv använder i sitt representativa exempel, som konsumentkreditlagen kräver i all marknadsföring av lån. Din ränta sätts efter kreditprövning och kan bli både högre och lägre.</p>
 </main>
 
 <footer class="wrap wide foot">
@@ -113,5 +169,6 @@
 
 <script src="charts.js"></script>
 <script src="lan.js"></script>
+<script src="kort.js"></script>
 </body>
 </html>

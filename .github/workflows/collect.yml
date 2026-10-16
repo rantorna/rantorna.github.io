@@ -99,6 +99,12 @@ jobs:
           RANTORNA_RESEARCH_MODEL=claude-haiku-5-5 python -m collector.resolve --segment personal_loans --limit 10
           python -m collector.run --segment personal_loans --workers 4
 
+      - name: Kreditkort
+        if: ${{ !inputs.bank }}
+        run: |
+          RANTORNA_RESEARCH_MODEL=claude-haiku-5-5 python -m collector.resolve --segment cards --limit 10
+          python -m collector.run --segment cards --workers 4
+
       - name: Pension – slå upp nya bolag
         if: ${{ !inputs.bank }}
         run: python -m collector.resolve --segment pension --limit 10

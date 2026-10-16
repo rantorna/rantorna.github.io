@@ -259,3 +259,37 @@ PERSONAL_LOAN_EXTRACTION = extraction_schema(
     TIER, "Lämna tom.",
     "Kort om något viktigt saknas (t.ex. räntan sätts individuellt, exemplet gäller ett annat lån).",
 )
+
+
+# ---------- Kreditkort: avgifter, ränta, utlandsanvändning ----------
+
+CARD_FIELDS = [
+    ("card_type", _enum("kreditkort", "betalkort", "annat"),
+     "kreditkort = köpen kan delbetalas mot ränta; betalkort = hela fakturan betalas varje månad (ingen delbetalning)."),
+    ("network", _enum("Visa", "Mastercard", "American Express", "annat"), "Kortnätverk."),
+    ("annual_fee_sek", NUM, "Årsavgift i kronor (0 om kortet uttryckligen saknar årsavgift). Anges avgiften per månad: räkna INTE om, sätt monthly_fee_sek i stället."),
+    ("monthly_fee_sek", NUM, "Kortavgift per månad i kronor om den anges per månad (inte aviavgift)."),
+    ("invoice_fee_sek", NUM, "Avi-/fakturaavgift per månad i kronor för e-faktura eller autogiro (0 om den uttryckligen saknas)."),
+    ("rate_percent", NUM, "Nominell årsränta i procent på kredit/delbetalning (vid spann: den lägsta)."),
+    ("rate_max_percent", NUM, "Högsta nominella årsränta om ett spann anges."),
+    ("interest_free_days", INT, "Räntefria dagar, högsta antal ('upp till 56 dagars räntefri kredit' -> 56)."),
+    ("credit_limit_max_sek", NUM, "Högsta kreditgräns i kronor."),
+    ("currency_fee_percent", NUM, "Valutapåslag i procent vid köp i utländsk valuta (0 om det uttryckligen saknas)."),
+    ("atm_fee_percent", NUM, "Avgift för kontantuttag i procent av beloppet."),
+    ("atm_fee_min_sek", NUM, "Lägsta avgift för kontantuttag i kronor."),
+    ("example_credit_sek", NUM, "Det representativa exemplets kreditbelopp i kronor."),
+    ("example_effective_rate_percent", NUM, "Det representativa exemplets effektiva ränta i procent."),
+    ("min_age", INT, "Lägsta ålder."),
+    ("min_income_sek", NUM, "Krav på lägsta inkomst i kronor PER ÅR, bara om det anges per år."),
+    ("travel_insurance", BOOL, "Ingår reseförsäkring när resan betalas med kortet?"),
+    ("bonus", STR, "Kort (max 150 tecken): bonus, poäng eller återbäring (t.ex. '1 % återbäring', 'EuroBonus-poäng')."),
+    ("requires_other_products", BOOL, "Krävs att man är kund i banken eller har andra produkter för att få kortet?"),
+    ("requirements", STR, "Kort (max 200 tecken): övriga krav."),
+]
+
+CARD_EXTRACTION = extraction_schema(
+    CARD_FIELDS,
+    "Kortets namn så som utgivaren skriver det (t.ex. 'Eurocard Gold', 'Bank Norwegian Kreditkort').",
+    TIER, "Lämna tom.",
+    "Kort om något viktigt saknas (t.ex. avgifter bara i prislista som inte gick att läsa).",
+)
