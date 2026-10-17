@@ -101,7 +101,7 @@ SEGMENTS = {
         resolve_system=SAVINGS_RESOLVE,
         resolve_out=DATA / "institutions.json",
         resolve_hints=DATA / "brand_hints.yaml",
-        resolve_categories=(),
+        resolve_categories=("BANK", "SPAR", "MBANK", "KMB", "KMF", "UTLFIL", "FILBK", "UTLKMF", "UTLBGH", "UTLKGH", "INLÅN"),  # institut som tar emot insättningar
         manual_banks=DATA / "banks.yaml",
     ),
     "mortgage": Segment(
@@ -410,12 +410,53 @@ SEGMENTS["youth"] = Segment(
     resolve_system=SAVINGS_RESOLVE,
     resolve_out=DATA / "institutions.json",
     resolve_hints=DATA / "brand_hints.yaml",
-    resolve_categories=(),
+    resolve_categories=("BANK", "SPAR", "MBANK", "KMB", "KMF", "UTLFIL", "FILBK", "UTLKMF", "UTLBGH", "UTLKGH", "INLÅN"),  # institut som tar emot insättningar
     manual_banks=DATA / "banks.yaml",
     pos={"barn": 9, "barnsparkonto": 10, "barnspar": 9, "ungdom": 9, "ungdomskonto": 10, "unga": 7, "junior": 3,
          "spara-till-barn": 9, "barnkonto": 9, "ranta": 4, "rantor": 4, "sparkonto": 3, "fond": -4, "fonder": -4,
          "isk": -3, "forsakring": -5, "lan": -5, "bolan": -6, "foretag": -6},
     terms_re=r"(barn|ungdom|unga|villkor|ränt|ranta|spar)",
+)
+
+CASH_RESOLVE = """Du kartlägger var privatpersoner i Sverige kan ha investeringssparkonto (ISK), depå (aktie- och fondkonto) eller kapitalförsäkring, åt en oberoende jämförelsesajt som jämför räntan på likvida medel (kontanter) på de kontona. Använd webbsökning och kontrollera på aktörens egna webbplatser.
+
+Avgör om aktören, under eget namn eller ett annat varumärke, i dag erbjuder ISK, depå eller kapitalförsäkring till privatpersoner i Sverige. Räkna inte med: bara fonder utan konto hos aktören, bara institutionella kunder, företagsfinansiering eller rådgivning utan egna konton.
+
+Ange för varje varumärke den svenska webbplatsen (homepage) och sidan som bäst visar räntan på likvida medel på ISK/depå, eller annars sidan om ISK med prislista (product_url). Hitta aldrig på adresser. Ange bara adresser du faktiskt har sett."""
+
+CASH_EXTRACT = """Du extraherar räntan på likvida medel (kontanter som inte är placerade) på investeringssparkonto (ISK), depå och kapitalförsäkring för privatpersoner i Sverige, ur bankens eller mäklarens egna sidor, prislistor och villkor, för en oberoende jämförelsesajt.
+
+Regler:
+- En produkt per kontotyp med egen ränta (t.ex. ISK och depå var för sig om räntan skiljer sig; account_type = flera om samma ränta gäller flera konton). Hoppa över sparkonton utanför ISK/depå, fonder, inlåning för företag och barnkonton.
+- Räntan avser kontanter på kontot – inte fondavkastning, inte schablonintäkt och inte statslåneräntan. Om banken uttryckligen skriver att ingen ränta ges på likvida medel: rate_percent = 0 med citatet.
+- Beror räntan på saldot: ange trappan i rate_tiers och räntan för 100 000 kr som rate_percent.
+- Varje värde måste beläggas med ett ORDAGRANT citat ur dokumenten (kopiera tecken för tecken, max ~300 tecken; vid tabeller hela raden) och dokumentets index i "source".
+- Finns inget belägg: sätt value, quote och source till null. Gissa aldrig.
+- Procent som tal (1,25 % -> 1.25). Belopp i kronor som tal."""
+
+SEGMENTS["isk_cash"] = Segment(
+    key="isk_cash",
+    fields=schema.CASH_FIELDS,
+    extraction=schema.CASH_EXTRACTION,
+    extract_system=CASH_EXTRACT,
+    choose_system=(
+        "Du hjälper en svensk jämförelsesajt för ränta på likvida medel på ISK, depå och kapitalförsäkring. Välj de "
+        "sidor som mest sannolikt anger räntan på kontanter/likvida medel på ISK och depå: räntesidor, prislistor, "
+        "villkor för ISK och depå. Välj inte fondsidor, sparkonton utanför ISK, lån, nyheter eller allmänna guider."
+    ),
+    core=("rate_percent",),
+    data_dir=DATA / "isk",
+    site_file=DATA / "isk_cash.json",
+    resolve_system=CASH_RESOLVE,
+    resolve_out=DATA / "isk" / "institutions.json",
+    resolve_hints=DATA / "isk" / "brand_hints.yaml",
+    resolve_categories=("BANK", "SPAR", "MBANK", "UTLFIL", "FILBK", "VÄRD"),
+    pos={"likvida": 9, "likvida-medel": 10, "ranta-pa-likvida": 10, "isk": 7, "investeringssparkonto": 8, "depa": 6,
+         "kapitalforsakring": 4, "prislista": 6, "priser": 4, "avgifter": 4, "villkor": 3, "ranta": 5, "rantor": 5,
+         "fond": -3, "fonder": -3, "lan": -5, "bolan": -6, "sparkonto": -2, "foretag": -6},
+    terms_re=r"(likvid|isk|investeringssparkonto|depå|depa|ränt|ranta|prislista|villkor)",
+    manual_banks=DATA / "isk" / "banks.yaml",
+    max_rate=8.0,
 )
 
 _current = "savings"

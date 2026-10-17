@@ -140,6 +140,8 @@ def check_field(name, ev: dict, docs: list[str]) -> dict:
             pass  # "1 år", "90 dagar", "ett halvår"
         elif name.endswith("_months") and term_in(value, quote):
             pass  # löptid "1–15 år", "upp till 180 månader"
+        elif name.endswith("rate_percent") and value == 0 and re.search(r"\b(ingen|inte någon|inte|ej)\b[^.]{0,40}\bränt", quote, re.I):
+            pass  # "Ingen ränta på pengar som finns på kontot"
         elif name.endswith("fee_sek") and value == 0 and re.search(r"\b(ingen|inga|utan|gratis|kostnadsfri|avgiftsfri)", quote, re.I):
             pass  # "Ingen uppläggningsavgift"
         elif not number_in(value, quote):
