@@ -293,3 +293,23 @@ CARD_EXTRACTION = extraction_schema(
     TIER, "Lämna tom.",
     "Kort om något viktigt saknas (t.ex. avgifter bara i prislista som inte gick att läsa).",
 )
+
+
+# ---------- Barn- och ungdomskonton: sparkontots fält plus vem kontot är till för ----------
+
+YOUTH_FIELDS = [
+    ("target_group", _enum("barn", "ungdom"),
+     "barn = sparkonto i barnets namn som vuxna sparar till (barnsparkonto, ofta 0–17 år); ungdom = konto som unga själva har (t.ex. 16–25 eller 18–27 år)."),
+    ("youth_only", BOOL, "true = konto särskilt för barn eller unga (barnsparkonto, ungdomskonto); false = vanligt sparkonto som banken uttryckligen säger kan öppnas i barnets namn eller för barn."),
+    ("age_min", INT, "Lägsta ålder för kontot, om angiven (0 för barn från födseln)."),
+    ("age_max", INT, "Högsta ålder för kontot eller för den särskilda räntan (t.ex. 17, 25)."),
+    ("age_terms", STR, "Kort: vad som händer när barnet/den unge fyller åldersgränsen (kontot övergår till vanligt sparkonto, räntan sänks …)."),
+    ("who_can_open", STR, "Kort: vem som kan öppna kontot och sätta in (vårdnadshavare, mor- och farföräldrar, den unge själv) och om kunden måste vara kund i banken."),
+] + [f for f in FIELDS if f[0] not in ("eligibility",)]
+
+YOUTH_EXTRACTION = extraction_schema(
+    YOUTH_FIELDS,
+    "Kontots namn så som banken skriver det (t.ex. 'Barnsparkonto', 'Ungdomskonto', 'Fasträntekonto Barn 12 mån').",
+    TIER, "Räntetrappa om räntan beror på belopp, annars tom.",
+    "Kort om något viktigt saknas (t.ex. räntan visas bara efter inloggning).",
+)

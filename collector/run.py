@@ -283,7 +283,7 @@ def build_site_data():
         banks.append({k: r.get(k) for k in ("bank", "checked_at", "changed_at", "status", "sources", "products")})
         slim(banks[-1])
     out = {"generated_at": now(), "banks": banks}
-    if seg.key in ("savings", "business_savings"):
+    if seg.key in ("savings", "business_savings", "youth"):
         out["context"] = savings_context()
     elif seg.key == "business_financing":
         out["context"] = financing_context()

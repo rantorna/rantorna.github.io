@@ -379,6 +379,45 @@ SEGMENTS["cards"] = Segment(
     max_rate=45.0,
 )
 
+YOUTH_EXTRACT = """Du extraherar fakta om sparkonton för BARN och UNGA i Sverige ur en banks egna webbsidor och villkorsdokument, för en oberoende jämförelsesajt.
+
+Regler:
+- Ta med två slags konton:
+  1. Konton särskilt för barn eller unga (youth_only = true): barnsparkonton, ungdomskonton och ungdomssparkonton med åldersgräns, fasträntekonton för barn.
+  2. Vanliga sparkonton och fasträntekonton som banken UTTRYCKLIGEN säger kan öppnas i barnets namn, för barn eller av förmyndare åt barn (youth_only = false, target_group = barn). Citera texten som säger det.
+- Hoppa över fondsparande, ISK, Junior-ISK, kapitalförsäkringar och kort. Ta inte med vanliga konton där det inte står att barn kan ha dem.
+- Varje bindningstid för fasträntekonton är en egen produkt.
+- Ange åldersgränser och vad som händer när de passeras, och vem som får öppna kontot och sätta in pengar.
+- Varje värde måste beläggas med ett ORDAGRANT citat ur dokumenten (kopiera tecken för tecken, inklusive siffror och procenttecken, max ~300 tecken) och dokumentets index i "source".
+- Finns inget belägg: sätt value, quote och source till null. Gissa aldrig.
+- Räntor anges i procent som tal (3,25 % -> 3.25). Belopp i kronor som tal.
+- Finns inga barn- eller ungdomskonton i dokumenten: returnera en tom produktlista."""
+
+SEGMENTS["youth"] = Segment(
+    key="youth",
+    fields=schema.YOUTH_FIELDS,
+    extraction=schema.YOUTH_EXTRACTION,
+    extract_system=YOUTH_EXTRACT,
+    choose_system=(
+        "Du hjälper en svensk jämförelsesajt för sparkonton för barn och unga. Välj de sidor som mest sannolikt "
+        "innehåller räntor och villkor för barnsparkonton, ungdomskonton och sparande till barn (åldersgränser, vem "
+        "som kan öppna, räntesatser, prislistor). Välj inte fonder, Junior-ISK, försäkringar, lån eller nyheter."
+    ),
+    core=("rate_percent", "target_group"),
+    data_dir=DATA / "youth",
+    site_file=DATA / "youth.json",
+    # Samma banker som för sparkonton – inga nya uppslag behövs.
+    resolve_system=SAVINGS_RESOLVE,
+    resolve_out=DATA / "institutions.json",
+    resolve_hints=DATA / "brand_hints.yaml",
+    resolve_categories=(),
+    manual_banks=DATA / "banks.yaml",
+    pos={"barn": 9, "barnsparkonto": 10, "barnspar": 9, "ungdom": 9, "ungdomskonto": 10, "unga": 7, "junior": 3,
+         "spara-till-barn": 9, "barnkonto": 9, "ranta": 4, "rantor": 4, "sparkonto": 3, "fond": -4, "fonder": -4,
+         "isk": -3, "forsakring": -5, "lan": -5, "bolan": -6, "foretag": -6},
+    terms_re=r"(barn|ungdom|unga|villkor|ränt|ranta|spar)",
+)
+
 _current = "savings"
 
 

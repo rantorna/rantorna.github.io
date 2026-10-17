@@ -20,6 +20,10 @@ const LABELS = {
   guarantee_country: "Insättningsgaranti (land)",
   guarantee_amount: "Garantibelopp",
   rate_valid_from: "Räntan gäller från",
+  age_min: "Lägsta ålder",
+  age_max: "Högsta ålder",
+  age_terms: "Vid åldersgränsen",
+  who_can_open: "Vem kan öppna och sätta in",
 };
 const COUNTRY = { SE: "Sverige", LT: "Litauen", NO: "Norge", DK: "Danmark", FI: "Finland", DE: "Tyskland", MT: "Malta", EE: "Estland", LV: "Lettland", NL: "Nederländerna", IE: "Irland", FR: "Frankrike" };
 
@@ -27,7 +31,8 @@ const kr = new Intl.NumberFormat("sv-SE", { maximumFractionDigits: 0 });
 const pct = new Intl.NumberFormat("sv-SE", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 const $ = (s) => document.querySelector(s);
 
-let DATA = null;
+let DATA = null, YOUTH = null;
+const who = () => document.querySelector('input[name="who"]:checked')?.value || "vuxen";
 const PAGE = 50;
 let showAll = false;
 
@@ -73,11 +78,32 @@ function monthlyCap(p) {
 }
 
 function rows() {
-  const out = [];
-  for (const b of DATA.banks) {
-    for (const p of b.products || []) out.push({ bank: b, p });
+  const w = who(), out = [];
+  if (w === "vuxen") {
+    for (const b of DATA.banks) for (const p of b.products || []) out.push({ bank: b, p });
+  } else {
+    // Barn: barnkonton och vanliga konton som banken säger kan öppnas i barnets namn. Unga: ungdomskonton.
+    for (const b of (YOUTH || { banks: [] }).banks) for (const p of b.products || []) {
+      // Saknas eller är målgruppen tvetydig avgör namnet ("Ungdomskonto" hör till Unga).
+      const tg = val(p, "target_group"), young = /ung/i.test(p.name);
+      if (w === "ungdom" ? tg === "ungdom" || young : tg === "barn" || (tg == null && !young)) out.push({ bank: b, p });
+    }
   }
   return out;
+}
+
+/** Barn- och ungdomskontona laddas först när någon väljer dem. */
+function ensureYouth() {
+  if (who() === "vuxen" || YOUTH) return Promise.resolve();
+  return fetch("data/youth.json", { cache: "no-cache" }).then((r) => r.ok ? r.json() : { banks: [] })
+    .catch(() => ({ banks: [] })).then((d) => { YOUTH = d; });
+}
+
+function renderYouthNote() {
+  const w = who(), el = $("#youth-note");
+  el.hidden = w === "vuxen";
+  if (w === "barn") el.innerHTML = "<b>Sparande i barnets namn.</b> Här finns särskilda barnsparkonton och vanliga sparkonton som banken skriver att man kan öppna åt ett barn. De flesta storbanker har inget eget barnkonto, och många nischbanker kräver att kontohavaren är 18 år – de syns därför inte här. Räntan beskattas med 30 %, precis som för vuxna.";
+  if (w === "ungdom") el.innerHTML = "<b>Konton för unga.</b> Ungdomskonton har en åldersgräns, och räntan eller villkoren ändras ofta när den gränsen passeras – se villkoren under varje konto. Från 18 år kan du också öppna de flesta vanliga sparkonton.";
 }
 
 function parseAmount() {
@@ -128,7 +154,9 @@ function render() {
   const infl = ctx.kpif != null ? ` · "real" = efter skatt och ${String(ctx.kpif).replace(".", ",")} % inflation (KPIF, ${new Date(ctx.kpif_month).toLocaleDateString("sv-SE", { month: "long", year: "numeric" })})` : "";
   $("#summary").textContent = `${items.length} konton hos ${nBanks} banker · avkastning på ${kr.format(amount)} kr under ett år, efter 30 % skatt${infl}`;
   renderIsk(amount);
-  renderBench(items, amount);
+  if (who() === "vuxen") renderBench(items, amount); else $("#bench").hidden = true;
+  renderYouthNote();
+  $("#missing").hidden = who() !== "vuxen" || !$("#missing ul").children.length;
 }
 
 /** Riktmärke: vad pengarna i banken i snitt ger enligt SCB, mot det bästa kontot utan bindning här. */
@@ -180,6 +208,12 @@ function row({ bank, p, rate }, amount) {
   const gc = val(p, "guarantee_country");
   if (gc && gc !== "SE") tags.append(badge("garanti: " + (COUNTRY[gc] || gc), "note"));
   if (val(p, "intro_rate")) tags.append(badge("kampanj", "note"));
+  const tg = val(p, "target_group");
+  if (tg) {
+    const a0 = val(p, "age_min"), a1 = val(p, "age_max");
+    const ages = a0 != null && a1 != null ? ` ${a0}–${a1} år` : a1 != null ? ` till ${a1} år` : a0 != null ? ` från ${a0} år` : "";
+    tags.append(badge(val(p, "youth_only") !== true ? "vanligt konto, kan öppnas för barn" : (/ung/i.test(p.name) || tg === "ungdom" ? "ungdomskonto" : "barnkonto") + ages, "note"));
+  }
   const cap = monthlyCap(p);
   if (cap != null) tags.append(badge(`månadsspar max ${kr.format(cap)} kr/mån`, "note"));
 
@@ -277,6 +311,7 @@ function bindFilters() {
       renderTimer = setTimeout(render, 200);
       return;
     }
+    if (e.target.name === "who") { ensureYouth().then(render); return; }
     render();
   });
 }
