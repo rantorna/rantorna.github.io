@@ -19,7 +19,8 @@ def _ev(value_schema: dict, desc: str) -> dict:
 
 
 def _enum(*vals):
-    return {"type": ["string", "null"], "enum": [*vals, None]}
+    # anyOf i stället för type-lista + enum: Messages API:s strukturerade utdata godtar bara den formen.
+    return {"anyOf": [{"type": "string", "enum": list(vals)}, {"type": "null"}]}
 
 
 NUM = {"type": ["number", "null"]}

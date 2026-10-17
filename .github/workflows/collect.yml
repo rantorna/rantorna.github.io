@@ -29,6 +29,8 @@ jobs:
       CLAUDE_CODE_OAUTH_TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
       TYPESAFE_API_KEY: ${{ secrets.TYPESAFE_API_KEY }}
       RANTORNA_MODEL: ${{ vars.RANTORNA_MODEL || 'claude-sonnet-5-5' }}
+      # Uppslag med webbsökning: Haiku räcker och kostar en tjugondel
+      RANTORNA_RESEARCH_MODEL: ${{ vars.RANTORNA_RESEARCH_MODEL || 'claude-haiku-5-5' }}
     steps:
       - uses: actions/checkout@v4
 
@@ -94,19 +96,19 @@ jobs:
       - name: Företag – finansiering
         if: ${{ !inputs.bank }}
         run: |
-          RANTORNA_RESEARCH_MODEL=claude-haiku-5-5 python -m collector.resolve --segment business_financing --limit 10
+          python -m collector.resolve --segment business_financing --limit 10
           python -m collector.run --segment business_financing --workers 4
 
       - name: Privatlån
         if: ${{ !inputs.bank }}
         run: |
-          RANTORNA_RESEARCH_MODEL=claude-haiku-5-5 python -m collector.resolve --segment personal_loans --limit 10
+          python -m collector.resolve --segment personal_loans --limit 10
           python -m collector.run --segment personal_loans --workers 4
 
       - name: Kreditkort
         if: ${{ !inputs.bank }}
         run: |
-          RANTORNA_RESEARCH_MODEL=claude-haiku-5-5 python -m collector.resolve --segment cards --limit 10
+          python -m collector.resolve --segment cards --limit 10
           python -m collector.run --segment cards --workers 4
 
       - name: Pension – slå upp nya bolag
