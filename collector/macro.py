@@ -390,6 +390,23 @@ def fetch_treasury(col):
     return sorted(_treasury_cache.get(col, []))
 
 
+def fetch_forecast() -> dict:
+    """Riksbankens räntebana och marknadens förväntningar (terminsprissättning) ur de penningpolitiska
+    rapporterna. Varje rapport ("policy round") är en egen årgång; vi tar den senaste och den förra."""
+    r = get("https://api.riksbank.se/monetary_policy_data/v1/forecasts")
+    data = {x["external_id"]: x for x in r.json()["data"]}
+
+    def vintage(sid, back=0):
+        vs = sorted(data[sid]["vintages"], key=lambda v: v["metadata"]["policy_round_end_dtm"])
+        v = vs[-1 - back]
+        m = v["metadata"]
+        return {"round": m["policy_round"], "published": m["policy_round_end_dtm"][:10], "cutoff": m["forecast_cutoff_date"],
+                "obs": [[o["dt"], o["value"]] for o in v["observations"] if o["dt"] > m["forecast_cutoff_date"] and o["value"] is not None]}
+
+    return {"policy": vintage("SEQRATENAYNA"), "market": vintage("SEDMENAYNA"), "policy_prev": vintage("SEQRATENAYNA", 1),
+            "source_url": "https://www.riksbank.se/sv/penningpolitik/penningpolitiska-rapporter-och-beslut/"}
+
+
 FETCHERS = {"riksgalden": fetch_riksgalden, "riksbank_ref": fetch_riksbank_ref, "skv": fetch_skv, "isk": fetch_isk,
             "csn": fetch_csn, "scb_kpif": fetch_scb_kpif, "scb_corp": fetch_scb_corp, "scb_purpose": fetch_scb_purpose, "scb_dep": fetch_scb_dep, "scb": fetch_scb, "riksbank": fetch_riksbank, "swestr": fetch_swestr, "ecb": fetch_ecb, "nyfed": fetch_nyfed,
             "nyfed_target": fetch_nyfed_target, "treasury": fetch_treasury}
@@ -430,10 +447,11 @@ def summarize(obs):
 
 
 def main():
-    previous = {}
+    previous, prev_forecast = {}, None
     path = DATA / "macro.json"
     if path.exists():
-        previous = json.loads(path.read_text()).get("series", {})
+        old = json.loads(path.read_text())
+        previous, prev_forecast = old.get("series", {}), old.get("forecast")
     PREV.update(previous)
     out = {}
     for sid, (region, group, name, tenor, src, key) in SERIES.items():
@@ -457,8 +475,14 @@ def main():
             print(f"  ! {sid}: {e}", flush=True)
             if sid in previous:
                 out[sid] = previous[sid] | {"stale": True}
+    try:
+        forecast = fetch_forecast()
+        print(f"  räntebana {forecast['policy']['round']} ({forecast['policy']['published']})", flush=True)
+    except Exception as e:  # behåll förra prognosen hellre än ingen
+        print(f"  ! räntebana: {e}", flush=True)
+        forecast = prev_forecast
     path.write_text(json.dumps({"generated_at": dt.datetime.now(dt.timezone.utc).replace(microsecond=0).isoformat(),
-                                "series": out}, ensure_ascii=False, separators=(",", ":")))
+                                "series": out, "forecast": forecast}, ensure_ascii=False, separators=(",", ":")))
     print(f"{len(out)}/{len(SERIES)} serier, {path.stat().st_size // 1024} kB")
 
 

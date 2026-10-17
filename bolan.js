@@ -173,6 +173,8 @@ Promise.all([
   renderTable();
   renderMissing();
   renderChart();
+  renderForecast($("#forecast"), macro, { full: true });
+  if (location.hash === "#rantebana") $("#rantebana").scrollIntoView();
   $("#updated").textContent = `Data uppdaterad ${new Date(mtg.generated_at || macro.generated_at).toLocaleString("sv-SE", { dateStyle: "long", timeStyle: "short" })}.`;
   document.querySelectorAll('input[name="kind"]').forEach((i) => i.addEventListener("change", renderTable));
   $("#sort").addEventListener("change", renderTable);

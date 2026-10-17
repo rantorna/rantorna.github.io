@@ -236,6 +236,7 @@ fetch("data/macro.json", { cache: "no-cache" })
     renderChart();
     renderCurve();
     renderSources();
+    renderForecast($("#forecast"), d);
     document.querySelectorAll('input[name="chart"], input[name="range"]').forEach((i) => i.addEventListener("change", renderChart));
     addEventListener("resize", () => { clearTimeout(resizeTimer); resizeTimer = setTimeout(() => { renderChart(); renderCurve(); }, 150); });
   })
