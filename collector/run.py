@@ -151,6 +151,14 @@ def process(bank: dict, discover_only: bool, force: bool, log, rediscover: bool 
             relink(previous, pages)
         out_path.write_text(json.dumps(previous, ensure_ascii=False, indent=1))
         return previous
+    if previous and not force and not reverify and quotes_still_there(previous, pages):
+        # Sidan har ändrats, men varje belagt citat står kvar – det som ändrats är inte
+        # räntor eller villkor (nyheter, datum, kakbanner). Ingen ny tolkning behövs.
+        log("  citaten står kvar – ingen ny tolkning")
+        previous |= {"checked_at": record["checked_at"], "discovered_at": record["discovered_at"], "source_hash": h}
+        relink(previous, pages)
+        out_path.write_text(json.dumps(previous, ensure_ascii=False, indent=1))
+        return previous
     if not llm.available():
         log("  ! ingen LLM – hoppar över tolkning")
         return None
@@ -174,6 +182,21 @@ def process(bank: dict, discover_only: bool, force: bool, log, rediscover: bool 
             out_path.write_text(json.dumps(previous, ensure_ascii=False, indent=1))
         return previous
     return finish(bank, record, raw, pages, previous, out_path, log, h)
+
+
+FULL_EXTRACT_DAYS = 7
+
+
+def quotes_still_there(previous: dict, pages: list[fetch.Page]) -> bool:
+    """Sant om förra tolkningen har belagda värden och alla deras citat finns kvar i sidorna,
+    och den inte är äldre än en vecka (då tolkas allt om, så att nya produkter kommer med)."""
+    changed = previous.get("changed_at")
+    if not changed or (dt.datetime.now(dt.timezone.utc) - dt.datetime.fromisoformat(changed)).days >= FULL_EXTRACT_DAYS:
+        return False
+    docs = [p.text for p in pages]
+    quotes = [f["quote"] for prod in previous.get("products", []) for f in prod["fields"].values()
+              if f.get("value") is not None and f.get("quote")]
+    return bool(quotes) and all(any(verify.quote_in(q, d) for d in docs) for q in quotes)
 
 
 def relink(record: dict, pages: list[fetch.Page]) -> int:
@@ -207,7 +230,7 @@ def finish(bank, record, raw, pages, previous, out_path, log, h=None):
     if jev.available():
         for p in products:
             try:
-                jev.check_product(p, docs, bank["name"])
+                jev.check_product(p, docs, bank["name"], prev_by_name.get(p["name"]))
                 verify.restatus(p)
             except Exception as e:
                 log(f"  ! jev: {e}")

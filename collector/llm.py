@@ -146,6 +146,12 @@ def research_call(system: str, user: str, schema: dict) -> dict:
     raise LLMError("Ingen LLM konfigurerad")
 
 
+def _web_tools(model: str) -> list[dict]:
+    """Webbverktygen med dynamisk filtrering (2026-02-09) finns på Sonnet/Opus; Haiku har grundvarianterna."""
+    s, f = ("web_search_20250305", "web_fetch_20250910") if "haiku" in model else ("web_search_20260209", "web_fetch_20260209")
+    return [{"type": s, "name": "web_search", "max_uses": 8}, {"type": f, "name": "web_fetch", "max_uses": 8}]
+
+
 def _api_research(model, system, user, schema):
     import anthropic
 
@@ -157,8 +163,7 @@ def _api_research(model, system, user, schema):
             max_tokens=16000,
             system=system,
             messages=messages,
-            tools=[{"type": "web_search_20260209", "name": "web_search", "max_uses": 8},
-                   {"type": "web_fetch_20260209", "name": "web_fetch", "max_uses": 8}],
+            tools=_web_tools(model),
             output_config={"effort": "medium", "format": {"type": "json_schema", "schema": schema}},
         ) as stream:
             msg = stream.get_final_message()

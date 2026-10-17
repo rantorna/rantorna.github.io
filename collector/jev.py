@@ -56,9 +56,16 @@ def _context(quote: str, doc: str) -> str:
     return doc[max(0, i - CONTEXT): i + len(quote) + CONTEXT]
 
 
-def check_product(product: dict, docs: list[str], bank_name: str) -> None:
-    """Uppdaterar product['fields'] på plats med jev-resultat."""
+def check_product(product: dict, docs: list[str], bank_name: str, previous: dict | None = None) -> None:
+    """Uppdaterar product['fields'] på plats med jev-resultat. Fält med samma värde och citat
+    som förra gången, där Jev då höll med, kontrolleras inte igen (sparar anrop)."""
     fields = {k: v for k, v in product["fields"].items() if v["status"] == "belagt"}
+    for k in list(fields):
+        old = ((previous or {}).get("fields") or {}).get(k) or {}
+        if old.get("value") == fields[k]["value"] and old.get("quote") == fields[k]["quote"] \
+                and (old.get("jev") or {}).get("verdict") == "supports":
+            fields[k]["jev"] = old["jev"]
+            fields.pop(k)
     # Bindningstid som står i produktens eget namn och i citatet ("Sparkonto 3 månader: 2,95 %")
     # är redan starkt belagd; Jev läser ofta sådana rader för bokstavligt.
     b = fields.get("binding_months")
