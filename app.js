@@ -128,6 +128,22 @@ function render() {
   const infl = ctx.kpif != null ? ` · "real" = efter skatt och ${String(ctx.kpif).replace(".", ",")} % inflation (KPIF, ${new Date(ctx.kpif_month).toLocaleDateString("sv-SE", { month: "long", year: "numeric" })})` : "";
   $("#summary").textContent = `${items.length} konton hos ${nBanks} banker · avkastning på ${kr.format(amount)} kr under ett år, efter 30 % skatt${infl}`;
   renderIsk(amount);
+  renderBench(items, amount);
+}
+
+/** Riktmärke: vad pengarna i banken i snitt ger enligt SCB, mot det bästa kontot utan bindning här. */
+function renderBench(items, amount) {
+  const ctx = DATA.context || {}, el = $("#bench");
+  if (!el || ctx.dep_hh_free == null) return;
+  const free = items.filter((i) => val(i.p, "binding_months") === 0 && val(i.p, "withdrawals") === "fria" && val(i.p, "intro_rate") !== true)
+    .map((i) => i.rate);
+  const best = free.length ? Math.max(...free) : null;
+  const f = (v) => String(Math.round(v * 100) / 100).replace(".", ",");
+  const month = new Date(ctx.dep_month).toLocaleDateString("sv-SE", { month: "long", year: "numeric" });
+  el.hidden = false;
+  el.innerHTML = `<b>Snittet i bankerna:</b> på konton utan villkor fick hushållen i genomsnitt ${f(ctx.dep_hh_free)} % i ${month}, `
+    + `och ${f(ctx.dep_hh_all)} % på alla pengar i banken (SCB).`
+    + (best != null ? ` Det bästa kontot med fria uttag här ger ${f(best)} % – på ${kr.format(amount)} kr är skillnaden ${kr.format(Math.round((best - ctx.dep_hh_free) / 100 * amount * (1 - TAX)))} kr om året efter skatt.` : "");
 }
 
 /** Påminnelse om ISK: under grundnivån är sparandet skattefritt – det ändrar jämförelsen. */

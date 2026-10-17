@@ -46,6 +46,11 @@ SERIES = {
     "se_corp_new_1y5y": ("SE", "företag", "Nya lån till företag, 1–5 år", 36, "scb_corp", "1:0100:1.1.2.2"),
     "se_corp_kontokredit": ("SE", "företag", "Kontokredit till företag (utestående)", None, "scb_corp", "1:0200:1.2"),
     "se_soletrader_new_all": ("SE", "företag", "Nya lån till enskilda näringsidkare", None, "scb_corp", "2.1:0100:1"),
+    # Sverige – bankernas inlåningsräntor (SCB, utestående avtal, månadsvis)
+    "se_dep_hh_all": ("SE", "inlåning", "Hushållens inlåning i bank, alla konton", None, "scb_dep", "2:0200:1"),
+    "se_dep_hh_free": ("SE", "inlåning", "Hushållens inlåning, konton utan villkor", None, "scb_dep", "2:0200:3"),
+    "se_dep_hh_fixed": ("SE", "inlåning", "Hushållens inlåning, bundet upp till 2 år", 24, "scb_dep", "2:0200:211"),
+    "se_dep_corp_all": ("SE", "inlåning", "Företagens inlåning i bank, alla konton", None, "scb_dep", "1:0200:1"),
     # Sverige – konsumtionslån till hushåll (SCB, banker och andra MFI, månadsvis)
     "se_consumer_new": ("SE", "konsumtion", "Nya konsumtionslån till hushåll", None, "scb_purpose", "0300:1.1"),
     "se_consumer_stock": ("SE", "konsumtion", "Alla utestående konsumtionslån", None, "scb_purpose", "0400:1.1"),
@@ -93,6 +98,7 @@ SOURCES = {
     "skv": ("Skatteverket", "https://www.skatteverket.se/rantesatser"),
     "isk": ("Skatteverket", "https://www.skatteverket.se/privat/skatter/vardepapper/investeringssparkontoisk"),
     "csn": ("CSN", "https://www.csn.se/betala-tillbaka/betala-tillbaka-studielan/ranta-och-avgifter.html"),
+    "scb_dep": ("SCB", "https://www.scb.se/hitta-statistik/statistik-efter-amne/finansmarknad/finansmarknadsstatistik/"),
     "scb_purpose": ("SCB", "https://www.scb.se/hitta-statistik/statistik-efter-amne/finansmarknad/finansmarknadsstatistik/"),
     "scb_corp": ("SCB", "https://www.scb.se/hitta-statistik/statistik-efter-amne/finansmarknad/finansmarknadsstatistik/"),
     "scb_kpif": ("SCB", "https://www.scb.se/hitta-statistik/statistik-efter-amne/priser-och-konsumtion/konsumentprisindex/"),
@@ -308,6 +314,25 @@ def fetch_scb_corp(key):
     return sorted(_scb_corp.get(key, []))
 
 
+_scb_dep: dict = {}
+
+
+def fetch_scb_dep(key):
+    """SCB RantaT05: bankernas inlåningsräntor från hushåll och företag."""
+    if not _scb_dep:
+        q = {"query": [{"code": "Avtal", "selection": {"filter": "item", "values": ["0200"]}},
+                       {"code": "Tid", "selection": {"filter": "all", "values": ["*"]}}], "response": {"format": "json"}}
+        r = httpx.post("https://api.scb.se/OV0104/v1/doris/sv/ssd/FM/FM5001/FM5001C/RantaT05", json=q, headers=UA, timeout=120)
+        r.raise_for_status()
+        for row in r.json()["data"]:
+            _, motpart, avtal, kind, month = row["key"]
+            v = row["values"][0]
+            if v in ("..", "", None) or month < f"{START.year}M01":
+                continue
+            _scb_dep.setdefault(f"{motpart}:{avtal}:{kind}", []).append((f"{month[:4]}-{month[5:]}-01", float(v)))
+    return sorted(_scb_dep.get(key, []))
+
+
 _scb_purpose: dict = {}
 
 
@@ -366,7 +391,7 @@ def fetch_treasury(col):
 
 
 FETCHERS = {"riksgalden": fetch_riksgalden, "riksbank_ref": fetch_riksbank_ref, "skv": fetch_skv, "isk": fetch_isk,
-            "csn": fetch_csn, "scb_kpif": fetch_scb_kpif, "scb_corp": fetch_scb_corp, "scb_purpose": fetch_scb_purpose, "scb": fetch_scb, "riksbank": fetch_riksbank, "swestr": fetch_swestr, "ecb": fetch_ecb, "nyfed": fetch_nyfed,
+            "csn": fetch_csn, "scb_kpif": fetch_scb_kpif, "scb_corp": fetch_scb_corp, "scb_purpose": fetch_scb_purpose, "scb_dep": fetch_scb_dep, "scb": fetch_scb, "riksbank": fetch_riksbank, "swestr": fetch_swestr, "ecb": fetch_ecb, "nyfed": fetch_nyfed,
             "nyfed_target": fetch_nyfed_target, "treasury": fetch_treasury}
 
 
@@ -421,7 +446,7 @@ def main():
             if not obs:
                 raise ValueError("inga observationer")
             # Månadsstatistik publiceras med eftersläpning; officiella räntor ändras sällan (datumet är när de började gälla).
-            max_age = {"scb": 110, "scb_kpif": 110, "scb_corp": 110, "scb_purpose": 110}.get(src, None if src in ("skv", "isk", "csn", "riksbank_ref", "derived") else 30)
+            max_age = {"scb": 110, "scb_kpif": 110, "scb_corp": 110, "scb_purpose": 110, "scb_dep": 110}.get(src, None if src in ("skv", "isk", "csn", "riksbank_ref", "derived") else 30)
             if max_age and (dt.date.today() - dt.date.fromisoformat(obs[-1][0])).days > max_age:
                 raise ValueError(f"senaste värdet är från {obs[-1][0]} – serien verkar ha upphört")
             out[sid] = {"region": region, "group": group, "name": name, "tenor_months": tenor,

@@ -17,7 +17,7 @@ from pathlib import Path
 
 import yaml
 
-from . import discover, extract, fetch, jev, llm, segments, verify
+from . import changes, discover, extract, fetch, jev, llm, segments, verify
 
 ROOT = Path(__file__).resolve().parent.parent
 DATA = ROOT / "data"
@@ -224,6 +224,7 @@ def finish(bank, record, raw, pages, previous, out_path, log, h=None):
         rate = f.get('rate_percent', {}).get('value')
         log(f"  * {p['name']}: {'' if rate is None else str(rate) + ' %'} [{p['status']}] "
             + ", ".join(f"{k}:{v['status']}" for k, v in f.items() if v["status"] not in ("belagt", "okänt")))
+    changes.add(changes.detect(segments.cur().key, previous, record))
     out_path.write_text(json.dumps(record, ensure_ascii=False, indent=1))
     return record
 
@@ -255,6 +256,10 @@ def savings_context() -> dict:
         "isk_year": (latest("se_isk_schablon").get("date") or "")[:4] or None,
         "isk_schablon": latest("se_isk_schablon").get("value"), "isk_skatt": latest("se_isk_skatt").get("value"),
         "isk_grund": latest("se_isk_grund").get("value"),
+        # SCB: vad hushåll och företag i snitt får på pengarna i banken – riktmärke för sparkontona
+        "dep_month": latest("se_dep_hh_all").get("date"),
+        "dep_hh_all": latest("se_dep_hh_all").get("value"), "dep_hh_free": latest("se_dep_hh_free").get("value"),
+        "dep_hh_fixed": latest("se_dep_hh_fixed").get("value"), "dep_corp_all": latest("se_dep_corp_all").get("value"),
     }
 
 
@@ -278,7 +283,7 @@ def build_site_data():
         banks.append({k: r.get(k) for k in ("bank", "checked_at", "changed_at", "status", "sources", "products")})
         slim(banks[-1])
     out = {"generated_at": now(), "banks": banks}
-    if seg.key == "savings":
+    if seg.key in ("savings", "business_savings"):
         out["context"] = savings_context()
     elif seg.key == "business_financing":
         out["context"] = financing_context()
@@ -335,6 +340,8 @@ def main():
     failures = results.count(False)
     if not args.discover_only:
         build_site_data()
+        if not args.bank:  # en delkörning ska inte logga halva marknaden
+            print(f"{changes.save()} ränteändringar loggade", flush=True)
     print(f"\nLLM: {llm.usage}  Jev: {jev.usage}", flush=True)
     sys.exit(1 if failures == len(banks) and banks else 0)
 
