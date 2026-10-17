@@ -86,13 +86,37 @@ def _api(model, system, user, schema, max_tokens, effort):
         raise
 
 
+ANSWER_TOOL = "lamna_svar"
+ANSWER_RULE = (f"\n\nLämna alltid resultatet genom att anropa verktyget {ANSWER_TOOL} exakt en gång, "
+               "med hela svaret som indata. Skriv ingen annan text.")
+
+
+def _answer_tool(schema: dict) -> dict:
+    # Svar via verktygsanrop i stället för output_config.format: strukturerade utdata tillåter
+    # högst 16 fält som kan vara null, och tolkningsschemat har betydligt fler.
+    return {"name": ANSWER_TOOL, "description": "Lämna det strukturerade svaret.", "input_schema": schema}
+
+
+def _answer(msg) -> dict:
+    """Svaret ur verktygsanropet (eller, i nödfall, ur JSON i texten)."""
+    for b in msg.content:
+        if b.type == "tool_use" and b.name == ANSWER_TOOL:
+            return b.input
+    text = next((b.text for b in reversed(msg.content) if b.type == "text"), None)
+    if text:
+        t = text.strip().removeprefix("```json").removeprefix("```").removesuffix("```")
+        return json.loads(t)
+    raise LLMError("inget svar")
+
+
 def _api_inner(client, model, system, user, schema, max_tokens, effort):
     with client.messages.stream(
         model=model,
         max_tokens=max_tokens,
-        system=[{"type": "text", "text": system, "cache_control": {"type": "ephemeral"}}],
+        system=[{"type": "text", "text": system + ANSWER_RULE, "cache_control": {"type": "ephemeral"}}],
         messages=[{"role": "user", "content": user}],
-        output_config={"effort": effort, "format": {"type": "json_schema", "schema": schema}},
+        tools=[_answer_tool(schema)],
+        output_config={"effort": effort},
     ) as stream:
         msg = stream.get_final_message()
     usage["input_tokens"] += msg.usage.input_tokens
@@ -101,10 +125,7 @@ def _api_inner(client, model, system, user, schema, max_tokens, effort):
         raise LLMError("modellen avböjde")
     if msg.stop_reason == "max_tokens":
         raise LLMError("svaret blev för långt (max_tokens)")
-    text = next((b.text for b in msg.content if b.type == "text"), None)
-    if text is None:
-        raise LLMError("inget textsvar")
-    return json.loads(text)
+    return _answer(msg)
 
 
 def _cli(model, system, user, schema, tools: str = ""):
@@ -161,10 +182,10 @@ def _api_research(model, system, user, schema):
         with client.messages.stream(
             model=model,
             max_tokens=16000,
-            system=system,
+            system=system + ANSWER_RULE,
             messages=messages,
-            tools=_web_tools(model),
-            output_config={"effort": "medium", "format": {"type": "json_schema", "schema": schema}},
+            tools=_web_tools(model) + [_answer_tool(schema)],
+            output_config={"effort": "medium"},
         ) as stream:
             msg = stream.get_final_message()
         usage["input_tokens"] += msg.usage.input_tokens
@@ -174,8 +195,5 @@ def _api_research(model, system, user, schema):
             continue
         if msg.stop_reason == "refusal":
             raise LLMError("modellen avböjde")
-        text = next((b.text for b in reversed(msg.content) if b.type == "text"), None)
-        if text is None:
-            raise LLMError("inget textsvar")
-        return json.loads(text)
+        return _answer(msg)
     raise LLMError("för många pause_turn")
