@@ -7,7 +7,7 @@
   "kind": "storbank",
   "legal_name": "Svenska Handelsbanken AB"
  },
- "checked_at": "2026-10-16T09:00:03+00:00",
+ "checked_at": "2026-10-17T08:44:31+00:00",
  "discovered_at": "2026-10-12T19:07:11+00:00",
  "sources": [
   {
@@ -15,7 +15,7 @@
    "title": "Bolåneräntor – Aktuella snitträntor & listränta | Handelsbanken",
    "kind": "html",
    "via": "browser",
-   "chars": 8689
+   "chars": 8690
   },
   {
    "url": "https://www.handelsbanken.se/sv/privat/privat/bolan/bolanerantor",
@@ -29,7 +29,7 @@
    "title": "Så funkar individuell bolåneränta | Handelsbanken",
    "kind": "html",
    "via": "http",
-   "chars": 7215
+   "chars": 7253
   },
   {
    "url": "https://www.handelsbanken.se/sv/privat/bolan/privat/bolan/bolanerantor/individuell-ranta",
@@ -43,37 +43,48 @@
    "title": "Bolån – räkna på bolån & ansök | Handelsbanken",
    "kind": "html",
    "via": "http",
-   "chars": 13355
+   "chars": 12969
   },
   {
    "url": "https://www.handelsbanken.se/sv/privat/bolan/amortering",
    "title": "Amortering | Handelsbanken",
    "kind": "html",
    "via": "http",
-   "chars": 10406
+   "chars": 10408
   },
   {
    "url": "https://www.handelsbanken.se/sv/privat/bolan/gront-bolan",
    "title": "Grönt bolån - lägre bolåneränta för energieffektiva hus | Handelsbanken",
    "kind": "html",
    "via": "http",
-   "chars": 9581
+   "chars": 9621
   },
   {
    "url": "https://www.handelsbanken.se/sv/privat/bolan/villkorsandring",
    "title": "Villkorsändring på bolån | Handelsbanken",
    "kind": "html",
    "via": "http",
-   "chars": 7360
+   "chars": 7396
   }
  ],
- "status": "senaste tolkning misslyckades (gränsen redan nådd i den här körningen)",
- "notes": "Snittränte-månaden är inte utskriven vid tabellen. Jag har utgått från att tabellen visar senaste månaden i månadsväljaren (september 2026). Det stämmer med att startsidan (doc 4) anger augustisnitt 2,72 / 3,22 / 3,39 för 3 mån / 1 år / 2 år, vilket skiljer sig från tabellens värden. Listräntans ikraftträdandedatum anges inte. Effektiv ränta finns bara för ett räkneexempel baserat på snittränta (juni 2026), så den är utelämnad. Den individuella räntan sätts med rådgivare och beror på ekonomi, belåningsgrad och andra banktjänster. Inga räntor per belåningsgrad publiceras.",
+ "status": "ok",
+ "notes": "Listräntor och snitträntor kommer från tabellen på bolåneränte-sidan. Snitträntemånaden är september 2026 (den senaste i månadsväljaren och den som anges på bolånesidan). Räkneexemplet använder en äldre snittränta (juni 2026, 2,75 %) och ignorerades. Ingen effektiv ränta anges för listräntorna. Ingen giltighetsdag för listräntorna anges. Räntan är individuell och kan bli lägre än listräntan.",
  "products": [
   {
    "name": "3 mån",
    "flags": [],
    "fields": {
+    "loan_category": {
+     "value": null,
+     "quote": "Hitta hem med personligt bolån.",
+     "source": 4,
+     "status": "stöds inte av källan",
+     "jev": {
+      "verdict": "says_nothing",
+      "confidence": 0.83
+     },
+     "claimed": "vanligt bolån"
+    },
     "binding_months": {
      "value": 3,
      "quote": "| 3 månader | 3,94 % | 2,70 % |",
@@ -94,12 +105,12 @@
     },
     "avg_rate_month": {
      "value": "2026-09",
-     "quote": "September 2026",
-     "source": 0,
-     "status": "osäkert",
+     "quote": "Snittränta (september 2026):",
+     "source": 4,
+     "status": "belagt",
      "jev": {
-      "verdict": "says_nothing",
-      "confidence": 0.73
+      "verdict": "supports",
+      "confidence": 0.98
      }
     },
     "effective_rate_percent": {
@@ -115,23 +126,23 @@
      "status": "okänt"
     },
     "ltv_pricing": {
-     "value": "Räntan sätts individuellt utifrån ekonomi och belåningsgrad.",
+     "value": "Räntan sätts utifrån ekonomi och belåningsgrad.",
      "quote": "Vi sätter din ränta utifrån din ekonomi och belåningsgrad, men du kan själv påverka den.",
      "source": 0,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.79
+      "confidence": 0.88
      }
     },
     "discounts": {
-     "value": "Grönt bolån: 0,10 procentenheter lägre ränta för energieffektiva bostäder.",
+     "value": "Grönt bolån: 0,10 procentenheter lägre ränta för energieffektiv bostad; individuell ränta kan bli lägre än listräntan.",
      "quote": "Med Grönt bolån får du 0,10 procentenheter lägre boränta än du redan har hos oss.",
      "source": 6,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.59
+      "confidence": 0.85
      }
     },
     "requires_other_products": {
@@ -147,14 +158,18 @@
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.38
+      "confidence": 0.7
      }
     },
     "eligibility": {
-     "value": null,
-     "quote": null,
-     "source": null,
-     "status": "okänt"
+     "value": "Villa, bostadsrätt och fritidshus (grönt bolån); lånelöfte kräver regelbunden inkomst, folkbokförd i Sverige, inga betalningsanmärkningar.",
+     "quote": "Regelbunden inkomst",
+     "source": 4,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.52
+     }
     }
    },
    "rate_tiers": [],
@@ -165,6 +180,17 @@
    "name": "1 år",
    "flags": [],
    "fields": {
+    "loan_category": {
+     "value": null,
+     "quote": "Hitta hem med personligt bolån.",
+     "source": 4,
+     "status": "stöds inte av källan",
+     "jev": {
+      "verdict": "says_nothing",
+      "confidence": 0.88
+     },
+     "claimed": "vanligt bolån"
+    },
     "binding_months": {
      "value": 12,
      "quote": "| 1 år | 3,69 % | 3,12 % |",
@@ -185,12 +211,12 @@
     },
     "avg_rate_month": {
      "value": "2026-09",
-     "quote": "September 2026",
-     "source": 0,
-     "status": "osäkert",
+     "quote": "Snittränta (september 2026):",
+     "source": 4,
+     "status": "belagt",
      "jev": {
-      "verdict": "says_nothing",
-      "confidence": 0.67
+      "verdict": "supports",
+      "confidence": 0.94
      }
     },
     "effective_rate_percent": {
@@ -206,23 +232,23 @@
      "status": "okänt"
     },
     "ltv_pricing": {
-     "value": "Räntan sätts individuellt utifrån ekonomi och belåningsgrad.",
+     "value": "Räntan sätts utifrån ekonomi och belåningsgrad.",
      "quote": "Vi sätter din ränta utifrån din ekonomi och belåningsgrad, men du kan själv påverka den.",
      "source": 0,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.86
+      "confidence": 0.97
      }
     },
     "discounts": {
-     "value": "Grönt bolån: 0,10 procentenheter lägre ränta för energieffektiva bostäder.",
+     "value": "Grönt bolån: 0,10 procentenheter lägre ränta för energieffektiv bostad.",
      "quote": "Med Grönt bolån får du 0,10 procentenheter lägre boränta än du redan har hos oss.",
      "source": 6,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.83
+      "confidence": 0.86
      }
     },
     "requires_other_products": {
@@ -238,7 +264,7 @@
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.49
+      "confidence": 0.72
      }
     },
     "eligibility": {
@@ -256,6 +282,17 @@
    "name": "2 år",
    "flags": [],
    "fields": {
+    "loan_category": {
+     "value": null,
+     "quote": "Hitta hem med personligt bolån.",
+     "source": 4,
+     "status": "stöds inte av källan",
+     "jev": {
+      "verdict": "says_nothing",
+      "confidence": 0.86
+     },
+     "claimed": "vanligt bolån"
+    },
     "binding_months": {
      "value": 24,
      "quote": "| 2 år | 3,94 % | 3,48 % |",
@@ -276,12 +313,12 @@
     },
     "avg_rate_month": {
      "value": "2026-09",
-     "quote": "September 2026",
-     "source": 0,
-     "status": "osäkert",
+     "quote": "Snittränta (september 2026):",
+     "source": 4,
+     "status": "belagt",
      "jev": {
-      "verdict": "says_nothing",
-      "confidence": 0.76
+      "verdict": "supports",
+      "confidence": 0.95
      }
     },
     "effective_rate_percent": {
@@ -297,23 +334,23 @@
      "status": "okänt"
     },
     "ltv_pricing": {
-     "value": "Räntan sätts individuellt utifrån ekonomi och belåningsgrad.",
+     "value": "Räntan sätts utifrån ekonomi och belåningsgrad.",
      "quote": "Vi sätter din ränta utifrån din ekonomi och belåningsgrad, men du kan själv påverka den.",
      "source": 0,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.83
+      "confidence": 0.95
      }
     },
     "discounts": {
-     "value": "Grönt bolån: 0,10 procentenheter lägre ränta för energieffektiva bostäder.",
+     "value": "Grönt bolån: 0,10 procentenheter lägre ränta för energieffektiv bostad.",
      "quote": "Med Grönt bolån får du 0,10 procentenheter lägre boränta än du redan har hos oss.",
      "source": 6,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.83
+      "confidence": 0.88
      }
     },
     "requires_other_products": {
@@ -329,7 +366,7 @@
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.43
+      "confidence": 0.56
      }
     },
     "eligibility": {
@@ -347,6 +384,17 @@
    "name": "3 år",
    "flags": [],
    "fields": {
+    "loan_category": {
+     "value": null,
+     "quote": "Hitta hem med personligt bolån.",
+     "source": 4,
+     "status": "stöds inte av källan",
+     "jev": {
+      "verdict": "says_nothing",
+      "confidence": 0.88
+     },
+     "claimed": "vanligt bolån"
+    },
     "binding_months": {
      "value": 36,
      "quote": "| 3 år | 3,99 % | 3,44 % |",
@@ -367,12 +415,12 @@
     },
     "avg_rate_month": {
      "value": "2026-09",
-     "quote": "September 2026",
-     "source": 0,
+     "quote": "Snittränta (september 2026):",
+     "source": 4,
      "status": "osäkert",
      "jev": {
       "verdict": "says_nothing",
-      "confidence": 0.71
+      "confidence": 0.27
      }
     },
     "effective_rate_percent": {
@@ -388,23 +436,23 @@
      "status": "okänt"
     },
     "ltv_pricing": {
-     "value": "Räntan sätts individuellt utifrån ekonomi och belåningsgrad.",
+     "value": "Räntan sätts utifrån ekonomi och belåningsgrad.",
      "quote": "Vi sätter din ränta utifrån din ekonomi och belåningsgrad, men du kan själv påverka den.",
      "source": 0,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.85
+      "confidence": 0.86
      }
     },
     "discounts": {
-     "value": "Grönt bolån: 0,10 procentenheter lägre ränta för energieffektiva bostäder.",
+     "value": "Grönt bolån: 0,10 procentenheter lägre ränta för energieffektiv bostad.",
      "quote": "Med Grönt bolån får du 0,10 procentenheter lägre boränta än du redan har hos oss.",
      "source": 6,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.85
+      "confidence": 0.7
      }
     },
     "requires_other_products": {
@@ -420,7 +468,7 @@
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.46
+      "confidence": 0.34
      }
     },
     "eligibility": {
@@ -438,6 +486,17 @@
    "name": "5 år",
    "flags": [],
    "fields": {
+    "loan_category": {
+     "value": null,
+     "quote": "Hitta hem med personligt bolån.",
+     "source": 4,
+     "status": "stöds inte av källan",
+     "jev": {
+      "verdict": "says_nothing",
+      "confidence": 0.89
+     },
+     "claimed": "vanligt bolån"
+    },
     "binding_months": {
      "value": 60,
      "quote": "| 5 år | 4,19 % | 3,81 % |",
@@ -458,103 +517,12 @@
     },
     "avg_rate_month": {
      "value": "2026-09",
-     "quote": "September 2026",
-     "source": 0,
-     "status": "osäkert",
-     "jev": {
-      "verdict": "says_nothing",
-      "confidence": 0.73
-     }
-    },
-    "effective_rate_percent": {
-     "value": null,
-     "quote": null,
-     "source": null,
-     "status": "okänt"
-    },
-    "rate_valid_from": {
-     "value": null,
-     "quote": null,
-     "source": null,
-     "status": "okänt"
-    },
-    "ltv_pricing": {
-     "value": "Räntan sätts individuellt utifrån ekonomi och belåningsgrad.",
-     "quote": "Vi sätter din ränta utifrån din ekonomi och belåningsgrad, men du kan själv påverka den.",
-     "source": 0,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.85
-     }
-    },
-    "discounts": {
-     "value": "Grönt bolån: 0,10 procentenheter lägre ränta för energieffektiva bostäder.",
-     "quote": "Med Grönt bolån får du 0,10 procentenheter lägre boränta än du redan har hos oss.",
-     "source": 6,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.86
-     }
-    },
-    "requires_other_products": {
-     "value": null,
-     "quote": null,
-     "source": null,
-     "status": "okänt"
-    },
-    "max_ltv_percent": {
-     "value": 90,
-     "quote": "Du kan låna upp till 90% av bostadens värde.",
+     "quote": "Snittränta (september 2026):",
      "source": 4,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.52
-     }
-    },
-    "eligibility": {
-     "value": null,
-     "quote": null,
-     "source": null,
-     "status": "okänt"
-    }
-   },
-   "rate_tiers": [],
-   "pending_rate": null,
-   "status": "verifierad"
-  },
-  {
-   "name": "8 år",
-   "flags": [],
-   "fields": {
-    "binding_months": {
-     "value": 96,
-     "quote": "| 8 år | 4,35 % | 4,04 % |",
-     "source": 0,
-     "status": "belagt"
-    },
-    "rate_percent": {
-     "value": 4.35,
-     "quote": "| 8 år | 4,35 % | 4,04 % |",
-     "source": 0,
-     "status": "belagt"
-    },
-    "avg_rate_percent": {
-     "value": 4.04,
-     "quote": "| 8 år | 4,35 % | 4,04 % |",
-     "source": 0,
-     "status": "belagt"
-    },
-    "avg_rate_month": {
-     "value": "2026-09",
-     "quote": "September 2026",
-     "source": 0,
      "status": "osäkert",
      "jev": {
       "verdict": "says_nothing",
-      "confidence": 0.76
+      "confidence": 0.22
      }
     },
     "effective_rate_percent": {
@@ -570,7 +538,7 @@
      "status": "okänt"
     },
     "ltv_pricing": {
-     "value": "Räntan sätts individuellt utifrån ekonomi och belåningsgrad.",
+     "value": "Räntan sätts utifrån ekonomi och belåningsgrad.",
      "quote": "Vi sätter din ränta utifrån din ekonomi och belåningsgrad, men du kan själv påverka den.",
      "source": 0,
      "status": "belagt",
@@ -580,13 +548,13 @@
      }
     },
     "discounts": {
-     "value": "Grönt bolån: 0,10 procentenheter lägre ränta för energieffektiva bostäder.",
+     "value": "Grönt bolån: 0,10 procentenheter lägre ränta för energieffektiv bostad.",
      "quote": "Med Grönt bolån får du 0,10 procentenheter lägre boränta än du redan har hos oss.",
      "source": 6,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.83
+      "confidence": 0.62
      }
     },
     "requires_other_products": {
@@ -617,9 +585,122 @@
    "status": "verifierad"
   },
   {
+   "name": "8 år",
+   "flags": [],
+   "fields": {
+    "loan_category": {
+     "value": null,
+     "quote": "Hitta hem med personligt bolån.",
+     "source": 4,
+     "status": "stöds inte av källan",
+     "jev": {
+      "verdict": "says_nothing",
+      "confidence": 0.88
+     },
+     "claimed": "vanligt bolån"
+    },
+    "binding_months": {
+     "value": 96,
+     "quote": "| 8 år | 4,35 % | 4,04 % |",
+     "source": 0,
+     "status": "belagt"
+    },
+    "rate_percent": {
+     "value": 4.35,
+     "quote": "| 8 år | 4,35 % | 4,04 % |",
+     "source": 0,
+     "status": "belagt"
+    },
+    "avg_rate_percent": {
+     "value": 4.04,
+     "quote": "| 8 år | 4,35 % | 4,04 % |",
+     "source": 0,
+     "status": "belagt"
+    },
+    "avg_rate_month": {
+     "value": "2026-09",
+     "quote": "Snittränta (september 2026):",
+     "source": 4,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.31
+     }
+    },
+    "effective_rate_percent": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "rate_valid_from": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "ltv_pricing": {
+     "value": "Räntan sätts utifrån ekonomi och belåningsgrad.",
+     "quote": "Vi sätter din ränta utifrån din ekonomi och belåningsgrad, men du kan själv påverka den.",
+     "source": 0,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.82
+     }
+    },
+    "discounts": {
+     "value": "Grönt bolån: 0,10 procentenheter lägre ränta för energieffektiv bostad.",
+     "quote": "Med Grönt bolån får du 0,10 procentenheter lägre boränta än du redan har hos oss.",
+     "source": 6,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.67
+     }
+    },
+    "requires_other_products": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "max_ltv_percent": {
+     "value": 90,
+     "quote": "Du kan låna upp till 90% av bostadens värde.",
+     "source": 4,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.34
+     }
+    },
+    "eligibility": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    }
+   },
+   "rate_tiers": [],
+   "pending_rate": null,
+   "status": "verifierad"
+  },
+  {
    "name": "10 år",
    "flags": [],
    "fields": {
+    "loan_category": {
+     "value": null,
+     "quote": "Hitta hem med personligt bolån.",
+     "source": 4,
+     "status": "stöds inte av källan",
+     "jev": {
+      "verdict": "says_nothing",
+      "confidence": 0.91
+     },
+     "claimed": "vanligt bolån"
+    },
     "binding_months": {
      "value": 120,
      "quote": "| 10 år | 4,40 % | 4,12 % |",
@@ -640,12 +721,12 @@
     },
     "avg_rate_month": {
      "value": "2026-09",
-     "quote": "September 2026",
-     "source": 0,
+     "quote": "Snittränta (september 2026):",
+     "source": 4,
      "status": "osäkert",
      "jev": {
       "verdict": "says_nothing",
-      "confidence": 0.73
+      "confidence": 0.33
      }
     },
     "effective_rate_percent": {
@@ -661,23 +742,23 @@
      "status": "okänt"
     },
     "ltv_pricing": {
-     "value": "Räntan sätts individuellt utifrån ekonomi och belåningsgrad.",
+     "value": "Räntan sätts utifrån ekonomi och belåningsgrad.",
      "quote": "Vi sätter din ränta utifrån din ekonomi och belåningsgrad, men du kan själv påverka den.",
      "source": 0,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.82
+      "confidence": 0.83
      }
     },
     "discounts": {
-     "value": "Grönt bolån: 0,10 procentenheter lägre ränta för energieffektiva bostäder.",
+     "value": "Grönt bolån: 0,10 procentenheter lägre ränta för energieffektiv bostad.",
      "quote": "Med Grönt bolån får du 0,10 procentenheter lägre boränta än du redan har hos oss.",
      "source": 6,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.85
+      "confidence": 0.67
      }
     },
     "requires_other_products": {
@@ -693,7 +774,7 @@
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.46
+      "confidence": 0.3
      }
     },
     "eligibility": {
@@ -708,7 +789,7 @@
    "status": "verifierad"
   }
  ],
- "source_hash": "f12e75dc090c8069",
- "changed_at": "2026-10-12T19:07:11+00:00",
+ "source_hash": "7abef751bb629239",
+ "changed_at": "2026-10-17T08:44:31+00:00",
  "model": "claude-sonnet-5-5"
 }

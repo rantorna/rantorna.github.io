@@ -7,7 +7,7 @@
   "kind": "sparbank",
   "legal_name": "Norrbärke Sparbank"
  },
- "checked_at": "2026-10-16T09:15:22+00:00",
+ "checked_at": "2026-10-17T09:01:39+00:00",
  "discovered_at": "2026-10-12T19:30:56+00:00",
  "sources": [
   {
@@ -15,7 +15,7 @@
    "title": "Bolåneräntor – hitta våra bästa boräntor | Norrbärke Sparbank",
    "kind": "html",
    "via": "http",
-   "chars": 12287
+   "chars": 12226
   },
   {
    "url": "https://www.norrbarke-sparbank.se/privat/boende-och-bolan/bolanerantor/historiska-genomsnittsrantor.html",
@@ -67,13 +67,23 @@
    "chars": 10471
   }
  ],
- "status": "senaste tolkning misslyckades (gränsen redan nådd i den här körningen)",
- "notes": "Dokumenten motsäger varandra om datum för listräntan: tabellen anger \"ändrad 18 september 2026\" (använt), medan räkneexemplet anger \"senast ändrad 2026-05-29\" för 3 mån (3,89 %). Effektiv ränta (3,96 %) finns bara för 3 mån via räkneexemplet. Snitträntor redovisas bara för 3 mån, 1, 2 och 3 år (september 2026); för övriga bindningstider är underlaget för litet. Räntan är personlig; inga belåningsgradsnivåer eller max belåningsgrad anges. Banklån/topplån saknar räntor och är utelämnat.",
+ "status": "ok",
+ "notes": "Bara listräntor och snitträntor; individuell ränta sätts vid ansökan. Snittränta saknas för 4–10 år (för få lån). Motsägelse: tabellen anger att listräntorna ändrades 18 september 2026, medan räkneexemplet anger att 3-månadersräntan 3,89 % senast ändrades 2026-05-29; tabellen (18 sep) har använts. Effektiv ränta anges bara för 3 mån (räkneexempel). Ingen maxbelåningsgrad angiven.",
  "products": [
   {
    "name": "3 mån",
    "flags": [],
    "fields": {
+    "loan_category": {
+     "value": "vanligt bolån",
+     "quote": "När du ska köpa hus, lägenhet eller fritidshus finns vi med dig hela vägen.",
+     "source": 2,
+     "status": "osäkert",
+     "jev": {
+      "verdict": "says_nothing",
+      "confidence": 0.59
+     }
+    },
     "binding_months": {
      "value": 3,
      "quote": "| 3 månader | 3,11 % | 3,89 % |",
@@ -94,52 +104,52 @@
     },
     "avg_rate_month": {
      "value": "2026-09",
-     "quote": "Snittränta (september 2026)",
+     "quote": "| Bindningstid | Snittränta (september 2026) | Listränta (ändrad 18 september 2026) |",
      "source": 0,
      "status": "osäkert",
      "jev": {
       "verdict": "says_nothing",
-      "confidence": 0.61
+      "confidence": 0.76
      }
     },
     "effective_rate_percent": {
      "value": 3.96,
-     "quote": "till 3,89 % ränta (3 mån bunden, listränta senast ändrad 2026-05-29), med rak amortering återbetalningstid 50 år, effektiv ränta: 3,96 %",
+     "quote": "effektiv ränta: 3,96 % (ej Nyckelkund 3,96 %)",
      "source": 0,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.76
+      "confidence": 0.88
      }
     },
     "rate_valid_from": {
      "value": "2026-09-18",
-     "quote": "Listränta (ändrad 18 september 2026)",
+     "quote": "| Bindningstid | Snittränta (september 2026) | Listränta (ändrad 18 september 2026) |",
      "source": 0,
-     "status": "osäkert",
+     "status": "belagt",
      "jev": {
-      "verdict": "says_nothing",
-      "confidence": 0.25
+      "verdict": "supports",
+      "confidence": 0.79
      }
     },
     "ltv_pricing": {
-     "value": "Räntan är personlig och beror bl.a. på belåningsgrad, lån i förhållande till inkomst och amortering.",
-     "quote": "Hur mycket du lånar i förhållande till bostadens värde (belåningsgrad)",
-     "source": 0,
+     "value": "Lägre belåningsgrad kan ge lägre ränta",
+     "quote": "Ju mindre du lånar i förhållande till bostadens värde, desto lägre ränta kan du få.",
+     "source": 5,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.92
+      "confidence": 0.98
      }
     },
     "discounts": {
-     "value": "Individuell ränterabatt under listräntan; samla sparande, försäkringar och vardagstjänster hos banken.",
-     "quote": "Samla sparande och försäkringar hos oss",
-     "source": 0,
+     "value": "Individuell ränta kan bli lägre än listräntan; sparande, försäkringar och vardagstjänster hos banken kan ge lägre ränta",
+     "quote": "Ju mer av ditt sparande du har här – till exempel på sparkonto, i fonder eller i pensionssparande – desto större möjlighet har vi att ge dig en lägre ränta.",
+     "source": 5,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.91
+      "confidence": 0.98
      }
     },
     "requires_other_products": {
@@ -155,10 +165,14 @@
      "status": "okänt"
     },
     "eligibility": {
-     "value": null,
-     "quote": null,
-     "source": null,
-     "status": "okänt"
+     "value": "Köp av hus, lägenhet eller fritidshus",
+     "quote": "När du ska köpa hus, lägenhet eller fritidshus finns vi med dig hela vägen.",
+     "source": 2,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.7
+     }
     }
    },
    "rate_tiers": [],
@@ -169,6 +183,16 @@
    "name": "1 år",
    "flags": [],
    "fields": {
+    "loan_category": {
+     "value": "vanligt bolån",
+     "quote": "När du ska köpa hus, lägenhet eller fritidshus finns vi med dig hela vägen.",
+     "source": 2,
+     "status": "osäkert",
+     "jev": {
+      "verdict": "says_nothing",
+      "confidence": 0.53
+     }
+    },
     "binding_months": {
      "value": 12,
      "quote": "| 1 år | 3,30 % | 3,62 % |",
@@ -189,12 +213,12 @@
     },
     "avg_rate_month": {
      "value": "2026-09",
-     "quote": "Snittränta (september 2026)",
+     "quote": "| Bindningstid | Snittränta (september 2026) | Listränta (ändrad 18 september 2026) |",
      "source": 0,
      "status": "osäkert",
      "jev": {
       "verdict": "says_nothing",
-      "confidence": 0.59
+      "confidence": 0.66
      }
     },
     "effective_rate_percent": {
@@ -205,32 +229,32 @@
     },
     "rate_valid_from": {
      "value": "2026-09-18",
-     "quote": "Listränta (ändrad 18 september 2026)",
+     "quote": "| Bindningstid | Snittränta (september 2026) | Listränta (ändrad 18 september 2026) |",
      "source": 0,
-     "status": "osäkert",
+     "status": "belagt",
      "jev": {
-      "verdict": "says_nothing",
-      "confidence": 0.58
+      "verdict": "supports",
+      "confidence": 0.46
      }
     },
     "ltv_pricing": {
-     "value": "Räntan är personlig och beror bl.a. på belåningsgrad, lån i förhållande till inkomst och amortering.",
-     "quote": "Hur mycket du lånar i förhållande till bostadens värde (belåningsgrad)",
-     "source": 0,
+     "value": "Lägre belåningsgrad kan ge lägre ränta",
+     "quote": "Ju mindre du lånar i förhållande till bostadens värde, desto lägre ränta kan du få.",
+     "source": 5,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.82
+      "confidence": 0.95
      }
     },
     "discounts": {
-     "value": "Individuell ränterabatt under listräntan; samla sparande, försäkringar och vardagstjänster hos banken.",
-     "quote": "Samla sparande och försäkringar hos oss",
-     "source": 0,
+     "value": "Individuell ränta kan bli lägre än listräntan; sparande, försäkringar och vardagstjänster hos banken kan ge lägre ränta",
+     "quote": "Ju mer av ditt sparande du har här – till exempel på sparkonto, i fonder eller i pensionssparande – desto större möjlighet har vi att ge dig en lägre ränta.",
+     "source": 5,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.76
+      "confidence": 0.97
      }
     },
     "requires_other_products": {
@@ -246,10 +270,14 @@
      "status": "okänt"
     },
     "eligibility": {
-     "value": null,
-     "quote": null,
-     "source": null,
-     "status": "okänt"
+     "value": "Köp av hus, lägenhet eller fritidshus",
+     "quote": "När du ska köpa hus, lägenhet eller fritidshus finns vi med dig hela vägen.",
+     "source": 2,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.69
+     }
     }
    },
    "rate_tiers": [],
@@ -260,6 +288,16 @@
    "name": "2 år",
    "flags": [],
    "fields": {
+    "loan_category": {
+     "value": "vanligt bolån",
+     "quote": "När du ska köpa hus, lägenhet eller fritidshus finns vi med dig hela vägen.",
+     "source": 2,
+     "status": "osäkert",
+     "jev": {
+      "verdict": "says_nothing",
+      "confidence": 0.52
+     }
+    },
     "binding_months": {
      "value": 24,
      "quote": "| 2 år | 3,65 % | 3,89 % |",
@@ -280,12 +318,12 @@
     },
     "avg_rate_month": {
      "value": "2026-09",
-     "quote": "Snittränta (september 2026)",
+     "quote": "| Bindningstid | Snittränta (september 2026) | Listränta (ändrad 18 september 2026) |",
      "source": 0,
      "status": "osäkert",
      "jev": {
       "verdict": "says_nothing",
-      "confidence": 0.52
+      "confidence": 0.73
      }
     },
     "effective_rate_percent": {
@@ -296,32 +334,32 @@
     },
     "rate_valid_from": {
      "value": "2026-09-18",
-     "quote": "Listränta (ändrad 18 september 2026)",
+     "quote": "| Bindningstid | Snittränta (september 2026) | Listränta (ändrad 18 september 2026) |",
      "source": 0,
-     "status": "osäkert",
+     "status": "belagt",
      "jev": {
-      "verdict": "says_nothing",
-      "confidence": 0.62
+      "verdict": "supports",
+      "confidence": 0.45
      }
     },
     "ltv_pricing": {
-     "value": "Räntan är personlig och beror bl.a. på belåningsgrad, lån i förhållande till inkomst och amortering.",
-     "quote": "Hur mycket du lånar i förhållande till bostadens värde (belåningsgrad)",
-     "source": 0,
+     "value": "Lägre belåningsgrad kan ge lägre ränta",
+     "quote": "Ju mindre du lånar i förhållande till bostadens värde, desto lägre ränta kan du få.",
+     "source": 5,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.88
+      "confidence": 0.95
      }
     },
     "discounts": {
-     "value": "Individuell ränterabatt under listräntan; samla sparande, försäkringar och vardagstjänster hos banken.",
-     "quote": "Samla sparande och försäkringar hos oss",
-     "source": 0,
+     "value": "Individuell ränta kan bli lägre än listräntan; sparande, försäkringar och vardagstjänster hos banken kan ge lägre ränta",
+     "quote": "Ju mer av ditt sparande du har här – till exempel på sparkonto, i fonder eller i pensionssparande – desto större möjlighet har vi att ge dig en lägre ränta.",
+     "source": 5,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.83
+      "confidence": 0.97
      }
     },
     "requires_other_products": {
@@ -337,10 +375,14 @@
      "status": "okänt"
     },
     "eligibility": {
-     "value": null,
-     "quote": null,
-     "source": null,
-     "status": "okänt"
+     "value": "Köp av hus, lägenhet eller fritidshus",
+     "quote": "När du ska köpa hus, lägenhet eller fritidshus finns vi med dig hela vägen.",
+     "source": 2,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.69
+     }
     }
    },
    "rate_tiers": [],
@@ -351,6 +393,16 @@
    "name": "3 år",
    "flags": [],
    "fields": {
+    "loan_category": {
+     "value": "vanligt bolån",
+     "quote": "När du ska köpa hus, lägenhet eller fritidshus finns vi med dig hela vägen.",
+     "source": 2,
+     "status": "osäkert",
+     "jev": {
+      "verdict": "says_nothing",
+      "confidence": 0.43
+     }
+    },
     "binding_months": {
      "value": 36,
      "quote": "| 3 år | 3,66 % | 3,99 % |",
@@ -371,12 +423,12 @@
     },
     "avg_rate_month": {
      "value": "2026-09",
-     "quote": "Snittränta (september 2026)",
+     "quote": "| Bindningstid | Snittränta (september 2026) | Listränta (ändrad 18 september 2026) |",
      "source": 0,
      "status": "osäkert",
      "jev": {
       "verdict": "says_nothing",
-      "confidence": 0.56
+      "confidence": 0.62
      }
     },
     "effective_rate_percent": {
@@ -387,32 +439,32 @@
     },
     "rate_valid_from": {
      "value": "2026-09-18",
-     "quote": "Listränta (ändrad 18 september 2026)",
+     "quote": "| Bindningstid | Snittränta (september 2026) | Listränta (ändrad 18 september 2026) |",
      "source": 0,
-     "status": "osäkert",
+     "status": "belagt",
      "jev": {
-      "verdict": "says_nothing",
-      "confidence": 0.69
+      "verdict": "supports",
+      "confidence": 0.58
      }
     },
     "ltv_pricing": {
-     "value": "Räntan är personlig och beror bl.a. på belåningsgrad, lån i förhållande till inkomst och amortering.",
-     "quote": "Hur mycket du lånar i förhållande till bostadens värde (belåningsgrad)",
-     "source": 0,
+     "value": "Lägre belåningsgrad kan ge lägre ränta",
+     "quote": "Ju mindre du lånar i förhållande till bostadens värde, desto lägre ränta kan du få.",
+     "source": 5,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.91
+      "confidence": 0.97
      }
     },
     "discounts": {
-     "value": "Individuell ränterabatt under listräntan; samla sparande, försäkringar och vardagstjänster hos banken.",
-     "quote": "Samla sparande och försäkringar hos oss",
-     "source": 0,
+     "value": "Individuell ränta kan bli lägre än listräntan; sparande, försäkringar och vardagstjänster hos banken kan ge lägre ränta",
+     "quote": "Ju mer av ditt sparande du har här – till exempel på sparkonto, i fonder eller i pensionssparande – desto större möjlighet har vi att ge dig en lägre ränta.",
+     "source": 5,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.85
+      "confidence": 0.98
      }
     },
     "requires_other_products": {
@@ -428,10 +480,14 @@
      "status": "okänt"
     },
     "eligibility": {
-     "value": null,
-     "quote": null,
-     "source": null,
-     "status": "okänt"
+     "value": "Köp av hus, lägenhet eller fritidshus",
+     "quote": "När du ska köpa hus, lägenhet eller fritidshus finns vi med dig hela vägen.",
+     "source": 2,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.72
+     }
     }
    },
    "rate_tiers": [],
@@ -442,6 +498,16 @@
    "name": "4 år",
    "flags": [],
    "fields": {
+    "loan_category": {
+     "value": "vanligt bolån",
+     "quote": "När du ska köpa hus, lägenhet eller fritidshus finns vi med dig hela vägen.",
+     "source": 2,
+     "status": "osäkert",
+     "jev": {
+      "verdict": "says_nothing",
+      "confidence": 0.64
+     }
+    },
     "binding_months": {
      "value": 48,
      "quote": "| 4 år | | 4,09 % |",
@@ -474,32 +540,32 @@
     },
     "rate_valid_from": {
      "value": "2026-09-18",
-     "quote": "Listränta (ändrad 18 september 2026)",
+     "quote": "| Bindningstid | Snittränta (september 2026) | Listränta (ändrad 18 september 2026) |",
      "source": 0,
      "status": "osäkert",
      "jev": {
       "verdict": "says_nothing",
-      "confidence": 0.23
+      "confidence": 0.72
      }
     },
     "ltv_pricing": {
-     "value": "Räntan är personlig och beror bl.a. på belåningsgrad, lån i förhållande till inkomst och amortering.",
-     "quote": "Hur mycket du lånar i förhållande till bostadens värde (belåningsgrad)",
-     "source": 0,
+     "value": "Lägre belåningsgrad kan ge lägre ränta",
+     "quote": "Ju mindre du lånar i förhållande till bostadens värde, desto lägre ränta kan du få.",
+     "source": 5,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.85
+      "confidence": 0.89
      }
     },
     "discounts": {
-     "value": "Individuell ränterabatt under listräntan; samla sparande, försäkringar och vardagstjänster hos banken.",
-     "quote": "Samla sparande och försäkringar hos oss",
-     "source": 0,
+     "value": "Individuell ränta kan bli lägre än listräntan; sparande, försäkringar och vardagstjänster hos banken kan ge lägre ränta",
+     "quote": "Ju mer av ditt sparande du har här – till exempel på sparkonto, i fonder eller i pensionssparande – desto större möjlighet har vi att ge dig en lägre ränta.",
+     "source": 5,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.77
+      "confidence": 0.92
      }
     },
     "requires_other_products": {
@@ -515,10 +581,14 @@
      "status": "okänt"
     },
     "eligibility": {
-     "value": null,
-     "quote": null,
-     "source": null,
-     "status": "okänt"
+     "value": "Köp av hus, lägenhet eller fritidshus",
+     "quote": "När du ska köpa hus, lägenhet eller fritidshus finns vi med dig hela vägen.",
+     "source": 2,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.28
+     }
     }
    },
    "rate_tiers": [],
@@ -529,6 +599,16 @@
    "name": "5 år",
    "flags": [],
    "fields": {
+    "loan_category": {
+     "value": "vanligt bolån",
+     "quote": "När du ska köpa hus, lägenhet eller fritidshus finns vi med dig hela vägen.",
+     "source": 2,
+     "status": "osäkert",
+     "jev": {
+      "verdict": "says_nothing",
+      "confidence": 0.53
+     }
+    },
     "binding_months": {
      "value": 60,
      "quote": "| 5 år | | 4,19 % |",
@@ -561,32 +641,32 @@
     },
     "rate_valid_from": {
      "value": "2026-09-18",
-     "quote": "Listränta (ändrad 18 september 2026)",
+     "quote": "| Bindningstid | Snittränta (september 2026) | Listränta (ändrad 18 september 2026) |",
      "source": 0,
-     "status": "belagt",
+     "status": "osäkert",
      "jev": {
-      "verdict": "supports",
-      "confidence": 0.28
+      "verdict": "says_nothing",
+      "confidence": 0.76
      }
     },
     "ltv_pricing": {
-     "value": "Räntan är personlig och beror bl.a. på belåningsgrad, lån i förhållande till inkomst och amortering.",
-     "quote": "Hur mycket du lånar i förhållande till bostadens värde (belåningsgrad)",
-     "source": 0,
+     "value": "Lägre belåningsgrad kan ge lägre ränta",
+     "quote": "Ju mindre du lånar i förhållande till bostadens värde, desto lägre ränta kan du få.",
+     "source": 5,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.89
+      "confidence": 0.91
      }
     },
     "discounts": {
-     "value": "Individuell ränterabatt under listräntan; samla sparande, försäkringar och vardagstjänster hos banken.",
-     "quote": "Samla sparande och försäkringar hos oss",
-     "source": 0,
+     "value": "Individuell ränta kan bli lägre än listräntan; sparande, försäkringar och vardagstjänster hos banken kan ge lägre ränta",
+     "quote": "Ju mer av ditt sparande du har här – till exempel på sparkonto, i fonder eller i pensionssparande – desto större möjlighet har vi att ge dig en lägre ränta.",
+     "source": 5,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.83
+      "confidence": 0.91
      }
     },
     "requires_other_products": {
@@ -602,10 +682,14 @@
      "status": "okänt"
     },
     "eligibility": {
-     "value": null,
-     "quote": null,
-     "source": null,
-     "status": "okänt"
+     "value": "Köp av hus, lägenhet eller fritidshus",
+     "quote": "När du ska köpa hus, lägenhet eller fritidshus finns vi med dig hela vägen.",
+     "source": 2,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.36
+     }
     }
    },
    "rate_tiers": [],
@@ -616,6 +700,16 @@
    "name": "6 år",
    "flags": [],
    "fields": {
+    "loan_category": {
+     "value": "vanligt bolån",
+     "quote": "När du ska köpa hus, lägenhet eller fritidshus finns vi med dig hela vägen.",
+     "source": 2,
+     "status": "osäkert",
+     "jev": {
+      "verdict": "says_nothing",
+      "confidence": 0.61
+     }
+    },
     "binding_months": {
      "value": 72,
      "quote": "| 6 år | | 4,34 % |",
@@ -648,32 +742,32 @@
     },
     "rate_valid_from": {
      "value": "2026-09-18",
-     "quote": "Listränta (ändrad 18 september 2026)",
+     "quote": "| Bindningstid | Snittränta (september 2026) | Listränta (ändrad 18 september 2026) |",
      "source": 0,
-     "status": "belagt",
+     "status": "osäkert",
      "jev": {
-      "verdict": "supports",
-      "confidence": 0.27
+      "verdict": "says_nothing",
+      "confidence": 0.76
      }
     },
     "ltv_pricing": {
-     "value": "Räntan är personlig och beror bl.a. på belåningsgrad, lån i förhållande till inkomst och amortering.",
-     "quote": "Hur mycket du lånar i förhållande till bostadens värde (belåningsgrad)",
-     "source": 0,
+     "value": "Lägre belåningsgrad kan ge lägre ränta",
+     "quote": "Ju mindre du lånar i förhållande till bostadens värde, desto lägre ränta kan du få.",
+     "source": 5,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.88
+      "confidence": 0.91
      }
     },
     "discounts": {
-     "value": "Individuell ränterabatt under listräntan; samla sparande, försäkringar och vardagstjänster hos banken.",
-     "quote": "Samla sparande och försäkringar hos oss",
-     "source": 0,
+     "value": "Individuell ränta kan bli lägre än listräntan; sparande, försäkringar och vardagstjänster hos banken kan ge lägre ränta",
+     "quote": "Ju mer av ditt sparande du har här – till exempel på sparkonto, i fonder eller i pensionssparande – desto större möjlighet har vi att ge dig en lägre ränta.",
+     "source": 5,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.83
+      "confidence": 0.94
      }
     },
     "requires_other_products": {
@@ -689,10 +783,14 @@
      "status": "okänt"
     },
     "eligibility": {
-     "value": null,
-     "quote": null,
-     "source": null,
-     "status": "okänt"
+     "value": "Köp av hus, lägenhet eller fritidshus",
+     "quote": "När du ska köpa hus, lägenhet eller fritidshus finns vi med dig hela vägen.",
+     "source": 2,
+     "status": "osäkert",
+     "jev": {
+      "verdict": "says_nothing",
+      "confidence": 0.27
+     }
     }
    },
    "rate_tiers": [],
@@ -703,6 +801,16 @@
    "name": "7 år",
    "flags": [],
    "fields": {
+    "loan_category": {
+     "value": "vanligt bolån",
+     "quote": "När du ska köpa hus, lägenhet eller fritidshus finns vi med dig hela vägen.",
+     "source": 2,
+     "status": "osäkert",
+     "jev": {
+      "verdict": "says_nothing",
+      "confidence": 0.58
+     }
+    },
     "binding_months": {
      "value": 84,
      "quote": "| 7 år | | 4,34 % |",
@@ -735,32 +843,32 @@
     },
     "rate_valid_from": {
      "value": "2026-09-18",
-     "quote": "Listränta (ändrad 18 september 2026)",
+     "quote": "| Bindningstid | Snittränta (september 2026) | Listränta (ändrad 18 september 2026) |",
      "source": 0,
-     "status": "belagt",
+     "status": "osäkert",
      "jev": {
-      "verdict": "supports",
-      "confidence": 0.25
+      "verdict": "says_nothing",
+      "confidence": 0.66
      }
     },
     "ltv_pricing": {
-     "value": "Räntan är personlig och beror bl.a. på belåningsgrad, lån i förhållande till inkomst och amortering.",
-     "quote": "Hur mycket du lånar i förhållande till bostadens värde (belåningsgrad)",
-     "source": 0,
+     "value": "Lägre belåningsgrad kan ge lägre ränta",
+     "quote": "Ju mindre du lånar i förhållande till bostadens värde, desto lägre ränta kan du få.",
+     "source": 5,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.86
+      "confidence": 0.91
      }
     },
     "discounts": {
-     "value": "Individuell ränterabatt under listräntan; samla sparande, försäkringar och vardagstjänster hos banken.",
-     "quote": "Samla sparande och försäkringar hos oss",
-     "source": 0,
+     "value": "Individuell ränta kan bli lägre än listräntan; sparande, försäkringar och vardagstjänster hos banken kan ge lägre ränta",
+     "quote": "Ju mer av ditt sparande du har här – till exempel på sparkonto, i fonder eller i pensionssparande – desto större möjlighet har vi att ge dig en lägre ränta.",
+     "source": 5,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.82
+      "confidence": 0.91
      }
     },
     "requires_other_products": {
@@ -776,10 +884,14 @@
      "status": "okänt"
     },
     "eligibility": {
-     "value": null,
-     "quote": null,
-     "source": null,
-     "status": "okänt"
+     "value": "Köp av hus, lägenhet eller fritidshus",
+     "quote": "När du ska köpa hus, lägenhet eller fritidshus finns vi med dig hela vägen.",
+     "source": 2,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.4
+     }
     }
    },
    "rate_tiers": [],
@@ -790,6 +902,16 @@
    "name": "8 år",
    "flags": [],
    "fields": {
+    "loan_category": {
+     "value": "vanligt bolån",
+     "quote": "När du ska köpa hus, lägenhet eller fritidshus finns vi med dig hela vägen.",
+     "source": 2,
+     "status": "osäkert",
+     "jev": {
+      "verdict": "says_nothing",
+      "confidence": 0.64
+     }
+    },
     "binding_months": {
      "value": 96,
      "quote": "| 8 år | | 4,34 % |",
@@ -821,33 +943,34 @@
      "status": "okänt"
     },
     "rate_valid_from": {
-     "value": "2026-09-18",
-     "quote": "Listränta (ändrad 18 september 2026)",
+     "value": null,
+     "quote": "| Bindningstid | Snittränta (september 2026) | Listränta (ändrad 18 september 2026) |",
      "source": 0,
-     "status": "belagt",
+     "status": "stöds inte av källan",
      "jev": {
-      "verdict": "supports",
-      "confidence": 0.27
-     }
+      "verdict": "says_nothing",
+      "confidence": 0.82
+     },
+     "claimed": "2026-09-18"
     },
     "ltv_pricing": {
-     "value": "Räntan är personlig och beror bl.a. på belåningsgrad, lån i förhållande till inkomst och amortering.",
-     "quote": "Hur mycket du lånar i förhållande till bostadens värde (belåningsgrad)",
-     "source": 0,
+     "value": "Lägre belåningsgrad kan ge lägre ränta",
+     "quote": "Ju mindre du lånar i förhållande till bostadens värde, desto lägre ränta kan du få.",
+     "source": 5,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.86
+      "confidence": 0.89
      }
     },
     "discounts": {
-     "value": "Individuell ränterabatt under listräntan; samla sparande, försäkringar och vardagstjänster hos banken.",
-     "quote": "Samla sparande och försäkringar hos oss",
-     "source": 0,
+     "value": "Individuell ränta kan bli lägre än listräntan; sparande, försäkringar och vardagstjänster hos banken kan ge lägre ränta",
+     "quote": "Ju mer av ditt sparande du har här – till exempel på sparkonto, i fonder eller i pensionssparande – desto större möjlighet har vi att ge dig en lägre ränta.",
+     "source": 5,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.82
+      "confidence": 0.89
      }
     },
     "requires_other_products": {
@@ -863,10 +986,14 @@
      "status": "okänt"
     },
     "eligibility": {
-     "value": null,
-     "quote": null,
-     "source": null,
-     "status": "okänt"
+     "value": "Köp av hus, lägenhet eller fritidshus",
+     "quote": "När du ska köpa hus, lägenhet eller fritidshus finns vi med dig hela vägen.",
+     "source": 2,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.25
+     }
     }
    },
    "rate_tiers": [],
@@ -877,6 +1004,16 @@
    "name": "9 år",
    "flags": [],
    "fields": {
+    "loan_category": {
+     "value": "vanligt bolån",
+     "quote": "När du ska köpa hus, lägenhet eller fritidshus finns vi med dig hela vägen.",
+     "source": 2,
+     "status": "osäkert",
+     "jev": {
+      "verdict": "says_nothing",
+      "confidence": 0.48
+     }
+    },
     "binding_months": {
      "value": 108,
      "quote": "| 9 år | | 4,34 % |",
@@ -909,32 +1046,32 @@
     },
     "rate_valid_from": {
      "value": "2026-09-18",
-     "quote": "Listränta (ändrad 18 september 2026)",
+     "quote": "| Bindningstid | Snittränta (september 2026) | Listränta (ändrad 18 september 2026) |",
      "source": 0,
-     "status": "belagt",
+     "status": "osäkert",
      "jev": {
-      "verdict": "supports",
-      "confidence": 0.31
+      "verdict": "says_nothing",
+      "confidence": 0.76
      }
     },
     "ltv_pricing": {
-     "value": "Räntan är personlig och beror bl.a. på belåningsgrad, lån i förhållande till inkomst och amortering.",
-     "quote": "Hur mycket du lånar i förhållande till bostadens värde (belåningsgrad)",
-     "source": 0,
+     "value": "Lägre belåningsgrad kan ge lägre ränta",
+     "quote": "Ju mindre du lånar i förhållande till bostadens värde, desto lägre ränta kan du få.",
+     "source": 5,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.94
+      "confidence": 0.89
      }
     },
     "discounts": {
-     "value": "Individuell ränterabatt under listräntan; samla sparande, försäkringar och vardagstjänster hos banken.",
-     "quote": "Samla sparande och försäkringar hos oss",
-     "source": 0,
+     "value": "Individuell ränta kan bli lägre än listräntan; sparande, försäkringar och vardagstjänster hos banken kan ge lägre ränta",
+     "quote": "Ju mer av ditt sparande du har här – till exempel på sparkonto, i fonder eller i pensionssparande – desto större möjlighet har vi att ge dig en lägre ränta.",
+     "source": 5,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.83
+      "confidence": 0.91
      }
     },
     "requires_other_products": {
@@ -950,10 +1087,14 @@
      "status": "okänt"
     },
     "eligibility": {
-     "value": null,
-     "quote": null,
-     "source": null,
-     "status": "okänt"
+     "value": "Köp av hus, lägenhet eller fritidshus",
+     "quote": "När du ska köpa hus, lägenhet eller fritidshus finns vi med dig hela vägen.",
+     "source": 2,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.43
+     }
     }
    },
    "rate_tiers": [],
@@ -964,6 +1105,16 @@
    "name": "10 år",
    "flags": [],
    "fields": {
+    "loan_category": {
+     "value": "vanligt bolån",
+     "quote": "När du ska köpa hus, lägenhet eller fritidshus finns vi med dig hela vägen.",
+     "source": 2,
+     "status": "osäkert",
+     "jev": {
+      "verdict": "says_nothing",
+      "confidence": 0.37
+     }
+    },
     "binding_months": {
      "value": 120,
      "quote": "| 10 år | | 4,39 % |",
@@ -996,32 +1147,32 @@
     },
     "rate_valid_from": {
      "value": "2026-09-18",
-     "quote": "Listränta (ändrad 18 september 2026)",
+     "quote": "| Bindningstid | Snittränta (september 2026) | Listränta (ändrad 18 september 2026) |",
      "source": 0,
      "status": "osäkert",
      "jev": {
       "verdict": "says_nothing",
-      "confidence": 0.23
+      "confidence": 0.77
      }
     },
     "ltv_pricing": {
-     "value": "Räntan är personlig och beror bl.a. på belåningsgrad, lån i förhållande till inkomst och amortering.",
-     "quote": "Hur mycket du lånar i förhållande till bostadens värde (belåningsgrad)",
-     "source": 0,
+     "value": "Lägre belåningsgrad kan ge lägre ränta",
+     "quote": "Ju mindre du lånar i förhållande till bostadens värde, desto lägre ränta kan du få.",
+     "source": 5,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.94
+      "confidence": 0.86
      }
     },
     "discounts": {
-     "value": "Individuell ränterabatt under listräntan; samla sparande, försäkringar och vardagstjänster hos banken.",
-     "quote": "Samla sparande och försäkringar hos oss",
-     "source": 0,
+     "value": "Individuell ränta kan bli lägre än listräntan; sparande, försäkringar och vardagstjänster hos banken kan ge lägre ränta",
+     "quote": "Ju mer av ditt sparande du har här – till exempel på sparkonto, i fonder eller i pensionssparande – desto större möjlighet har vi att ge dig en lägre ränta.",
+     "source": 5,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.88
+      "confidence": 0.91
      }
     },
     "requires_other_products": {
@@ -1037,10 +1188,14 @@
      "status": "okänt"
     },
     "eligibility": {
-     "value": null,
-     "quote": null,
-     "source": null,
-     "status": "okänt"
+     "value": "Köp av hus, lägenhet eller fritidshus",
+     "quote": "När du ska köpa hus, lägenhet eller fritidshus finns vi med dig hela vägen.",
+     "source": 2,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.45
+     }
     }
    },
    "rate_tiers": [],
@@ -1048,7 +1203,7 @@
    "status": "verifierad"
   }
  ],
- "source_hash": "6f827fd6538d56c5",
- "changed_at": "2026-10-12T19:30:56+00:00",
+ "source_hash": "376ce42af07ec50d",
+ "changed_at": "2026-10-17T09:01:39+00:00",
  "model": "claude-sonnet-5-5"
 }
