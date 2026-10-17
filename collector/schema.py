@@ -314,25 +314,3 @@ YOUTH_EXTRACTION = extraction_schema(
     "Kort om något viktigt saknas (t.ex. räntan visas bara efter inloggning).",
 )
 
-
-# ---------- Ränta på likvida medel i ISK, depå och kapitalförsäkring ----------
-
-CASH_FIELDS = [
-    ("account_type", _enum("ISK", "depå", "kapitalförsäkring", "flera"),
-     "Vilket konto räntan gäller: investeringssparkonto (ISK), vanlig depå/aktie- och fondkonto (AF), kapitalförsäkring, eller flera med samma ränta."),
-    ("rate_percent", NUM, "Årsränta i procent på likvida medel (kontanter) på kontot för ett saldo på 100 000 kr. 0 om banken uttryckligen anger 0 %. Vid trappa: räntan för 100 000 kr."),
-    ("rate_type", _enum("rörlig", "fast"), "Rörlig eller fast ränta."),
-    ("max_amount_sek", NUM, "Högsta saldo i kronor som räntan gäller för, om det finns ett tak."),
-    ("min_amount_sek", NUM, "Lägsta saldo i kronor för att få räntan, om det finns ett golv."),
-    ("rate_terms", STR, "Kort (max 200 tecken): hur räntan sätts och villkor (t.ex. följer styrräntan, gäller bara kontanter i SEK, kräver kundprogram, beräknas dagligen)."),
-    ("requires_other_products", BOOL, "Krävs kundprogram, paket eller annan kundrelation för räntan?"),
-    ("negative_rate", BOOL, "Kan räntan bli negativ eller tas avgift för likvida medel?"),
-    ("rate_valid_from", STR, "Datum då räntan började gälla, ISO-format om angivet."),
-]
-
-CASH_EXTRACTION = extraction_schema(
-    CASH_FIELDS,
-    "Kontots namn så som banken skriver det (t.ex. 'Investeringssparkonto', 'ISK', 'Aktie- och fondkonto', 'Kapitalförsäkring').",
-    TIER, "Räntetrappa om räntan beror på saldot, annars tom.",
-    "Kort om något viktigt saknas (t.ex. räntan visas bara efter inloggning).",
-)

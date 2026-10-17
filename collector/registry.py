@@ -38,7 +38,6 @@ CATEGORIES = {
     "UTBKRF": ("Utländskt bostadskreditinstitut, svensk filial", True),
     "GRÄS": ("Leverantör av gräsrotsfinansieringstjänster", False),
     "KKRI": ("Konsumentkreditinstitut", False),
-    "VÄRD": ("Värdepappersbolag", False),
 }
 
 
