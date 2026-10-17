@@ -36,6 +36,14 @@
       <span class="chg-val">${fmt(x.old, x.field)} → <b>${fmt(x.new, x.field)}</b> <span aria-hidden="true">${SIGN[dir]}</span></span></li>`;
   }
 
+  const ALL = ["savings", "business_savings", "mortgage", "personal_loans", "cards", "pension"];
+  addEventListener("DOMContentLoaded", () => {
+    const el = document.getElementById("changes");
+    if (!el) return;
+    const segs = el.dataset.segments === "all" ? ALL : el.dataset.segments.split(",");
+    window.renderChanges("#changes", segs, { show: el.dataset.segments === "all" ? 15 : 12 });
+  });
+
   window.renderChanges = (target, segments, { days = 60, show = 12 } = {}) => {
     const root = document.querySelector(target);
     if (!root) return;

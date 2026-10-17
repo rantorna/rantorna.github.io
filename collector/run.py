@@ -252,10 +252,20 @@ def finish(bank, record, raw, pages, previous, out_path, log, h=None):
     return record
 
 
+def safe_url(u: str | None) -> str | None:
+    """Bara http(s)-adresser, och utan tecken som kan bryta ut ur ett HTML-attribut.
+    Adresserna kommer från främmande webbsidor och skrivs in i länkar på sajten."""
+    if not u or not re.match(r"^https?://", u, re.I):
+        return None
+    return re.sub(r"[\"'<>`\s]", lambda m: "%%%02X" % ord(m.group()), u)
+
+
 def slim(bank: dict) -> None:
     """Sidan behöver värde, citat, källa och status – inte Jev-svar, nollade påståenden
     eller källornas metadata. Halverar ungefär filerna som webbläsaren laddar."""
-    bank["sources"] = [{"url": s["url"]} for s in bank.get("sources") or []]
+    bank["sources"] = [{"url": safe_url(s["url"]) or "#"} for s in bank.get("sources") or []]
+    if bank.get("bank"):
+        bank["bank"] = dict(bank["bank"], homepage=safe_url(bank["bank"].get("homepage")) or "#")
     for p in bank.get("products") or []:
         p.pop("pending_rate", None)
         for f in p["fields"].values():

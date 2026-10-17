@@ -15,7 +15,7 @@ import json
 import re
 from pathlib import Path
 
-from .verify import binding_in, period_months
+from .verify import period_months
 
 DATA = Path(__file__).resolve().parent.parent / "data"
 OLD_SOURCE = re.compile(r"tidigare|arkiv|archive|historik|/old|20(1\d|20|21|22)[-_/]", re.I)

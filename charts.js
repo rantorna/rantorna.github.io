@@ -35,7 +35,11 @@ function lineChart(target, series, { step = false } = {}) {
   target.replaceChildren();
   const W = target.clientWidth || 800, H = Math.max(240, Math.min(360, W * 0.45));
   const m = { l: 44, r: 14, t: 12, b: 28 };
-  const svg = el("svg", { viewBox: `0 0 ${W} ${H}`, width: "100%", height: H, role: "img" }, target);
+  const svg = el("svg", { viewBox: `0 0 ${W} ${H}`, width: "100%", height: H, role: "img",
+    "aria-label": "Linjediagram: " + series.map((s) => {
+      const last = s.points.at(-1);
+      return last ? `${s.label}, senast ${pct(last[1])}` : s.label;
+    }).join("; ") }, target);
   const all = series.flatMap((s) => s.points);
   if (!all.length) return;
   const t = (d) => new Date(d + "T00:00:00Z").getTime();
@@ -102,6 +106,3 @@ function lineChart(target, series, { step = false } = {}) {
   svg.addEventListener("pointerleave", leave);
 }
 
-
-// Mobil: rulla flikraden så att den aktuella fliken syns.
-document.querySelector('.tabs a[aria-current="page"]')?.scrollIntoView({ block: "nearest", inline: "center" });

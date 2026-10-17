@@ -242,7 +242,7 @@ Promise.all([
   A = acc; S = sav; F = fin;
   try {
     const v = localStorage.getItem("foretag-view");
-    if (v) document.querySelector(`input[name="view"][value="${v}"]`).checked = true;
+    if (["accounts", "savings", "financing"].includes(v)) document.querySelector(`input[name="view"][value="${v}"]`).checked = true;
   } catch (e) { /* ingen lagring */ }
   showView();
   renderAccounts();

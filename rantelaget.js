@@ -108,7 +108,8 @@ function renderCurve() {
   target.replaceChildren();
   const W = target.clientWidth || 800, H = Math.max(220, Math.min(320, W * 0.4));
   const m = { l: 44, r: 14, t: 12, b: 28 };
-  const svg = el("svg", { viewBox: `0 0 ${W} ${H}`, width: "100%", height: H, role: "img" }, target);
+  const svg = el("svg", { viewBox: `0 0 ${W} ${H}`, width: "100%", height: H, role: "img",
+    "aria-label": "Räntekurvor för Sverige, euroområdet och USA – från korta till långa löptider. Siffrorna finns i tabellerna ovan." }, target);
   const X = (ten) => m.l + TENORS.indexOf(ten) / (TENORS.length - 1) * (W - m.l - m.r);
   const lines = [];
   for (const [code, ids] of Object.entries(CURVE)) {

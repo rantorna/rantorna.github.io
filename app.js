@@ -300,6 +300,7 @@ function renderMissing() {
 
 let renderTimer;
 function bindFilters() {
+  $("#filters").addEventListener("submit", (e) => e.preventDefault());
   $("#more").addEventListener("click", () => { showAll = true; render(); });
   $("#filters").addEventListener("input", (e) => {
     showAll = false;

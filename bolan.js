@@ -83,7 +83,7 @@ function renderTable() {
     tr.className = "mtg-row";
     const cat = category(b);
     const catTag = cat && cat !== "vanligt bolån" ? ` <span class="tag note">${cat}</span>` : "";
-    tr.innerHTML = `<th scope="row"><button class="expand" aria-expanded="false">${b.bank.name}</button>${catTag}</th>` +
+    tr.innerHTML = `<th scope="row"><button class="expand" aria-expanded="false">${escapeHtml(b.bank.name)}</button>${catTag}</th>` +
       BINDINGS.map(([m]) => {
         const p = productFor(b, m);
         const v = p ? val(p, key) : null;
