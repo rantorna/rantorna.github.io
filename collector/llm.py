@@ -14,7 +14,7 @@ import subprocess
 
 def model() -> str:
     """Läses vid varje anrop, så att .env (som laddas efter import) får effekt."""
-    return os.environ.get("RANTORNA_MODEL", "claude-opus-5-5")
+    return os.environ.get("RANTORNA_MODEL", "claude-haiku-5-5")
 
 
 def cheap_model() -> str:
