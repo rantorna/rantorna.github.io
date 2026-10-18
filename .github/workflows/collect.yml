@@ -1,8 +1,11 @@
 name: Hämta räntor
 
 on:
+  # Startas varje natt 02:10 svensk tid av ett externt cron-jobb (workflow_dispatch), eftersom
+  # GitHubs schema ofta släpar flera timmar. Schemat nedan är reserv och hoppar över sig självt
+  # om natten redan är körd.
   schedule:
-    - cron: "17 3 * * *"   # varje natt 03:17 UTC
+    - cron: "17 3 * * *"
   workflow_dispatch:
     inputs:
       bank:
@@ -15,13 +18,34 @@ on:
 
 permissions:
   contents: write
+  actions: read
 
 concurrency:
   group: collect
   cancel-in-progress: false
 
 jobs:
+  guard:
+    runs-on: ubuntu-latest
+    outputs:
+      skip: ${{ steps.check.outputs.skip }}
+    steps:
+      - name: Redan kört i natt?
+        id: check
+        env:
+          GH_TOKEN: ${{ github.token }}
+          EVENT: ${{ github.event_name }}
+        run: |
+          if [ "$EVENT" != "schedule" ]; then echo "skip=false" >> "$GITHUB_OUTPUT"; exit 0; fi
+          since=$(date -u -d '20 hours ago' +%Y-%m-%dT%H:%M:%SZ)
+          n=$(gh run list -R "$GITHUB_REPOSITORY" -w collect.yml --created ">=$since" --json databaseId,conclusion \
+              -q "[.[] | select(.databaseId != $GITHUB_RUN_ID and .conclusion == \"success\")] | length")
+          echo "lyckade körningar sedan $since: $n"
+          if [ "$n" -gt 0 ]; then echo "skip=true" >> "$GITHUB_OUTPUT"; else echo "skip=false" >> "$GITHUB_OUTPUT"; fi
+
   collect:
+    needs: guard
+    if: needs.guard.outputs.skip != 'true'
     runs-on: ubuntu-latest
     timeout-minutes: 300
     env:
