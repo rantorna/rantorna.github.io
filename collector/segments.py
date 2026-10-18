@@ -35,6 +35,7 @@ class Segment:
     url_field: str = "product_url"        # vilken adress i uppslaget insamlingen startar från
     resolve_secondary: str | None = None  # beskrivning av en extra adress i uppslaget (t.ex. företagssparande)
     dedupe_by_brand: bool = False         # flera varumärken kan dela webbplats (t.ex. SEB och Gamla Liv)
+    model: str | None = None              # egen tolkningsmodell när standardmodellen (Haiku) inte räcker
 
     @property
     def products(self) -> Path:
@@ -215,7 +216,8 @@ Ange för varje varumärke den svenska webbplatsen (homepage) och sidan som visa
 PENSION_EXTRACT = """Du extraherar nyckeltal för traditionell pensions- och kapitalförsäkring (garanterad förvaltning) ur ett svenskt försäkringsbolags egna webbsidor och rapporter, för en oberoende jämförelsesajt.
 
 Regler:
-- Ta med varje traditionell förvaltning eller produktlinje som har egna publicerade nyckeltal (t.ex. 'Traditionell förvaltning', 'Kapitalförsäkring Traditionell', separata portföljer för olika avtal). Hoppa över fondförsäkring, risk- och sjukförsäkring och stängda bestånd utan aktuella siffror.
+- Ta med varje traditionell förvaltning eller produktlinje som har egna publicerade nyckeltal (t.ex. 'Traditionell förvaltning', 'Kapitalförsäkring Traditionell', separata portföljer för olika avtal). Har förvaltningen flera portföljer eller placeringsinriktningar med egna räntor (t.ex. efter ålder eller aktieandel) är varje en egen produkt – slå aldrig ihop dem och lägg inte de andras siffror i notes. Hoppa över fondförsäkring, risk- och sjukförsäkring och stängda bestånd utan aktuella siffror.
+- product_kind: en traditionell förvaltning är oftast en gemensam portfölj med samma återbäringsränta för flera försäkringsformer. Sätt "flera" när bolagets sidor visar att förvaltningen eller räntan gäller både pensionsförsäkring/tjänstepension och kapitalförsäkring – även om en enskild sida bara handlar om en av dem. Välj en enda form bara när förvaltningen uttryckligen är begränsad till den.
 - Ta bara med förvaltningar som tillhör det angivna bolaget/varumärket. Dokument om systerbolag eller andra bestånd på samma webbplats (t.ex. SEB Pension och Försäkring respektive Gamla Liv) ska ignoreras.
 - rate_percent måste vara ett årstal som går att jämföra mellan bolag. Bolag med deklarerad årlig återbäringsränta: ta den (rate_kind = deklarerad årlig återbäringsränta). Bolag som redovisar avkastningsränta per månad (t.ex. "augusti 1,4 %", kolumner som "månad", "hittills i år", "senaste 12 månader"): rate_kind = månadsvis avkastningsränta, rate_percent = senaste 12 månaderna, monthly_rate_percent = senaste månaden. Använd aldrig en enskild månad eller "hittills i år" som rate_percent – finns ingen tolvmånaderssiffra, sätt null.
 - Återbäringsräntan är inte totalavkastningen. Ange månaden den gäller (rate_month) och om den är före eller efter avgifter och avkastningsskatt (rate_basis) om bolaget anger det.
@@ -251,6 +253,9 @@ SEGMENTS["pension"] = Segment(
     manual_banks=DATA / "pension" / "banks.yaml",
     max_rate=20.0,
     dedupe_by_brand=True,
+    # Pensionsbolagens tabeller (månadsräntor, garantiräntor, flera bestånd) var för svåra för Haiku
+    # i jämförelsen; 18 bolag som ändras ungefär månadsvis, så Sonnet kostar lite.
+    model="claude-sonnet-5-5",
 )
 
 FINANCING_RESOLVE = """Du kartlägger svensk finansiering för små och medelstora företag åt en oberoende sajt. Använd webbsökning och kontrollera på aktörens egna webbplatser.

@@ -13,8 +13,10 @@ import shutil
 import subprocess
 
 def model() -> str:
-    """Läses vid varje anrop, så att .env (som laddas efter import) får effekt."""
-    return os.environ.get("RANTORNA_MODEL", "claude-haiku-5-5")
+    """Segmentets egen modell om den finns, annars RANTORNA_MODEL. Läses vid varje anrop,
+    så att .env (som laddas efter import) får effekt."""
+    from . import segments
+    return segments.cur().model or os.environ.get("RANTORNA_MODEL", "claude-haiku-5-5")
 
 
 def cheap_model() -> str:

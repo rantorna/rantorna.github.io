@@ -63,7 +63,8 @@ function render() {
   for (const b of P.banks) for (const p of b.products || []) {
     if (!hasFigures(p)) continue;
     const k = val(p, "product_kind");
-    if (kind && k !== kind && k !== "flera") continue;
+    // Okänd typ döljs inte – det betyder att bolaget inte skriver det, inte att det inte gäller.
+    if (kind && k && k !== kind && k !== "flera") continue;
     items.push({ b, p });
   }
   items.sort((x, y) => {

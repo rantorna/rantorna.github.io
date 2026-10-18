@@ -7,7 +7,7 @@
   "kind": "annat",
   "legal_name": "SPP Pension & Försäkring AB (publ)"
  },
- "checked_at": "2026-10-17T11:03:38+00:00",
+ "checked_at": "2026-10-18T09:28:06+00:00",
  "discovered_at": "2026-10-14T08:37:14+00:00",
  "sources": [
   {
@@ -68,10 +68,10 @@
   }
  ],
  "status": "ok",
- "notes": "SPP redovisar ingen deklarerad återbäringsränta eller månadsvis avkastningsränta, så rate_percent är null. Avkastningen gäller typkunderna Arbetsliv och Pension. Kapitalförsäkringen har ingen egen avkastningsstatistik. Garantiräntan är 1,55 % (pensionsförsäkring) respektive lägst 1,65 % (kapitalförsäkring, webbsidan). PRIIPs-faktabladet för kapitalförsäkring anger 1,55 %, vilket motsäger webbsidan. Jag använde webbsidan. Aktieandelen är bara noterade aktier. Onoterade aktier (12 % respektive 7 %) är inte med. Andelen är 45 % för Arbetsliv och 28 % för Pension, enligt tabellen per 2026-09-30. Jag har angett 57 för Arbetsliv (45+12) och 35 för Pension (28+7), vilket är summan av noterade och onoterade aktier. Citatet visar bara noterade aktier. Månadsbladet visar också förmånsbestämd försäkring med 3,8 % för 2025. Den ingår inte, eftersom det är ett särskilt bestånd för avtalsområden och inte en produkt med egna nyckeltal.",
+ "notes": "SPP redovisar avkastning för typkunderna Arbetsliv och Pension (siffror för Arbetsliv används). Ingen månadsränta/återbäringsränta eller konsolideringsgrad hittad; tolvmånadersavkastningen är totalavkastning och sattes därför i return_1y, inte rate_percent. Garantiränta skiljer sig mellan sidor (1,55 % vs 1,65 % för kapitalförsäkring; faktablad för kapitalförsäkring anger 1,55 %). Förmånsbestämd portfölj utelämnad.",
  "products": [
   {
-   "name": "SPPs traditionella försäkring (Arbetsliv, typkund)",
+   "name": "Traditionell försäkring",
    "flags": [],
    "fields": {
     "product_kind": {
@@ -81,14 +81,18 @@
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.45
+      "confidence": 0.64
      }
     },
     "rate_kind": {
-     "value": null,
-     "quote": null,
-     "source": null,
-     "status": "okänt"
+     "value": "månadsvis avkastningsränta",
+     "quote": "Avkastning 12 månader (t.o.m 26-09-30)\nArbetsliv: 7,3 % Pension: 4,8 %",
+     "source": 1,
+     "status": "osäkert",
+     "jev": {
+      "verdict": "says_nothing",
+      "confidence": 0.61
+     }
     },
     "rate_percent": {
      "value": null,
@@ -97,10 +101,14 @@
      "status": "okänt"
     },
     "rate_month": {
-     "value": null,
-     "quote": null,
-     "source": null,
-     "status": "okänt"
+     "value": "2026-09",
+     "quote": "Avkastning 12 månader (t.o.m 26-09-30)",
+     "source": 1,
+     "status": "osäkert",
+     "jev": {
+      "verdict": "says_nothing",
+      "confidence": 0.66
+     }
     },
     "monthly_rate_percent": {
      "value": null,
@@ -109,10 +117,14 @@
      "status": "okänt"
     },
     "rate_basis": {
-     "value": null,
-     "quote": null,
-     "source": null,
-     "status": "okänt"
+     "value": "Garantiräntan anges före avdrag för skatt och avgifter; typkundernas avkastning är totalavkastning",
+     "quote": "Räntan anges före avdrag för skatt och avgifter.",
+     "source": 1,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.89
+     }
     },
     "return_1y_percent": {
      "value": 7.3,
@@ -121,7 +133,7 @@
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.97
+      "confidence": 0.52
      }
     },
     "return_5y_avg_percent": {
@@ -131,17 +143,17 @@
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.95
+      "confidence": 0.67
      }
     },
     "return_period": {
-     "value": "12 månader t.o.m. 2026-09-30 (Arbetsliv); 5 år avser 2021–2025",
-     "quote": "Avkastning 12 månader (t.o.m 26-09-30)\nArbetsliv: 7,3 % Pension: 4,8 %",
+     "value": "12 månader t.o.m. 2026-09-30 (typkund Arbetsliv; Pension 4,8 %); 5 år 2021–2025",
+     "quote": "Avkastning 12 månader (t.o.m 26-09-30)",
      "source": 1,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.85
+      "confidence": 0.52
      }
     },
     "consolidation_percent": {
@@ -157,7 +169,7 @@
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.97
+      "confidence": 0.98
      }
     },
     "fee_capital_percent": {
@@ -179,20 +191,23 @@
      "status": "okänt"
     },
     "equity_share_percent": {
-     "value": null,
+     "value": 45,
      "quote": "| Noterade Aktier | 45 % | 28 % |",
-     "source": 0,
-     "status": "talet finns inte i citatet",
-     "claimed": 57
-    },
-    "available_to": {
-     "value": "Tjänstepension (t.ex. ITP), löneväxling och kapitalförsäkring",
-     "quote": "Hos oss på SPP kan du välja traditionell försäkring för de flesta av dina sparanden, till exempel din tjänstepension, löneväxling eller kapitalförsäkring.",
      "source": 0,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.34
+      "confidence": 0.61
+     }
+    },
+    "available_to": {
+     "value": "Tjänstepension (t.ex. ITP), löneväxling och kapitalförsäkring",
+     "quote": "till exempel din tjänstepension, löneväxling eller kapitalförsäkring.",
+     "source": 0,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.67
      }
     }
    },
@@ -201,137 +216,7 @@
    "status": "ej verifierad"
   },
   {
-   "name": "SPPs traditionella försäkring (Pension, typkund)",
-   "flags": [],
-   "fields": {
-    "product_kind": {
-     "value": "flera",
-     "quote": "Hos oss på SPP kan du välja traditionell försäkring för de flesta av dina sparanden, till exempel din tjänstepension, löneväxling eller kapitalförsäkring.",
-     "source": 0,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.45
-     }
-    },
-    "rate_kind": {
-     "value": null,
-     "quote": null,
-     "source": null,
-     "status": "okänt"
-    },
-    "rate_percent": {
-     "value": null,
-     "quote": null,
-     "source": null,
-     "status": "okänt"
-    },
-    "rate_month": {
-     "value": null,
-     "quote": null,
-     "source": null,
-     "status": "okänt"
-    },
-    "monthly_rate_percent": {
-     "value": null,
-     "quote": null,
-     "source": null,
-     "status": "okänt"
-    },
-    "rate_basis": {
-     "value": null,
-     "quote": null,
-     "source": null,
-     "status": "okänt"
-    },
-    "return_1y_percent": {
-     "value": 4.8,
-     "quote": "Avkastning 12 månader (t.o.m 26-09-30)\nArbetsliv: 7,3 % Pension: 4,8 %",
-     "source": 1,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.97
-     }
-    },
-    "return_5y_avg_percent": {
-     "value": 4.3,
-     "quote": "| 2021–2025 (5 år) snittavkastning per år | 5,9 % | 4,3 % |",
-     "source": 0,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.97
-     }
-    },
-    "return_period": {
-     "value": "12 månader t.o.m. 2026-09-30 (Pension); 5 år avser 2021–2025",
-     "quote": "Avkastning 12 månader (t.o.m 26-09-30)\nArbetsliv: 7,3 % Pension: 4,8 %",
-     "source": 1,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.77
-     }
-    },
-    "consolidation_percent": {
-     "value": null,
-     "quote": null,
-     "source": null,
-     "status": "okänt"
-    },
-    "guaranteed_rate_percent": {
-     "value": 1.55,
-     "quote": "SPP erbjuder idag en ränta på 1,55 procent, på 85 procent av sparpremien. Räntan anges före avdrag för skatt och avgifter.",
-     "source": 0,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.97
-     }
-    },
-    "fee_capital_percent": {
-     "value": null,
-     "quote": null,
-     "source": null,
-     "status": "okänt"
-    },
-    "fee_fixed_sek": {
-     "value": null,
-     "quote": null,
-     "source": null,
-     "status": "okänt"
-    },
-    "fee_terms": {
-     "value": null,
-     "quote": null,
-     "source": null,
-     "status": "okänt"
-    },
-    "equity_share_percent": {
-     "value": null,
-     "quote": "| Noterade Aktier | 45 % | 28 % |",
-     "source": 0,
-     "status": "talet finns inte i citatet",
-     "claimed": 35
-    },
-    "available_to": {
-     "value": "Tjänstepension (t.ex. ITP), löneväxling och kapitalförsäkring",
-     "quote": "Hos oss på SPP kan du välja traditionell försäkring för de flesta av dina sparanden, till exempel din tjänstepension, löneväxling eller kapitalförsäkring.",
-     "source": 0,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.51
-     }
-    }
-   },
-   "rate_tiers": [],
-   "pending_rate": null,
-   "status": "ej verifierad"
-  },
-  {
-   "name": "Kapitalförsäkring Traditionell (privat)",
+   "name": "Kapitalförsäkring Traditionell försäkring",
    "flags": [],
    "fields": {
     "product_kind": {
@@ -341,7 +226,7 @@
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.79
+      "confidence": 0.76
      }
     },
     "rate_kind": {
@@ -405,7 +290,7 @@
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.97
+      "confidence": 0.98
      }
     },
     "fee_capital_percent": {
@@ -415,7 +300,7 @@
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.73
+      "confidence": 0.61
      }
     },
     "fee_fixed_sek": {
@@ -425,11 +310,11 @@
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.98
+      "confidence": 0.97
      }
     },
     "fee_terms": {
-     "value": "Fast avgift 0 kr/år, kapitalavgift 0,55 %/år, kapitalförvaltningskostnad 0,21 %/år, plus riskpremie beroende på ålder och sparbelopp",
+     "value": "Kapitalavgift 0,55 %/år, kapitalförvaltningskostnad 0,21 %/år, fast avgift 0 kr, plus riskpremie beroende på ålder och sparbelopp",
      "quote": "Kapitalförvaltningskostnad:\n0,21 % per år",
      "source": 4,
      "status": "belagt",
@@ -445,17 +330,17 @@
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.61
+      "confidence": 0.49
      }
     },
     "available_to": {
      "value": "Privatpersoner (privat kapitalförsäkring)",
-     "quote": "Produkten vänder sig till icke-professionella investerare med medel till lång placeringshorisont.",
+     "quote": "Privat kapitalförsäkring med traditionell\nförvaltning inom bruttoerbjudandet.",
      "source": 6,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.82
+      "confidence": 0.94
      }
     }
    },
@@ -465,6 +350,6 @@
   }
  ],
  "source_hash": "376caf9c086e9d03",
- "changed_at": "2026-10-14T08:45:05+00:00",
+ "changed_at": "2026-10-18T09:28:06+00:00",
  "model": "claude-sonnet-5-5"
 }
