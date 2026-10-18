@@ -225,7 +225,15 @@ Regler:
 - Varje värde måste beläggas med ett ORDAGRANT citat ur dokumenten (kopiera tecken för tecken, max ~300 tecken; vid tabeller hela tabellraden) och dokumentets index i "source".
 - Finns inget belägg: sätt value, quote och source till null. Gissa aldrig.
 - Procent som tal (4,5 % -> 4.5). Negativ avkastning som negativt tal.
-- Om dokumenten motsäger varandra: använd det som ser mest aktuellt ut och nämn det i notes."""
+- Om dokumenten motsäger varandra: använd det som ser mest aktuellt ut och nämn det i notes.
+
+Vanliga fällor hos pensionsbolagen (lärda av tidigare fel):
+- Garantiränta är inte återbäringsränta. Formuleringar som "garanterad ränta", "garantiränta", "ränta på 85 procent av premien/sparpremien" eller "lägsta garanterade ränta" hör till guaranteed_rate_percent – aldrig till rate_percent.
+- Månadstabeller (t.ex. Kåpan, Alecta): raden för portföljen har kolumner som "senaste månaden | hittills i år | senaste 12 mån". Ta sista kolumnen för 12 månader, och kontrollera rubriken så att du inte tar "hittills i år". Finns flera tabeller (olika månader): ta den nyaste och ange dess månad i rate_month.
+- "1 år +11,9 %" vid en portfölj som följer avkastningen (t.ex. Alecta Optimal Pension) är tolvmånadersräntan: rate_kind = månadsvis avkastningsränta.
+- Ett faktablad eller en PDF kan vara äldre än webbsidan – jämför datumen och ta det nyaste.
+- Stängda bestånd (stängda för nyteckning) tas bara med om en aktuell ränta för dem publiceras; historisk värdeutveckling räcker inte.
+- Förmånsbestämd pension (t.ex. ITP 2, FTP avd 2) saknar oftast återbäringsränta – ta med den bara om bolaget anger en ränta eller konsolidering för den."""
 
 SEGMENTS["pension"] = Segment(
     key="pension",
@@ -253,9 +261,6 @@ SEGMENTS["pension"] = Segment(
     manual_banks=DATA / "pension" / "banks.yaml",
     max_rate=20.0,
     dedupe_by_brand=True,
-    # Pensionsbolagens tabeller (månadsräntor, garantiräntor, flera bestånd) var för svåra för Haiku
-    # i jämförelsen; 18 bolag som ändras ungefär månadsvis, så Sonnet kostar lite.
-    model="claude-sonnet-5-5",
 )
 
 FINANCING_RESOLVE = """Du kartlägger svensk finansiering för små och medelstora företag åt en oberoende sajt. Använd webbsökning och kontrollera på aktörens egna webbplatser.
