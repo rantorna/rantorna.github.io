@@ -7,8 +7,8 @@
   "kind": "nischbank",
   "legal_name": "Svea Bank AB"
  },
- "checked_at": "2026-10-18T08:36:21+00:00",
- "discovered_at": "2026-10-11T13:58:47+00:00",
+ "checked_at": "2026-10-19T00:43:22+00:00",
+ "discovered_at": "2026-10-19T00:43:22+00:00",
  "sources": [
   {
    "url": "https://www.svea.com/sv-se/privat/spara",
@@ -23,6 +23,13 @@
    "kind": "html",
    "via": "http",
    "chars": 7954
+  },
+  {
+   "url": "https://www.svea.com/sv-se/privat/spara/fastr%C3%A4ntekonto",
+   "title": "Fasträntekonto | Svea Bank",
+   "kind": "html",
+   "via": "http",
+   "chars": 9794
   },
   {
    "url": "https://www.svea.com/sv-se/privat/spara/fastr%C3%A4ntekonto",
@@ -68,7 +75,7 @@
   }
  ],
  "status": "ok",
- "notes": "Inga datum för när räntorna började gälla anges. Fasträntekonton kan bara öppnas av kunder med Sparkonto (inloggat läge). Fasträntekontona listas som \"Fasträntekonto 3/6/12/24/36 mån\"; sidan visar bindningstidens räntor i en tabell. Källan nämner även ett Kapitalkonto (dok 4) utan villkor eller ränta, så det är inte med.",
+ "notes": "Räntan för Fasträntekonto visas i tabellen på produktsidan (doc 2; doc 3 är samma sida). Fasträntekontot kräver ett befintligt Sparkonto och öppnas i inloggat läge (BankID), så räntorna för öppning syns endast via inloggning/villkor. Sparkontots minsta insättning och eventuella övre tak för insättning anges inte; fälten lämnas tomma. Fasträntekonto: 'Antal insättningar | 1 per konto' och max 10 aktiva konton (doc 7). Garantibeloppet 1 150 000 kr är angivet i dokumenten som gällande beloppet.",
  "products": [
   {
    "name": "Sparkonto",
@@ -76,12 +83,12 @@
    "fields": {
     "product_type": {
      "value": "rörligt sparkonto",
-     "quote": "1,80 % rörlig ränta",
-     "source": 0,
+     "quote": "Rörlig sparränta: 1,80 %",
+     "source": 1,
      "status": "osäkert",
      "jev": {
-      "verdict": "contradicts",
-      "confidence": 0.69
+      "verdict": "says_nothing",
+      "confidence": 0.52
      }
     },
     "rate_percent": {
@@ -96,18 +103,18 @@
     },
     "rate_type": {
      "value": "rörlig",
-     "quote": "1,80 % rörlig ränta",
-     "source": 0,
+     "quote": "För närvarande 1,80 % (rörlig ränta, den sätts med",
+     "source": 8,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.48
+      "confidence": 0.69
      }
     },
     "binding_months": {
      "value": 0,
      "quote": "Ingen bindningstid",
-     "source": 0,
+     "source": 1,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
@@ -116,12 +123,12 @@
     },
     "withdrawals": {
      "value": "fria",
-     "quote": "Obegränsat antal insättningar och uttag.",
-     "source": 0,
+     "quote": "Uttag från sparkontot är alltid kostnadsfria.",
+     "source": 5,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.77
+      "confidence": 0.98
      }
     },
     "free_withdrawals_per_year": {
@@ -131,21 +138,20 @@
      "status": "okänt"
     },
     "withdrawal_terms": {
-     "value": "Uttag är alltid kostnadsfria; begärs på Mina sidor och betalas ut nästa vardag till föranmält konto.",
-     "quote": "Uttag från sparkontot är alltid kostnadsfria.",
-     "source": 4,
+     "value": "Uttag alltid kostnadsfria; en dags fördröjning vid uttag",
+     "quote": "En dags fördröjning vid uttag – om du ångrar dig",
+     "source": 0,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 1.0
+      "confidence": 0.97
      }
     },
     "min_deposit_sek": {
      "value": null,
-     "quote": "Hos oss får du ränta från första insättningen, oavsett vilket konto du väljer.",
-     "source": 0,
-     "status": "talet finns inte i citatet",
-     "claimed": 0
+     "quote": null,
+     "source": null,
+     "status": "okänt"
     },
     "max_deposit_sek": {
      "value": null,
@@ -153,10 +159,16 @@
      "source": null,
      "status": "okänt"
     },
+    "monthly_deposit_cap_sek": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
     "deposit_terms": {
-     "value": "Fria insättningar, av dig själv eller någon annan.",
-     "quote": "Insättningar på Sparkontot kan göras av dig själv eller någon annan.",
-     "source": 4,
+     "value": "Obegränsat antal insättningar och uttag",
+     "quote": "Obegränsat antal insättningar och uttag.",
+     "source": 1,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
@@ -164,19 +176,19 @@
      }
     },
     "eligibility": {
-     "value": "Minst 18 år, svenskt personnummer, svensk bank; BankID krävs.",
+     "value": "Fyllt 18 år, svenskt personnummer, svensk bank; BankID krävs",
      "quote": "Du som har fyllt 18 år",
      "source": 1,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.92
+      "confidence": 0.97
      }
     },
     "requires_other_products": {
      "value": false,
      "quote": "Kontoformen är ett enkelt sparkonto utan några tilläggstjänster eller kostnader.",
-     "source": 7,
+     "source": 8,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
@@ -190,23 +202,23 @@
      "status": "okänt"
     },
     "interest_paid": {
-     "value": "Årsvis, kapitaliseras vid kalenderårets utgång",
-     "quote": "Upplupen ränta kapitaliseras och läggs till kontobehållningen vid kalenderårets utgång",
+     "value": "Årsvis, vid årets slut",
+     "quote": "din intjänade ränta sätts in på kontot vid årets slut.",
      "source": 5,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.94
+      "confidence": 1.0
      }
     },
     "guarantee_country": {
      "value": "SE",
-     "quote": "Alla våra sparkonton omfattas av den statliga insättningsgarantin.",
-     "source": 0,
+     "quote": "Alla våra sparkonton omfattas av den statliga insättningsgarantin",
+     "source": 1,
      "status": "osäkert",
      "jev": {
       "verdict": "says_nothing",
-      "confidence": 0.62
+      "confidence": 0.64
      }
     },
     "guarantee_amount": {
@@ -236,12 +248,12 @@
    "fields": {
     "product_type": {
      "value": "fasträntekonto",
-     "quote": "Fasträntekontot är ett bundet sparande med fast ränta.",
+     "quote": "Bunden sparränta: upp till 2,80 %",
      "source": 2,
      "status": "osäkert",
      "jev": {
-      "verdict": "says_nothing",
-      "confidence": 0.2
+      "verdict": "contradicts",
+      "confidence": 0.25
      }
     },
     "rate_percent": {
@@ -256,33 +268,29 @@
     },
     "rate_type": {
      "value": "fast",
-     "quote": "Räntan på det här kontot är fast",
+     "quote": "Räntan på det här kontot är fast och du väljer själv",
      "source": 2,
-     "status": "belagt",
+     "status": "osäkert",
      "jev": {
-      "verdict": "supports",
-      "confidence": 0.31
+      "verdict": "says_nothing",
+      "confidence": 0.3
      }
     },
     "binding_months": {
      "value": 3,
-     "quote": "Ränta kontoform 3 månader",
+     "quote": "3, 6, 12, 24 eller 36 månaders bindningstid",
+     "source": 0,
+     "status": "belagt"
+    },
+    "withdrawals": {
+     "value": "mot avgift",
+     "quote": "Uttag under bindningstiden | 2,5 % av uttaget belopp (minst 300 kr)",
      "source": 2,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.94
-     }
-    },
-    "withdrawals": {
-     "quote": "Förtida uttag belastas med en uttagsavgift.",
-     "source": 6,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
       "confidence": 1.0
-     },
-     "value": "mot avgift"
+     }
     },
     "free_withdrawals_per_year": {
      "value": null,
@@ -291,13 +299,13 @@
      "status": "okänt"
     },
     "withdrawal_terms": {
-     "value": "Förtida uttag möjligt mot avgift på 2,5 % av uttaget belopp (minst 300 kr); överförs till sparkontot.",
-     "quote": "Uttag under bindningstiden | 2,5 % av uttaget belopp (minst 300 kr)",
-     "source": 2,
+     "value": "Förtida uttag kostar 2,5 % av uttaget belopp, minst 300 kr",
+     "quote": "Förtida uttag belastas med en uttagsavgift. Uttagsavgiften är 2,5% på uttaget belopp, dock minst 300 kronor.",
+     "source": 7,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.92
+      "confidence": 1.0
      }
     },
     "min_deposit_sek": {
@@ -316,34 +324,40 @@
      "source": null,
      "status": "okänt"
     },
+    "monthly_deposit_cap_sek": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
     "deposit_terms": {
-     "value": "Engångsinsättning vid öppnande, överförs från sparkontot.",
-     "quote": "Antal insättningar | 1 per konto",
-     "source": 2,
+     "value": "En insättning per konto, överförd från sparkonto",
+     "quote": "Insättning på ett Fasträntekonto sker genom att ett belopp överförs från Sparkonto. Endast en överföring är möjlig.",
+     "source": 7,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.59
+      "confidence": 0.98
      }
     },
     "eligibility": {
-     "value": "Kräver befintligt Sparkonto hos Svea, minst 18 år, svenskt personnummer, svensk bank.",
+     "value": "Har Sparkonto hos Svea, fyllt 18 år, svenskt personnummer, svensk bank",
      "quote": "Du som redan har ett sparkonto hos Svea",
      "source": 2,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.91
+      "confidence": 0.98
      }
     },
     "requires_other_products": {
      "value": true,
-     "quote": "Du behöver först öppna ett vanligt Sparkonto.",
+     "quote": "Du behöver först öppna ett vanligt Sparkonto. När du öppnat sparkontot och satt in pengar kan du sedan i inloggat läge på Mina sidor öppna ett Fasträntekonto.",
      "source": 2,
-     "status": "osäkert",
+     "status": "belagt",
      "jev": {
-      "verdict": "contradicts",
-      "confidence": 0.11
+      "verdict": "supports",
+      "confidence": 0.41
      }
     },
     "intro_rate": {
@@ -354,28 +368,28 @@
     },
     "interest_paid": {
      "value": "Vid bindningstidens slut",
-     "quote": "Vid bindningstidens slut betalas räntan ut till ditt kopplade Sparkonto tillsammans med resten av ditt sparande.",
-     "source": 4,
+     "quote": "Vid bindningstidens slut överförs ränta och kapital från fasträntekontot till det sparkonto i Svea Bank som är knutet till fasträntekontot.",
+     "source": 2,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 1.0
+      "confidence": 0.98
      }
     },
     "guarantee_country": {
      "value": "SE",
-     "quote": "Alla våra sparkonton omfattas av den statliga insättningsgarantin",
-     "source": 0,
-     "status": "osäkert",
+     "quote": "Fasträntekontot omfattas av den statliga insättningsgarantin efter beslut av Riksgälden.",
+     "source": 7,
+     "status": "belagt",
      "jev": {
-      "verdict": "says_nothing",
-      "confidence": 0.62
+      "verdict": "supports",
+      "confidence": 0.61
      }
     },
     "guarantee_amount": {
      "value": "1 150 000 kr",
      "quote": "Garantin täcker belopp upp till 1 150 000 kr per bank eller institut.",
-     "source": 3,
+     "source": 4,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
@@ -399,12 +413,12 @@
    "fields": {
     "product_type": {
      "value": "fasträntekonto",
-     "quote": "Fasträntekontot är ett bundet sparande med fast ränta.",
+     "quote": "Bunden sparränta: upp till 2,80 %",
      "source": 2,
      "status": "osäkert",
      "jev": {
-      "verdict": "says_nothing",
-      "confidence": 0.25
+      "verdict": "contradicts",
+      "confidence": 0.27
      }
     },
     "rate_percent": {
@@ -419,33 +433,29 @@
     },
     "rate_type": {
      "value": "fast",
-     "quote": "Räntan på det här kontot är fast",
+     "quote": "Räntan på det här kontot är fast och du väljer själv",
      "source": 2,
-     "status": "belagt",
+     "status": "osäkert",
      "jev": {
-      "verdict": "supports",
-      "confidence": 0.52
+      "verdict": "says_nothing",
+      "confidence": 0.2
      }
     },
     "binding_months": {
      "value": 6,
-     "quote": "Ränta kontoform 6 månader",
+     "quote": "3, 6, 12, 24 eller 36 månaders bindningstid",
+     "source": 0,
+     "status": "belagt"
+    },
+    "withdrawals": {
+     "value": "mot avgift",
+     "quote": "Uttag under bindningstiden | 2,5 % av uttaget belopp (minst 300 kr)",
      "source": 2,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.89
-     }
-    },
-    "withdrawals": {
-     "quote": "Förtida uttag belastas med en uttagsavgift.",
-     "source": 6,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
       "confidence": 1.0
-     },
-     "value": "mot avgift"
+     }
     },
     "free_withdrawals_per_year": {
      "value": null,
@@ -454,13 +464,13 @@
      "status": "okänt"
     },
     "withdrawal_terms": {
-     "value": "Förtida uttag möjligt mot avgift på 2,5 % av uttaget belopp (minst 300 kr); överförs till sparkontot.",
-     "quote": "Uttag under bindningstiden | 2,5 % av uttaget belopp (minst 300 kr)",
-     "source": 2,
+     "value": "Förtida uttag kostar 2,5 % av uttaget belopp, minst 300 kr",
+     "quote": "Förtida uttag belastas med en uttagsavgift. Uttagsavgiften är 2,5% på uttaget belopp, dock minst 300 kronor.",
+     "source": 7,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.91
+      "confidence": 1.0
      }
     },
     "min_deposit_sek": {
@@ -479,34 +489,40 @@
      "source": null,
      "status": "okänt"
     },
+    "monthly_deposit_cap_sek": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
     "deposit_terms": {
-     "value": "Engångsinsättning vid öppnande, överförs från sparkontot.",
-     "quote": "Antal insättningar | 1 per konto",
-     "source": 2,
+     "value": "En insättning per konto, överförd från sparkonto",
+     "quote": "Insättning på ett Fasträntekonto sker genom att ett belopp överförs från Sparkonto. Endast en överföring är möjlig.",
+     "source": 7,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.61
+      "confidence": 0.95
      }
     },
     "eligibility": {
-     "value": "Kräver befintligt Sparkonto hos Svea, minst 18 år, svenskt personnummer, svensk bank.",
+     "value": "Har Sparkonto hos Svea, fyllt 18 år, svenskt personnummer, svensk bank",
      "quote": "Du som redan har ett sparkonto hos Svea",
      "source": 2,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.89
+      "confidence": 0.98
      }
     },
     "requires_other_products": {
      "value": true,
-     "quote": "Du behöver först öppna ett vanligt Sparkonto.",
+     "quote": "Du behöver först öppna ett vanligt Sparkonto. När du öppnat sparkontot och satt in pengar kan du sedan i inloggat läge på Mina sidor öppna ett Fasträntekonto.",
      "source": 2,
-     "status": "osäkert",
+     "status": "belagt",
      "jev": {
-      "verdict": "contradicts",
-      "confidence": 0.13
+      "verdict": "supports",
+      "confidence": 0.43
      }
     },
     "intro_rate": {
@@ -517,8 +533,8 @@
     },
     "interest_paid": {
      "value": "Vid bindningstidens slut",
-     "quote": "Vid bindningstidens slut betalas räntan ut till ditt kopplade Sparkonto tillsammans med resten av ditt sparande.",
-     "source": 4,
+     "quote": "Vid bindningstidens slut överförs ränta och kapital från fasträntekontot till det sparkonto i Svea Bank som är knutet till fasträntekontot.",
+     "source": 2,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
@@ -527,18 +543,18 @@
     },
     "guarantee_country": {
      "value": "SE",
-     "quote": "Alla våra sparkonton omfattas av den statliga insättningsgarantin",
-     "source": 0,
-     "status": "osäkert",
+     "quote": "Fasträntekontot omfattas av den statliga insättningsgarantin efter beslut av Riksgälden.",
+     "source": 7,
+     "status": "belagt",
      "jev": {
-      "verdict": "says_nothing",
-      "confidence": 0.62
+      "verdict": "supports",
+      "confidence": 0.66
      }
     },
     "guarantee_amount": {
      "value": "1 150 000 kr",
      "quote": "Garantin täcker belopp upp till 1 150 000 kr per bank eller institut.",
-     "source": 3,
+     "source": 4,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
@@ -562,12 +578,12 @@
    "fields": {
     "product_type": {
      "value": "fasträntekonto",
-     "quote": "Fasträntekontot är ett bundet sparande med fast ränta.",
+     "quote": "Bunden sparränta: upp till 2,80 %",
      "source": 2,
      "status": "osäkert",
      "jev": {
       "verdict": "says_nothing",
-      "confidence": 0.3
+      "confidence": 0.18
      }
     },
     "rate_percent": {
@@ -582,33 +598,29 @@
     },
     "rate_type": {
      "value": "fast",
-     "quote": "Räntan på det här kontot är fast",
+     "quote": "Räntan på det här kontot är fast och du väljer själv",
      "source": 2,
-     "status": "belagt",
+     "status": "osäkert",
      "jev": {
-      "verdict": "supports",
-      "confidence": 0.37
+      "verdict": "says_nothing",
+      "confidence": 0.33
      }
     },
     "binding_months": {
      "value": 12,
-     "quote": "Ränta kontoform 12 månader",
+     "quote": "3, 6, 12, 24 eller 36 månaders bindningstid",
+     "source": 0,
+     "status": "belagt"
+    },
+    "withdrawals": {
+     "value": "mot avgift",
+     "quote": "Uttag under bindningstiden | 2,5 % av uttaget belopp (minst 300 kr)",
      "source": 2,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.83
-     }
-    },
-    "withdrawals": {
-     "quote": "Förtida uttag belastas med en uttagsavgift.",
-     "source": 6,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
       "confidence": 1.0
-     },
-     "value": "mot avgift"
+     }
     },
     "free_withdrawals_per_year": {
      "value": null,
@@ -617,13 +629,13 @@
      "status": "okänt"
     },
     "withdrawal_terms": {
-     "value": "Förtida uttag möjligt mot avgift på 2,5 % av uttaget belopp (minst 300 kr); överförs till sparkontot.",
-     "quote": "Uttag under bindningstiden | 2,5 % av uttaget belopp (minst 300 kr)",
-     "source": 2,
+     "value": "Förtida uttag kostar 2,5 % av uttaget belopp, minst 300 kr",
+     "quote": "Förtida uttag belastas med en uttagsavgift. Uttagsavgiften är 2,5% på uttaget belopp, dock minst 300 kronor.",
+     "source": 7,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.92
+      "confidence": 1.0
      }
     },
     "min_deposit_sek": {
@@ -642,34 +654,40 @@
      "source": null,
      "status": "okänt"
     },
+    "monthly_deposit_cap_sek": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
     "deposit_terms": {
-     "value": "Engångsinsättning vid öppnande, överförs från sparkontot.",
-     "quote": "Antal insättningar | 1 per konto",
-     "source": 2,
+     "value": "En insättning per konto, överförd från sparkonto",
+     "quote": "Insättning på ett Fasträntekonto sker genom att ett belopp överförs från Sparkonto. Endast en överföring är möjlig.",
+     "source": 7,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.66
+      "confidence": 1.0
      }
     },
     "eligibility": {
-     "value": "Kräver befintligt Sparkonto hos Svea, minst 18 år, svenskt personnummer, svensk bank.",
+     "value": "Har Sparkonto hos Svea, fyllt 18 år, svenskt personnummer, svensk bank",
      "quote": "Du som redan har ett sparkonto hos Svea",
      "source": 2,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.91
+      "confidence": 0.97
      }
     },
     "requires_other_products": {
      "value": true,
-     "quote": "Du behöver först öppna ett vanligt Sparkonto.",
+     "quote": "Du behöver först öppna ett vanligt Sparkonto. När du öppnat sparkontot och satt in pengar kan du sedan i inloggat läge på Mina sidor öppna ett Fasträntekonto.",
      "source": 2,
-     "status": "osäkert",
+     "status": "belagt",
      "jev": {
-      "verdict": "contradicts",
-      "confidence": 0.1
+      "verdict": "supports",
+      "confidence": 0.4
      }
     },
     "intro_rate": {
@@ -680,28 +698,28 @@
     },
     "interest_paid": {
      "value": "Vid bindningstidens slut",
-     "quote": "Vid bindningstidens slut betalas räntan ut till ditt kopplade Sparkonto tillsammans med resten av ditt sparande.",
-     "source": 4,
+     "quote": "Vid bindningstidens slut överförs ränta och kapital från fasträntekontot till det sparkonto i Svea Bank som är knutet till fasträntekontot.",
+     "source": 2,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 1.0
+      "confidence": 0.97
      }
     },
     "guarantee_country": {
      "value": "SE",
-     "quote": "Alla våra sparkonton omfattas av den statliga insättningsgarantin",
-     "source": 0,
-     "status": "osäkert",
+     "quote": "Fasträntekontot omfattas av den statliga insättningsgarantin efter beslut av Riksgälden.",
+     "source": 7,
+     "status": "belagt",
      "jev": {
-      "verdict": "says_nothing",
-      "confidence": 0.62
+      "verdict": "supports",
+      "confidence": 0.64
      }
     },
     "guarantee_amount": {
      "value": "1 150 000 kr",
      "quote": "Garantin täcker belopp upp till 1 150 000 kr per bank eller institut.",
-     "source": 3,
+     "source": 4,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
@@ -725,12 +743,12 @@
    "fields": {
     "product_type": {
      "value": "fasträntekonto",
-     "quote": "Fasträntekontot är ett bundet sparande med fast ränta.",
+     "quote": "Bunden sparränta: upp till 2,80 %",
      "source": 2,
      "status": "osäkert",
      "jev": {
-      "verdict": "says_nothing",
-      "confidence": 0.3
+      "verdict": "contradicts",
+      "confidence": 0.31
      }
     },
     "rate_percent": {
@@ -745,33 +763,29 @@
     },
     "rate_type": {
      "value": "fast",
-     "quote": "Räntan på det här kontot är fast",
+     "quote": "Räntan på det här kontot är fast och du väljer själv",
      "source": 2,
      "status": "osäkert",
      "jev": {
       "verdict": "says_nothing",
-      "confidence": 0.34
+      "confidence": 0.22
      }
     },
     "binding_months": {
      "value": 24,
-     "quote": "Ränta kontoform 24 månader",
-     "source": 2,
-     "status": "osäkert",
-     "jev": {
-      "verdict": "contradicts",
-      "confidence": 0.73
-     }
+     "quote": "3, 6, 12, 24 eller 36 månaders bindningstid",
+     "source": 0,
+     "status": "belagt"
     },
     "withdrawals": {
-     "quote": "Förtida uttag belastas med en uttagsavgift.",
-     "source": 6,
+     "value": "mot avgift",
+     "quote": "Uttag under bindningstiden | 2,5 % av uttaget belopp (minst 300 kr)",
+     "source": 2,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
       "confidence": 1.0
-     },
-     "value": "mot avgift"
+     }
     },
     "free_withdrawals_per_year": {
      "value": null,
@@ -780,13 +794,13 @@
      "status": "okänt"
     },
     "withdrawal_terms": {
-     "value": "Förtida uttag möjligt mot avgift på 2,5 % av uttaget belopp (minst 300 kr); överförs till sparkontot.",
-     "quote": "Uttag under bindningstiden | 2,5 % av uttaget belopp (minst 300 kr)",
-     "source": 2,
+     "value": "Förtida uttag kostar 2,5 % av uttaget belopp, minst 300 kr",
+     "quote": "Förtida uttag belastas med en uttagsavgift. Uttagsavgiften är 2,5% på uttaget belopp, dock minst 300 kronor.",
+     "source": 7,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.8
+      "confidence": 1.0
      }
     },
     "min_deposit_sek": {
@@ -805,34 +819,40 @@
      "source": null,
      "status": "okänt"
     },
+    "monthly_deposit_cap_sek": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
     "deposit_terms": {
-     "value": "Engångsinsättning vid öppnande, överförs från sparkontot.",
-     "quote": "Antal insättningar | 1 per konto",
-     "source": 2,
+     "value": "En insättning per konto, överförd från sparkonto",
+     "quote": "Insättning på ett Fasträntekonto sker genom att ett belopp överförs från Sparkonto. Endast en överföring är möjlig.",
+     "source": 7,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.58
+      "confidence": 0.98
      }
     },
     "eligibility": {
-     "value": "Kräver befintligt Sparkonto hos Svea, minst 18 år, svenskt personnummer, svensk bank.",
+     "value": "Har Sparkonto hos Svea, fyllt 18 år, svenskt personnummer, svensk bank",
      "quote": "Du som redan har ett sparkonto hos Svea",
      "source": 2,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.92
+      "confidence": 0.98
      }
     },
     "requires_other_products": {
      "value": true,
-     "quote": "Du behöver först öppna ett vanligt Sparkonto.",
+     "quote": "Du behöver först öppna ett vanligt Sparkonto. När du öppnat sparkontot och satt in pengar kan du sedan i inloggat läge på Mina sidor öppna ett Fasträntekonto.",
      "source": 2,
-     "status": "osäkert",
+     "status": "belagt",
      "jev": {
-      "verdict": "contradicts",
-      "confidence": 0.16
+      "verdict": "supports",
+      "confidence": 0.37
      }
     },
     "intro_rate": {
@@ -843,28 +863,28 @@
     },
     "interest_paid": {
      "value": "Vid bindningstidens slut",
-     "quote": "Vid bindningstidens slut betalas räntan ut till ditt kopplade Sparkonto tillsammans med resten av ditt sparande.",
-     "source": 4,
+     "quote": "Vid bindningstidens slut överförs ränta och kapital från fasträntekontot till det sparkonto i Svea Bank som är knutet till fasträntekontot.",
+     "source": 2,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.98
+      "confidence": 1.0
      }
     },
     "guarantee_country": {
      "value": "SE",
-     "quote": "Alla våra sparkonton omfattas av den statliga insättningsgarantin",
-     "source": 0,
-     "status": "osäkert",
+     "quote": "Fasträntekontot omfattas av den statliga insättningsgarantin efter beslut av Riksgälden.",
+     "source": 7,
+     "status": "belagt",
      "jev": {
-      "verdict": "says_nothing",
-      "confidence": 0.59
+      "verdict": "supports",
+      "confidence": 0.7
      }
     },
     "guarantee_amount": {
      "value": "1 150 000 kr",
      "quote": "Garantin täcker belopp upp till 1 150 000 kr per bank eller institut.",
-     "source": 3,
+     "source": 4,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
@@ -888,11 +908,11 @@
    "fields": {
     "product_type": {
      "value": "fasträntekonto",
-     "quote": "Fasträntekontot är ett bundet sparande med fast ränta.",
+     "quote": "Bunden sparränta: upp till 2,80 %",
      "source": 2,
      "status": "osäkert",
      "jev": {
-      "verdict": "says_nothing",
+      "verdict": "contradicts",
       "confidence": 0.28
      }
     },
@@ -900,41 +920,33 @@
      "value": 2.3,
      "quote": "Ränta kontoform 36 månader | 2,30 % per år",
      "source": 2,
-     "status": "osäkert",
-     "jev": {
-      "verdict": "contradicts",
-      "confidence": 0.52
-     }
+     "status": "belagt"
     },
     "rate_type": {
      "value": "fast",
-     "quote": "Räntan på det här kontot är fast",
+     "quote": "Räntan på det här kontot är fast och du väljer själv",
      "source": 2,
-     "status": "belagt",
+     "status": "osäkert",
      "jev": {
-      "verdict": "supports",
-      "confidence": 0.34
+      "verdict": "says_nothing",
+      "confidence": 0.22
      }
     },
     "binding_months": {
      "value": 36,
-     "quote": "Ränta kontoform 36 månader",
+     "quote": "3, 6, 12, 24 eller 36 månaders bindningstid",
+     "source": 0,
+     "status": "belagt"
+    },
+    "withdrawals": {
+     "value": "mot avgift",
+     "quote": "Uttag under bindningstiden | 2,5 % av uttaget belopp (minst 300 kr)",
      "source": 2,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.92
-     }
-    },
-    "withdrawals": {
-     "quote": "Förtida uttag belastas med en uttagsavgift.",
-     "source": 6,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
       "confidence": 1.0
-     },
-     "value": "mot avgift"
+     }
     },
     "free_withdrawals_per_year": {
      "value": null,
@@ -943,13 +955,13 @@
      "status": "okänt"
     },
     "withdrawal_terms": {
-     "value": "Förtida uttag möjligt mot avgift på 2,5 % av uttaget belopp (minst 300 kr); överförs till sparkontot.",
-     "quote": "Uttag under bindningstiden | 2,5 % av uttaget belopp (minst 300 kr)",
-     "source": 2,
+     "value": "Förtida uttag kostar 2,5 % av uttaget belopp, minst 300 kr",
+     "quote": "Förtida uttag belastas med en uttagsavgift. Uttagsavgiften är 2,5% på uttaget belopp, dock minst 300 kronor.",
+     "source": 7,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.89
+      "confidence": 1.0
      }
     },
     "min_deposit_sek": {
@@ -968,34 +980,40 @@
      "source": null,
      "status": "okänt"
     },
+    "monthly_deposit_cap_sek": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
     "deposit_terms": {
-     "value": "Engångsinsättning vid öppnande, överförs från sparkontot.",
-     "quote": "Antal insättningar | 1 per konto",
-     "source": 2,
+     "value": "En insättning per konto, överförd från sparkonto",
+     "quote": "Insättning på ett Fasträntekonto sker genom att ett belopp överförs från Sparkonto. Endast en överföring är möjlig.",
+     "source": 7,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.48
+      "confidence": 0.98
      }
     },
     "eligibility": {
-     "value": "Kräver befintligt Sparkonto hos Svea, minst 18 år, svenskt personnummer, svensk bank.",
+     "value": "Har Sparkonto hos Svea, fyllt 18 år, svenskt personnummer, svensk bank",
      "quote": "Du som redan har ett sparkonto hos Svea",
      "source": 2,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.89
+      "confidence": 0.98
      }
     },
     "requires_other_products": {
      "value": true,
-     "quote": "Du behöver först öppna ett vanligt Sparkonto.",
+     "quote": "Du behöver först öppna ett vanligt Sparkonto. När du öppnat sparkontot och satt in pengar kan du sedan i inloggat läge på Mina sidor öppna ett Fasträntekonto.",
      "source": 2,
-     "status": "osäkert",
+     "status": "belagt",
      "jev": {
-      "verdict": "contradicts",
-      "confidence": 0.14
+      "verdict": "supports",
+      "confidence": 0.31
      }
     },
     "intro_rate": {
@@ -1006,28 +1024,28 @@
     },
     "interest_paid": {
      "value": "Vid bindningstidens slut",
-     "quote": "Vid bindningstidens slut betalas räntan ut till ditt kopplade Sparkonto tillsammans med resten av ditt sparande.",
-     "source": 4,
+     "quote": "Vid bindningstidens slut överförs ränta och kapital från fasträntekontot till det sparkonto i Svea Bank som är knutet till fasträntekontot.",
+     "source": 2,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 1.0
+      "confidence": 0.98
      }
     },
     "guarantee_country": {
      "value": "SE",
-     "quote": "Alla våra sparkonton omfattas av den statliga insättningsgarantin",
-     "source": 0,
-     "status": "osäkert",
+     "quote": "Fasträntekontot omfattas av den statliga insättningsgarantin efter beslut av Riksgälden.",
+     "source": 7,
+     "status": "belagt",
      "jev": {
-      "verdict": "says_nothing",
-      "confidence": 0.48
+      "verdict": "supports",
+      "confidence": 0.73
      }
     },
     "guarantee_amount": {
      "value": "1 150 000 kr",
      "quote": "Garantin täcker belopp upp till 1 150 000 kr per bank eller institut.",
-     "source": 3,
+     "source": 4,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
@@ -1046,7 +1064,7 @@
    "status": "verifierad"
   }
  ],
- "source_hash": "84fd95e38708ba1d",
- "changed_at": "2026-10-11T13:58:47+00:00",
- "model": "claude-sonnet-5-5"
+ "source_hash": "a5d58ccb985019ba",
+ "changed_at": "2026-10-19T00:43:22+00:00",
+ "model": "claude-haiku-5-5"
 }

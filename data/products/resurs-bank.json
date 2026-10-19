@@ -7,8 +7,8 @@
   "kind": "nischbank",
   "legal_name": "Resurs Bank Aktiebolag"
  },
- "checked_at": "2026-10-18T08:38:34+00:00",
- "discovered_at": "2026-10-11T14:01:37+00:00",
+ "checked_at": "2026-10-19T00:45:45+00:00",
+ "discovered_at": "2026-10-19T00:45:45+00:00",
  "sources": [
   {
    "url": "https://www.resursbank.se/sparkonto",
@@ -18,11 +18,11 @@
    "chars": 12104
   },
   {
-   "url": "https://deposit.resursbank.se/",
-   "title": "Sparkonton med ränta från första kronan – Resurs",
+   "url": "https://www.resursbank.se/sparkonto/sparranta",
+   "title": "Sparränta från första kronan hos Resurs",
    "kind": "html",
-   "via": "browser",
-   "chars": 278
+   "via": "http",
+   "chars": 2123
   },
   {
    "url": "https://www.resursbank.se/sparkonto/fastrantekonto",
@@ -37,6 +37,13 @@
    "kind": "html",
    "via": "http",
    "chars": 1844
+  },
+  {
+   "url": "https://www.resursbank.se/sparkonto/insattningsgarantin",
+   "title": "Insättningsgaranti – den statliga insättningsgarantin - Resurs",
+   "kind": "html",
+   "via": "http",
+   "chars": 2624
   },
   {
    "url": "https://www.resursbank.se/sparkonto/sparkonto-flex",
@@ -58,17 +65,10 @@
    "kind": "html",
    "via": "http",
    "chars": 5109
-  },
-  {
-   "url": "https://www.resursbank.se/sparkonto/insattningsgarantin",
-   "title": "Insättningsgaranti – den statliga insättningsgarantin - Resurs",
-   "kind": "html",
-   "via": "http",
-   "chars": 2624
   }
  ],
- "status": "senaste tolkning misslyckades (gränsen redan nådd i den här körningen)",
- "notes": "Bindningstiden för fasträntekontot (2026-09-01 till 2027-11-05) är cirka 14 månader, beräknad från start- och slutdatum. Spara till barn och Spara tillsammans nämns, men inga räntor eller villkor finns i källorna, så de är uteslutna. Ränteutbetalning för Flex och Trygg anges inte konkret. Uppdateringsdatum för räntorna saknas för Flex och Trygg.",
+ "status": "ok",
+ "notes": "Källorna visar bara tre huvudprodukter med ränta (Flex, Trygg, Fasträntekonto 2027-11-05). Sparkonto Max omnämns endast på sidan Sparränta (2,15 %) utan egen produktsida, så övriga fält är null. Fasträntekonto anges med slutdatum (2027-11-05) men bindningstiden i månader står inte i källorna. Räntan visas enligt källorna för Trygg bara upp till 100 000 kr (0 % över). Sparkonto Flex saknar angivet tak för insättning. Konton som bara nämns som länkar utan räntevärden (ResursSpar, KapitalPlus, Sparkonto, Repokonto, Spara till barn, Spara tillsammans) har inte tagits med. Fasträntekonto 2027-11-05: 'rate_valid_from' 2026-09-01 avser angiven startdag i tabellen. Villkor för behörighet (ålder, folkbokföring) saknas i källorna.",
  "products": [
   {
    "name": "Sparkonto Flex",
@@ -76,18 +76,18 @@
    "fields": {
     "product_type": {
      "value": "rörligt sparkonto",
-     "quote": "Rörlig ränta",
-     "source": 0,
+     "quote": "Sparränta\n2,35 %\n\nSparkonto Flex",
+     "source": 5,
      "status": "osäkert",
      "jev": {
-      "verdict": "contradicts",
-      "confidence": 0.31
+      "verdict": "says_nothing",
+      "confidence": 0.41
      }
     },
     "rate_percent": {
      "value": 2.35,
      "quote": "Sparkonto Flex ger dig 2,35 % i sparränta och obegränsat med avgiftsfria uttag.",
-     "source": 4,
+     "source": 5,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
@@ -116,12 +116,12 @@
     },
     "withdrawals": {
      "value": "fria",
-     "quote": "Obegränsat med fria uttag",
-     "source": 0,
+     "quote": "Obegränsat med avgiftsfria uttag",
+     "source": 5,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.98
+      "confidence": 0.79
      }
     },
     "free_withdrawals_per_year": {
@@ -131,19 +131,19 @@
      "status": "okänt"
     },
     "withdrawal_terms": {
-     "value": "Obegränsade avgiftsfria uttag via onlinebank/app med BankID eller telefon.",
-     "quote": "För att göra ett uttag från Sparkonto Flex kan du logga in på onlinebanken eller i appen och identifiera dig med BankID, eller ringa oss på 0771‑10 11 12.",
-     "source": 4,
+     "value": "Obegränsat med avgiftsfria uttag; uttag via onlinebank/app med BankID eller telefon.",
+     "quote": "Obegränsat med avgiftsfria uttag",
+     "source": 5,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.98
+      "confidence": 0.77
      }
     },
     "min_deposit_sek": {
      "value": null,
      "quote": "Obegränsade uttag och ingen minsta insättning.",
-     "source": 4,
+     "source": 5,
      "status": "talet finns inte i citatet",
      "claimed": 0
     },
@@ -153,10 +153,16 @@
      "source": null,
      "status": "okänt"
     },
+    "monthly_deposit_cap_sek": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
     "deposit_terms": {
-     "value": "Insättning via direktöverföring eller autogiro; månadssparande möjligt.",
-     "quote": "-Direktöverföring; överföring till ditt konto hos Resurs via annan bank eller internetbank.",
-     "source": 0,
+     "value": "Insättning via direktöverföring eller autogiro för månadssparande.",
+     "quote": "Autogiro; sätt enkelt upp månadssparande genom att aktivera autogiro via appen eller onlinebanken",
+     "source": 5,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
@@ -164,13 +170,13 @@
      }
     },
     "eligibility": {
-     "value": "Ansökan digitalt med BankID.",
+     "value": "Öppnas digitalt med BankID",
      "quote": "Ansök digitalt med BankID",
      "source": 0,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.27
+      "confidence": 0.83
      }
     },
     "requires_other_products": {
@@ -192,23 +198,20 @@
      "status": "okänt"
     },
     "guarantee_country": {
-     "value": "SE",
-     "quote": "Alla våra sparkonton omfattas av den statliga insättningsgarantin",
+     "value": null,
+     "quote": "Alla våra sparkonton omfattas av den statliga insättningsgarantinen",
      "source": 0,
-     "status": "osäkert",
-     "jev": {
-      "verdict": "says_nothing",
-      "confidence": 0.41
-     }
+     "status": "citat hittades inte",
+     "claimed": "SE"
     },
     "guarantee_amount": {
      "value": "1 150 000 kr",
-     "quote": "Insättningsgaranti upp till 1 150 000 kr",
-     "source": 0,
+     "quote": "Det betyder att du som kund har rätt till ersättning upp till 1 150 000 kr för ditt sammanlagda kapital hos oss.",
+     "source": 4,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.98
+      "confidence": 1.0
      }
     },
     "rate_valid_from": {
@@ -227,19 +230,16 @@
    "flags": [],
    "fields": {
     "product_type": {
-     "value": "sparkonto med uttagsbegränsning",
-     "quote": "3 avgiftsfria uttag per år",
-     "source": 5,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.23
-     }
+     "value": null,
+     "quote": "Sparränta\n2,55 %\n\nSparkonto Trygg",
+     "source": 6,
+     "status": "citat hittades inte",
+     "claimed": "rörligt sparkonto"
     },
     "rate_percent": {
      "value": 2.55,
-     "quote": "*Räntan är 2,55 % på insättningar upp till 100 000 kr. På belopp över 100 000 kr är räntan 0,00 %.",
-     "source": 5,
+     "quote": "Räntan är 2,55 % på insättningar upp till 100 000 kr.",
+     "source": 6,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
@@ -249,7 +249,7 @@
     "rate_type": {
      "value": "rörlig",
      "quote": "Få vår högsta rörliga ränta – 2,55 % på ditt sparande upp till 100 000 kr.",
-     "source": 5,
+     "source": 6,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
@@ -259,7 +259,7 @@
     "binding_months": {
      "value": 0,
      "quote": "| Bindningstid | Ingen |",
-     "source": 5,
+     "source": 6,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
@@ -269,7 +269,7 @@
     "withdrawals": {
      "value": "begränsade",
      "quote": "3 avgiftsfria uttag per år",
-     "source": 5,
+     "source": 6,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
@@ -279,7 +279,7 @@
     "free_withdrawals_per_year": {
      "value": 3,
      "quote": "| Antal fria uttag per år | 3 fria uttag per år |",
-     "source": 5,
+     "source": 6,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
@@ -287,9 +287,9 @@
      }
     },
     "withdrawal_terms": {
-     "value": "3 avgiftsfria uttag per år; uttag via onlinebank med BankID eller telefon; utbetalningskonto måste vara anmält.",
-     "quote": "För att kunna göra uttag från ditt sparkonto behöver du ha anmält ett utbetalningskonto.",
-     "source": 5,
+     "value": "3 avgiftsfria uttag per år",
+     "quote": "3 avgiftsfria uttag per år",
+     "source": 6,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
@@ -299,7 +299,7 @@
     "min_deposit_sek": {
      "value": 0,
      "quote": "| Lägsta tillgodohavande | 0 kr |",
-     "source": 5,
+     "source": 6,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
@@ -309,31 +309,33 @@
     "max_deposit_sek": {
      "value": 100000,
      "quote": "| Högsta tillgodohavande per person och konto | 100 000 kronor/person och konto |",
-     "source": 5,
+     "source": 6,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
       "confidence": 0.94
      }
     },
+    "monthly_deposit_cap_sek": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
     "deposit_terms": {
-     "value": "Insättning via direktöverföring eller autogiro; högst 100 000 kr per person och konto.",
-     "quote": "-Direktöverföring; överföring till ditt konto hos Resurs via annan bank eller internetbank.",
-     "source": 0,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.61
-     }
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
     },
     "eligibility": {
-     "value": "Ansökan digitalt med BankID.",
+     "value": "Öppnas digitalt med BankID",
      "quote": "Ansök digitalt med BankID",
      "source": 0,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.46
+      "confidence": 0.67
      }
     },
     "requires_other_products": {
@@ -356,23 +358,19 @@
     },
     "guarantee_country": {
      "value": null,
-     "quote": "Våra sparkonton omfattas av den statliga insättningsgarantin enligt beslut av Riksgälden.",
+     "quote": "Alla våra sparkonton omfattas av den statliga insättningsgarantinen",
      "source": 0,
-     "status": "stöds inte av källan",
-     "jev": {
-      "verdict": "says_nothing",
-      "confidence": 0.82
-     },
+     "status": "citat hittades inte",
      "claimed": "SE"
     },
     "guarantee_amount": {
      "value": "1 150 000 kr",
-     "quote": "ersättning upp till 1 150 000 kr för ditt sammanlagda kapital hos oss",
-     "source": 0,
+     "quote": "Det betyder att du som kund har rätt till ersättning upp till 1 150 000 kr för ditt sammanlagda kapital hos oss.",
+     "source": 6,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.97
+      "confidence": 1.0
      }
     },
     "rate_valid_from": {
@@ -387,8 +385,8 @@
      "min_sek": 0,
      "max_sek": 100000,
      "rate_percent": 2.55,
-     "quote": "*Räntan är 2,55 % på insättningar upp till 100 000 kr. På belopp över 100 000 kr är räntan 0,00 %.",
-     "source": 5,
+     "quote": "Räntan är 2,55 % på insättningar upp till 100 000 kr.",
+     "source": 6,
      "status": "belagt"
     },
     {
@@ -396,7 +394,7 @@
      "max_sek": null,
      "rate_percent": 0,
      "quote": "På belopp över 100 000 kr är räntan 0,00 %.",
-     "source": 5,
+     "source": 6,
      "status": "belagt"
     }
    ],
@@ -429,31 +427,29 @@
     },
     "rate_type": {
      "value": "fast",
-     "quote": "2,82 % i fast ränta under bindningstiden",
-     "source": 2,
+     "quote": "Fast ränta",
+     "source": 0,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 1.0
+      "confidence": 0.13
      }
     },
     "binding_months": {
      "value": null,
-     "quote": "| Start | 2026-09-01 |\n\n| Slut | 2027-11-05 |",
-     "source": 2,
-     "status": "talet finns inte i citatet",
-     "claimed": 14
+     "quote": null,
+     "source": null,
+     "status": "okänt"
     },
     "withdrawals": {
-     "value": null,
-     "quote": "Nej, du kan inte göra fler insättningar under bindningstiden.",
+     "value": "mot avgift",
+     "quote": "Ja, du kan ta ut pengar innan bindningstiden löpt ut mot en viss avgift.",
      "source": 2,
-     "status": "motsägs av källan",
+     "status": "belagt",
      "jev": {
-      "verdict": "contradicts",
-      "confidence": 0.98
-     },
-     "claimed": "ej tillåtna"
+      "verdict": "supports",
+      "confidence": 0.82
+     }
     },
     "free_withdrawals_per_year": {
      "value": null,
@@ -462,8 +458,8 @@
      "status": "okänt"
     },
     "withdrawal_terms": {
-     "value": "Uttag före förfallodagen är möjligt mot avgift enligt kontoinformationen.",
-     "quote": "Ja, du kan ta ut pengar innan bindningstiden löpt ut mot en viss avgift.",
+     "value": "Uttag före bindningstidens slut möjligt mot avgift enligt kontoinformationen.",
+     "quote": "Ja, du kan ta ut pengar innan bindningstiden löpt ut mot en viss avgift. Aktuell avgift beskrivs i kontoinformationen.",
      "source": 2,
      "status": "belagt",
      "jev": {
@@ -473,7 +469,7 @@
     },
     "min_deposit_sek": {
      "value": 10000,
-     "quote": "| Lägsta tillgodohavande | 10 000 kronor |",
+     "quote": "Minsta belopp: 10 000 kr",
      "source": 2,
      "status": "belagt",
      "jev": {
@@ -491,25 +487,27 @@
       "confidence": 1.0
      }
     },
+    "monthly_deposit_cap_sek": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
     "deposit_terms": {
-     "value": "Engångsinsättning; inga fler insättningar under bindningstiden; sista insättningsdag 2026-11-20.",
-     "quote": "| Sista insättningsdag | 2026-11-20 |",
+     "value": "Ingen påfyllning under bindningstiden; engångsinsättning.",
+     "quote": "Nej, du kan inte göra fler insättningar under bindningstiden.",
      "source": 2,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.55
+      "confidence": 0.95
      }
     },
     "eligibility": {
-     "value": "Ansökan digitalt med BankID.",
-     "quote": "Ansök digitalt med BankID",
-     "source": 0,
-     "status": "osäkert",
-     "jev": {
-      "verdict": "says_nothing",
-      "confidence": 0.56
-     }
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
     },
     "requires_other_products": {
      "value": null,
@@ -524,7 +522,7 @@
      "status": "okänt"
     },
     "interest_paid": {
-     "value": "Årligen den sista december samt slutränta vid förfallodagen.",
+     "value": "Årligen (31 december) och slutränta vid förfallodag",
      "quote": "Ränta gottgörs kontot årligen för ett och samma kalenderår och överförs till kontot den sista december detta år samt slutränta vid placeringens förfallodag.",
      "source": 2,
      "status": "belagt",
@@ -535,17 +533,17 @@
     },
     "guarantee_country": {
      "value": "SE",
-     "quote": "Våra sparkonton omfattas av den statliga insättningsgarantin enligt beslut av Riksgälden.",
-     "source": 0,
+     "quote": "Fasträntekontot omfattas av insättningsgarantin",
+     "source": 2,
      "status": "osäkert",
      "jev": {
       "verdict": "says_nothing",
-      "confidence": 0.49
+      "confidence": 0.48
      }
     },
     "guarantee_amount": {
      "value": "1 150 000 kr",
-     "quote": "med ett belopp som motsvarar högst 1 150 000 kronor",
+     "quote": "varje kund har rätt till ersättning för sin sammanlagda kontobehållning i banken med ett belopp som motsvarar högst 1 150 000 kronor.",
      "source": 2,
      "status": "belagt",
      "jev": {
@@ -567,9 +565,142 @@
    "rate_tiers": [],
    "pending_rate": null,
    "status": "delvis verifierad"
+  },
+  {
+   "name": "Sparkonto Max",
+   "flags": [],
+   "fields": {
+    "product_type": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "rate_percent": {
+     "value": 2.15,
+     "quote": "Med Sparkonto Max erbjuder vi ett av marknadens bästa sparkonton, med 2,15 % i sparränta.",
+     "source": 1,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.92
+     }
+    },
+    "rate_type": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "binding_months": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "withdrawals": {
+     "value": "fria",
+     "quote": "med ett sparkonto från Resurs har du dessutom obegränsat antal uttag",
+     "source": 1,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.95
+     }
+    },
+    "free_withdrawals_per_year": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "withdrawal_terms": {
+     "value": "Obegränsat antal uttag enligt sidan för sparränta.",
+     "quote": "med ett sparkonto från Resurs har du dessutom obegränsat antal uttag",
+     "source": 1,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.95
+     }
+    },
+    "min_deposit_sek": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "max_deposit_sek": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "monthly_deposit_cap_sek": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "deposit_terms": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "eligibility": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "requires_other_products": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "intro_rate": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "interest_paid": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "guarantee_country": {
+     "value": "SE",
+     "quote": "alla våra konton omfattas av den statliga insättningsgarantin",
+     "source": 1,
+     "status": "osäkert",
+     "jev": {
+      "verdict": "says_nothing",
+      "confidence": 0.56
+     }
+    },
+    "guarantee_amount": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "rate_valid_from": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    }
+   },
+   "rate_tiers": [],
+   "pending_rate": null,
+   "status": "delvis verifierad"
   }
  ],
- "source_hash": "5ff78daf035df802",
- "changed_at": "2026-10-11T14:01:37+00:00",
- "model": "claude-sonnet-5-5"
+ "source_hash": "c05a2986f4d8da7c",
+ "changed_at": "2026-10-19T00:45:45+00:00",
+ "model": "claude-haiku-5-5"
 }
