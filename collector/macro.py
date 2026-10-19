@@ -108,7 +108,10 @@ SOURCES = {
 
 
 def get(url: str, **kw) -> httpx.Response:
-    """GET med väntan vid 429/5xx (Riksbanken begränsar hårt utan nyckel)."""
+    """GET med väntan vid 429/5xx (Riksbanken begränsar hårt utan nyckel). Följer robots.txt."""
+    from .fetch import allowed
+    if not allowed(url):
+        raise PermissionError(f"robots.txt tillåter inte {url}")
     for attempt in range(8):
         r = httpx.get(url, headers=UA, timeout=60, follow_redirects=True, **kw)
         if r.status_code == 429 or r.status_code >= 500:
