@@ -147,6 +147,10 @@ jobs:
           python -m collector.resolve --segment broker_fx --limit 5
           python -m collector.run --segment broker_fx --workers 4
 
+      - name: Växlingskontorens kurser
+        if: ${{ !inputs.bank }}
+        run: python -m collector.cash
+
       - name: Pension – slå upp nya bolag
         if: ${{ !inputs.bank }}
         run: python -m collector.resolve --segment pension --limit 10

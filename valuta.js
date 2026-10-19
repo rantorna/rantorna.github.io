@@ -23,7 +23,8 @@ function renderCards() {
   const cash = +$("#c-cash").value / 100, n = +$("#c-wd").value;
   $("#c-unit").textContent = cur;
   const base = amount * sekPer(cur);
-  $("#c-ref").innerHTML = `${kr0.format(amount)} ${cur} är <b>${kr0.format(Math.round(base))} kr</b> till ECB:s referenskurs (${rateTxt(cur)}, ${day(X.date)}). Det är priset utan något påslag.`;
+  $("#c-ref").innerHTML = `${kr0.format(amount)} ${cur} är <b>${kr0.format(Math.round(base))} kr</b> till ECB:s referenskurs (${rateTxt(cur)}, ${day(X.date)}). Det är priset utan något påslag.`
+    + cashLine(cur, amount, base, cash);
   const rows = X.cards.map((c) => {
     if (c.fx == null) return { ...c, total: null };
     let total = base * (1 + c.fx / 100), unknownAtm = false;
@@ -42,6 +43,15 @@ function renderCards() {
       <td class="num">${c.fx == null ? '<span class="muted small">okänt</span>' : num(c.fx) + " %"}</td>
       <td class="num small">${atmTxt(c)}</td></tr>`).join("");
   $("#c-note").textContent = `${rows.length} kort. Totalt = referenskursen plus kortets valutapåslag${cash ? `, och uttagsavgiften för ${n} uttag (procent eller lägsta avgift, det som blir högst)` : ""}. "minst" = uttagsavgiften är okänd. Visa och Mastercard använder sina egna dagskurser, som kan avvika något från ECB:s. Årsavgifter ingår inte – se Lån & kort för kortens totala kostnad.`;
+}
+
+/** Jämförelse med att köpa kontanter hos ett växlingskontor före resan. */
+function cashLine(cur, amount, base, cash) {
+  const o = (X.cash || []).find((c) => c.sell && c.sell[cur]);
+  if (!o) return "";
+  const part = cash > 0 ? cash : 1, units = amount * part, cost = units * o.sell[cur], ref = base * part;
+  const when = new Date(o.fetched_at).toLocaleDateString("sv-SE", { day: "numeric", month: "long" });
+  return `<br>Köper du ${cash > 0 ? `kontantdelen, ${kr0.format(units)} ${cur},` : `${kr0.format(units)} ${cur}`} i kontanter hos ${esc(o.name)} kostar det <b>${kr0.format(Math.round(cost))} kr</b> – ${num((o.sell[cur] / sekPer(cur) - 1) * 100, 1)} % över referenskursen, eller ${kr0.format(Math.round(cost - ref))} kr extra <span class="muted small">(kurs ${when})</span>.`;
 }
 
 /* ---------- Betala i SEK? ---------- */

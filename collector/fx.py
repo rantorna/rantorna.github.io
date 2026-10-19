@@ -135,6 +135,8 @@ def main():
         "history": {cur: [[d, round(v, 4)] for d, v in thin(rates[cur], 5)] for cur in HISTORY},
         "rates": rate_context(),
         "cards": cards(),
+        # växlingskontorens säljkurser för kontanter (hämtas i nattjobbet av collector.cash)
+        "cash": json.loads((DATA / "cash.json").read_text()).get("offices", []) if (DATA / "cash.json").exists() else [],
         "source_url": "https://data.ecb.europa.eu/main-figures/ecb-interest-rates-and-exchange-rates/exchange-rates",
     }
     try:
