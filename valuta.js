@@ -20,22 +20,28 @@ function currencyOptions(sel, def = "EUR") {
 
 function renderCards() {
   const cur = $("#c-cur").value, amount = parse($("#c-amount").value) || 1000;
+  const cash = +$("#c-cash").value / 100, n = +$("#c-wd").value;
   $("#c-unit").textContent = cur;
   const base = amount * sekPer(cur);
   $("#c-ref").innerHTML = `${kr0.format(amount)} ${cur} är <b>${kr0.format(Math.round(base))} kr</b> till ECB:s referenskurs (${rateTxt(cur)}, ${day(X.date)}). Det är priset utan något påslag.`;
   const rows = X.cards.map((c) => {
-    const pay = c.fx == null ? null : base * (1 + c.fx / 100);
-    const atm = pay == null || (c.atm_pct == null && c.atm_min == null) ? null
-      : pay + Math.max(c.atm_min || 0, base * (c.atm_pct || 0) / 100);
-    return { ...c, pay, atm };
-  }).sort((a, b) => (a.pay == null) - (b.pay == null) || a.pay - b.pay || a.issuer.localeCompare(b.issuer, "sv"));
+    if (c.fx == null) return { ...c, total: null };
+    let total = base * (1 + c.fx / 100), unknownAtm = false;
+    if (cash > 0) {
+      if (c.atm_pct == null && c.atm_min == null) unknownAtm = true;
+      else total += n * Math.max(c.atm_min || 0, base * cash / n * (c.atm_pct || 0) / 100);
+    }
+    return { ...c, total, unknownAtm };
+  }).sort((a, b) => (a.total == null) - (b.total == null) || a.unknownAtm - b.unknownAtm || a.total - b.total || a.issuer.localeCompare(b.issuer, "sv"));
   const muted = '<span class="muted">–</span>';
+  const atmTxt = (c) => c.atm_pct == null && c.atm_min == null ? '<span class="muted small">okänd</span>'
+    : [c.atm_pct != null ? num(c.atm_pct) + " %" : null, c.atm_min ? `minst ${kr0.format(c.atm_min)} kr` : null].filter(Boolean).join("<br>");
   $("#fxcards tbody").innerHTML = rows.map((c) => `<tr>
       <th scope="row">${esc(c.issuer)}${c.also ? ` <span class="muted small">och ${c.also} till</span>` : ""}${c.verified ? "" : ' <span class="tag part" title="inte helt verifierat">?</span>'}<br><span class="muted">${esc(c.card)}</span></th>
-      <td class="num">${c.pay == null ? muted : `<b>${kr0.format(Math.round(c.pay))} kr</b><br><span class="muted small">+${kr0.format(Math.round(c.pay - base))} kr</span>`}</td>
-      <td class="num">${c.atm == null ? muted : `${kr0.format(Math.round(c.atm))} kr<br><span class="muted small">+${kr0.format(Math.round(c.atm - base))} kr</span>`}</td>
-      <td class="num">${c.fx == null ? '<span class="muted small">okänt</span>' : num(c.fx) + " %"}</td></tr>`).join("");
-  $("#c-note").textContent = `${rows.length} kort. "Betala med kortet" = referenskursen plus kortets valutapåslag. "Ta ut kontanter" lägger till uttagsavgiften (procent eller lägsta avgift, det som blir högst). Visa och Mastercard använder sina egna dagskurser, som kan avvika något från ECB:s. Årsavgifter ingår inte – se Lån & kort för kortens totala kostnad.`;
+      <td class="num">${c.total == null ? muted : `<b>${c.unknownAtm ? "minst " : ""}${kr0.format(Math.round(c.total))} kr</b><br><span class="muted small">+${kr0.format(Math.round(c.total - base))} kr</span>`}</td>
+      <td class="num">${c.fx == null ? '<span class="muted small">okänt</span>' : num(c.fx) + " %"}</td>
+      <td class="num small">${atmTxt(c)}</td></tr>`).join("");
+  $("#c-note").textContent = `${rows.length} kort. Totalt = referenskursen plus kortets valutapåslag${cash ? `, och uttagsavgiften för ${n} uttag (procent eller lägsta avgift, det som blir högst)` : ""}. "minst" = uttagsavgiften är okänd. Visa och Mastercard använder sina egna dagskurser, som kan avvika något från ECB:s. Årsavgifter ingår inte – se Lån & kort för kortens totala kostnad.`;
 }
 
 /* ---------- Betala i SEK? ---------- */
@@ -66,6 +72,118 @@ function renderDcc() {
 function medianFx() {
   const v = X.cards.map((c) => c.fx).filter((x) => x != null).sort((a, b) => a - b);
   return v.length ? v[Math.floor(v.length / 2)] : 1.65;
+}
+
+/* ---------- Skicka pengar ---------- */
+
+let T = null;
+const tval = (p, k) => (p.fields[k] || {}).value ?? null;
+
+function loadTransfers() {
+  if (T) return Promise.resolve();
+  return fetch("data/transfers.json", { cache: "no-cache" }).then((r) => r.ok ? r.json() : { banks: [] })
+    .catch(() => ({ banks: [] })).then((d) => { T = d; });
+}
+
+function sendCost(p, amount) {
+  const fixed = tval(p, "fee_fixed_sek"), pctFee = tval(p, "fee_percent"), min = tval(p, "fee_min_sek");
+  const mid = tval(p, "uses_mid_rate") === true;
+  const markup = mid ? 0 : tval(p, "fx_markup_percent");
+  if (fixed == null && pctFee == null) return null;
+  const fee = (fixed || 0) + Math.max(min || 0, amount * (pctFee || 0) / 100);
+  return { fee, markup, total: fee + amount * (markup || 0) / 100, floor: markup == null };
+}
+
+function renderSend() {
+  if (!T) { loadTransfers().then(renderSend); return; }
+  const amount = parse($("#s-amount").value) || 10000, sepa = $("#s-type").value === "sepa";
+  const items = [], withData = new Set();
+  for (const b of T.banks) for (const p of b.products || []) {
+    const t = tval(p, "payment_type");
+    if (t === (sepa ? "utlandsbetalning" : "SEPA-betalning")) continue;
+    if (/urgent|express|brådskande/i.test(p.name)) continue;   // tilläggstjänst för snabbhet
+    const c = sendCost(p, amount);
+    if (!c) continue;
+    withData.add(b.bank.id);
+    items.push({ b, p, c });
+  }
+  items.sort((x, y) => x.c.floor - y.c.floor || x.c.total - y.c.total || x.b.bank.name.localeCompare(y.b.bank.name, "sv"));
+  // Sparbankerna har Swedbanks priser – visa dem som en rad.
+  const sb = items.filter((i) => /sparbank|swedbank/i.test(i.b.bank.name));
+  const groups = new Map();
+  for (const i of sb) {
+    const k = [tval(i.p, "payment_type"), tval(i.p, "fee_fixed_sek"), tval(i.p, "fee_percent"), tval(i.p, "fx_markup_percent")].join("|");
+    if (groups.has(k)) { groups.get(k).also.push(i.b.bank.name); i.drop = true; }
+    else { i.also = []; groups.set(k, i); }
+  }
+  for (const g of groups.values()) if (g.also.length && !/swedbank/i.test(g.b.bank.name)) {
+    const sw = sb.find((i) => /swedbank/i.test(i.b.bank.name) && groups.get([tval(i.p, "payment_type"), tval(i.p, "fee_fixed_sek"), tval(i.p, "fee_percent"), tval(i.p, "fx_markup_percent")].join("|")) === g);
+    if (sw) { g.also.push(g.b.bank.name); g.also = g.also.filter((n) => n !== sw.b.bank.name); Object.assign(g, { b: sw.b, p: sw.p }); }
+  }
+  for (let i = items.length - 1; i >= 0; i--) if (items[i].drop) items.splice(i, 1);
+  const muted = '<span class="muted">–</span>';
+  $("#transfers tbody").innerHTML = items.map(({ b, p, c }) => {
+    const fixed = tval(p, "fee_fixed_sek"), pctFee = tval(p, "fee_percent"), min = tval(p, "fee_min_sek");
+    const feeTxt = [fixed != null ? `${kr0.format(fixed)} kr` : null, pctFee != null ? `${num(pctFee)} %${min ? ` (minst ${kr0.format(min)} kr)` : ""}` : null].filter(Boolean).join(" + ");
+    const mk = tval(p, "uses_mid_rate") === true ? "0 % (mittkurs)" : c.markup != null ? num(c.markup) + " %" : '<span class="muted small">anges inte</span>';
+    const status = p.status !== "verifierad" ? ' <span class="tag part" title="inte helt verifierat">?</span>' : "";
+    const also = items.find((i) => i.p === p)?.also || [];
+    const name = esc(b.bank.name) + (also.length ? ` <span class="muted small" title="${esc(also.join(", "))}">och ${also.length} sparbanker</span>` : "");
+    return `<tr><th scope="row">${name}${status}<br><span class="muted">${esc(p.name)}</span></th>
+      <td class="num"><b>${kr0.format(Math.round(c.total))} kr</b>${c.floor ? '<br><span class="muted small">+ bankens växlingspåslag</span>' : ""}</td>
+      <td>${esc(feeTxt) || muted}</td><td class="num">${mk}</td>
+      <td class="small">${tval(p, "delivery_time") ? esc(tval(p, "delivery_time")) : muted}</td></tr>`;
+  }).join("");
+  $("#s-note").textContent = `${items.length} betalningssätt. Kostnaden är avgiften plus växlingspåslaget på ${kr0.format(amount)} kr. "+ bankens växlingspåslag" = banken anger inte hur mycket sämre än marknadskursen dess växelkurs är, så den verkliga kostnaden är högre – fråga efter kursen innan du skickar. Har du redan euro på ett eurokonto slipper du växlingen helt. Mottagarbankens avgifter kan tillkomma.`;
+  const miss = T.banks.filter((b) => !withData.has(b.bank.id) && !(b.products || []).some((p) => sendCost(p, amount)));
+  const el = $("#s-missing");
+  el.hidden = !miss.length;
+  el.querySelector("summary").textContent = `${miss.length} kunde inte läsas automatiskt`;
+  el.querySelector("ul").innerHTML = miss.map((b) => `<li><a href="${b.bank.homepage}" rel="noopener nofollow" target="_blank">${esc(b.bank.name)}</a></li>`).join("");
+}
+
+/* ---------- Utländska aktier ---------- */
+
+let B = null;
+
+function renderStocks() {
+  if (!B) {
+    fetch("data/broker_fx.json", { cache: "no-cache" }).then((r) => r.ok ? r.json() : { banks: [] })
+      .catch(() => ({ banks: [] })).then((d) => { B = d; renderStocks(); });
+    return;
+  }
+  const amount = parse($("#b-amount").value) || 10000, rows = [], have = new Set();
+  for (const b of B.banks) for (const p of b.products || []) {
+    const fee = tval(p, "fx_fee_percent");
+    if (fee == null) continue;
+    have.add(b.bank.id);
+    rows.push({ b, p, fee });
+  }
+  rows.sort((x, y) => x.fee - y.fee || x.b.bank.name.length - y.b.bank.name.length);
+  // Samma erbjudande under två varumärken (samma citat ur samma prislista) visas en gång.
+  const seen = new Set();
+  for (let i = 0; i < rows.length; i++) {
+    const k = [rows[i].fee, tval(rows[i].p, "us_courtage_percent"), tval(rows[i].p, "us_courtage_min_sek"), rows[i].p.fields.fx_fee_percent.quote].join("|");
+    if (seen.has(k)) rows.splice(i--, 1); else seen.add(k);
+  }
+  const yn = (v) => v === true ? '<span class="yn yes">✓ Ja</span>' : v === false ? '<span class="yn no">Nej</span>' : '<span class="yn unk">? Okänt</span>';
+  const muted = '<span class="muted">–</span>';
+  $("#brokers tbody").innerHTML = rows.map(({ b, p, fee }) => {
+    const cmin = tval(p, "us_courtage_min_sek"), cpct = tval(p, "us_courtage_percent");
+    const court = cmin == null && cpct == null ? muted : [cpct != null ? num(cpct) + " %" : null, cmin != null ? `minst ${kr0.format(cmin)} kr` : null].filter(Boolean).join("<br>");
+    const terms = tval(p, "fx_fee_terms");
+    const status = p.status !== "verifierad" ? ' <span class="tag part" title="inte helt verifierat">?</span>' : "";
+    return `<tr><th scope="row">${esc(b.bank.name)}${status}<br><span class="muted">${esc(p.name)}</span></th>
+      <td class="num"><b>${num(fee)} %</b></td>
+      <td class="num">${kr0.format(Math.round(2 * amount * fee / 100))} kr${terms ? `<br><span class="muted small" title="${esc(terms)}">villkor</span>` : ""}</td>
+      <td>${yn(tval(p, "currency_account"))}</td><td class="num small">${court}</td></tr>`;
+  }).join("");
+  $("#b-note").textContent = `${rows.length} erbjudanden. "Köp och sälj" = växlingsavgiften när du köper för ${kr0.format(amount)} kr och sedan säljer och växlar tillbaka. Med ett valutakonto kan du låta pengarna ligga kvar i dollar eller euro mellan affärerna och växla mer sällan. Courtaget är den billigaste klassen för små affärer.`;
+  const miss = B.banks.filter((b) => !have.has(b.bank.id));
+  const el = $("#b-missing");
+  el.hidden = !miss.length;
+  el.querySelector("summary").textContent = `${miss.length} kunde inte läsas automatiskt`;
+  el.querySelector("ul").innerHTML = miss.map((b) => `<li><a href="${b.bank.homepage}" rel="noopener nofollow" target="_blank">${esc(b.bank.name)}</a></li>`).join("");
 }
 
 /* ---------- Kronan ---------- */
@@ -131,9 +249,11 @@ function renderExplain() {
 
 function showView() {
   const v = document.querySelector('input[name="view"]:checked').value;
-  for (const k of ["card", "dcc", "krona"]) $("#v-" + k).hidden = v !== k;
+  for (const k of ["card", "dcc", "send", "stocks", "krona"]) $("#v-" + k).hidden = v !== k;
   history.replaceState(null, "", v === "card" ? location.pathname : "#" + v);
   if (v === "krona") renderKrona();
+  if (v === "send") renderSend();
+  if (v === "stocks") renderStocks();
 }
 
 fetch("data/fx.json", { cache: "no-cache" }).then((r) => r.json()).then((d) => {
@@ -143,7 +263,7 @@ fetch("data/fx.json", { cache: "no-cache" }).then((r) => r.json()).then((d) => {
   $("#d-card").innerHTML = `<option value="">Vet inte / annat kort</option>` +
     X.cards.map((c, i) => c.fx == null ? "" : `<option value="${i}">${esc(c.issuer)} – ${esc(c.card)} (${num(c.fx)} %)</option>`).join("");
   const h = location.hash.slice(1);
-  if (["dcc", "krona"].includes(h)) document.querySelector(`input[name="view"][value="${h}"]`).checked = true;
+  if (["dcc", "send", "stocks", "krona"].includes(h)) document.querySelector(`input[name="view"][value="${h}"]`).checked = true;
   renderCards();
   renderDcc();
   showView();
@@ -154,7 +274,10 @@ fetch("data/fx.json", { cache: "no-cache" }).then((r) => r.json()).then((d) => {
   let t;
   const later = (fn) => () => { clearTimeout(t); t = setTimeout(fn, 200); };
   $("#c-amount").addEventListener("input", later(renderCards));
-  $("#c-cur").addEventListener("change", renderCards);
+  ["#c-cur", "#c-cash", "#c-wd"].forEach((id) => $(id).addEventListener("change", renderCards));
+  $("#s-amount").addEventListener("input", later(renderSend));
+  $("#s-type").addEventListener("change", renderSend);
+  $("#b-amount").addEventListener("input", later(renderStocks));
   ["#d-amount", "#d-sek"].forEach((s) => $(s).addEventListener("input", later(renderDcc)));
   ["#d-cur", "#d-card"].forEach((s) => $(s).addEventListener("change", renderDcc));
   addEventListener("resize", later(() => { if (!$("#v-krona").hidden) { renderKronaChart(); renderRateChart(); } }));

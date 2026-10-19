@@ -315,3 +315,48 @@ YOUTH_EXTRACTION = extraction_schema(
     "Kort om något viktigt saknas (t.ex. räntan visas bara efter inloggning).",
 )
 
+
+
+# ---------- Utlandsbetalningar: skicka pengar till ett konto utomlands ----------
+
+TRANSFER_FIELDS = [
+    ("provider_type", _enum("bank", "betaltjänst"), "bank = svensk eller utländsk bank; betaltjänst = Wise, Revolut, Western Union, Remitly och liknande."),
+    ("payment_type", _enum("SEPA-betalning", "utlandsbetalning", "överföring via betaltjänst"),
+     "SEPA-betalning = euro till konto inom EES; utlandsbetalning = övriga valutor/länder (ofta SWIFT); överföring via betaltjänst = betaltjänstens egen överföring."),
+    ("fee_fixed_sek", NUM, "Fast avgift per betalning i kronor för privatpersoner via internetbanken eller appen (0 om banken uttryckligen anger att den är kostnadsfri)."),
+    ("fee_percent", NUM, "Avgift i procent av beloppet, om sådan anges (t.ex. Wise: 'från 0,41 %')."),
+    ("fee_min_sek", NUM, "Lägsta avgift i kronor, om avgiften är procentuell med ett golv."),
+    ("fx_markup_percent", NUM, "Påslag i procent på växelkursen jämfört med mittkurs/referenskurs, bara om det uttryckligen anges (t.ex. 'valutapåslag 1,5 %'). 0 om tjänsten uttryckligen använder mittkursen utan påslag."),
+    ("uses_mid_rate", BOOL, "Anger tjänsten uttryckligen att den växlar till mittkurs/marknadskurs utan påslag?"),
+    ("express_fee_sek", NUM, "Avgift i kronor för expressbetalning, om den anges."),
+    ("max_amount_sek", NUM, "Högsta belopp per betalning i kronor via internetbanken/appen, om det anges."),
+    ("delivery_time", STR, "Kort: hur snabbt pengarna kommer fram (t.ex. 'nästa bankdag', '1–4 bankdagar', 'oftast direkt')."),
+    ("recipient_charges", STR, "Kort: vem betalar mottagarbankens och mellanliggande bankers avgifter (delade avgifter/SHA, avsändaren/OUR)."),
+    ("requirements", STR, "Kort: krav, t.ex. kund i banken, BankID, bara via kontor."),
+]
+
+TRANSFER_EXTRACTION = extraction_schema(
+    TRANSFER_FIELDS,
+    "Betalningens namn så som banken eller tjänsten skriver det (t.ex. 'Utlandsbetalning i euro inom EES', 'Utlandsbetalning, övriga', 'Wise-överföring').",
+    TIER, "Lämna tom.",
+    "Kort om något viktigt saknas (t.ex. växelkursens påslag anges inte, priser bara i prislista).",
+)
+
+
+# ---------- Valutaväxling i depån: vad det kostar att handla utländska värdepapper ----------
+
+BROKER_FX_FIELDS = [
+    ("fx_fee_percent", NUM, "Avgift eller påslag i procent för valutaväxling när privatpersoner köper eller säljer värdepapper i utländsk valuta (t.ex. 'valutaväxlingsavgift 0,25 %'). 0 om växlingen uttryckligen är avgiftsfri."),
+    ("fx_fee_terms", STR, "Kort (max 200 tecken): hur växlingen går till och vad avgiften gäller (t.ex. per affär, mot vilken kurs, rabatt vid större belopp)."),
+    ("currency_account", BOOL, "Kan kunden ha pengar i utländsk valuta på kontot (valutakonto i ISK/depå), så att man slipper växla vid varje affär?"),
+    ("us_courtage_min_sek", NUM, "Lägsta courtage i kronor per affär för amerikanska aktier i den billigaste courtageklassen för små affärer."),
+    ("us_courtage_percent", NUM, "Courtage i procent för amerikanska aktier i samma courtageklass."),
+    ("fund_fx_note", STR, "Kort: om och hur växling sker vid köp av fonder i utländsk valuta."),
+]
+
+BROKER_FX_EXTRACTION = extraction_schema(
+    BROKER_FX_FIELDS,
+    "Tjänstens namn (t.ex. 'Handel med utländska aktier', 'Aktie- och fondkonto', 'ISK').",
+    TIER, "Lämna tom.",
+    "Kort om något viktigt saknas (t.ex. växlingsavgiften står bara i prislistan, kräver inloggning).",
+)

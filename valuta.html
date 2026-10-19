@@ -38,14 +38,16 @@
   <div class="seg view-pick" role="tablist" aria-label="Välj vy">
     <label><input type="radio" name="view" value="card" checked><span>Kortet utomlands</span></label>
     <label><input type="radio" name="view" value="dcc"><span>Betala i SEK?</span></label>
+    <label><input type="radio" name="view" value="send"><span>Skicka pengar</span></label>
+    <label><input type="radio" name="view" value="stocks"><span>Utländska aktier</span></label>
     <label><input type="radio" name="view" value="krona"><span>Kronan</span></label>
   </div>
 
   <!-- Kortet utomlands -->
   <section id="v-card" class="panel">
     <div class="panel-head">
-      <h2>Vad kostar köpet med ditt kort?</h2>
-      <p class="sub">Kostnaden i kronor med varje korts valutapåslag, och vad det kostar att ta ut samma belopp i kontanter.</p>
+      <h2>Vad kostar resan med ditt kort?</h2>
+      <p class="sub">Ange vad du räknar med att spendera och hur mycket du tar ut i kontanter. Vi räknar ut kostnaden med varje korts valutapåslag och uttagsavgifter.</p>
     </div>
     <div class="filters-row fin-filters">
       <label class="amount sortby">Belopp
@@ -54,15 +56,21 @@
       <label class="amount sortby">Valuta
         <select id="c-cur"></select>
       </label>
+      <label class="amount sortby">Varav kontanter
+        <select id="c-cash"><option value="0" selected>Inget</option><option value="10">10 %</option><option value="25">25 %</option><option value="50">Hälften</option><option value="100">Allt</option></select>
+      </label>
+      <label class="amount sortby">Antal uttag
+        <select id="c-wd"><option>1</option><option selected>2</option><option>3</option><option>5</option><option>10</option></select>
+      </label>
     </div>
     <p class="fc-lead" id="c-ref"></p>
     <div class="table-scroll">
       <table class="mtg" id="fxcards">
         <thead><tr>
           <th scope="col">Kort</th>
-          <th scope="col" class="num">Betala med kortet</th>
-          <th scope="col" class="num">Ta ut kontanter</th>
+          <th scope="col" class="num">Totalt</th>
           <th scope="col" class="num">Valutapåslag</th>
+          <th scope="col" class="num">Uttagsavgift</th>
         </tr></thead>
         <tbody></tbody>
       </table>
@@ -92,6 +100,66 @@
     </div>
     <div id="d-result" class="dcc-result" aria-live="polite"></div>
     <p class="sub">Tumregel: välj alltid lokal valuta. Med ett vanligt kort betalar du då dagens kurs plus kortets valutapåslag – och påslaget är nästan alltid lägre än butikens.</p>
+  </section>
+
+  <!-- Skicka pengar -->
+  <section id="v-send" class="panel" hidden>
+    <div class="panel-head">
+      <h2>Skicka pengar till ett konto utomlands</h2>
+      <p class="sub">Avgifter och växling hos banker och betaltjänster. Banker anger sällan hur mycket sämre än marknadskursen deras växelkurs är – då visas påslaget som okänt, och kostnaden som det minsta du betalar.</p>
+    </div>
+    <div class="filters-row fin-filters">
+      <label class="amount sortby">Belopp
+        <span class="input-suffix"><input id="s-amount" type="text" inputmode="numeric" value="10 000"><span>kr</span></span>
+      </label>
+      <label class="amount sortby">Till
+        <select id="s-type">
+          <option value="sepa">Euro till konto inom EU/EES (SEPA)</option>
+          <option value="other">Annan valuta eller land utanför EES</option>
+        </select>
+      </label>
+    </div>
+    <div class="table-scroll">
+      <table class="mtg" id="transfers">
+        <thead><tr>
+          <th scope="col">Bank eller tjänst</th>
+          <th scope="col" class="num">Kostnad för beloppet</th>
+          <th scope="col">Avgift</th>
+          <th scope="col" class="num">Växlingspåslag</th>
+          <th scope="col">Framme</th>
+        </tr></thead>
+        <tbody></tbody>
+      </table>
+    </div>
+    <p class="sub" id="s-note"></p>
+    <details id="s-missing" class="missing" hidden><summary></summary><p>De här bankerna och tjänsterna har utlandsbetalningar, men avgifterna gick inte att läsa eller belägga automatiskt.</p><ul></ul></details>
+  </section>
+
+  <!-- Utländska aktier -->
+  <section id="v-stocks" class="panel" hidden>
+    <div class="panel-head">
+      <h2>Vad kostar växlingen när du köper utländska aktier?</h2>
+      <p class="sub">När du köper en amerikansk aktie eller fond växlar banken eller mäklaren dina kronor – och tar betalt för det, ofta som en procentavgift per affär. Den syns sällan på avräkningsnotan.</p>
+    </div>
+    <div class="filters-row fin-filters">
+      <label class="amount sortby">Belopp per affär
+        <span class="input-suffix"><input id="b-amount" type="text" inputmode="numeric" value="10 000"><span>kr</span></span>
+      </label>
+    </div>
+    <div class="table-scroll">
+      <table class="mtg" id="brokers">
+        <thead><tr>
+          <th scope="col">Bank eller mäklare</th>
+          <th scope="col" class="num">Växlingsavgift</th>
+          <th scope="col" class="num">Köp och sälj</th>
+          <th scope="col">Valutakonto</th>
+          <th scope="col" class="num">Courtage USA</th>
+        </tr></thead>
+        <tbody></tbody>
+      </table>
+    </div>
+    <p class="sub" id="b-note"></p>
+    <details id="b-missing" class="missing" hidden><summary></summary><p>De här erbjuder handel med utländska aktier, men växlingsavgiften gick inte att läsa eller belägga automatiskt.</p><ul></ul></details>
   </section>
 
   <!-- Kronan -->

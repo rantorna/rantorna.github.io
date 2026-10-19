@@ -135,6 +135,18 @@ jobs:
           python -m collector.resolve --segment cards --limit 10
           python -m collector.run --segment cards --workers 4
 
+      - name: Utlandsbetalningar
+        if: ${{ !inputs.bank }}
+        run: |
+          python -m collector.resolve --segment transfers --limit 10
+          python -m collector.run --segment transfers --workers 4
+
+      - name: Valutaväxling i depån
+        if: ${{ !inputs.bank }}
+        run: |
+          python -m collector.resolve --segment broker_fx --limit 5
+          python -m collector.run --segment broker_fx --workers 4
+
       - name: Pension – slå upp nya bolag
         if: ${{ !inputs.bank }}
         run: python -m collector.resolve --segment pension --limit 10

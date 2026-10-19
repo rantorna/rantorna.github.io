@@ -26,9 +26,12 @@ FIELDS = {
     "personal_loans": [("rate_percent", "lägsta ränta"), ("example_effective_rate_percent", "exemplets effektiva ränta")],
     "cards": [("annual_fee_sek", "årsavgift"), ("currency_fee_percent", "valutapåslag"), ("rate_percent", "ränta")],
     "pension": [("rate_percent", "återbäringsränta")],
+    "broker_fx": [("fx_fee_percent", "valutaväxlingsavgift")],
+    "transfers": [("fee_fixed_sek", "avgift"), ("fee_percent", "avgift i procent"), ("fx_markup_percent", "växlingspåslag")],
 }
 SITE_FILES = {"savings": "data/rates.json", "mortgage": "data/mortgage.json", "business_savings": "data/business_savings.json",
-              "personal_loans": "data/personal_loans.json", "cards": "data/cards.json", "pension": "data/pension.json"}
+              "personal_loans": "data/personal_loans.json", "cards": "data/cards.json", "pension": "data/pension.json",
+              "transfers": "data/transfers.json", "broker_fx": "data/broker_fx.json"}
 
 _pending: list[dict] = []
 _lock = threading.Lock()

@@ -429,6 +429,87 @@ SEGMENTS["youth"] = Segment(
 )
 
 
+TRANSFER_RESOLVE = """Du kartlägger var privatpersoner i Sverige kan skicka pengar till ett konto utomlands, åt en oberoende jämförelsesajt. Använd webbsökning och kontrollera på aktörens egna webbplatser.
+
+Avgör om aktören, under eget namn eller ett annat varumärke, i dag låter privatpersoner i Sverige skicka pengar till konton i andra länder – banker med utlandsbetalning i internetbanken eller appen, och betaltjänster som Wise, Revolut, Western Union eller Remitly. Räkna inte med: bara företagskunder, bara kortbetalningar, bara växling av kontanter eller tjänster som inte erbjuds i Sverige.
+
+Ange för varje varumärke den svenska webbplatsen (homepage) och sidan som bäst beskriver utlandsbetalningar med avgifter och växelkurser, gärna prislistan (product_url). Hitta aldrig på adresser. Ange bara adresser du faktiskt har sett."""
+
+TRANSFER_EXTRACT = """Du extraherar avgifter och villkor för utlandsbetalningar för privatpersoner i Sverige ur en banks eller betaltjänsts egna sidor och prislistor, för en oberoende jämförelsesajt.
+
+Regler:
+- En produkt per betalningstyp med egna villkor: SEPA-betalning (euro till konto inom EES), utlandsbetalning till övriga länder/valutor, och betaltjänstens egen överföring. Ta bara privatpersonernas priser via internetbank eller app; hoppa över företagspriser, kontorsbetalningar (nämn dem i notes), kortbetalningar och kontantväxling.
+- Avgifter står ofta i en prislista – citera tabellraden.
+- Växelkursens påslag (fx_markup_percent) anges bara om det uttryckligen står i procent. Banker anger det sällan; då är det null. Gissa aldrig och räkna inte fram det ur kurslistor.
+- Varje värde måste beläggas med ett ORDAGRANT citat ur dokumenten (kopiera tecken för tecken, max ~300 tecken) och dokumentets index i "source".
+- Finns inget belägg: sätt value, quote och source till null. Gissa aldrig.
+- Belopp i kronor som tal, procent som tal (0,41 % -> 0.41)."""
+
+SEGMENTS["transfers"] = Segment(
+    key="transfers",
+    fields=schema.TRANSFER_FIELDS,
+    extraction=schema.TRANSFER_EXTRACTION,
+    extract_system=TRANSFER_EXTRACT,
+    choose_system=(
+        "Du hjälper en svensk jämförelsesajt för utlandsbetalningar. Välj de sidor som mest sannolikt beskriver "
+        "avgifter, växelkurser och villkor för att skicka pengar till konton utomlands för privatpersoner: sidor om "
+        "utlandsbetalningar, SEPA, prislistor och valutakurser. Välj inte kort, lån, sparkonton eller nyheter."
+    ),
+    core=("fee_fixed_sek", "fee_percent"),
+    data_dir=DATA / "transfers",
+    site_file=DATA / "transfers.json",
+    resolve_system=TRANSFER_RESOLVE,
+    resolve_out=DATA / "transfers" / "institutions.json",
+    resolve_hints=DATA / "transfers" / "brand_hints.yaml",
+    resolve_categories=("BANK", "MBANK", "UTLFIL", "FILBK"),
+    pos={"utlandsbetalning": 10, "utlandsbetalningar": 10, "betala-utomlands": 9, "internationella-betalningar": 9,
+         "skicka-pengar": 8, "sepa": 7, "swift": 6, "utland": 5, "prislista": 6, "priser": 4, "avgifter": 5,
+         "valutakurser": 5, "overforing": 4, "overforingar": 4, "lan": -5, "bolan": -6, "spara": -4, "foretag": -6},
+    terms_re=r"(utland|sepa|swift|prislista|priser|avgift|valuta|överföring|overforing)",
+    manual_banks=DATA / "transfers" / "banks.yaml",
+    max_rate=50.0,
+)
+
+BROKER_FX_RESOLVE = """Du kartlägger var privatpersoner i Sverige kan köpa utländska aktier och fonder (i ISK, depå eller kapitalförsäkring), åt en oberoende jämförelsesajt om valutaväxlingens kostnad. Använd webbsökning och kontrollera på aktörens egna webbplatser.
+
+Avgör om aktören i dag låter privatpersoner i Sverige handla utländska värdepapper. Räkna inte med: bara fonder i kronor, bara institutionella kunder, CFD- eller hävstångshandel.
+
+Ange för varje varumärke den svenska webbplatsen (homepage) och sidan som bäst visar avgiften för valutaväxling och courtaget för utländska aktier, helst prislistan (product_url). Hitta aldrig på adresser. Ange bara adresser du faktiskt har sett."""
+
+BROKER_FX_EXTRACT = """Du extraherar vad det kostar för privatpersoner i Sverige att växla valuta när de handlar utländska värdepapper, ur en banks eller mäklares egna sidor och prislistor, för en oberoende jämförelsesajt.
+
+Regler:
+- Normalt en produkt: handel med utländska värdepapper för privatpersoner. Ta fler bara om villkoren skiljer sig mellan kontotyper eller kundprogram (t.ex. ett premiumprogram med lägre växlingsavgift).
+- Viktigast är valutaväxlingsavgiften i procent (fx_fee_percent) och om kunden kan ha ett valutakonto. Courtage för amerikanska aktier: ta den billigaste klassen för små affärer.
+- Citera prislistans rad. Räkna aldrig fram en avgift ur kurser.
+- Varje värde måste beläggas med ett ORDAGRANT citat ur dokumenten (kopiera tecken för tecken, max ~300 tecken) och dokumentets index i "source".
+- Finns inget belägg: sätt value, quote och source till null. Gissa aldrig.
+- Procent som tal (0,25 % -> 0.25), belopp i kronor som tal."""
+
+SEGMENTS["broker_fx"] = Segment(
+    key="broker_fx",
+    fields=schema.BROKER_FX_FIELDS,
+    extraction=schema.BROKER_FX_EXTRACTION,
+    extract_system=BROKER_FX_EXTRACT,
+    choose_system=(
+        "Du hjälper en svensk jämförelsesajt om vad valutaväxling kostar vid handel med utländska aktier och fonder. "
+        "Välj de sidor som mest sannolikt anger valutaväxlingsavgift, valutakonto och courtage för utländska aktier: "
+        "prislistor, sidor om handel på utländska börser och om valutakonto. Välj inte lån, sparkonton eller nyheter."
+    ),
+    core=("fx_fee_percent",),
+    data_dir=DATA / "broker_fx",
+    site_file=DATA / "broker_fx.json",
+    resolve_system=BROKER_FX_RESOLVE,
+    resolve_out=DATA / "broker_fx" / "institutions.json",
+    resolve_hints=DATA / "broker_fx" / "brand_hints.yaml",
+    resolve_categories=("ENDAST_LISTAN",),   # bara varumärkena i listan – mäklarna känns igen bäst så
+    pos={"valutavaxling": 10, "valutavaxlingsavgift": 10, "valutakonto": 9, "prislista": 8, "priser": 5, "courtage": 8,
+         "utlandska": 6, "usa": 5, "aktier": 4, "handla": 3, "avgifter": 5, "lan": -5, "bolan": -6, "sparkonto": -4},
+    terms_re=r"(valuta|växling|vaxling|courtage|prislista|priser|avgift)",
+    manual_banks=DATA / "broker_fx" / "banks.yaml",
+    max_rate=10.0,
+)
+
 _current = "savings"
 
 

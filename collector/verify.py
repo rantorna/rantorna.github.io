@@ -237,7 +237,10 @@ def restatus(p: dict) -> None:
     if (needs_rate and f["rate_percent"]["value"] is None) or p["flags"] \
             or (not needs_rate and all(f[c]["value"] is None for c in core)):
         p["status"] = "ej verifierad"
-    elif all(f[c]["status"] in ("belagt", "osäkert") and f[c]["value"] is not None for c in core):
+    elif all(f[c]["status"] in ("belagt", "osäkert") and f[c]["value"] is not None for c in core) \
+            or (not needs_rate and len(core) > 1 and any(f[c]["status"] == "belagt" and f[c]["value"] is not None for c in core)
+                and all(f[c]["value"] is not None or f[c]["status"] == "okänt" for c in core)):
+        # Flera kärnfält där bara ett gäller (t.ex. fast avgift ELLER procentavgift): ett belagt räcker.
         p["status"] = "verifierad"
     else:
         p["status"] = "delvis verifierad"
