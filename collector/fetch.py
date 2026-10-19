@@ -288,7 +288,8 @@ def sitemap_urls(homepage: str, limit: int = 5000) -> list[str]:
             body = client().get(sm).text
         except Exception:
             continue
-        locs = re.findall(r"<loc>\s*([^<\s]+)\s*</loc>", body)
+        # Vissa (t.ex. Avanza) anger adresserna relativt – gör dem fullständiga.
+        locs = [urljoin(root + "/", u) for u in re.findall(r"<loc>\s*([^<\s]+)\s*</loc>", body)]
         if "<sitemapindex" in body:
             queue += locs
         else:
