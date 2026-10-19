@@ -30,28 +30,30 @@ function legend(target, items) {
   }));
 }
 
-/* Linjediagram med hovring: series = [{label, color, dash, points: [[datum, värde]]}]. */
-function lineChart(target, series, { step = false } = {}) {
+/* Linjediagram med hovring: series = [{label, color, dash, points: [[datum, värde]]}].
+   fmt formaterar värden (standard procent), zero = om y-axeln ska börja på noll. */
+function lineChart(target, series, { step = false, fmt = pct, axis = (v) => v.toLocaleString("sv-SE") + " %", zero = true } = {}) {
   target.replaceChildren();
   const W = target.clientWidth || 800, H = Math.max(240, Math.min(360, W * 0.45));
   const m = { l: 44, r: 14, t: 12, b: 28 };
   const svg = el("svg", { viewBox: `0 0 ${W} ${H}`, width: "100%", height: H, role: "img",
     "aria-label": "Linjediagram: " + series.map((s) => {
       const last = s.points.at(-1);
-      return last ? `${s.label}, senast ${pct(last[1])}` : s.label;
+      return last ? `${s.label}, senast ${fmt(last[1])}` : s.label;
     }).join("; ") }, target);
   const all = series.flatMap((s) => s.points);
   if (!all.length) return;
   const t = (d) => new Date(d + "T00:00:00Z").getTime();
   const x0 = Math.min(...all.map((p) => t(p[0]))), x1 = Math.max(...all.map((p) => t(p[0])));
-  let y0 = Math.min(0, ...all.map((p) => p[1])), y1 = Math.max(...all.map((p) => p[1]));
+  let y0 = Math.min(zero ? 0 : Infinity, ...all.map((p) => p[1])), y1 = Math.max(...all.map((p) => p[1]));
+  if (!zero) y0 -= (y1 - y0) * 0.06;
   y1 += (y1 - y0) * 0.06;
   const X = (d) => m.l + (t(d) - x0) / (x1 - x0 || 1) * (W - m.l - m.r);
   const Y = (v) => H - m.b - (v - y0) / (y1 - y0 || 1) * (H - m.t - m.b);
   const g = el("g", { class: "grid" }, svg);
   for (const v of niceTicks(y0, y1)) {
     el("line", { x1: m.l, x2: W - m.r, y1: Y(v), y2: Y(v), class: v === 0 ? "zero" : "" }, g);
-    el("text", { x: m.l - 6, y: Y(v) + 4, "text-anchor": "end", class: "axis" }, g).textContent = v.toLocaleString("sv-SE") + " %";
+    el("text", { x: m.l - 6, y: Y(v) + 4, "text-anchor": "end", class: "axis" }, g).textContent = axis(v);
   }
   const years = new Date(x1).getUTCFullYear() - new Date(x0).getUTCFullYear();
   const startY = new Date(x0).getUTCFullYear();
@@ -93,7 +95,7 @@ function lineChart(target, series, { step = false } = {}) {
       if (v == null) { dots[i].setAttribute("visibility", "hidden"); return ""; }
       dots[i].setAttribute("visibility", "visible");
       dots[i].setAttribute("cx", px); dots[i].setAttribute("cy", Y(v));
-      return `<div class="tip-row"><svg width="12" height="12" aria-hidden="true"><circle cx="6" cy="6" r="5" fill="${s.color}"/></svg>${s.label}<b>${pct(v)}</b></div>`;
+      return `<div class="tip-row"><svg width="12" height="12" aria-hidden="true"><circle cx="6" cy="6" r="5" fill="${s.color}"/></svg>${s.label}<b>${fmt(v)}</b></div>`;
     }).join("");
     tip.innerHTML = `<div class="tip-date">${dateSv(d)}</div>${rows}`;
     tip.hidden = false;

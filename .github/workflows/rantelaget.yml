@@ -29,17 +29,21 @@ jobs:
           cache: pip
 
       - name: Installera
-        run: pip install httpx pyyaml
+        # Samma bibliotek som insamlingen behöver för hämtning och robots.txt (utan webbläsaren)
+        run: pip install httpx pyyaml beautifulsoup4 lxml pypdf cryptography
 
       - name: Hämta ränteläget
         run: python -m collector.macro
+
+      - name: Valutakurser
+        run: python -m collector.fx
 
       - name: Spara
         run: |
           git config user.name "rantorna-bot"
           git config user.email "rantorna-bot@users.noreply.github.com"
           python -m collector.check_data
-          git add data/macro.json
+          git add data/macro.json data/fx.json
           if git diff --cached --quiet; then echo "Inga ändringar."; exit 0; fi
           git commit -m "Ränteläget $(date -u +%Y-%m-%dT%H:%MZ)"
           # Nattjobbet kan ha pushat under tiden – försök några gånger.

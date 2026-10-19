@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="sv">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self'; object-src 'none'; base-uri 'none'; form-action 'none'">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Valuta – räntorna.</title>
+<meta name="description" content="Vad kostar köpet utomlands med ditt kort? Ska du betala i kronor eller lokal valuta? Och hur hänger kronan ihop med räntorna? Med dagens kurser från ECB.">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a class="skip" href="#main">Hoppa till innehållet</a>
+<header class="top">
+  <div class="wrap wide">
+    <a class="brand" href="./">räntorna<span>.</span></a>
+    <nav class="tabs">
+      <a href="./">Sparkonton</a>
+      <a href="bolan.html">Bolån</a>
+      <a href="lan.html"><span class="long">Lån &amp; kort</span><span class="short">Lån</span></a>
+      <a href="foretag.html">Företag</a>
+      <a href="pension.html">Pension</a>
+      <a href="valuta.html" aria-current="page">Valuta</a>
+      <a href="rantelaget.html">Ränteläget</a>
+      <a href="om.html"><span class="long">Så funkar det</span><span class="short">Om</span></a>
+    </nav>
+  </div>
+</header>
+
+<main id="main" class="wrap wide">
+  <section class="intro">
+    <h1>Valuta</h1>
+    <p class="updated-top" id="updated-top" hidden></p>
+    <p>Växlingskostnaden syns sällan som en summa – den ligger i kurser och påslag. Här räknar vi ut den med dagens referenskurser från Europeiska centralbanken.</p>
+  </section>
+
+  <div class="seg view-pick" role="tablist" aria-label="Välj vy">
+    <label><input type="radio" name="view" value="card" checked><span>Kortet utomlands</span></label>
+    <label><input type="radio" name="view" value="dcc"><span>Betala i SEK?</span></label>
+    <label><input type="radio" name="view" value="krona"><span>Kronan</span></label>
+  </div>
+
+  <!-- Kortet utomlands -->
+  <section id="v-card" class="panel">
+    <div class="panel-head">
+      <h2>Vad kostar köpet med ditt kort?</h2>
+      <p class="sub">Kostnaden i kronor med varje korts valutapåslag, och vad det kostar att ta ut samma belopp i kontanter.</p>
+    </div>
+    <div class="filters-row fin-filters">
+      <label class="amount sortby">Belopp
+        <span class="input-suffix"><input id="c-amount" type="text" inputmode="numeric" value="1 000"><span id="c-unit">EUR</span></span>
+      </label>
+      <label class="amount sortby">Valuta
+        <select id="c-cur"></select>
+      </label>
+    </div>
+    <p class="fc-lead" id="c-ref"></p>
+    <div class="table-scroll">
+      <table class="mtg" id="fxcards">
+        <thead><tr>
+          <th scope="col">Kort</th>
+          <th scope="col" class="num">Betala med kortet</th>
+          <th scope="col" class="num">Ta ut kontanter</th>
+          <th scope="col" class="num">Valutapåslag</th>
+        </tr></thead>
+        <tbody></tbody>
+      </table>
+    </div>
+    <p class="sub" id="c-note"></p>
+  </section>
+
+  <!-- Betala i SEK? -->
+  <section id="v-dcc" class="panel" hidden>
+    <div class="panel-head">
+      <h2>Betala i kronor eller i lokal valuta?</h2>
+      <p class="sub">Utomlands frågar kortterminalen ibland om du vill betala i kronor. Det kallas dynamisk valutaomräkning, och då väljer butiken eller dess bank växelkursen. Fyll i vad terminalen visar, så ser du vad det kostar.</p>
+    </div>
+    <div class="filters-row fin-filters">
+      <label class="amount sortby">Priset i lokal valuta
+        <span class="input-suffix"><input id="d-amount" type="text" inputmode="decimal" value="100"><span id="d-unit">EUR</span></span>
+      </label>
+      <label class="amount sortby">Valuta
+        <select id="d-cur"></select>
+      </label>
+      <label class="amount sortby">Terminalen visar
+        <span class="input-suffix"><input id="d-sek" type="text" inputmode="decimal" placeholder="t.ex. 1 175"><span>kr</span></span>
+      </label>
+      <label class="amount sortby">Ditt kort
+        <select id="d-card"></select>
+      </label>
+    </div>
+    <div id="d-result" class="dcc-result" aria-live="polite"></div>
+    <p class="sub">Tumregel: välj alltid lokal valuta. Med ett vanligt kort betalar du då dagens kurs plus kortets valutapåslag – och påslaget är nästan alltid lägre än butikens.</p>
+  </section>
+
+  <!-- Kronan -->
+  <div id="v-krona" hidden>
+    <section class="market" id="k-market" aria-label="Kronan i dag"></section>
+    <section class="panel">
+      <div class="panel-head">
+        <h2>Kronan mot euro och dollar</h2>
+        <div class="seg" role="radiogroup" aria-label="Tidsperiod" id="k-range">
+          <label><input type="radio" name="krange" value="1"><span>1 år</span></label>
+          <label><input type="radio" name="krange" value="3" checked><span>3 år</span></label>
+          <label><input type="radio" name="krange" value="99"><span>10 år</span></label>
+        </div>
+        <p class="sub">Kronor per euro respektive dollar. En högre siffra betyder en svagare krona.</p>
+      </div>
+      <div class="legend" id="k-legend"></div>
+      <div class="chart" id="k-chart"></div>
+    </section>
+    <section class="panel">
+      <div class="panel-head">
+        <h2>Räntorna och kronan</h2>
+        <p class="sub">Skillnaden mellan svenska och utländska räntor är en av de viktigaste krafterna bakom kronan. Diagrammet visar hur mycket högre (över noll) eller lägre (under noll) räntan på svenska 2-åriga statsobligationer är än i euroområdet och USA.</p>
+      </div>
+      <div class="legend" id="r-legend"></div>
+      <div class="chart" id="r-chart"></div>
+      <div class="fc-text" id="k-explain"></div>
+    </section>
+  </div>
+
+  <p class="foot-note" id="sources"></p>
+</main>
+
+<footer class="wrap wide foot">
+  <p id="updated"></p>
+  <p>Räntorna är en oberoende, automatiskt uppdaterad jämförelse och ger inga råd.</p>
+  <p>Räntorna drivs av Business Clarity Sweden AB. <a href="om.html#licens">Användning och licens</a>.</p>
+</footer>
+
+<div class="tip" id="tip" role="status" hidden></div>
+<script src="charts.js"></script>
+<script src="valuta.js"></script>
+<script src="stamp.js"></script>
+</body>
+</html>
