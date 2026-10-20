@@ -360,3 +360,17 @@ BROKER_FX_EXTRACTION = extraction_schema(
     TIER, "Lämna tom.",
     "Kort om något viktigt saknas (t.ex. växlingsavgiften står bara i prislistan, kräver inloggning).",
 )
+
+
+# ---------- Sparkonton i utländsk valuta ----------
+
+FX_SAVINGS_FIELDS = [
+    ("currency", _enum("EUR", "USD", "GBP", "NOK", "DKK", "CHF", "annan"), "Valutan som kontot är i och räntan gäller för."),
+] + FIELDS
+
+FX_SAVINGS_EXTRACTION = extraction_schema(
+    FX_SAVINGS_FIELDS,
+    "Kontots namn så som banken skriver det, inkl. valuta och bindningstid (t.ex. 'Sparkonto EUR', 'Fasträntekonto USD 12 mån').",
+    TIER, "Räntetrappa om räntan beror på belopp, annars tom.",
+    "Kort om något viktigt saknas.",
+)

@@ -510,6 +510,41 @@ SEGMENTS["broker_fx"] = Segment(
     max_rate=10.0,
 )
 
+FX_SAVINGS_EXTRACT = """Du extraherar sparkonton i UTLÄNDSK VALUTA (euro, dollar m.fl.) för privatpersoner i Sverige ur en banks egna webbsidor och villkorsdokument, för en oberoende jämförelsesajt.
+
+Regler:
+- Ta BARA med sparkonton, fasträntekonton och valutakonton med ränta där pengarna står i en annan valuta än svenska kronor. Konton i kronor ska inte med, och inte heller valutakonton utan ränta, ISK, fonder eller kort.
+- Ange valutan i currency. Har banken samma konto i flera valutor med olika räntor är varje valuta en egen produkt.
+- Varje bindningstid för fasträntekonton är en egen produkt.
+- Varje värde måste beläggas med ett ORDAGRANT citat ur dokumenten (kopiera tecken för tecken, inklusive siffror och procenttecken, max ~300 tecken) och dokumentets index i "source".
+- Finns inget belägg: sätt value, quote och source till null. Gissa aldrig.
+- Räntor i procent som tal (2,25 % -> 2.25). Belopp i kontots valuta som tal.
+- Finns inga sparkonton i utländsk valuta i dokumenten: returnera en tom produktlista."""
+
+SEGMENTS["fx_savings"] = Segment(
+    key="fx_savings",
+    fields=schema.FX_SAVINGS_FIELDS,
+    extraction=schema.FX_SAVINGS_EXTRACTION,
+    extract_system=FX_SAVINGS_EXTRACT,
+    choose_system=(
+        "Du hjälper en svensk jämförelsesajt för sparkonton i utländsk valuta. Välj de sidor som mest sannolikt "
+        "innehåller räntor och villkor för sparkonton och valutakonton i euro, dollar eller andra valutor för "
+        "privatpersoner: räntesidor, valutakonton, prislistor. Välj inte lån, kort, fonder eller nyheter."
+    ),
+    core=("rate_percent", "currency"),
+    data_dir=DATA / "fx_savings",
+    site_file=DATA / "fx_savings.json",
+    # Samma banker som för sparkonton – inga nya uppslag behövs.
+    resolve_system=SAVINGS_RESOLVE,
+    resolve_out=DATA / "institutions.json",
+    resolve_hints=DATA / "brand_hints.yaml",
+    resolve_categories=("BANK", "SPAR", "MBANK", "KMB", "KMF", "UTLFIL", "FILBK", "UTLKMF", "UTLBGH", "UTLKGH", "INLÅN"),
+    manual_banks=DATA / "banks.yaml",
+    pos={"valutakonto": 10, "valuta": 7, "eur": 6, "euro": 7, "usd": 6, "dollar": 6, "sparkonto": 4, "ranta": 4,
+         "rantor": 4, "fastrantekonto": 4, "lan": -5, "bolan": -6, "foretag": -6, "kort": -3},
+    terms_re=r"(valuta|euro|eur|usd|dollar|ränt|ranta|villkor|spar)",
+)
+
 _current = "savings"
 
 

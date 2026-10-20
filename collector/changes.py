@@ -26,6 +26,7 @@ FIELDS = {
     "personal_loans": [("rate_percent", "lägsta ränta"), ("example_effective_rate_percent", "exemplets effektiva ränta")],
     "cards": [("annual_fee_sek", "årsavgift"), ("currency_fee_percent", "valutapåslag"), ("rate_percent", "ränta")],
     "pension": [("rate_percent", "återbäringsränta")],
+    "fx_savings": [("rate_percent", "ränta")],
     "broker_fx": [("fx_fee_percent", "valutaväxlingsavgift")],
     "transfers": [("fee_fixed_sek", "avgift"), ("fee_percent", "avgift i procent"), ("fx_markup_percent", "växlingspåslag")],
 }

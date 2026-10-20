@@ -31,7 +31,15 @@ const kr = new Intl.NumberFormat("sv-SE", { maximumFractionDigits: 0 });
 const pct = new Intl.NumberFormat("sv-SE", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 const $ = (s) => document.querySelector(s);
 
-let DATA = null, YOUTH = null;
+let DATA = null, YOUTH = null, FXS = null;
+const curPick = () => document.querySelector('input[name="cur"]:checked')?.value || "SEK";
+/** Kontots valuta: fältet, eller koden i kontonamnet när tolkningen satt "annan". */
+function accountCurrency(p) {
+  const c = val(p, "currency");
+  if (c && c !== "annan") return c;
+  const m = p.name.match(/\b(EUR|USD|GBP|NOK|DKK|CHF|CAD|AUD|PLN|ZAR|TRY|AED|JPY)\b/);
+  return m ? m[1] : c;
+}
 const who = () => document.querySelector('input[name="who"]:checked')?.value || "vuxen";
 const PAGE = 50;
 let showAll = false;
@@ -78,7 +86,15 @@ function monthlyCap(p) {
 }
 
 function rows() {
-  const w = who(), out = [];
+  const w = who(), out = [], cur = curPick();
+  if (cur !== "SEK") {
+    // Sparkonton i utländsk valuta (gäller vuxna)
+    for (const b of (FXS || { banks: [] }).banks) for (const p of b.products || []) {
+      const c = accountCurrency(p);
+      if (cur === "other" ? !["EUR", "USD"].includes(c) : c === cur) out.push({ bank: b, p });
+    }
+    return out;
+  }
   if (w === "vuxen") {
     for (const b of DATA.banks) for (const p of b.products || []) out.push({ bank: b, p });
   } else {
@@ -92,6 +108,13 @@ function rows() {
   return out;
 }
 
+/** Kontona i utländsk valuta laddas först när någon väljer dem. */
+function ensureFx() {
+  if (curPick() === "SEK" || FXS) return Promise.resolve();
+  return fetch("data/fx_savings.json", { cache: "no-cache" }).then((r) => r.ok ? r.json() : { banks: [] })
+    .catch(() => ({ banks: [] })).then((d) => { FXS = d; });
+}
+
 /** Barn- och ungdomskontona laddas först när någon väljer dem. */
 function ensureYouth() {
   if (who() === "vuxen" || YOUTH) return Promise.resolve();
@@ -101,6 +124,11 @@ function ensureYouth() {
 
 function renderYouthNote() {
   const w = who(), el = $("#youth-note");
+  if (curPick() !== "SEK") {
+    el.hidden = false;
+    el.innerHTML = "<b>Sparande i utländsk valuta.</b> Räntan gäller i kontots valuta, och avkastningen nedan är räknad i kronor till dagens kurs. Valutan kan stiga eller falla mot kronan – det påverkar ofta mer än räntan. Hög ränta i en valuta (t.ex. turkisk lira) följer oftast av hög inflation där, och valutan brukar då försvagas. Få banker i Sverige har sparkonton i utländsk valuta; insättningsgarantin gäller i bankens hemland. Se även <a href=\"valuta.html#krona\">Kronan</a>.";
+    return;
+  }
   el.hidden = w === "vuxen";
   if (w === "barn") el.innerHTML = "<b>Sparande i barnets namn.</b> Här finns särskilda barnsparkonton och vanliga sparkonton som banken skriver att man kan öppna åt ett barn. De flesta storbanker har inget eget barnkonto, och många nischbanker kräver att kontohavaren är 18 år – de syns därför inte här. Räntan beskattas med 30 %, precis som för vuxna.";
   if (w === "ungdom") el.innerHTML = "<b>Konton för unga.</b> Ungdomskonton har en åldersgräns, och räntan eller villkoren ändras ofta när den gränsen passeras – se villkoren under varje konto. Från 18 år kan du också öppna de flesta vanliga sparkonton.";
@@ -154,9 +182,10 @@ function render() {
   const infl = ctx.kpif != null ? ` · "real" = efter skatt och ${String(ctx.kpif).replace(".", ",")} % inflation (KPIF, ${new Date(ctx.kpif_month).toLocaleDateString("sv-SE", { month: "long", year: "numeric" })})` : "";
   $("#summary").textContent = `${items.length} konton hos ${nBanks} banker · avkastning på ${kr.format(amount)} kr under ett år, efter 30 % skatt${infl}`;
   renderIsk(amount);
-  if (who() === "vuxen") renderBench(items, amount); else $("#bench").hidden = true;
+  const plain = who() === "vuxen" && curPick() === "SEK";
+  if (plain) renderBench(items, amount); else $("#bench").hidden = true;
   renderYouthNote();
-  $("#missing").hidden = who() !== "vuxen" || !$("#missing ul").children.length;
+  $("#missing").hidden = !plain || !$("#missing ul").children.length;
 }
 
 /** Riktmärke: vad pengarna i banken i snitt ger enligt SCB, mot det bästa kontot utan bindning här. */
@@ -208,6 +237,8 @@ function row({ bank, p, rate }, amount) {
   const gc = val(p, "guarantee_country");
   if (gc && gc !== "SE") tags.append(badge("garanti: " + (COUNTRY[gc] || gc), "note"));
   if (val(p, "intro_rate")) tags.append(badge("kampanj", "note"));
+  const ac = val(p, "currency") !== undefined && p.fields.currency ? accountCurrency(p) : null;
+  if (ac) tags.append(badge("konto i " + ac, "note"));
   const tg = val(p, "target_group");
   if (tg) {
     const a0 = val(p, "age_min"), a1 = val(p, "age_max");
@@ -313,6 +344,7 @@ function bindFilters() {
       return;
     }
     if (e.target.name === "who") { ensureYouth().then(render); return; }
+    if (e.target.name === "cur") { ensureFx().then(render); return; }
     render();
   });
 }
