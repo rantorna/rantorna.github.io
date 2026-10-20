@@ -7,8 +7,8 @@
   "kind": "nischbank",
   "legal_name": "Bankaktiebolaget Nordiska (publ)"
  },
- "checked_at": "2026-10-19T00:55:37+00:00",
- "discovered_at": "2026-10-12T09:09:47+00:00",
+ "checked_at": "2026-10-20T01:01:49+00:00",
+ "discovered_at": "2026-10-20T01:01:49+00:00",
  "sources": [
   {
    "url": "https://www.nordiska.com/se/spara/",
@@ -23,6 +23,13 @@
    "kind": "html",
    "via": "http",
    "chars": 4637
+  },
+  {
+   "url": "https://www.nordiska.com/se/om-nordiska/hallbarhet/",
+   "title": "Hållbarhet | Nordiska",
+   "kind": "html",
+   "via": "http",
+   "chars": 4978
   },
   {
    "url": "https://assets.ctfassets.net/ezgr8f4kwvjb/4hqaW3a2RvwPcqrHX8b7b4/98f9c36f68e84999b8235da96a856965/allmanna-villkor-nordiska-fix-version-2026-1.pdf",
@@ -54,45 +61,48 @@
   }
  ],
  "status": "ok",
- "notes": "Räntorna för FIX-konton hämtades från den publika sidan (source 0) och gäller per bindningstid; sidan anger ingen datum för när räntorna började gälla. Villkoren för FIX, Flex Plus, Flex och Flex Grön hämtades från respektive PDF. Flex Plus-villkoret anger att räntan kan sänkas till noll om saldot understiger 10 000 kr; det är inte inräknat i ränte-fältet. Insättningsgarantin: 1 150 000 kr per insättare och institut (source 1 och villkoren). Minsta insättning för Flex och Flex Grön anges inte i källorna och lämnas tom. Sidan säger att Nordiska FIX-konton kan öppnas upp till åtta sparkonton; detta påverkar inte produktlistan. Uppgifter om ränta och villkor kan kräva inloggning för vissa kunder; källorna visar inga inloggningskrav för räntorna.",
+ "notes": "Räntorna för FIX, FLEX PLUS, FLEX och FLEX GRÖN hämtas från den publika sparsidan (källa 0) och kan vara inloggningsberoende i övrigt; sidan visar ingen räntetrappa. Villkorsdokumenten (källor 3–6) nämner inga räntesatser, så räntorna kommer endast från sparsidan. Startdatum för räntorna saknas. Flex Plus kräver minst 10 000 kr saldo för full ränta enligt villkoren; under detta belopp kan räntan sänkas till noll. FIX-produkterna är en egen produkt per bindningstid. Ingen källa anger antal fria uttag per år eller intro-/kampanjränta. Garantibeloppet 1 150 000 kr gäller per insättare och institut. Flex Grön: villkoren anger att minst 70 % ska i mån av möjlighet användas till hållbara satsningar; ränteskillnad mot andra konton beskrivs i hållbarhetssidan men utan siffror.",
  "products": [
   {
    "name": "Nordiska FIX 1 mån",
    "flags": [],
    "fields": {
     "product_type": {
-     "value": null,
-     "quote": "Nordiska FIX\nPassar både kort- och långsiktigt sparande med fast ränta under den period du väljer.",
+     "value": "fasträntekonto",
+     "quote": "Passar både kort- och långsiktigt sparande med fast ränta under den period du väljer.",
      "source": 0,
-     "status": "citat hittades inte",
-     "claimed": "fasträntekonto"
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.41
+     }
     },
     "rate_percent": {
-     "value": 2.3,
-     "quote": "1 månad\n2,30 %",
+     "value": 2.4,
+     "quote": "1 månad\n2,40 %",
      "source": 0,
      "status": "belagt"
     },
     "rate_type": {
      "value": "fast",
-     "quote": "Fast ränta",
+     "quote": "Passar både kort- och långsiktigt sparande med fast ränta under den period du väljer.",
      "source": 0,
-     "status": "osäkert",
+     "status": "belagt",
      "jev": {
-      "verdict": "contradicts",
-      "confidence": 0.23
+      "verdict": "supports",
+      "confidence": 0.91
      }
     },
     "binding_months": {
      "value": 1,
-     "quote": "1 månad\n2,30 %",
+     "quote": "1 månad\n2,40 %",
      "source": 0,
      "status": "belagt"
     },
     "withdrawals": {
      "value": "ej tillåtna",
-     "quote": "Det är inte möjligt att göra uttag från Nordiska Fix innan löptidens slut.",
-     "source": 2,
+     "quote": "Det är inte\nmöjligt att göra uttag från Nordiska Fix innan\nlöptidens slut.",
+     "source": 3,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
@@ -106,23 +116,23 @@
      "status": "okänt"
     },
     "withdrawal_terms": {
-     "value": "Inga uttag under löptiden; kontot kan inte avslutas i förtid",
-     "quote": "Det är inte möjligt att göra uttag från Nordiska Fix innan löptidens slut.",
-     "source": 2,
+     "value": "Inga uttag under löptiden; medlen överförs till Nordiska Flex när löptiden är slut.",
+     "quote": "Det är inte\nmöjligt att göra uttag från Nordiska Fix innan\nlöptidens slut.",
+     "source": 3,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.89
+      "confidence": 0.66
      }
     },
     "min_deposit_sek": {
      "value": 10000,
-     "quote": "lägsta insättningsbelopp är tio tusen (10 000) kronor",
-     "source": 2,
+     "quote": "Engångsinsättning om minst 10 000 kr",
+     "source": 0,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 1.0
+      "confidence": 0.95
      }
     },
     "max_deposit_sek": {
@@ -148,19 +158,19 @@
      }
     },
     "eligibility": {
-     "value": "Myndig fysisk person (konsument), folkbokförd i Sverige, svenskt personnummer, BankID",
+     "value": "Myndig fysisk person, minst 18 år, svenskt personnummer, folkbokförd i Sverige, BankID",
      "quote": "Vara minst 18 år",
      "source": 0,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.91
+      "confidence": 0.8
      }
     },
     "requires_other_products": {
      "value": false,
      "quote": "Till Nordiska Fix kan inga tilläggstjänster knytas.",
-     "source": 2,
+     "source": 3,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
@@ -174,23 +184,23 @@
      "status": "okänt"
     },
     "interest_paid": {
-     "value": "Vid bindningstidens slut",
+     "value": "vid bindningstidens slut",
      "quote": "Hela ditt sparade belopp kapitaliseras, inklusive den intjänade räntan efter skatt.",
      "source": 0,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.86
+      "confidence": 0.97
      }
     },
     "guarantee_country": {
      "value": "SE",
-     "quote": "Spara utan avgifter – med statlig insättningsgaranti",
-     "source": 0,
-     "status": "osäkert",
+     "quote": "Nordiska Fix har prövats av Riksgälden",
+     "source": 3,
+     "status": "belagt",
      "jev": {
-      "verdict": "says_nothing",
-      "confidence": 0.77
+      "verdict": "supports",
+      "confidence": 0.43
      }
     },
     "guarantee_amount": {
@@ -219,11 +229,14 @@
    "flags": [],
    "fields": {
     "product_type": {
-     "value": null,
-     "quote": "Nordiska FIX\nPassar både kort- och långsiktigt sparande med fast ränta under den period du väljer.",
+     "value": "fasträntekonto",
+     "quote": "Passar både kort- och långsiktigt sparande med fast ränta under den period du väljer.",
      "source": 0,
-     "status": "citat hittades inte",
-     "claimed": "fasträntekonto"
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.33
+     }
     },
     "rate_percent": {
      "value": 3.0,
@@ -233,12 +246,12 @@
     },
     "rate_type": {
      "value": "fast",
-     "quote": "Fast ränta",
+     "quote": "Passar både kort- och långsiktigt sparande med fast ränta under den period du väljer.",
      "source": 0,
-     "status": "osäkert",
+     "status": "belagt",
      "jev": {
-      "verdict": "contradicts",
-      "confidence": 0.25
+      "verdict": "supports",
+      "confidence": 0.89
      }
     },
     "binding_months": {
@@ -249,8 +262,8 @@
     },
     "withdrawals": {
      "value": "ej tillåtna",
-     "quote": "Det är inte möjligt att göra uttag från Nordiska Fix innan löptidens slut.",
-     "source": 2,
+     "quote": "Det är inte\nmöjligt att göra uttag från Nordiska Fix innan\nlöptidens slut.",
+     "source": 3,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
@@ -264,23 +277,23 @@
      "status": "okänt"
     },
     "withdrawal_terms": {
-     "value": "Inga uttag under löptiden; kontot kan inte avslutas i förtid",
-     "quote": "Det är inte möjligt att göra uttag från Nordiska Fix innan löptidens slut.",
-     "source": 2,
+     "value": "Inga uttag under löptiden; medlen överförs till Nordiska Flex när löptiden är slut.",
+     "quote": "Det är inte\nmöjligt att göra uttag från Nordiska Fix innan\nlöptidens slut.",
+     "source": 3,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.89
+      "confidence": 0.62
      }
     },
     "min_deposit_sek": {
      "value": 10000,
-     "quote": "lägsta insättningsbelopp är tio tusen (10 000) kronor",
-     "source": 2,
+     "quote": "Engångsinsättning om minst 10 000 kr",
+     "source": 0,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 1.0
+      "confidence": 0.97
      }
     },
     "max_deposit_sek": {
@@ -306,19 +319,19 @@
      }
     },
     "eligibility": {
-     "value": "Myndig fysisk person (konsument), folkbokförd i Sverige, svenskt personnummer, BankID",
+     "value": "Myndig fysisk person, minst 18 år, svenskt personnummer, folkbokförd i Sverige, BankID",
      "quote": "Vara minst 18 år",
      "source": 0,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.86
+      "confidence": 0.8
      }
     },
     "requires_other_products": {
      "value": false,
      "quote": "Till Nordiska Fix kan inga tilläggstjänster knytas.",
-     "source": 2,
+     "source": 3,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
@@ -332,25 +345,24 @@
      "status": "okänt"
     },
     "interest_paid": {
-     "value": "Vid bindningstidens slut",
+     "value": "vid bindningstidens slut",
      "quote": "Hela ditt sparade belopp kapitaliseras, inklusive den intjänade räntan efter skatt.",
      "source": 0,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.88
+      "confidence": 0.97
      }
     },
     "guarantee_country": {
-     "value": null,
-     "quote": "Spara utan avgifter – med statlig insättningsgaranti",
-     "source": 0,
-     "status": "stöds inte av källan",
+     "value": "SE",
+     "quote": "Nordiska Fix har prövats av Riksgälden",
+     "source": 3,
+     "status": "belagt",
      "jev": {
-      "verdict": "says_nothing",
-      "confidence": 0.82
-     },
-     "claimed": "SE"
+      "verdict": "supports",
+      "confidence": 0.55
+     }
     },
     "guarantee_amount": {
      "value": "1 150 000 kronor",
@@ -378,38 +390,41 @@
    "flags": [],
    "fields": {
     "product_type": {
-     "value": null,
-     "quote": "Nordiska FIX\nPassar både kort- och långsiktigt sparande med fast ränta under den period du väljer.",
+     "value": "fasträntekonto",
+     "quote": "Passar både kort- och långsiktigt sparande med fast ränta under den period du väljer.",
      "source": 0,
-     "status": "citat hittades inte",
-     "claimed": "fasträntekonto"
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.37
+     }
     },
     "rate_percent": {
-     "value": 2.95,
-     "quote": "3 månader\n2,95 %",
+     "value": 3.05,
+     "quote": "3 månader\n3,05 %",
      "source": 0,
      "status": "belagt"
     },
     "rate_type": {
      "value": "fast",
-     "quote": "Fast ränta",
+     "quote": "Passar både kort- och långsiktigt sparande med fast ränta under den period du väljer.",
      "source": 0,
-     "status": "osäkert",
+     "status": "belagt",
      "jev": {
-      "verdict": "contradicts",
-      "confidence": 0.38
+      "verdict": "supports",
+      "confidence": 0.88
      }
     },
     "binding_months": {
      "value": 3,
-     "quote": "3 månader\n2,95 %",
+     "quote": "3 månader\n3,05 %",
      "source": 0,
      "status": "belagt"
     },
     "withdrawals": {
      "value": "ej tillåtna",
-     "quote": "Det är inte möjligt att göra uttag från Nordiska Fix innan löptidens slut.",
-     "source": 2,
+     "quote": "Det är inte\nmöjligt att göra uttag från Nordiska Fix innan\nlöptidens slut.",
+     "source": 3,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
@@ -423,23 +438,23 @@
      "status": "okänt"
     },
     "withdrawal_terms": {
-     "value": "Inga uttag under löptiden; kontot kan inte avslutas i förtid",
-     "quote": "Det är inte möjligt att göra uttag från Nordiska Fix innan löptidens slut.",
-     "source": 2,
+     "value": "Inga uttag under löptiden; medlen överförs till Nordiska Flex när löptiden är slut.",
+     "quote": "Det är inte\nmöjligt att göra uttag från Nordiska Fix innan\nlöptidens slut.",
+     "source": 3,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.92
+      "confidence": 0.64
      }
     },
     "min_deposit_sek": {
      "value": 10000,
-     "quote": "lägsta insättningsbelopp är tio tusen (10 000) kronor",
-     "source": 2,
+     "quote": "Engångsinsättning om minst 10 000 kr",
+     "source": 0,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 1.0
+      "confidence": 0.97
      }
     },
     "max_deposit_sek": {
@@ -465,19 +480,19 @@
      }
     },
     "eligibility": {
-     "value": "Myndig fysisk person (konsument), folkbokförd i Sverige, svenskt personnummer, BankID",
+     "value": "Myndig fysisk person, minst 18 år, svenskt personnummer, folkbokförd i Sverige, BankID",
      "quote": "Vara minst 18 år",
      "source": 0,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.89
+      "confidence": 0.85
      }
     },
     "requires_other_products": {
      "value": false,
      "quote": "Till Nordiska Fix kan inga tilläggstjänster knytas.",
-     "source": 2,
+     "source": 3,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
@@ -491,23 +506,23 @@
      "status": "okänt"
     },
     "interest_paid": {
-     "value": "Vid bindningstidens slut",
+     "value": "vid bindningstidens slut",
      "quote": "Hela ditt sparade belopp kapitaliseras, inklusive den intjänade räntan efter skatt.",
      "source": 0,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.86
+      "confidence": 0.97
      }
     },
     "guarantee_country": {
      "value": "SE",
-     "quote": "Spara utan avgifter – med statlig insättningsgaranti",
-     "source": 0,
-     "status": "osäkert",
+     "quote": "Nordiska Fix har prövats av Riksgälden",
+     "source": 3,
+     "status": "belagt",
      "jev": {
-      "verdict": "says_nothing",
-      "confidence": 0.73
+      "verdict": "supports",
+      "confidence": 0.61
      }
     },
     "guarantee_amount": {
@@ -536,38 +551,41 @@
    "flags": [],
    "fields": {
     "product_type": {
-     "value": null,
-     "quote": "Nordiska FIX\nPassar både kort- och långsiktigt sparande med fast ränta under den period du väljer.",
+     "value": "fasträntekonto",
+     "quote": "Passar både kort- och långsiktigt sparande med fast ränta under den period du väljer.",
      "source": 0,
-     "status": "citat hittades inte",
-     "claimed": "fasträntekonto"
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.37
+     }
     },
     "rate_percent": {
-     "value": 3.0,
-     "quote": "6 månader\n3,00 %",
+     "value": 3.05,
+     "quote": "6 månader\n3,05 %",
      "source": 0,
      "status": "belagt"
     },
     "rate_type": {
      "value": "fast",
-     "quote": "Fast ränta",
+     "quote": "Passar både kort- och långsiktigt sparande med fast ränta under den period du väljer.",
      "source": 0,
-     "status": "osäkert",
+     "status": "belagt",
      "jev": {
-      "verdict": "contradicts",
-      "confidence": 0.38
+      "verdict": "supports",
+      "confidence": 0.86
      }
     },
     "binding_months": {
      "value": 6,
-     "quote": "6 månader\n3,00 %",
+     "quote": "6 månader\n3,05 %",
      "source": 0,
      "status": "belagt"
     },
     "withdrawals": {
      "value": "ej tillåtna",
-     "quote": "Det är inte möjligt att göra uttag från Nordiska Fix innan löptidens slut.",
-     "source": 2,
+     "quote": "Det är inte\nmöjligt att göra uttag från Nordiska Fix innan\nlöptidens slut.",
+     "source": 3,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
@@ -581,23 +599,23 @@
      "status": "okänt"
     },
     "withdrawal_terms": {
-     "value": "Inga uttag under löptiden; kontot kan inte avslutas i förtid",
-     "quote": "Det är inte möjligt att göra uttag från Nordiska Fix innan löptidens slut.",
-     "source": 2,
+     "value": "Inga uttag under löptiden; medlen överförs till Nordiska Flex när löptiden är slut.",
+     "quote": "Det är inte\nmöjligt att göra uttag från Nordiska Fix innan\nlöptidens slut.",
+     "source": 3,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.91
+      "confidence": 0.73
      }
     },
     "min_deposit_sek": {
      "value": 10000,
-     "quote": "lägsta insättningsbelopp är tio tusen (10 000) kronor",
-     "source": 2,
+     "quote": "Engångsinsättning om minst 10 000 kr",
+     "source": 0,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 1.0
+      "confidence": 0.97
      }
     },
     "max_deposit_sek": {
@@ -623,19 +641,19 @@
      }
     },
     "eligibility": {
-     "value": "Myndig fysisk person (konsument), folkbokförd i Sverige, svenskt personnummer, BankID",
+     "value": "Myndig fysisk person, minst 18 år, svenskt personnummer, folkbokförd i Sverige, BankID",
      "quote": "Vara minst 18 år",
      "source": 0,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.91
+      "confidence": 0.85
      }
     },
     "requires_other_products": {
      "value": false,
      "quote": "Till Nordiska Fix kan inga tilläggstjänster knytas.",
-     "source": 2,
+     "source": 3,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
@@ -649,23 +667,23 @@
      "status": "okänt"
     },
     "interest_paid": {
-     "value": "Vid bindningstidens slut",
+     "value": "vid bindningstidens slut",
      "quote": "Hela ditt sparade belopp kapitaliseras, inklusive den intjänade räntan efter skatt.",
      "source": 0,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.85
+      "confidence": 0.98
      }
     },
     "guarantee_country": {
      "value": "SE",
-     "quote": "Spara utan avgifter – med statlig insättningsgaranti",
-     "source": 0,
-     "status": "osäkert",
+     "quote": "Nordiska Fix har prövats av Riksgälden",
+     "source": 3,
+     "status": "belagt",
      "jev": {
-      "verdict": "says_nothing",
-      "confidence": 0.77
+      "verdict": "supports",
+      "confidence": 0.69
      }
     },
     "guarantee_amount": {
@@ -694,11 +712,14 @@
    "flags": [],
    "fields": {
     "product_type": {
-     "value": null,
-     "quote": "Nordiska FIX\nPassar både kort- och långsiktigt sparande med fast ränta under den period du väljer.",
+     "value": "fasträntekonto",
+     "quote": "Passar både kort- och långsiktigt sparande med fast ränta under den period du väljer.",
      "source": 0,
-     "status": "citat hittades inte",
-     "claimed": "fasträntekonto"
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.22
+     }
     },
     "rate_percent": {
      "value": 3.05,
@@ -708,12 +729,12 @@
     },
     "rate_type": {
      "value": "fast",
-     "quote": "Fast ränta",
+     "quote": "Passar både kort- och långsiktigt sparande med fast ränta under den period du väljer.",
      "source": 0,
-     "status": "osäkert",
+     "status": "belagt",
      "jev": {
-      "verdict": "contradicts",
-      "confidence": 0.4
+      "verdict": "supports",
+      "confidence": 0.88
      }
     },
     "binding_months": {
@@ -724,8 +745,8 @@
     },
     "withdrawals": {
      "value": "ej tillåtna",
-     "quote": "Det är inte möjligt att göra uttag från Nordiska Fix innan löptidens slut.",
-     "source": 2,
+     "quote": "Det är inte\nmöjligt att göra uttag från Nordiska Fix innan\nlöptidens slut.",
+     "source": 3,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
@@ -739,23 +760,23 @@
      "status": "okänt"
     },
     "withdrawal_terms": {
-     "value": "Inga uttag under löptiden; kontot kan inte avslutas i förtid",
-     "quote": "Det är inte möjligt att göra uttag från Nordiska Fix innan löptidens slut.",
-     "source": 2,
+     "value": "Inga uttag under löptiden; medlen överförs till Nordiska Flex när löptiden är slut.",
+     "quote": "Det är inte\nmöjligt att göra uttag från Nordiska Fix innan\nlöptidens slut.",
+     "source": 3,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.92
+      "confidence": 0.69
      }
     },
     "min_deposit_sek": {
      "value": 10000,
-     "quote": "lägsta insättningsbelopp är tio tusen (10 000) kronor",
-     "source": 2,
+     "quote": "Engångsinsättning om minst 10 000 kr",
+     "source": 0,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.98
+      "confidence": 0.97
      }
     },
     "max_deposit_sek": {
@@ -781,19 +802,19 @@
      }
     },
     "eligibility": {
-     "value": "Myndig fysisk person (konsument), folkbokförd i Sverige, svenskt personnummer, BankID",
+     "value": "Myndig fysisk person, minst 18 år, svenskt personnummer, folkbokförd i Sverige, BankID",
      "quote": "Vara minst 18 år",
      "source": 0,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.89
+      "confidence": 0.77
      }
     },
     "requires_other_products": {
      "value": false,
      "quote": "Till Nordiska Fix kan inga tilläggstjänster knytas.",
-     "source": 2,
+     "source": 3,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
@@ -807,23 +828,23 @@
      "status": "okänt"
     },
     "interest_paid": {
-     "value": "Vid bindningstidens slut",
+     "value": "vid bindningstidens slut",
      "quote": "Hela ditt sparade belopp kapitaliseras, inklusive den intjänade räntan efter skatt.",
      "source": 0,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.85
+      "confidence": 0.97
      }
     },
     "guarantee_country": {
      "value": "SE",
-     "quote": "Spara utan avgifter – med statlig insättningsgaranti",
-     "source": 0,
-     "status": "osäkert",
+     "quote": "Nordiska Fix har prövats av Riksgälden",
+     "source": 3,
+     "status": "belagt",
      "jev": {
-      "verdict": "says_nothing",
-      "confidence": 0.72
+      "verdict": "supports",
+      "confidence": 0.59
      }
     },
     "guarantee_amount": {
@@ -848,15 +869,18 @@
    "status": "verifierad"
   },
   {
-   "name": "Nordiska FIX 12 mån",
+   "name": "Nordiska FIX 1 år",
    "flags": [],
    "fields": {
     "product_type": {
-     "value": null,
-     "quote": "Nordiska FIX\nPassar både kort- och långsiktigt sparande med fast ränta under den period du väljer.",
+     "value": "fasträntekonto",
+     "quote": "Passar både kort- och långsiktigt sparande med fast ränta under den period du väljer.",
      "source": 0,
-     "status": "citat hittades inte",
-     "claimed": "fasträntekonto"
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.27
+     }
     },
     "rate_percent": {
      "value": 3.15,
@@ -866,12 +890,12 @@
     },
     "rate_type": {
      "value": "fast",
-     "quote": "Fast ränta",
+     "quote": "Passar både kort- och långsiktigt sparande med fast ränta under den period du väljer.",
      "source": 0,
-     "status": "osäkert",
+     "status": "belagt",
      "jev": {
-      "verdict": "contradicts",
-      "confidence": 0.27
+      "verdict": "supports",
+      "confidence": 0.92
      }
     },
     "binding_months": {
@@ -882,8 +906,8 @@
     },
     "withdrawals": {
      "value": "ej tillåtna",
-     "quote": "Det är inte möjligt att göra uttag från Nordiska Fix innan löptidens slut.",
-     "source": 2,
+     "quote": "Det är inte\nmöjligt att göra uttag från Nordiska Fix innan\nlöptidens slut.",
+     "source": 3,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
@@ -897,23 +921,23 @@
      "status": "okänt"
     },
     "withdrawal_terms": {
-     "value": "Inga uttag under löptiden; kontot kan inte avslutas i förtid",
-     "quote": "Det är inte möjligt att göra uttag från Nordiska Fix innan löptidens slut.",
-     "source": 2,
+     "value": "Inga uttag under löptiden; medlen överförs till Nordiska Flex när löptiden är slut.",
+     "quote": "Det är inte\nmöjligt att göra uttag från Nordiska Fix innan\nlöptidens slut.",
+     "source": 3,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.92
+      "confidence": 0.74
      }
     },
     "min_deposit_sek": {
      "value": 10000,
-     "quote": "lägsta insättningsbelopp är tio tusen (10 000) kronor",
-     "source": 2,
+     "quote": "Engångsinsättning om minst 10 000 kr",
+     "source": 0,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 1.0
+      "confidence": 0.98
      }
     },
     "max_deposit_sek": {
@@ -939,166 +963,7 @@
      }
     },
     "eligibility": {
-     "value": "Myndig fysisk person (konsument), folkbokförd i Sverige, svenskt personnummer, BankID",
-     "quote": "Vara minst 18 år",
-     "source": 0,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.91
-     }
-    },
-    "requires_other_products": {
-     "value": false,
-     "quote": "Till Nordiska Fix kan inga tilläggstjänster knytas.",
-     "source": 2,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.64
-     }
-    },
-    "intro_rate": {
-     "value": null,
-     "quote": null,
-     "source": null,
-     "status": "okänt"
-    },
-    "interest_paid": {
-     "value": "Vid bindningstidens slut",
-     "quote": "Hela ditt sparade belopp kapitaliseras, inklusive den intjänade räntan efter skatt.",
-     "source": 0,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.82
-     }
-    },
-    "guarantee_country": {
-     "value": null,
-     "quote": "Spara utan avgifter – med statlig insättningsgaranti",
-     "source": 0,
-     "status": "stöds inte av källan",
-     "jev": {
-      "verdict": "says_nothing",
-      "confidence": 0.8
-     },
-     "claimed": "SE"
-    },
-    "guarantee_amount": {
-     "value": "1 150 000 kronor",
-     "quote": "upp till en summa om 1 150 000 kronor",
-     "source": 0,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.97
-     }
-    },
-    "rate_valid_from": {
-     "value": null,
-     "quote": null,
-     "source": null,
-     "status": "okänt"
-    }
-   },
-   "rate_tiers": [],
-   "pending_rate": null,
-   "status": "verifierad"
-  },
-  {
-   "name": "Nordiska FIX 24 mån",
-   "flags": [],
-   "fields": {
-    "product_type": {
-     "value": null,
-     "quote": "Nordiska FIX\nPassar både kort- och långsiktigt sparande med fast ränta under den period du väljer.",
-     "source": 0,
-     "status": "citat hittades inte",
-     "claimed": "fasträntekonto"
-    },
-    "rate_percent": {
-     "value": 2.8,
-     "quote": "2 år\n2,80 %",
-     "source": 0,
-     "status": "belagt"
-    },
-    "rate_type": {
-     "value": "fast",
-     "quote": "Fast ränta",
-     "source": 0,
-     "status": "osäkert",
-     "jev": {
-      "verdict": "contradicts",
-      "confidence": 0.27
-     }
-    },
-    "binding_months": {
-     "value": 24,
-     "quote": "2 år\n2,80 %",
-     "source": 0,
-     "status": "belagt"
-    },
-    "withdrawals": {
-     "value": "ej tillåtna",
-     "quote": "Det är inte möjligt att göra uttag från Nordiska Fix innan löptidens slut.",
-     "source": 2,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 1.0
-     }
-    },
-    "free_withdrawals_per_year": {
-     "value": null,
-     "quote": null,
-     "source": null,
-     "status": "okänt"
-    },
-    "withdrawal_terms": {
-     "value": "Inga uttag under löptiden; kontot kan inte avslutas i förtid",
-     "quote": "Det är inte möjligt att göra uttag från Nordiska Fix innan löptidens slut.",
-     "source": 2,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.88
-     }
-    },
-    "min_deposit_sek": {
-     "value": 10000,
-     "quote": "lägsta insättningsbelopp är tio tusen (10 000) kronor",
-     "source": 2,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.97
-     }
-    },
-    "max_deposit_sek": {
-     "value": null,
-     "quote": null,
-     "source": null,
-     "status": "okänt"
-    },
-    "monthly_deposit_cap_sek": {
-     "value": null,
-     "quote": null,
-     "source": null,
-     "status": "okänt"
-    },
-    "deposit_terms": {
-     "value": "Engångsinsättning om minst 10 000 kr",
-     "quote": "Engångsinsättning om minst 10 000 kr",
-     "source": 0,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.95
-     }
-    },
-    "eligibility": {
-     "value": "Myndig fysisk person (konsument), folkbokförd i Sverige, svenskt personnummer, BankID",
+     "value": "Myndig fysisk person, minst 18 år, svenskt personnummer, folkbokförd i Sverige, BankID",
      "quote": "Vara minst 18 år",
      "source": 0,
      "status": "belagt",
@@ -1110,11 +975,11 @@
     "requires_other_products": {
      "value": false,
      "quote": "Till Nordiska Fix kan inga tilläggstjänster knytas.",
-     "source": 2,
-     "status": "belagt",
+     "source": 3,
+     "status": "osäkert",
      "jev": {
-      "verdict": "supports",
-      "confidence": 0.73
+      "verdict": "says_nothing",
+      "confidence": 0.3
      }
     },
     "intro_rate": {
@@ -1124,25 +989,24 @@
      "status": "okänt"
     },
     "interest_paid": {
-     "value": "Vid bindningstidens slut",
+     "value": "vid bindningstidens slut",
      "quote": "Hela ditt sparade belopp kapitaliseras, inklusive den intjänade räntan efter skatt.",
      "source": 0,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.71
+      "confidence": 0.94
      }
     },
     "guarantee_country": {
-     "value": null,
-     "quote": "Spara utan avgifter – med statlig insättningsgaranti",
-     "source": 0,
-     "status": "stöds inte av källan",
+     "value": "SE",
+     "quote": "Nordiska Fix har prövats av Riksgälden",
+     "source": 3,
+     "status": "belagt",
      "jev": {
-      "verdict": "says_nothing",
-      "confidence": 0.88
-     },
-     "claimed": "SE"
+      "verdict": "supports",
+      "confidence": 0.45
+     }
     },
     "guarantee_amount": {
      "value": "1 150 000 kronor",
@@ -1151,7 +1015,7 @@
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.95
+      "confidence": 0.97
      }
     },
     "rate_valid_from": {
@@ -1166,42 +1030,206 @@
    "status": "verifierad"
   },
   {
-   "name": "Nordiska FIX 36 mån",
+   "name": "Nordiska FIX 2 år",
    "flags": [],
    "fields": {
     "product_type": {
-     "value": null,
-     "quote": "Nordiska FIX\nPassar både kort- och långsiktigt sparande med fast ränta under den period du väljer.",
+     "value": "fasträntekonto",
+     "quote": "Passar både kort- och långsiktigt sparande med fast ränta under den period du väljer.",
      "source": 0,
-     "status": "citat hittades inte",
-     "claimed": "fasträntekonto"
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.33
+     }
     },
     "rate_percent": {
-     "value": 2.8,
-     "quote": "3 år\n2,80 %",
+     "value": 3.15,
+     "quote": "2 år\n3,15 %",
      "source": 0,
      "status": "belagt"
     },
     "rate_type": {
      "value": "fast",
-     "quote": "Fast ränta",
+     "quote": "Passar både kort- och långsiktigt sparande med fast ränta under den period du väljer.",
+     "source": 0,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.91
+     }
+    },
+    "binding_months": {
+     "value": 24,
+     "quote": "2 år\n3,15 %",
+     "source": 0,
+     "status": "belagt"
+    },
+    "withdrawals": {
+     "value": "ej tillåtna",
+     "quote": "Det är inte\nmöjligt att göra uttag från Nordiska Fix innan\nlöptidens slut.",
+     "source": 3,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 1.0
+     }
+    },
+    "free_withdrawals_per_year": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "withdrawal_terms": {
+     "value": "Inga uttag under löptiden; medlen överförs till Nordiska Flex när löptiden är slut.",
+     "quote": "Det är inte\nmöjligt att göra uttag från Nordiska Fix innan\nlöptidens slut.",
+     "source": 3,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.72
+     }
+    },
+    "min_deposit_sek": {
+     "value": 10000,
+     "quote": "Engångsinsättning om minst 10 000 kr",
+     "source": 0,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.98
+     }
+    },
+    "max_deposit_sek": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "monthly_deposit_cap_sek": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "deposit_terms": {
+     "value": "Engångsinsättning om minst 10 000 kr",
+     "quote": "Engångsinsättning om minst 10 000 kr",
+     "source": 0,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.97
+     }
+    },
+    "eligibility": {
+     "value": "Myndig fysisk person, minst 18 år, svenskt personnummer, folkbokförd i Sverige, BankID",
+     "quote": "Vara minst 18 år",
+     "source": 0,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.82
+     }
+    },
+    "requires_other_products": {
+     "value": false,
+     "quote": "Till Nordiska Fix kan inga tilläggstjänster knytas.",
+     "source": 3,
+     "status": "osäkert",
+     "jev": {
+      "verdict": "says_nothing",
+      "confidence": 0.25
+     }
+    },
+    "intro_rate": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "interest_paid": {
+     "value": "vid bindningstidens slut",
+     "quote": "Hela ditt sparade belopp kapitaliseras, inklusive den intjänade räntan efter skatt.",
+     "source": 0,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.95
+     }
+    },
+    "guarantee_country": {
+     "value": "SE",
+     "quote": "Nordiska Fix har prövats av Riksgälden",
+     "source": 3,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.55
+     }
+    },
+    "guarantee_amount": {
+     "value": "1 150 000 kronor",
+     "quote": "upp till en summa om 1 150 000 kronor",
+     "source": 0,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.97
+     }
+    },
+    "rate_valid_from": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    }
+   },
+   "rate_tiers": [],
+   "pending_rate": null,
+   "status": "verifierad"
+  },
+  {
+   "name": "Nordiska FIX 3 år",
+   "flags": [],
+   "fields": {
+    "product_type": {
+     "value": "fasträntekonto",
+     "quote": "Passar både kort- och långsiktigt sparande med fast ränta under den period du väljer.",
      "source": 0,
      "status": "osäkert",
      "jev": {
       "verdict": "contradicts",
-      "confidence": 0.46
+      "confidence": 0.23
+     }
+    },
+    "rate_percent": {
+     "value": 3.15,
+     "quote": "3 år\n3,15 %",
+     "source": 0,
+     "status": "belagt"
+    },
+    "rate_type": {
+     "value": "fast",
+     "quote": "Passar både kort- och långsiktigt sparande med fast ränta under den period du väljer.",
+     "source": 0,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.83
      }
     },
     "binding_months": {
      "value": 36,
-     "quote": "3 år\n2,80 %",
+     "quote": "3 år\n3,15 %",
      "source": 0,
      "status": "belagt"
     },
     "withdrawals": {
      "value": "ej tillåtna",
-     "quote": "Det är inte möjligt att göra uttag från Nordiska Fix innan löptidens slut.",
-     "source": 2,
+     "quote": "Det är inte\nmöjligt att göra uttag från Nordiska Fix innan\nlöptidens slut.",
+     "source": 3,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
@@ -1215,19 +1243,19 @@
      "status": "okänt"
     },
     "withdrawal_terms": {
-     "value": "Inga uttag under löptiden; kontot kan inte avslutas i förtid",
-     "quote": "Det är inte möjligt att göra uttag från Nordiska Fix innan löptidens slut.",
-     "source": 2,
+     "value": "Inga uttag under löptiden; medlen överförs till Nordiska Flex när löptiden är slut.",
+     "quote": "Det är inte\nmöjligt att göra uttag från Nordiska Fix innan\nlöptidens slut.",
+     "source": 3,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.86
+      "confidence": 0.69
      }
     },
     "min_deposit_sek": {
      "value": 10000,
-     "quote": "lägsta insättningsbelopp är tio tusen (10 000) kronor",
-     "source": 2,
+     "quote": "Engångsinsättning om minst 10 000 kr",
+     "source": 0,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
@@ -1257,23 +1285,23 @@
      }
     },
     "eligibility": {
-     "value": "Myndig fysisk person (konsument), folkbokförd i Sverige, svenskt personnummer, BankID",
+     "value": "Myndig fysisk person, minst 18 år, svenskt personnummer, folkbokförd i Sverige, BankID",
      "quote": "Vara minst 18 år",
      "source": 0,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.88
+      "confidence": 0.83
      }
     },
     "requires_other_products": {
      "value": false,
      "quote": "Till Nordiska Fix kan inga tilläggstjänster knytas.",
-     "source": 2,
-     "status": "belagt",
+     "source": 3,
+     "status": "osäkert",
      "jev": {
-      "verdict": "supports",
-      "confidence": 0.64
+      "verdict": "says_nothing",
+      "confidence": 0.25
      }
     },
     "intro_rate": {
@@ -1283,25 +1311,24 @@
      "status": "okänt"
     },
     "interest_paid": {
-     "value": "Vid bindningstidens slut",
+     "value": "vid bindningstidens slut",
      "quote": "Hela ditt sparade belopp kapitaliseras, inklusive den intjänade räntan efter skatt.",
      "source": 0,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.77
+      "confidence": 0.95
      }
     },
     "guarantee_country": {
-     "value": null,
-     "quote": "Spara utan avgifter – med statlig insättningsgaranti",
-     "source": 0,
-     "status": "stöds inte av källan",
+     "value": "SE",
+     "quote": "Nordiska Fix har prövats av Riksgälden",
+     "source": 3,
+     "status": "belagt",
      "jev": {
-      "verdict": "says_nothing",
-      "confidence": 0.8
-     },
-     "claimed": "SE"
+      "verdict": "supports",
+      "confidence": 0.48
+     }
     },
     "guarantee_amount": {
      "value": "1 150 000 kronor",
@@ -1310,7 +1337,7 @@
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.95
+      "confidence": 0.97
      }
     },
     "rate_valid_from": {
@@ -1325,42 +1352,45 @@
    "status": "verifierad"
   },
   {
-   "name": "Nordiska FIX 48 mån",
+   "name": "Nordiska FIX 4 år",
    "flags": [],
    "fields": {
     "product_type": {
-     "value": null,
-     "quote": "Nordiska FIX\nPassar både kort- och långsiktigt sparande med fast ränta under den period du väljer.",
+     "value": "fasträntekonto",
+     "quote": "Passar både kort- och långsiktigt sparande med fast ränta under den period du väljer.",
      "source": 0,
-     "status": "citat hittades inte",
-     "claimed": "fasträntekonto"
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.2
+     }
     },
     "rate_percent": {
-     "value": 2.8,
-     "quote": "4 år\n2,80 %",
+     "value": 3.15,
+     "quote": "4 år\n3,15 %",
      "source": 0,
      "status": "belagt"
     },
     "rate_type": {
      "value": "fast",
-     "quote": "Fast ränta",
+     "quote": "Passar både kort- och långsiktigt sparande med fast ränta under den period du väljer.",
      "source": 0,
-     "status": "osäkert",
+     "status": "belagt",
      "jev": {
-      "verdict": "contradicts",
-      "confidence": 0.45
+      "verdict": "supports",
+      "confidence": 0.92
      }
     },
     "binding_months": {
      "value": 48,
-     "quote": "4 år\n2,80 %",
+     "quote": "4 år\n3,15 %",
      "source": 0,
      "status": "belagt"
     },
     "withdrawals": {
      "value": "ej tillåtna",
-     "quote": "Det är inte möjligt att göra uttag från Nordiska Fix innan löptidens slut.",
-     "source": 2,
+     "quote": "Det är inte\nmöjligt att göra uttag från Nordiska Fix innan\nlöptidens slut.",
+     "source": 3,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
@@ -1374,19 +1404,180 @@
      "status": "okänt"
     },
     "withdrawal_terms": {
-     "value": "Inga uttag under löptiden; kontot kan inte avslutas i förtid",
-     "quote": "Det är inte möjligt att göra uttag från Nordiska Fix innan löptidens slut.",
-     "source": 2,
+     "value": "Inga uttag under löptiden; medlen överförs till Nordiska Flex när löptiden är slut.",
+     "quote": "Det är inte\nmöjligt att göra uttag från Nordiska Fix innan\nlöptidens slut.",
+     "source": 3,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.89
+      "confidence": 0.72
      }
     },
     "min_deposit_sek": {
      "value": 10000,
-     "quote": "lägsta insättningsbelopp är tio tusen (10 000) kronor",
-     "source": 2,
+     "quote": "Engångsinsättning om minst 10 000 kr",
+     "source": 0,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.97
+     }
+    },
+    "max_deposit_sek": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "monthly_deposit_cap_sek": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "deposit_terms": {
+     "value": "Engångsinsättning om minst 10 000 kr",
+     "quote": "Engångsinsättning om minst 10 000 kr",
+     "source": 0,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.97
+     }
+    },
+    "eligibility": {
+     "value": "Myndig fysisk person, minst 18 år, svenskt personnummer, folkbokförd i Sverige, BankID",
+     "quote": "Vara minst 18 år",
+     "source": 0,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.83
+     }
+    },
+    "requires_other_products": {
+     "value": false,
+     "quote": "Till Nordiska Fix kan inga tilläggstjänster knytas.",
+     "source": 3,
+     "status": "osäkert",
+     "jev": {
+      "verdict": "says_nothing",
+      "confidence": 0.33
+     }
+    },
+    "intro_rate": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "interest_paid": {
+     "value": "vid bindningstidens slut",
+     "quote": "Hela ditt sparade belopp kapitaliseras, inklusive den intjänade räntan efter skatt.",
+     "source": 0,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.92
+     }
+    },
+    "guarantee_country": {
+     "value": "SE",
+     "quote": "Nordiska Fix har prövats av Riksgälden",
+     "source": 3,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.4
+     }
+    },
+    "guarantee_amount": {
+     "value": "1 150 000 kronor",
+     "quote": "upp till en summa om 1 150 000 kronor",
+     "source": 0,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.97
+     }
+    },
+    "rate_valid_from": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    }
+   },
+   "rate_tiers": [],
+   "pending_rate": null,
+   "status": "verifierad"
+  },
+  {
+   "name": "Nordiska FIX 5 år",
+   "flags": [],
+   "fields": {
+    "product_type": {
+     "value": "fasträntekonto",
+     "quote": "Passar både kort- och långsiktigt sparande med fast ränta under den period du väljer.",
+     "source": 0,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.23
+     }
+    },
+    "rate_percent": {
+     "value": 3.15,
+     "quote": "5 år\n3,15 %",
+     "source": 0,
+     "status": "belagt"
+    },
+    "rate_type": {
+     "value": "fast",
+     "quote": "Passar både kort- och långsiktigt sparande med fast ränta under den period du väljer.",
+     "source": 0,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.86
+     }
+    },
+    "binding_months": {
+     "value": 60,
+     "quote": "5 år\n3,15 %",
+     "source": 0,
+     "status": "belagt"
+    },
+    "withdrawals": {
+     "value": "ej tillåtna",
+     "quote": "Det är inte\nmöjligt att göra uttag från Nordiska Fix innan\nlöptidens slut.",
+     "source": 3,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 1.0
+     }
+    },
+    "free_withdrawals_per_year": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "withdrawal_terms": {
+     "value": "Inga uttag under löptiden; medlen överförs till Nordiska Flex när löptiden är slut.",
+     "quote": "Det är inte\nmöjligt att göra uttag från Nordiska Fix innan\nlöptidens slut.",
+     "source": 3,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.74
+     }
+    },
+    "min_deposit_sek": {
+     "value": 10000,
+     "quote": "Engångsinsättning om minst 10 000 kr",
+     "source": 0,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
@@ -1412,27 +1603,27 @@
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.97
+      "confidence": 0.98
      }
     },
     "eligibility": {
-     "value": "Myndig fysisk person (konsument), folkbokförd i Sverige, svenskt personnummer, BankID",
+     "value": "Myndig fysisk person, minst 18 år, svenskt personnummer, folkbokförd i Sverige, BankID",
      "quote": "Vara minst 18 år",
      "source": 0,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.86
+      "confidence": 0.83
      }
     },
     "requires_other_products": {
      "value": false,
      "quote": "Till Nordiska Fix kan inga tilläggstjänster knytas.",
-     "source": 2,
+     "source": 3,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.8
+      "confidence": 0.27
      }
     },
     "intro_rate": {
@@ -1442,131 +1633,8 @@
      "status": "okänt"
     },
     "interest_paid": {
-     "value": "Vid bindningstidens slut",
+     "value": "vid bindningstidens slut",
      "quote": "Hela ditt sparade belopp kapitaliseras, inklusive den intjänade räntan efter skatt.",
-     "source": 0,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.8
-     }
-    },
-    "guarantee_country": {
-     "value": null,
-     "quote": "Spara utan avgifter – med statlig insättningsgaranti",
-     "source": 0,
-     "status": "stöds inte av källan",
-     "jev": {
-      "verdict": "says_nothing",
-      "confidence": 0.85
-     },
-     "claimed": "SE"
-    },
-    "guarantee_amount": {
-     "value": "1 150 000 kronor",
-     "quote": "upp till en summa om 1 150 000 kronor",
-     "source": 0,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.95
-     }
-    },
-    "rate_valid_from": {
-     "value": null,
-     "quote": null,
-     "source": null,
-     "status": "okänt"
-    }
-   },
-   "rate_tiers": [],
-   "pending_rate": null,
-   "status": "verifierad"
-  },
-  {
-   "name": "Nordiska FIX 60 mån",
-   "flags": [],
-   "fields": {
-    "product_type": {
-     "value": null,
-     "quote": "Nordiska FIX\nPassar både kort- och långsiktigt sparande med fast ränta under den period du väljer.",
-     "source": 0,
-     "status": "citat hittades inte",
-     "claimed": "fasträntekonto"
-    },
-    "rate_percent": {
-     "value": 2.85,
-     "quote": "5 år\n2,85 %",
-     "source": 0,
-     "status": "belagt"
-    },
-    "rate_type": {
-     "value": "fast",
-     "quote": "Fast ränta",
-     "source": 0,
-     "status": "osäkert",
-     "jev": {
-      "verdict": "contradicts",
-      "confidence": 0.43
-     }
-    },
-    "binding_months": {
-     "value": 60,
-     "quote": "5 år\n2,85 %",
-     "source": 0,
-     "status": "belagt"
-    },
-    "withdrawals": {
-     "value": "ej tillåtna",
-     "quote": "Det är inte möjligt att göra uttag från Nordiska Fix innan löptidens slut.",
-     "source": 2,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 1.0
-     }
-    },
-    "free_withdrawals_per_year": {
-     "value": null,
-     "quote": null,
-     "source": null,
-     "status": "okänt"
-    },
-    "withdrawal_terms": {
-     "value": "Inga uttag under löptiden; kontot kan inte avslutas i förtid",
-     "quote": "Det är inte möjligt att göra uttag från Nordiska Fix innan löptidens slut.",
-     "source": 2,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.85
-     }
-    },
-    "min_deposit_sek": {
-     "value": 10000,
-     "quote": "lägsta insättningsbelopp är tio tusen (10 000) kronor",
-     "source": 2,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.97
-     }
-    },
-    "max_deposit_sek": {
-     "value": null,
-     "quote": null,
-     "source": null,
-     "status": "okänt"
-    },
-    "monthly_deposit_cap_sek": {
-     "value": null,
-     "quote": null,
-     "source": null,
-     "status": "okänt"
-    },
-    "deposit_terms": {
-     "value": "Engångsinsättning om minst 10 000 kr",
-     "quote": "Engångsinsättning om minst 10 000 kr",
      "source": 0,
      "status": "belagt",
      "jev": {
@@ -1574,52 +1642,15 @@
       "confidence": 0.97
      }
     },
-    "eligibility": {
-     "value": "Myndig fysisk person (konsument), folkbokförd i Sverige, svenskt personnummer, BankID",
-     "quote": "Vara minst 18 år",
-     "source": 0,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.86
-     }
-    },
-    "requires_other_products": {
-     "value": false,
-     "quote": "Till Nordiska Fix kan inga tilläggstjänster knytas.",
-     "source": 2,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.59
-     }
-    },
-    "intro_rate": {
-     "value": null,
-     "quote": null,
-     "source": null,
-     "status": "okänt"
-    },
-    "interest_paid": {
-     "value": "Vid bindningstidens slut",
-     "quote": "Hela ditt sparade belopp kapitaliseras, inklusive den intjänade räntan efter skatt.",
-     "source": 0,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.79
-     }
-    },
     "guarantee_country": {
-     "value": null,
-     "quote": "Spara utan avgifter – med statlig insättningsgaranti",
-     "source": 0,
-     "status": "stöds inte av källan",
+     "value": "SE",
+     "quote": "Nordiska Fix har prövats av Riksgälden",
+     "source": 3,
+     "status": "belagt",
      "jev": {
-      "verdict": "says_nothing",
-      "confidence": 0.82
-     },
-     "claimed": "SE"
+      "verdict": "supports",
+      "confidence": 0.53
+     }
     },
     "guarantee_amount": {
      "value": "1 150 000 kronor",
@@ -1648,12 +1679,12 @@
    "fields": {
     "product_type": {
      "value": "rörligt sparkonto",
-     "quote": "Rörlig ränta\nNordiska FLEX PLUS",
+     "quote": "För dig som vill ha ett flexibelt sparande med rörlig ränta. Fria insättningar och uttag.",
      "source": 0,
-     "status": "osäkert",
+     "status": "belagt",
      "jev": {
-      "verdict": "says_nothing",
-      "confidence": 0.55
+      "verdict": "supports",
+      "confidence": 0.77
      }
     },
     "rate_percent": {
@@ -1668,12 +1699,12 @@
     },
     "rate_type": {
      "value": "rörlig",
-     "quote": "Rörlig ränta\nNordiska FLEX PLUS",
+     "quote": "För dig som vill ha ett flexibelt sparande med rörlig ränta.",
      "source": 0,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.98
+      "confidence": 1.0
      }
     },
     "binding_months": {
@@ -1688,12 +1719,12 @@
     },
     "withdrawals": {
      "value": "fria",
-     "quote": "Det finns en obegränsad möjlighet att göra insättningar till och uttag från Kontot.",
-     "source": 3,
+     "quote": "Det finns en obegränsad möjlighet att göra",
+     "source": 4,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.76
+      "confidence": 0.46
      }
     },
     "free_withdrawals_per_year": {
@@ -1703,13 +1734,13 @@
      "status": "okänt"
     },
     "withdrawal_terms": {
-     "value": "Obegränsade uttag till föranmält konto; 1–2 bankdagars transaktionstid",
+     "value": "Uttag till föranmält uttagskonto; transaktionstid 1–2 bankdagar.",
      "quote": "Transaktionstiden för begärda uttag är 1–2",
-     "source": 3,
+     "source": 4,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.95
+      "confidence": 0.98
      }
     },
     "min_deposit_sek": {
@@ -1735,33 +1766,33 @@
      "status": "okänt"
     },
     "deposit_terms": {
-     "value": "Insättning om minst 10 000 kr vid öppnande; därefter obegränsade insättningar via bankgiro eller överföring från eget konto",
-     "quote": "Vid öppning av Nordiska Flex Plus ska en insättning om minst 10 000 kronor ske.",
-     "source": 3,
+     "value": "Fria insättningar och uttag; vid öppning krävs insättning om minst 10 000 kronor.",
+     "quote": "Vid öppning av Nordiska Flex Plus ska en insättning om minst\n10 000 kronor ske.",
+     "source": 4,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.46
+      "confidence": 0.66
      }
     },
     "eligibility": {
-     "value": "Myndig fysisk person (konsument), folkbokförd i Sverige, svenskt personnummer, BankID",
+     "value": "Myndig fysisk person, minst 18 år, svenskt personnummer, folkbokförd i Sverige, BankID",
      "quote": "Vara minst 18 år",
      "source": 0,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.89
+      "confidence": 0.94
      }
     },
     "requires_other_products": {
      "value": false,
-     "quote": "Till Nordiska Flex Plus kan inga tilläggstjänster knytas.",
-     "source": 3,
+     "quote": "Till Nordiska Flex Plus kan inga tilläggstjänster",
+     "source": 4,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.92
+      "confidence": 0.97
      }
     },
     "intro_rate": {
@@ -1771,9 +1802,9 @@
      "status": "okänt"
     },
     "interest_paid": {
-     "value": "Per den 31 december varje år eller när kontot avslutas",
-     "quote": "Räntan på Nordiska Flex Plus gottgörs Kontot per den 31 december varje år eller då Kontot avslutas.",
-     "source": 3,
+     "value": "årsvis",
+     "quote": "Räntan på Nordiska Flex Plus gottgörs Kontot per den 31 december varje år",
+     "source": 4,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
@@ -1782,8 +1813,8 @@
     },
     "guarantee_country": {
      "value": "SE",
-     "quote": "Nordiska Flex Plus har prövats av Riksgälden och omfattas av den statliga insättningsgarantin.",
-     "source": 3,
+     "quote": "Nordiska Flex Plus har prövats av Riksgälden",
+     "source": 4,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
@@ -1792,12 +1823,12 @@
     },
     "guarantee_amount": {
      "value": "1 150 000 kronor",
-     "quote": "maximal ersättning motsvarande 1 150 000 kronor per kund och institut",
-     "source": 3,
+     "quote": "upp till en summa om 1 150 000 kronor",
+     "source": 0,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.92
+      "confidence": 0.95
      }
     },
     "rate_valid_from": {
@@ -1817,12 +1848,12 @@
    "fields": {
     "product_type": {
      "value": "rörligt sparkonto",
-     "quote": "Rörlig ränta\nNordiska FLEX",
+     "quote": "För dig som vill ha ett flexibelt sparande med rörlig ränta. Fria insättningar och uttag.",
      "source": 0,
-     "status": "osäkert",
+     "status": "belagt",
      "jev": {
-      "verdict": "says_nothing",
-      "confidence": 0.51
+      "verdict": "supports",
+      "confidence": 0.7
      }
     },
     "rate_percent": {
@@ -1837,12 +1868,12 @@
     },
     "rate_type": {
      "value": "rörlig",
-     "quote": "Rörlig ränta\nNordiska FLEX",
+     "quote": "För dig som vill ha ett flexibelt sparande med rörlig ränta.",
      "source": 0,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.91
+      "confidence": 1.0
      }
     },
     "binding_months": {
@@ -1858,7 +1889,7 @@
     "withdrawals": {
      "value": "fria",
      "quote": "Det finns en obegränsad möjlighet att göra insättningar till och uttag från Kontot.",
-     "source": 4,
+     "source": 5,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
@@ -1872,20 +1903,21 @@
      "status": "okänt"
     },
     "withdrawal_terms": {
-     "value": "Obegränsade uttag till föranmält konto; 1–2 bankdagars transaktionstid",
+     "value": "Uttag till föranmält uttagskonto; transaktionstid 1–2 bankdagar.",
      "quote": "Transaktionstiden för begärda uttag är 1–2",
-     "source": 4,
+     "source": 5,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.94
+      "confidence": 0.97
      }
     },
     "min_deposit_sek": {
      "value": null,
      "quote": null,
      "source": null,
-     "status": "okänt"
+     "status": "saknar belägg",
+     "claimed": 0
     },
     "max_deposit_sek": {
      "value": null,
@@ -1900,29 +1932,29 @@
      "status": "okänt"
     },
     "deposit_terms": {
-     "value": "Insättning endast via bankgiroinbetalning eller överföring från eget konto; kontant ej möjligt",
-     "quote": "Insättning av pengar till Kontot kan endast ske via bankgiroinbetalning till Nordiska",
-     "source": 4,
+     "value": "Obegränsade insättningar via bankgiro eller överföring från eget konto.",
+     "quote": "Insättning av pengar till Kontot kan endast ske\nvia bankgiroinbetalning",
+     "source": 5,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.98
+      "confidence": 0.69
      }
     },
     "eligibility": {
-     "value": "Myndig fysisk person (konsument), folkbokförd i Sverige, svenskt personnummer, BankID",
+     "value": "Myndig fysisk person, minst 18 år, svenskt personnummer, folkbokförd i Sverige, BankID",
      "quote": "Vara minst 18 år",
      "source": 0,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.91
+      "confidence": 0.95
      }
     },
     "requires_other_products": {
      "value": false,
      "quote": "Till Nordiska Flex kan inga tilläggstjänster knytas.",
-     "source": 4,
+     "source": 5,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
@@ -1936,9 +1968,9 @@
      "status": "okänt"
     },
     "interest_paid": {
-     "value": "Per den 31 december varje år eller när kontot avslutas",
-     "quote": "Räntan på Nordiska Flex gottgörs Kontot per den 31 december varje år eller då Kontot avslutas.",
-     "source": 4,
+     "value": "årsvis",
+     "quote": "Räntan på Nordiska Flex gottgörs Kontot per den 31 december varje år",
+     "source": 5,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
@@ -1947,22 +1979,22 @@
     },
     "guarantee_country": {
      "value": "SE",
-     "quote": "Nordiska Flex har prövats av Riksgälden och omfattas av den statliga insättningsgarantin.",
-     "source": 4,
+     "quote": "Nordiska Flex har prövats av Riksgälden",
+     "source": 5,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.61
+      "confidence": 0.55
      }
     },
     "guarantee_amount": {
      "value": "1 150 000 kronor",
-     "quote": "ersättning motsvarande 1 150 000 kronor per kund och institut",
-     "source": 4,
+     "quote": "upp till en summa om 1 150 000 kronor",
+     "source": 0,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 1.0
+      "confidence": 0.97
      }
     },
     "rate_valid_from": {
@@ -1982,12 +2014,12 @@
    "fields": {
     "product_type": {
      "value": "rörligt sparkonto",
-     "quote": "Rörlig ränta\nNordiska FLEX GRÖN",
+     "quote": "För dig som vill spara pengar och samtidigt bidra till en hållbar framtid.",
      "source": 0,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.89
+      "confidence": 0.34
      }
     },
     "rate_percent": {
@@ -1997,7 +2029,7 @@
      "status": "osäkert",
      "jev": {
       "verdict": "contradicts",
-      "confidence": 0.19
+      "confidence": 0.04
      }
     },
     "rate_type": {
@@ -2022,12 +2054,12 @@
     },
     "withdrawals": {
      "value": "fria",
-     "quote": "Det finns en obegränsad möjlighet att göra insättningar till och uttag från Kontot.",
-     "source": 5,
+     "quote": "Det finns en obegränsad möjlighet att göra",
+     "source": 6,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.85
+      "confidence": 0.45
      }
     },
     "free_withdrawals_per_year": {
@@ -2037,9 +2069,9 @@
      "status": "okänt"
     },
     "withdrawal_terms": {
-     "value": "Obegränsade uttag till föranmält konto; 1–2 bankdagars transaktionstid",
+     "value": "Uttag till föranmält uttagskonto; transaktionstid 1–2 bankdagar.",
      "quote": "Transaktionstiden för begärda uttag är 1–2",
-     "source": 5,
+     "source": 6,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
@@ -2050,7 +2082,8 @@
      "value": null,
      "quote": null,
      "source": null,
-     "status": "okänt"
+     "status": "saknar belägg",
+     "claimed": 0
     },
     "max_deposit_sek": {
      "value": null,
@@ -2065,33 +2098,33 @@
      "status": "okänt"
     },
     "deposit_terms": {
-     "value": "Insättning via bankgiro eller eget konto; minst 70 % av insättningarna används, om möjligt, till hållbara satsningar",
-     "quote": "Insättningar på Nordiska Flex Grön ska, om möjligt, till minst sjuttio (70) procent användas av Nordiska för finansiering till hållbara satsningar",
-     "source": 5,
+     "value": "Obegränsade insättningar via bankgiro eller överföring från eget konto; minst 70 % ska i mån av möjlighet gå till hållbara satsningar.",
+     "quote": "till minst sjuttio (70) procent användas av",
+     "source": 6,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.94
+      "confidence": 0.97
      }
     },
     "eligibility": {
-     "value": "Myndig fysisk person (konsument), folkbokförd i Sverige, svenskt personnummer, BankID",
+     "value": "Myndig fysisk person, minst 18 år, svenskt personnummer, folkbokförd i Sverige, BankID",
      "quote": "Vara minst 18 år",
      "source": 0,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.74
+      "confidence": 0.91
      }
     },
     "requires_other_products": {
      "value": false,
-     "quote": "Till Nordiska Flex Grön kan inga tilläggstjänster knytas.",
-     "source": 5,
+     "quote": "Till Nordiska Flex Grön kan inga tilläggstjänster",
+     "source": 6,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.74
+      "confidence": 0.28
      }
     },
     "intro_rate": {
@@ -2101,9 +2134,9 @@
      "status": "okänt"
     },
     "interest_paid": {
-     "value": "Per den 31 december varje år eller när kontot avslutas",
-     "quote": "Räntan på Nordiska Flex Grön gottgörs Kontot per den 31 december varje år eller då Kontot avslutas.",
-     "source": 5,
+     "value": "årsvis",
+     "quote": "Räntan på Nordiska Flex Grön gottgörs Kontot",
+     "source": 6,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
@@ -2112,22 +2145,22 @@
     },
     "guarantee_country": {
      "value": "SE",
-     "quote": "Nordiska Flex Grön har prövats av Riksgälden och omfattas av den statliga insättningsgarantin.",
-     "source": 5,
+     "quote": "Nordiska Flex Grön har prövats av Riksgälden",
+     "source": 6,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.52
+      "confidence": 0.61
      }
     },
     "guarantee_amount": {
      "value": "1 150 000 kronor",
-     "quote": "ersättning motsvarande 1 150 000 kronor per kund och institut",
-     "source": 2,
-     "status": "osäkert",
+     "quote": "upp till en summa om 1 150 000 kronor",
+     "source": 0,
+     "status": "belagt",
      "jev": {
-      "verdict": "contradicts",
-      "confidence": 0.58
+      "verdict": "supports",
+      "confidence": 0.92
      }
     },
     "rate_valid_from": {
@@ -2142,7 +2175,7 @@
    "status": "verifierad"
   }
  ],
- "source_hash": "cd6e8f9f9a1856a4",
- "changed_at": "2026-10-18T08:46:37+00:00",
+ "source_hash": "08396cc06f2356e3",
+ "changed_at": "2026-10-20T01:01:49+00:00",
  "model": "claude-haiku-5-5"
 }

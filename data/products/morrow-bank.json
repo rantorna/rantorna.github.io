@@ -7,7 +7,7 @@
   "kind": "nischbank",
   "legal_name": "Morrow Bank AB"
  },
- "checked_at": "2026-10-19T00:52:40+00:00",
+ "checked_at": "2026-10-20T00:58:00+00:00",
  "discovered_at": "2026-10-19T00:52:40+00:00",
  "sources": [
   {
@@ -15,7 +15,7 @@
    "title": "Sparkonto med hög ränta och insättningsgaranti | Morrow Bank",
    "kind": "html",
    "via": "browser",
-   "chars": 6244
+   "chars": 6175
   },
   {
    "url": "https://my.morrowbank.se/deposit/application",
@@ -50,7 +50,7 @@
    "title": "Har Morrow Bank insättningsgaranti?",
    "kind": "html",
    "via": "http",
-   "chars": 1062
+   "chars": 1091
   },
   {
    "url": "https://morrowbank.se/hjalp/q/tacks-insattningar-pa-mitt-sparkonto-fortfarande-av-insattningsgarantin",
@@ -75,15 +75,15 @@
   }
  ],
  "status": "ok",
- "notes": "Banken anger både effektiv ränta 2,20 % och nominell ränta 2,1781 %; schemats rate_percent är nominell, så 2,1781 används. Källorna säger \"För nya kunder\" kring 2,20 % utan tidsgräns, så intro_rate lämnas tomt. Ingen insättningsgräns eller antal fria uttag per år anges. Bankens sida nämner att kunden inte behöver vara kund sedan tidigare. Lånesidorna (priser och villkor) är utelämnade eftersom de gäller lån.",
+ "notes": "Endast ett sparkonto hittades. Räntan visas som 2,20 % effektiv och 2,1781 % nominell; rate_percent har satts till den nominella räntan enligt schemat. Källorna säger att 2,20 % gäller för nya kunder (\"För nya kunder är den årliga sparräntan nu 2,20 %\"), men det står inte uttryckligen att det är tillfälligt, så intro_rate lämnas tom. Ingen övre insättningsgräns eller månadstak anges. Ränteuppgiften kan ändras (rörlig ränta).",
  "products": [
   {
-   "name": "Sparkonto (högräntekonto utan bindningstid och avgifter)",
+   "name": "Morrow Bank sparkonto",
    "flags": [],
    "fields": {
     "product_type": {
      "value": "rörligt sparkonto",
-     "quote": "sparkonto hos Morrow Bank har rörlig ränta som justeras utifrån marknadssituationen",
+     "quote": "Ja, sparkonto hos Morrow Bank har rörlig ränta som justeras utifrån marknadssituationen.",
      "source": 0,
      "status": "osäkert",
      "jev": {
@@ -98,33 +98,33 @@
      "status": "osäkert",
      "jev": {
       "verdict": "contradicts",
-      "confidence": 0.51
+      "confidence": 0.25
      }
     },
     "rate_type": {
      "value": "rörlig",
-     "quote": "sparkonto hos Morrow Bank har rörlig ränta som justeras utifrån marknadssituationen",
-     "source": 0,
-     "status": "osäkert",
-     "jev": {
-      "verdict": "says_nothing",
-      "confidence": 0.27
-     }
-    },
-    "binding_months": {
-     "value": 0,
-     "quote": "Ingen bindningstid och obegränsat antal uttag.",
+     "quote": "Ja, sparkonto hos Morrow Bank har rörlig ränta som justeras utifrån marknadssituationen.",
      "source": 0,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 1.0
+      "confidence": 0.45
+     }
+    },
+    "binding_months": {
+     "value": 0,
+     "quote": "Ingen bindningstid och fritt antal uttag",
+     "source": 2,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.3
      }
     },
     "withdrawals": {
      "value": "fria",
-     "quote": "Ingen bindningstid och obegränsat antal uttag.",
-     "source": 0,
+     "quote": "Obegränsat antal avgiftsfria uttag",
+     "source": 2,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
@@ -138,23 +138,23 @@
      "status": "okänt"
     },
     "withdrawal_terms": {
-     "value": "Obegränsat antal avgiftsfria uttag och ingen bindningstid. Avslut: överför innestående belopp via Mina Sidor och meddela avslut via brevlådan.",
+     "value": "Obegränsat antal avgiftsfria uttag, ingen bindningstid för insättningar. Uttag kan göras när som helst.",
      "quote": "Obegränsat antal avgiftsfria uttag",
-     "source": 4,
+     "source": 2,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.64
+      "confidence": 1.0
      }
     },
     "min_deposit_sek": {
      "value": 0,
-     "quote": "Sparränta från första kronan",
+     "quote": "Sparkonto med sparränta på 2,20 % från första kronan!",
      "source": 0,
-     "status": "osäkert",
+     "status": "belagt",
      "jev": {
-      "verdict": "says_nothing",
-      "confidence": 0.67
+      "verdict": "supports",
+      "confidence": 0.41
      }
     },
     "max_deposit_sek": {
@@ -170,35 +170,34 @@
      "status": "okänt"
     },
     "deposit_terms": {
-     "value": "Insättning med personligt OCR-nummer till PlusGiro 4800901-3; engångs- och löpande insättningar, inga tak angivna.",
-     "quote": "När kontot har skapats får du ett personligt OCR-nummer som ska användas vid insättningar till vårt kontonummer (PlusGiro) 4800901-3.",
+     "value": "Fritt när och hur mycket man sätter in",
+     "quote": "Det är alltid upp till dig när och hur mycket du sätter in eller tar ut från ditt konto.",
+     "source": 2,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 1.0
+     }
+    },
+    "eligibility": {
+     "value": "Svenskt personnummer, minst 18 år och folkbokföringsadress i Sverige",
+     "quote": "vara minst 18 år",
      "source": 0,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.94
+      "confidence": 0.97
      }
     },
-    "eligibility": {
-     "value": "Svenskt personnummer, minst 18 år, folkbokföringsadress i Sverige och giltigt BankID.",
-     "quote": "För att öppna ett sparkonto måste du ha ett svenskt personnummer, vara 18 år och ha ett giltigt BankID.",
+    "requires_other_products": {
+     "value": false,
+     "quote": "det kräver inte att du har en kundrelation med oss",
      "source": 4,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.95
+      "confidence": 0.98
      }
-    },
-    "requires_other_products": {
-     "value": null,
-     "quote": "Att öppna ett sparkonto hos Morrow Bank ska vara enkelt, och det kräver inte att du har en kundrelation med oss ​​sedan tidigare.",
-     "source": 4,
-     "status": "stöds inte av källan",
-     "jev": {
-      "verdict": "says_nothing",
-      "confidence": 0.53
-     },
-     "claimed": false
     },
     "intro_rate": {
      "value": null,
@@ -218,18 +217,18 @@
     },
     "guarantee_country": {
      "value": "SE",
-     "quote": "sparkonton hos Morrow Bank omfattas av",
+     "quote": "Sparkonton hos Morrow Bank AB omfattas av den statliga insättningsgarantin.",
      "source": 5,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.89
+      "confidence": 0.61
      }
     },
     "guarantee_amount": {
-     "value": "1 150 000 SEK",
-     "quote": "insättningar upp till 1 150 000 SEK täcks av insättningsgarantin",
-     "source": 0,
+     "value": "1 150 000 kronor",
+     "quote": "upp till sammanlagt 1 150 000 kronor per person ersätts",
+     "source": 5,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
@@ -248,7 +247,7 @@
    "status": "verifierad"
   }
  ],
- "source_hash": "0dd99161e535fd79",
- "changed_at": "2026-10-19T00:52:40+00:00",
+ "source_hash": "ce4cdf892f03d887",
+ "changed_at": "2026-10-20T00:58:00+00:00",
  "model": "claude-haiku-5-5"
 }
