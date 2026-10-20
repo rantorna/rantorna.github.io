@@ -25,24 +25,36 @@ function renderCards() {
   const base = amount * sekPer(cur);
   $("#c-ref").innerHTML = `${kr0.format(amount)} ${cur} är <b>${kr0.format(Math.round(base))} kr</b> till ECB:s referenskurs (${rateTxt(cur)}, ${day(X.date)}). Det är priset utan något påslag.`
     + cashLine(cur, amount, base, cash);
-  const rows = X.cards.map((c) => {
+  const kind = $("#c-kind").value;
+  const rows = X.cards.filter((c) => !kind || c.kind === kind).map((c) => {
     if (c.fx == null) return { ...c, total: null };
-    let total = base * (1 + c.fx / 100), unknownAtm = false;
+    // Valutapåslag, med eventuell månadsgräns (t.ex. Revolut: 0 % upp till 10 000 kr, därefter 1 %)
+    const inside = c.fx_limit != null ? Math.min(base, c.fx_limit) : base;
+    let total = base + inside * c.fx / 100 + (base - inside) * (c.fx_over ?? c.fx) / 100, unknownAtm = false;
     if (cash > 0) {
-      if (c.atm_pct == null && c.atm_min == null) unknownAtm = true;
-      else total += n * Math.max(c.atm_min || 0, base * cash / n * (c.atm_pct || 0) / 100);
+      if (c.atm_pct == null && c.atm_min == null && c.atm_free == null) unknownAtm = true;
+      else {
+        const charged = Math.max(0, base * cash - (c.atm_free || 0));
+        if (charged > 0) total += n * Math.max(c.atm_min || 0, charged / n * (c.atm_pct || 0) / 100);
+      }
     }
     return { ...c, total, unknownAtm };
   }).sort((a, b) => (a.total == null) - (b.total == null) || a.unknownAtm - b.unknownAtm || a.total - b.total || a.issuer.localeCompare(b.issuer, "sv"));
   const muted = '<span class="muted">–</span>';
-  const atmTxt = (c) => c.atm_pct == null && c.atm_min == null ? '<span class="muted small">okänd</span>'
-    : [c.atm_pct != null ? num(c.atm_pct) + " %" : null, c.atm_min ? `minst ${kr0.format(c.atm_min)} kr` : null].filter(Boolean).join("<br>");
+  const atmTxt = (c) => c.atm_pct == null && c.atm_min == null && c.atm_free == null ? '<span class="muted small">okänd</span>'
+    : [c.atm_free ? `fritt upp till ${kr0.format(c.atm_free)} kr/mån` : null, c.atm_pct ? num(c.atm_pct) + " %" : null,
+       c.atm_min ? `minst ${kr0.format(c.atm_min)} kr` : null].filter(Boolean).join("<br>") || "0 kr";
+  const fxTxt = (c) => c.fx == null ? '<span class="muted small">okänt</span>'
+    : num(c.fx) + " %" + (c.fx_limit != null ? `<br><span class="muted small">upp till ${kr0.format(c.fx_limit)} kr/mån, sedan ${num(c.fx_over ?? c.fx)} %</span>` : "")
+      + (c.weekend ? `<br><span class="muted small">+${num(c.weekend)} % på helger</span>` : "");
+  const typeTag = (c) => `<span class="tag ${c.kind === "bankkort" ? "note" : ""}">${c.kind === "bankkort" ? "Bankkort" : "Kreditkort"}</span>`;
+  const feeTxt = (c) => c.monthly ? ` · ${kr0.format(c.monthly)} kr/mån` : c.annual ? ` · ${kr0.format(c.annual)} kr/år` : "";
   $("#fxcards tbody").innerHTML = rows.map((c) => `<tr>
-      <th scope="row">${esc(c.issuer)}${c.also ? ` <span class="muted small">och ${c.also} till</span>` : ""}${c.verified ? "" : ' <span class="tag part" title="inte helt verifierat">?</span>'}<br><span class="muted">${esc(c.card)}</span></th>
+      <th scope="row">${esc(c.issuer)}${c.also ? ` <span class="muted small">och ${c.also} till</span>` : ""}${c.verified ? "" : ' <span class="tag part" title="inte helt verifierat">?</span>'} ${typeTag(c)}<br><span class="muted">${esc(c.card)}${esc(feeTxt(c))}</span></th>
       <td class="num">${c.total == null ? muted : `<b>${c.unknownAtm ? "minst " : ""}${kr0.format(Math.round(c.total))} kr</b><br><span class="muted small">+${kr0.format(Math.round(c.total - base))} kr</span>`}</td>
-      <td class="num">${c.fx == null ? '<span class="muted small">okänt</span>' : num(c.fx) + " %"}</td>
+      <td class="num">${fxTxt(c)}</td>
       <td class="num small">${atmTxt(c)}</td></tr>`).join("");
-  $("#c-note").textContent = `${rows.length} kort. Totalt = referenskursen plus kortets valutapåslag${cash ? `, och uttagsavgiften för ${n} uttag (procent eller lägsta avgift, det som blir högst)` : ""}. "minst" = uttagsavgiften är okänd. Visa och Mastercard använder sina egna dagskurser, som kan avvika något från ECB:s. Årsavgifter ingår inte – se Lån & kort för kortens totala kostnad.`;
+  $("#c-note").textContent = `${rows.length} kort. Totalt = referenskursen plus kortets valutapåslag${cash ? `, och uttagsavgiften för ${n} uttag (procent eller lägsta avgift, det som blir högst)` : ""}. "minst" = uttagsavgiften är okänd. Månadsgränser räknas som om hela resan sker samma månad; helgpåslag ingår inte. Visa och Mastercard använder sina egna dagskurser, som kan avvika något från ECB:s. Kort- och paketavgifter ingår inte i summan men står under kortets namn – se Lån & kort för kreditkortens totala kostnad.`;
 }
 
 /** Jämförelse med att köpa kontanter hos ett växlingskontor före resan. */
@@ -271,7 +283,7 @@ fetch("data/fx.json", { cache: "no-cache" }).then((r) => r.json()).then((d) => {
   currencyOptions($("#c-cur"));
   currencyOptions($("#d-cur"));
   $("#d-card").innerHTML = `<option value="">Vet inte / annat kort</option>` +
-    X.cards.map((c, i) => c.fx == null ? "" : `<option value="${i}">${esc(c.issuer)} – ${esc(c.card)} (${num(c.fx)} %)</option>`).join("");
+    X.cards.map((c, i) => c.fx == null ? "" : `<option value="${i}">${esc(c.issuer)} – ${esc(c.card)} (${c.kind === "bankkort" ? "bankkort" : "kreditkort"}, ${num(c.fx)} %)</option>`).join("");
   const h = location.hash.slice(1);
   if (["dcc", "send", "stocks", "krona"].includes(h)) document.querySelector(`input[name="view"][value="${h}"]`).checked = true;
   renderCards();
@@ -284,7 +296,7 @@ fetch("data/fx.json", { cache: "no-cache" }).then((r) => r.json()).then((d) => {
   let t;
   const later = (fn) => () => { clearTimeout(t); t = setTimeout(fn, 200); };
   $("#c-amount").addEventListener("input", later(renderCards));
-  ["#c-cur", "#c-cash", "#c-wd"].forEach((id) => $(id).addEventListener("change", renderCards));
+  ["#c-cur", "#c-cash", "#c-wd", "#c-kind"].forEach((id) => $(id).addEventListener("change", renderCards));
   $("#s-amount").addEventListener("input", later(renderSend));
   $("#s-type").addEventListener("change", renderSend);
   $("#b-amount").addEventListener("input", later(renderStocks));

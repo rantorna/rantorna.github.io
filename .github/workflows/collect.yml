@@ -151,6 +151,12 @@ jobs:
           python -m collector.resolve --segment broker_fx --limit 5
           python -m collector.run --segment broker_fx --workers 4
 
+      - name: Bankkort utomlands
+        if: ${{ !inputs.bank }}
+        run: |
+          python -m collector.resolve --segment debit_cards --limit 5
+          python -m collector.run --segment debit_cards --workers 4
+
       - name: Växlingskontorens kurser
         if: ${{ !inputs.bank }}
         run: python -m collector.cash

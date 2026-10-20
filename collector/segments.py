@@ -545,6 +545,46 @@ SEGMENTS["fx_savings"] = Segment(
     terms_re=r"(valuta|euro|eur|usd|dollar|ränt|ranta|villkor|spar)",
 )
 
+DEBIT_RESOLVE = """Du kartlägger bankkort (debitkort, där pengarna dras direkt från kontot) som privatpersoner i Sverige kan använda utomlands, åt en oberoende jämförelsesajt. Använd webbsökning och kontrollera på aktörens egna webbplatser.
+
+Avgör om aktören i dag ger ut bankkort/debitkort till privatpersoner i Sverige – banker och neobanker som Revolut, N26, Lunar, Wise och bunq. Räkna inte med kreditkort, förbetalda presentkort eller företagskort.
+
+Ange för varje varumärke den svenska webbplatsen (homepage) och sidan som bäst visar kortets avgifter vid köp och uttag utomlands, helst prislistan eller avgiftssidan (product_url). Hitta aldrig på adresser. Ange bara adresser du faktiskt har sett."""
+
+DEBIT_EXTRACT = """Du extraherar vad det kostar att använda ett BANKKORT (debitkort – pengarna dras direkt från kontot) utomlands, för privatpersoner i Sverige, ur bankens eller neobankens egna sidor och prislistor, för en oberoende jämförelsesajt.
+
+Regler:
+- En produkt per kort och paket med egna villkor (t.ex. Revolut Standard, Plus, Premium). Hoppa över kreditkort, företagskort och förbetalda kort.
+- Viktigast: påslag på köp i utländsk valuta, eventuella månadsgränser och påslag över gränsen, helgpåslag, uttagsavgifter utomlands och fria uttag, och vad kortet eller paketet kostar per månad.
+- Citera prislistans eller avgiftssidans rad. Räkna aldrig om månadsavgift till årsavgift eller tvärtom.
+- Varje värde måste beläggas med ett ORDAGRANT citat ur dokumenten (kopiera tecken för tecken, max ~300 tecken) och dokumentets index i "source".
+- Finns inget belägg: sätt value, quote och source till null. Gissa aldrig.
+- Procent som tal (1,65 % -> 1.65), belopp i kronor som tal. Anges ett belopp i euro: sätt null och nämn det i notes."""
+
+SEGMENTS["debit_cards"] = Segment(
+    key="debit_cards",
+    fields=schema.DEBIT_FIELDS,
+    extraction=schema.DEBIT_EXTRACTION,
+    extract_system=DEBIT_EXTRACT,
+    choose_system=(
+        "Du hjälper en svensk jämförelsesajt om vad bankkort (debitkort) kostar utomlands. Välj de sidor som mest "
+        "sannolikt anger valutapåslag, uttagsavgifter utomlands, fria uttag och månadsavgifter för kort och paket: "
+        "prislistor, avgiftssidor, kortsidor. Välj inte lån, sparande, kreditkort eller nyheter."
+    ),
+    core=("fx_fee_percent",),
+    data_dir=DATA / "debit_cards",
+    site_file=DATA / "debit_cards.json",
+    resolve_system=DEBIT_RESOLVE,
+    resolve_out=DATA / "debit_cards" / "institutions.json",
+    resolve_hints=DATA / "debit_cards" / "brand_hints.yaml",
+    resolve_categories=("ENDAST_LISTAN",),
+    pos={"bankkort": 9, "kort": 5, "debitkort": 9, "prislista": 8, "priser": 5, "avgifter": 7, "fees": 7, "utomlands": 7,
+         "valuta": 6, "utlandet": 6, "uttag": 5, "plans": 4, "planer": 4, "lan": -5, "bolan": -6, "kreditkort": -4, "sparkonto": -4},
+    terms_re=r"(kort|avgift|prislista|priser|valuta|utland|uttag|fees|plan)",
+    manual_banks=DATA / "debit_cards" / "banks.yaml",
+    max_rate=10.0,
+)
+
 _current = "savings"
 
 

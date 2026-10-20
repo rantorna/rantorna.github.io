@@ -68,6 +68,11 @@ def number_in(value: float, quote: str) -> bool:
     for v in _num_variants(value):
         if re.search(r"(?<![\d,.])" + re.escape(v) + r"(?![\d]|[,.]\d)", q):
             return True
+    # Engelska tusentalsavgränsare ("10,000 kr") – bara för heltal från 1 000, så att decimaler inte blandas ihop.
+    if float(value).is_integer() and value >= 1000:
+        q2 = re.sub(r"(?<=\d)[,.](?=\d{3}(?!\d))", "", q)
+        if re.search(r"(?<![\d,.])" + str(int(value)) + r"(?![\d]|[,.]\d)", q2):
+            return True
     # Små heltal skrivs ofta med ord ("tre månader", "två år").
     words = set(re.findall(r"\w+", _norm(quote)))
     return float(value).is_integer() and any(w in words for w in WORDS.get(int(value), ()))
@@ -118,6 +123,10 @@ def term_in(months: float, quote: str) -> bool:
     return any(re.search(rf"(?<![\d,.]){n}{rng}{u}", q) or re.search(rf"\d\s*(?:–|-|till|och)\s*{n}{u}", q) for n, u in cands)
 
 
+# Avgift noll uttryckt med ord, på svenska eller engelska
+ZERO_FEE = re.compile(r"\b(ingen|inga|utan|gratis|kostnadsfri|avgiftsfri|slipper|no|free|without|zero)\b|mid-market|mittkurs", re.I)
+
+
 def check_field(name, ev: dict, docs: list[str]) -> dict:
     """Returnerar {value, quote, source, status}."""
     value, quote, src = ev.get("value"), ev.get("quote"), ev.get("source")
@@ -144,6 +153,8 @@ def check_field(name, ev: dict, docs: list[str]) -> dict:
             pass  # "Ingen ränta på pengar som finns på kontot"
         elif name.endswith("fee_sek") and value == 0 and re.search(r"\b(ingen|inga|utan|gratis|kostnadsfri|avgiftsfri)", quote, re.I):
             pass  # "Ingen uppläggningsavgift"
+        elif ("fee" in name or "markup" in name) and value == 0 and ZERO_FEE.search(quote):
+            pass  # "Inga avgifter tillkommer", "no foreign transaction fees", "till mittkurs"
         elif not number_in(value, quote):
             wider = number_near(value, quote, docs[src])
             if wider:

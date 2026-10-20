@@ -374,3 +374,28 @@ FX_SAVINGS_EXTRACTION = extraction_schema(
     TIER, "Räntetrappa om räntan beror på belopp, annars tom.",
     "Kort om något viktigt saknas.",
 )
+
+
+# ---------- Bankkort (debitkort) utomlands: pengarna dras direkt från kontot ----------
+
+DEBIT_FIELDS = [
+    ("plan", STR, "Kontopaket eller nivå som villkoren gäller (t.ex. 'Standard', 'Plus', 'Premium', 'Metal'); null om kortet bara finns i ett utförande."),
+    ("monthly_fee_sek", NUM, "Avgift per månad i kronor för kortet eller paketet (0 om det uttryckligen är gratis). Anges avgiften per år: räkna inte om, sätt annual_fee_sek."),
+    ("annual_fee_sek", NUM, "Avgift per år i kronor, om den anges per år."),
+    ("fx_fee_percent", NUM, "Påslag i procent på köp i utländsk valuta (inom en eventuell månadsgräns). 0 om köp i utländsk valuta uttryckligen är utan påslag."),
+    ("fx_limit_sek_month", NUM, "Gräns i kronor per månad för köp/växling med påslaget ovan (t.ex. Revolut: 'upp till 10 000 kr per månad'), om en sådan finns."),
+    ("fx_fee_over_limit_percent", NUM, "Påslag i procent på belopp över månadsgränsen."),
+    ("weekend_fx_fee_percent", NUM, "Extra påslag i procent på helger, om det anges."),
+    ("atm_free_sek_month", NUM, "Belopp i kronor per månad som går att ta ut i uttagsautomat utomlands utan uttagsavgift, om det anges."),
+    ("atm_fee_percent", NUM, "Uttagsavgift i procent för kontantuttag utomlands (över eventuell fri gräns)."),
+    ("atm_fee_min_sek", NUM, "Lägsta uttagsavgift i kronor per uttag utomlands."),
+    ("requires_account", BOOL, "Kräver kortet ett konto eller paket i banken?"),
+    ("terms", STR, "Kort (max 200 tecken): övriga villkor för användning utomlands."),
+]
+
+DEBIT_EXTRACTION = extraction_schema(
+    DEBIT_FIELDS,
+    "Kortets namn så som banken skriver det, inkl. paket (t.ex. 'Bankkort Visa', 'Revolut Standard', 'N26 Smart').",
+    TIER, "Lämna tom.",
+    "Kort om något viktigt saknas (t.ex. avgifter bara i prislista).",
+)

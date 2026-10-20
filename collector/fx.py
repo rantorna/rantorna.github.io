@@ -117,8 +117,27 @@ def cards() -> list[dict]:
                 continue
             groups[key] = {"issuer": issuer(b["bank"]), "card": p["name"], "fx": fx, "atm_pct": val(p, "atm_fee_percent"),
                            "atm_min": val(p, "atm_fee_min_sek"), "annual": val(p, "annual_fee_sek"),
-                           "type": val(p, "card_type"), "verified": p.get("status") == "verifierad", "also": 0,
+                           "type": val(p, "card_type"), "kind": "kreditkort", "verified": p.get("status") == "verifierad", "also": 0,
                            "url": b["bank"].get("homepage")}
+    # Bankkort (debitkort) – pengarna dras direkt från kontot. Neobankernas villkor har ofta
+    # månadsgränser (t.ex. Revolut: utan påslag upp till 10 000 kr i månaden).
+    dpath = DATA / "debit_cards.json"
+    if dpath.exists():
+        for b in json.loads(dpath.read_text())["banks"]:
+            for p in b.get("products") or []:
+                fx = val(p, "fx_fee_percent")
+                if fx is None:
+                    continue
+                key = ("debit", p["name"].lower(), fx, val(p, "atm_fee_min_sek"), val(p, "monthly_fee_sek"))
+                if key in groups:
+                    groups[key]["also"] += 1
+                    continue
+                groups[key] = {"issuer": issuer(b["bank"]), "card": p["name"], "fx": fx, "kind": "bankkort",
+                               "fx_limit": val(p, "fx_limit_sek_month"), "fx_over": val(p, "fx_fee_over_limit_percent"),
+                               "weekend": val(p, "weekend_fx_fee_percent"), "atm_pct": val(p, "atm_fee_percent"),
+                               "atm_min": val(p, "atm_fee_min_sek"), "atm_free": val(p, "atm_free_sek_month"),
+                               "monthly": val(p, "monthly_fee_sek"), "annual": val(p, "annual_fee_sek"),
+                               "verified": p.get("status") == "verifierad", "also": 0, "url": b["bank"].get("homepage")}
     return sorted(groups.values(), key=lambda c: (c["fx"] is None, c["fx"] or 0, c["issuer"]))
 
 
