@@ -343,6 +343,37 @@ TRANSFER_EXTRACTION = extraction_schema(
 )
 
 
+# ---------- Utlandsbetalningar för företag ----------
+
+BUSINESS_TRANSFER_FIELDS = [
+    ("provider_type", _enum("bank", "betaltjänst"), "bank = svensk eller utländsk bank; betaltjänst = Wise Business, Revolut Business och liknande."),
+    ("direction", _enum("utgående", "inkommande"), "utgående = företaget skickar en betalning till utlandet; inkommande = företaget tar emot en betalning från utlandet."),
+    ("payment_type", _enum("SEPA-betalning", "utlandsbetalning", "överföring via betaltjänst"),
+     "SEPA-betalning = euro inom EES; utlandsbetalning = övriga valutor/länder (ofta SWIFT); överföring via betaltjänst = betaltjänstens egen överföring."),
+    ("fee_fixed_sek", NUM, "Fast avgift per betalning i kronor för företag via internetbanken, filöverföring eller appen (0 om det uttryckligen är kostnadsfritt eller ingår)."),
+    ("fee_percent", NUM, "Avgift i procent av beloppet, om sådan anges (t.ex. 'från 0,33 %')."),
+    ("fee_min_sek", NUM, "Lägsta avgift i kronor, om avgiften är procentuell med ett golv."),
+    ("fee_max_sek", NUM, "Högsta avgift i kronor, om avgiften är procentuell med ett tak."),
+    ("amount_from_sek", NUM, "Om priset bara gäller betalningar från ett visst belopp: beloppet i kronor (t.ex. 'från 3 000 SEK' -> 3000)."),
+    ("amount_to_sek", NUM, "Om priset bara gäller betalningar upp till ett visst belopp: beloppet i kronor (t.ex. 'under 3 000 SEK' -> 3000)."),
+    ("fx_markup_percent", NUM, "Påslag i procent på växelkursen jämfört med mittkurs, bara om det uttryckligen anges. 0 om tjänsten uttryckligen växlar till mittkurs utan påslag."),
+    ("express_fee_sek", NUM, "Tilläggsavgift i kronor för expressbetalning, om den anges."),
+    ("our_fee_sek", NUM, "Tilläggsavgift i kronor när avsändaren betalar alla avgifter (OUR), om den anges."),
+    ("third_currency_fee_sek", NUM, "Tilläggsavgift i kronor för betalning i annan valuta än euro och kronor ('tredjelandsvaluta'), om den anges."),
+    ("package_fee_sek_month", NUM, "Månadsavgift i kronor för det företagspaket eller abonnemang som priset gäller, om priset förutsätter ett sådant."),
+    ("package", STR, "Kort: vilket paket, abonnemang eller avtal priset gäller (t.ex. 'Företagspaket Bas', 'Business Grow'), eller 'utan paket'."),
+    ("delivery_time", STR, "Kort: hur snabbt pengarna kommer fram."),
+    ("terms", STR, "Kort (max 200 tecken): övrigt viktigt, t.ex. ingår ett antal betalningar per månad, avgiftsfritt vid korrekt IBAN/BIC, högre avgift för manuell hantering."),
+]
+
+BUSINESS_TRANSFER_EXTRACTION = extraction_schema(
+    BUSINESS_TRANSFER_FIELDS,
+    "Betalningens namn så som banken eller tjänsten skriver det, med riktning (t.ex. 'Utlandsbetalning i euro inom EES', 'Inkommande utlandsbetalning', 'Wise Business-överföring').",
+    TIER, "Lämna tom.",
+    "Kort om något viktigt saknas (t.ex. växelkursens påslag anges inte, priser bara efter avtal).",
+)
+
+
 # ---------- Valutaväxling i depån: vad det kostar att handla utländska värdepapper ----------
 
 BROKER_FX_FIELDS = [

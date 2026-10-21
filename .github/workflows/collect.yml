@@ -145,6 +145,12 @@ jobs:
           python -m collector.resolve --segment transfers --limit 10
           python -m collector.run --segment transfers --workers 4
 
+      - name: Utlandsbetalningar för företag
+        if: ${{ !inputs.bank }}
+        run: |
+          python -m collector.resolve --segment business_transfers --limit 5
+          python -m collector.run --segment business_transfers --workers 4
+
       - name: Valutaväxling i depån
         if: ${{ !inputs.bank }}
         run: |

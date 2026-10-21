@@ -29,6 +29,7 @@ FIELDS = {
     "debit_cards": [("fx_fee_percent", "valutapåslag"), ("monthly_fee_sek", "månadsavgift")],
     "fx_savings": [("rate_percent", "ränta")],
     "broker_fx": [("fx_fee_percent", "valutaväxlingsavgift")],
+    "business_transfers": [("fee_fixed_sek", "avgift"), ("fee_percent", "avgift i procent"), ("fx_markup_percent", "växlingspåslag")],
     "transfers": [("fee_fixed_sek", "avgift"), ("fee_percent", "avgift i procent"), ("fx_markup_percent", "växlingspåslag")],
 }
 SITE_FILES = {"savings": "data/rates.json", "mortgage": "data/mortgage.json", "business_savings": "data/business_savings.json",

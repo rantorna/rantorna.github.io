@@ -470,6 +470,51 @@ SEGMENTS["transfers"] = Segment(
     max_rate=50.0,
 )
 
+BUSINESS_TRANSFER_RESOLVE = """Du kartlägger var företag i Sverige kan göra och ta emot utlandsbetalningar, åt en oberoende jämförelsesajt. Använd webbsökning och kontrollera på aktörens egna webbplatser.
+
+Avgör om aktören i dag låter svenska företag (aktiebolag och enskilda firmor) skicka eller ta emot betalningar till och från utlandet. Räkna inte med: bara privatpersoner, bara stora koncerner via avtal utan publicerade priser, bara kortinlösen.
+
+Ange för varje varumärke den svenska webbplatsen (homepage) och sidan som bäst beskriver utlandsbetalningar för företag med avgifter, gärna prislistan för företag (product_url). Hitta aldrig på adresser. Ange bara adresser du faktiskt har sett."""
+
+BUSINESS_TRANSFER_EXTRACT = """Du extraherar avgifter för utlandsbetalningar för FÖRETAG i Sverige ur en banks eller betaltjänsts egna sidor och prislistor, för en oberoende jämförelsesajt.
+
+Regler:
+- En produkt per kombination av riktning (utgående/inkommande) och betalningstyp med egna villkor: utgående SEPA-betalning, utgående utlandsbetalning till övriga länder/valutor, inkommande utlandsbetalning, och betaltjänstens egen överföring. Tilläggsavgifter (express, OUR) läggs i fälten på den betalning de gäller, inte som egna produkter.
+- Bankerna kallar betalningar utanför SEPA olika saker: 'utlandsbetalning', 'normalbetalning', 'övriga', 'kontoinsättning' (insättning på konto i utlandet) eller 'Swift-betalning'. Alla är payment_type utlandsbetalning. Tilläggspriser för tredjelandsvaluta, express och OUR läggs i sina fält, fee_fixed_sek är grundpriset.
+- Om priset beror på beloppet (t.ex. 50 kr under 3 000 kr, avgiftsfritt över): en produkt per beloppsintervall med amount_from_sek/amount_to_sek.
+- Ta bara företagspriser via internetbank, filöverföring eller app. Hoppa över privatpriser, kontorsbetalningar och kortbetalningar.
+- Om priset gäller i ett visst företagspaket eller abonnemang: ange paketet i package och dess månadsavgift i package_fee_sek_month om den står i dokumenten. Finns flera paket med olika priser: en produkt per paket, men högst tre paket.
+- Avgifter står ofta i en prislista – citera tabellraden. Står det 'ingår' eller 'kostnadsfri' är avgiften 0.
+- Växelkursens påslag (fx_markup_percent) anges bara om det uttryckligen står i procent. Banker anger det sällan; då är det null. Gissa aldrig och räkna inte fram det ur kurslistor.
+- Varje värde måste beläggas med ett ORDAGRANT citat ur dokumenten (kopiera tecken för tecken, max ~300 tecken) och dokumentets index i "source".
+- Finns inget belägg: sätt value, quote och source till null. Gissa aldrig.
+- Belopp i kronor som tal, procent som tal (0,33 % -> 0.33). Priser exklusive moms som de står."""
+
+SEGMENTS["business_transfers"] = Segment(
+    key="business_transfers",
+    fields=schema.BUSINESS_TRANSFER_FIELDS,
+    extraction=schema.BUSINESS_TRANSFER_EXTRACTION,
+    extract_system=BUSINESS_TRANSFER_EXTRACT,
+    choose_system=(
+        "Du hjälper en svensk jämförelsesajt för företagens utlandsbetalningar. Välj de sidor som mest sannolikt anger "
+        "avgifter för företag att skicka och ta emot betalningar till och från utlandet: prislistor för företag, sidor om "
+        "utlandsbetalningar, SEPA och valuta för företag. Välj inte privatsidor, lån, kort eller nyheter."
+    ),
+    core=("fee_fixed_sek", "fee_percent"),
+    data_dir=DATA / "business_transfers",
+    site_file=DATA / "business_transfers.json",
+    resolve_system=BUSINESS_TRANSFER_RESOLVE,
+    resolve_out=DATA / "business_transfers" / "institutions.json",
+    resolve_hints=DATA / "business_transfers" / "brand_hints.yaml",
+    resolve_categories=("ENDAST_LISTAN",),
+    pos={"foretag": 8, "utlandsbetalning": 10, "utlandsbetalningar": 10, "internationella-betalningar": 9, "betalningar": 5,
+         "sepa": 7, "swift": 6, "utland": 5, "prislista": 9, "priser": 5, "avgifter": 6, "valuta": 4, "business": 5,
+         "pricing": 6, "privat": -6, "lan": -5, "bolan": -6, "spara": -4},
+    terms_re=r"(utland|sepa|swift|prislista|priser|avgift|valuta|betalning|pricing|fees)",
+    manual_banks=DATA / "business_transfers" / "banks.yaml",
+    max_rate=50.0,
+)
+
 BROKER_FX_RESOLVE = """Du kartlägger var privatpersoner i Sverige kan köpa utländska aktier och fonder (i ISK, depå eller kapitalförsäkring), åt en oberoende jämförelsesajt om valutaväxlingens kostnad. Använd webbsökning och kontrollera på aktörens egna webbplatser.
 
 Avgör om aktören i dag låter privatpersoner i Sverige handla utländska värdepapper. Räkna inte med: bara fonder i kronor, bara institutionella kunder, CFD- eller hävstångshandel.

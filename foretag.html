@@ -6,7 +6,7 @@
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Företagskonton – räntorna.</title>
-<meta name="description" content="Vilka banker tar emot ditt företag? Jämför företagskonton – nystartade, digital öppning, flera användare, avgifter – och var företaget kan spara överskottet.">
+<meta name="description" content="Vilka banker tar emot ditt företag? Jämför företagskonton – nystartade, digital öppning, flera användare, avgifter – var företaget kan spara överskottet, vad utlandsbetalningar kostar och om bankens terminskurs är rimlig.">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <link rel="stylesheet" href="styles.css">
 </head>
@@ -32,13 +32,15 @@
   <section class="intro">
     <h1>Företag</h1>
     <p class="updated-top" id="updated-top" hidden></p>
-    <p>Vilka banker tar emot ditt företag – och var kan det spara överskottet? Uppgifterna hämtas automatiskt från bankernas egna sidor och kontrolleras mot ordagranna citat. Det som inte står uttryckligen visas som <em>okänt</em>.</p>
+    <p>Vilka banker tar emot ditt företag, var kan det spara överskottet och vad kostar betalningarna till och från utlandet? Uppgifterna hämtas automatiskt från bankernas egna sidor och kontrolleras mot ordagranna citat. Det som inte står uttryckligen visas som <em>okänt</em>.</p>
   </section>
 
   <div class="seg view-pick" role="tablist" aria-label="Välj vy">
     <label><input type="radio" name="view" value="accounts" checked><span>Hitta bank</span></label>
     <label><input type="radio" name="view" value="savings"><span>Spara överskott</span></label>
     <label><input type="radio" name="view" value="financing"><span>Finansiering</span></label>
+    <label><input type="radio" name="view" value="payments"><span>Utlandsbetalningar</span></label>
+    <label><input type="radio" name="view" value="hedge"><span>Valutasäkring</span></label>
   </div>
 
   <section id="v-accounts" class="panel">
@@ -131,6 +133,76 @@
       </table>
     </div>
     <p class="sub" id="fin-note"></p>
+  </section>
+
+  <section id="v-payments" class="panel" hidden>
+    <div class="panel-head">
+      <h2>Vad kostar företagets utlandsbetalningar?</h2>
+      <p class="sub">Ange hur många betalningar företaget skickar och tar emot i månaden. Vi räknar ut kostnaden med varje banks och betaltjänsts prislista för företag. Avgiften för <b>inkommande</b> betalningar glöms ofta bort, men för en exportör kan den vara den största.</p>
+    </div>
+    <div class="filters-row fin-filters">
+      <label class="amount sortby">Belopp per betalning
+        <span class="input-suffix"><input id="p-amount" type="text" inputmode="numeric" value="25 000"><span>kr</span></span>
+      </label>
+      <label class="amount sortby">Skickar i euro (SEPA)
+        <span class="input-suffix"><input id="p-out-sepa" type="text" inputmode="numeric" value="5"><span>st/mån</span></span>
+      </label>
+      <label class="amount sortby">Skickar, övriga
+        <span class="input-suffix"><input id="p-out-other" type="text" inputmode="numeric" value="2"><span>st/mån</span></span>
+      </label>
+      <label class="amount sortby">Tar emot i euro (SEPA)
+        <span class="input-suffix"><input id="p-in-sepa" type="text" inputmode="numeric" value="0"><span>st/mån</span></span>
+      </label>
+      <label class="amount sortby">Tar emot, övriga
+        <span class="input-suffix"><input id="p-in-other" type="text" inputmode="numeric" value="2"><span>st/mån</span></span>
+      </label>
+    </div>
+    <p class="sub">SEPA = euro till eller från konto inom EU/EES. Övriga = andra valutor, som dollar eller pund, eller länder utanför EES.</p>
+    <div class="table-scroll">
+      <table class="mtg" id="pay">
+        <thead><tr>
+          <th scope="col">Bank eller tjänst</th>
+          <th scope="col" class="num">Per månad</th>
+          <th scope="col" class="num">Skicka SEPA</th>
+          <th scope="col" class="num">Skicka övriga</th>
+          <th scope="col" class="num">Ta emot</th>
+          <th scope="col" class="num">Växlings&shy;påslag</th>
+        </tr></thead>
+        <tbody></tbody>
+      </table>
+    </div>
+    <p class="sub" id="pay-note"></p>
+    <details id="pay-missing" class="missing" hidden><summary></summary><p>De här bankerna har utlandsbetalningar för företag, men priserna är inte publicerade eller gick inte att läsa eller belägga automatiskt.</p><ul></ul></details>
+  </section>
+
+  <section id="v-hedge" class="panel" hidden>
+    <div class="panel-head">
+      <h2>Är bankens terminskurs rimlig?</h2>
+      <p class="sub">Med en valutatermin låser företaget i dag kursen för en betalning längre fram. Terminskursen är ingen gissning om framtiden. Den räknas fram ur dagens kurs och räntorna i de två valutorna, och bankens påslag kommer ovanpå. Fyll i kursen som banken erbjuder, så ser du ungefär hur stort påslaget är.</p>
+    </div>
+    <div class="filters-row fin-filters">
+      <label class="amount sortby">Företaget ska
+        <select id="h-side"><option value="buy">köpa valuta (betala leverantör)</option><option value="sell">sälja valuta (kund betalar)</option></select>
+      </label>
+      <label class="amount sortby">Belopp
+        <span class="input-suffix"><input id="h-amount" type="text" inputmode="numeric" value="100 000"><span id="h-unit">EUR</span></span>
+      </label>
+      <label class="amount sortby">Valuta
+        <select id="h-cur"><option>EUR</option><option>USD</option></select>
+      </label>
+      <label class="amount sortby">Löptid
+        <select id="h-months"><option value="1">1 månad</option><option value="3" selected>3 månader</option><option value="6">6 månader</option><option value="12">12 månader</option></select>
+      </label>
+      <label class="amount sortby">Bankens terminskurs
+        <span class="input-suffix"><input id="h-quote" type="text" inputmode="decimal" placeholder="t.ex. 11,05"><span>kr</span></span>
+      </label>
+    </div>
+    <div id="h-result" class="dcc-result" aria-live="polite"></div>
+    <div class="fc-text">
+      <p><b>Varför skiljer sig terminskursen från dagens kurs?</b> Den valuta som har lägst ränta blir dyrare på termin. Annars skulle det gå att tjäna pengar riskfritt på att låna i den ena valutan och placera i den andra. När räntan i euroområdet är högre än i Sverige blir euron därför något billigare på termin än i dag. Det är ingen prognos över kronan.</p>
+      <p><b>Behöver företaget säkra?</b> Säkring tar bort osäkerheten i en enskild betalning, inte risken i sig. Det passar när marginalen i en affär är liten och beloppet stort, eller när priset mot kunden redan är bestämt. Små och spridda betalningar är ofta billigare att växla löpande. Ett valutakonto kan också räcka om företaget både tar emot och betalar i samma valuta.</p>
+      <p class="muted small">Teoretisk kurs = dagens referenskurs × (1 + svensk ränta)<sup>t</sup> / (1 + utländsk ränta)<sup>t</sup>. Vi använder statsskuldväxlarnas räntor (3 mån) och statsobligationer (2 år), mellan dem räknas räntan fram linjärt. Bankerna räknar med interbankräntor, och referenskursen sätts en gång om dagen, så en skillnad på någon tiondels procent är normal. En termin kräver oftast en kreditlimit i banken.</p>
+    </div>
   </section>
 
   <details id="missing" class="missing" hidden>
