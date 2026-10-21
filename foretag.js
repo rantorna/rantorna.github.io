@@ -127,15 +127,22 @@ function renderSavings() {
   $("#sav-note").textContent = `${items.length} konton. Räntan är nominell årsränta enligt bankens sida; villkor för belopp och uttag finns hos banken. ? = inte helt verifierad.`;
 }
 
-function renderMissing() {
-  const seen = new Set();
-  const miss = [];
-  for (const [d, ok] of [[A, (b) => (b.products || []).length], [S, (b) => (b.products || []).some((p) => val(p, "rate_percent") != null)], [F, (b) => (b.products || []).length]]) {
-    for (const b of d.banks) if (!ok(b) && !seen.has(b.bank.name)) { seen.add(b.bank.name); miss.push(b); }
-  }
+/** Banker som inte gick att läsa – bara för den vy som visas (Utlandsbetalningar har en egen lista, Valutasäkring ingen). */
+const MISSING = {
+  accounts: [() => A, (b) => (b.products || []).length, "erbjuder företagskonton"],
+  savings: [() => S, (b) => (b.products || []).some((p) => val(p, "rate_percent") != null), "erbjuder sparkonton för företag"],
+  financing: [() => F, (b) => (b.products || []).length, "lånar ut till företag"],
+};
+
+function renderMissing(v) {
   const el = $("#missing");
+  const m = MISSING[v];
+  const d = m && m[0]();
+  const miss = d ? d.banks.filter((b) => !m[1](b)) : [];
   el.hidden = !miss.length;
-  el.querySelector("summary").textContent = `${miss.length} banker kunde inte läsas automatiskt`;
+  if (!miss.length) return;
+  el.querySelector("summary").textContent = `${miss.length} ${miss.length === 1 ? "bank" : "banker"} kunde inte läsas automatiskt`;
+  el.querySelector("p").textContent = `De här bankerna ${m[2]}, men uppgifterna gick inte att läsa eller belägga automatiskt. Kontrollera dem direkt hos banken.`;
   el.querySelector("ul").innerHTML = miss.sort((a, b) => a.bank.name.localeCompare(b.bank.name, "sv"))
     .map((b) => `<li><a href="${b.bank.homepage}" rel="noopener nofollow" target="_blank">${esc(b.bank.name)}</a></li>`).join("");
 }
@@ -147,6 +154,7 @@ function showView() {
   $("#v-financing").hidden = v !== "financing";
   $("#v-payments").hidden = v !== "payments";
   $("#v-hedge").hidden = v !== "hedge";
+  if (A) renderMissing(v);
   try { localStorage.setItem("foretag-view", v); } catch (e) { /* privat läge */ }
 }
 
@@ -410,7 +418,6 @@ Promise.all([
   renderSavings();
   renderFinMarket();
   renderFinancing();
-  renderMissing();
   renderPayments();
   renderHedge();
   const at = acc.generated_at || sav.generated_at;
