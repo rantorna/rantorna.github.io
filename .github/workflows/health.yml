@@ -1,0 +1,71 @@
+name: Hälsokontroll
+
+# Larmar med ett GitHub-ärende när data har stannat, en flik tappat många banker eller
+# nattjobbet misslyckats flera gånger i rad. Körs efter varje nattkörning och dessutom en
+# gång om dagen, så att det märks även när nattjobbet inte startar alls.
+on:
+  workflow_run:
+    workflows: ["Hämta räntor"]
+    types: [completed]
+  schedule:
+    - cron: "30 9 * * *"
+  workflow_dispatch:
+    inputs:
+      prov:
+        description: "Provlarm (skapar ett ärende även om allt är i ordning)"
+        type: boolean
+        default: false
+
+permissions:
+  contents: read
+  issues: write
+  actions: read
+
+concurrency:
+  group: health
+  cancel-in-progress: false
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      GH_TOKEN: ${{ github.token }}
+      GH_REPO: ${{ github.repository }}
+      OWNER: etxgmg
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0   # git-historiken behövs för jämförelsen med förra veckan
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+
+      - name: Kontrollera
+        id: check
+        run: |
+          if python -m collector.health; then echo "ok=true" >> "$GITHUB_OUTPUT"; else echo "ok=false" >> "$GITHUB_OUTPUT"; fi
+          if [ "${{ inputs.prov }}" = "true" ]; then
+            printf 'Provlarm:\n\n- **Prov**: det här är ett provlarm, inget är fel.\n' > health.md
+            echo "ok=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Larm
+        run: |
+          gh label create larm --color B60205 --description "Automatisk hälsokontroll" --force >/dev/null
+          open=$(gh issue list --label larm --state open --json number -q '.[0].number')
+          if [ "${{ steps.check.outputs.ok }}" = "true" ]; then
+            if [ -n "$open" ]; then gh issue close "$open" --comment "Allt i ordning igen. $(cat health.md)"; fi
+            exit 0
+          fi
+          if [ -z "$open" ]; then
+            gh issue create --title "Larm: räntorna behöver tittas på" --label larm --assignee "$OWNER" --body-file health.md
+          else
+            # Nytt eller ändrat problem: kommentera (ger ett mejl). Samma som förut: uppdatera tyst.
+            old=$(gh issue view "$open" --json body -q .body | grep '^- ' || true)
+            if [ "$old" != "$(grep '^- ' health.md)" ]; then
+              gh issue comment "$open" --body "@$OWNER Läget har ändrats: $(cat health.md)"
+            fi
+            gh issue edit "$open" --body-file health.md
+          fi

@@ -83,6 +83,12 @@ def collect_pages(bank: dict, log, previous: dict | None = None, rediscover: boo
         return pages
     found = discover.candidates(bank, log=log)
     urls = discover.choose(bank, found, log=log)
+    # Sidor där förra tolkningen hittade belagda värden följer alltid med – annars kan ett nytt
+    # urval tappa just sidan med räntan.
+    srcs = (previous or {}).get("sources", [])
+    keep = {srcs[f["source"]]["url"] for prod in (previous or {}).get("products", []) for f in prod["fields"].values()
+            if f.get("status") == "belagt" and isinstance(f.get("source"), int) and f["source"] < len(srcs)}
+    urls = [x["url"] for x in srcs if x["url"] in keep and x["url"] not in urls] + list(urls)
     pages = []
     starts = set(bank.get("start_urls", []))
     for u in urls:
@@ -170,6 +176,7 @@ def process(bank: dict, discover_only: bool, force: bool, log, rediscover: bool 
         raw = json.loads(raw_path.read_text())["extraction"]
         record["source_hash"] = h
         return finish(bank, record, raw, pages, previous, out_path, log)
+    old_raw = raw_path.read_text() if raw_path.exists() else None
     try:
         raw = extract.extract(bank, pages)
         raw_path.parent.mkdir(parents=True, exist_ok=True)
@@ -181,7 +188,41 @@ def process(bank: dict, discover_only: bool, force: bool, log, rediscover: bool 
             previous["status"] = f"senaste tolkning misslyckades ({str(e)[:80]})"
             out_path.write_text(json.dumps(previous, ensure_ascii=False, indent=1))
         return previous
-    return finish(bank, record, raw, pages, previous, out_path, log, h)
+    rec = finish(bank, record, raw, pages, previous, out_path, log, h, save=False)
+    if previous and usable(rec) < usable(previous) and quotes_present(previous, pages):
+        # Sidan säger detsamma som förut men tolkningen blev sämre – oftast ett tillfälligt
+        # dåligt svar från modellen. Tolka om en gång; blir det inte bättre behålls förra tolkningen.
+        log(f"  ! {usable(rec)} belagda produkter mot {usable(previous)} förut, fast citaten står kvar – tolkar om")
+        try:
+            raw = extract.extract(bank, pages)
+            rec = finish(bank, dict(record), raw, pages, previous, out_path, log, h, save=False)
+        except Exception as e:
+            log(f"  ! tolkning misslyckades: {e}")
+        if usable(rec) < usable(previous):
+            log("  behåller förra tolkningen")
+            if old_raw:
+                raw_path.write_text(old_raw)   # den sparade tolkningen ska höra ihop med den som visas
+            previous |= {"checked_at": record["checked_at"], "discovered_at": record["discovered_at"], "source_hash": h}
+            relink(previous, pages)
+            out_path.write_text(json.dumps(previous, ensure_ascii=False, indent=1))
+            return previous
+        raw_path.write_text(json.dumps({"model": llm.model(), "at": now(), "extraction": raw}, ensure_ascii=False, indent=1))
+    changes.add(changes.detect(segments.cur().key, previous, rec))
+    out_path.write_text(json.dumps(rec, ensure_ascii=False, indent=1))
+    return rec
+
+
+def usable(rec: dict | None) -> int:
+    """Antal produkter som inte är flaggade."""
+    return sum(1 for p in (rec or {}).get("products") or [] if p.get("status") != "ej verifierad")
+
+
+def quotes_present(previous: dict, pages: list[fetch.Page]) -> bool:
+    """Står förra tolkningens belagda citat kvar i sidorna (minst nio av tio)?"""
+    docs = [p.text for p in pages]
+    quotes = [f["quote"] for prod in previous.get("products", []) if prod.get("status") != "ej verifierad"
+              for f in prod["fields"].values() if f.get("value") is not None and f.get("quote") and f.get("status") == "belagt"]
+    return bool(quotes) and sum(any(verify.quote_in(q, d) for d in docs) for q in quotes) >= 0.9 * len(quotes)
 
 
 FULL_EXTRACT_DAYS = 7
@@ -220,7 +261,7 @@ def relink(record: dict, pages: list[fetch.Page]) -> int:
     return changed
 
 
-def finish(bank, record, raw, pages, previous, out_path, log, h=None):
+def finish(bank, record, raw, pages, previous, out_path, log, h=None, save=True):
     """Kontroll (citat, tal, Jev, rimlighet) av en tolkning och sparande."""
     h = h or record.get("source_hash")
     docs = [p.text for p in pages]
@@ -247,8 +288,9 @@ def finish(bank, record, raw, pages, previous, out_path, log, h=None):
         rate = f.get('rate_percent', {}).get('value')
         log(f"  * {p['name']}: {'' if rate is None else str(rate) + ' %'} [{p['status']}] "
             + ", ".join(f"{k}:{v['status']}" for k, v in f.items() if v["status"] not in ("belagt", "okänt")))
-    changes.add(changes.detect(segments.cur().key, previous, record))
-    out_path.write_text(json.dumps(record, ensure_ascii=False, indent=1))
+    if save:
+        changes.add(changes.detect(segments.cur().key, previous, record))
+        out_path.write_text(json.dumps(record, ensure_ascii=False, indent=1))
     return record
 
 
