@@ -7,7 +7,7 @@
   "kind": "utlandsk_bank",
   "legal_name": "Ålandsbanken Abp (Finland), svensk filial"
  },
- "checked_at": "2026-10-20T01:02:17+00:00",
+ "checked_at": "2026-10-21T01:00:17+00:00",
  "discovered_at": "2026-10-19T00:56:20+00:00",
  "sources": [
   {
@@ -74,41 +74,38 @@
    "chars": 18211
   }
  ],
- "status": "senaste tolkning misslyckades (gränsen redan nådd i den här körningen)",
- "notes": "Ränta för Östersjökonto anges som \"för närvarande 1,10 %\" på sidan Spara och placera (ingen datumangivelse). Ålandskonto, Premiumkonto och Baskonto nämns bara i menyn/översikten utan räntor eller villkor i källorna och är därför inte extraherade. Själva Östersjökontots produktsida ingår inte i underlaget. Fasträntekontona kräver också ett vanligt bankkonto i Ålandsbanken. Fasträntekonton över 10 000 000 kr följer Specialinlåning.",
+ "status": "ok",
+ "notes": "Källorna innehåller räntor endast för Östersjökonto (1,10 %, rörlig enligt 'för närvarande') och fasträntekonto (sju bindningstider, räntedatum 2026-09-18 enligt tabellens 'Senaste ränteförändring'). Ålandskonto och Premiumkonto saknar räntesats och de flesta villkor i källorna, så dessa fält är null. Baskonto är ett transaktionskonto utan sparränta och har uteslutits. Investeringssparkonto/ISK är uteslutet enligt reglerna. Insättningsgarantin: kontona omfattas av finsk garanti (FI) med kompletterande svenskt skydd; 100 000 euro eller 1 150 000 kr enligt källan. Fasträntekontots 'fria uttag' är null eftersom inget antal anges; uttag i förtid kostar 3 %. Premiumkonto: requires_other_products baseras på att Premium Banking-månadsavgift tillkommer enligt prislistan, men kontots egen avgift framgår inte.",
  "products": [
   {
    "name": "Östersjökonto",
    "flags": [],
    "fields": {
     "product_type": {
-     "value": "rörligt sparkonto",
-     "quote": "Ålandsbankens sparkonto, Östersjökonto, ger dig vår bästa inlåningsränta",
-     "source": 0,
-     "status": "osäkert",
-     "jev": {
-      "verdict": "says_nothing",
-      "confidence": 0.53
-     }
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
     },
     "rate_percent": {
-     "value": 1.1,
+     "value": null,
      "quote": "Ränta från första kronan – för närvarande 1,10 %",
      "source": 4,
-     "status": "osäkert",
+     "status": "motsägs av källan",
      "jev": {
       "verdict": "contradicts",
-      "confidence": 0.13
-     }
+      "confidence": 0.85
+     },
+     "claimed": 1.1
     },
     "rate_type": {
      "value": null,
-     "quote": "Ränta från första kronan – för närvarande 1,10 %",
+     "quote": "för närvarande 1,10 %",
      "source": 4,
      "status": "stöds inte av källan",
      "jev": {
       "verdict": "says_nothing",
-      "confidence": 0.94
+      "confidence": 0.88
      },
      "claimed": "rörlig"
     },
@@ -119,7 +116,7 @@
      "status": "osäkert",
      "jev": {
       "verdict": "says_nothing",
-      "confidence": 0.55
+      "confidence": 0.23
      }
     },
     "withdrawals": {
@@ -139,13 +136,13 @@
      "status": "okänt"
     },
     "withdrawal_terms": {
-     "value": "Fria uttag utan uttagsavgifter.",
+     "value": "Fria uttag, inga beloppsgränser och inga uttagsavgifter.",
      "quote": "Fria uttag och inga beloppsgränser eller uttagsavgifter",
      "source": 4,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.83
+      "confidence": 0.66
      }
     },
     "min_deposit_sek": {
@@ -154,8 +151,8 @@
      "source": 4,
      "status": "osäkert",
      "jev": {
-      "verdict": "says_nothing",
-      "confidence": 0.18
+      "verdict": "contradicts",
+      "confidence": 0.19
      }
     },
     "max_deposit_sek": {
@@ -171,14 +168,10 @@
      "status": "okänt"
     },
     "deposit_terms": {
-     "value": "Inga beloppsgränser.",
-     "quote": "Fria uttag och inga beloppsgränser eller uttagsavgifter",
-     "source": 4,
-     "status": "osäkert",
-     "jev": {
-      "verdict": "says_nothing",
-      "confidence": 0.64
-     }
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
     },
     "eligibility": {
      "value": null,
@@ -215,13 +208,13 @@
      }
     },
     "guarantee_amount": {
-     "value": "högst av 100 000 euro eller 1 150 000 kr",
-     "quote": "med ett belopp om det högsta av 100 000 euro eller 1 150 000 kronor (SEK)",
+     "value": "100 000 euro eller 1 150 000 kronor (SEK)",
+     "quote": "ett belopp om det högsta av 100 000 euro eller 1 150 000 kronor (SEK)",
      "source": 2,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.97
+      "confidence": 0.98
      }
     },
     "rate_valid_from": {
@@ -233,7 +226,7 @@
    },
    "rate_tiers": [],
    "pending_rate": null,
-   "status": "verifierad"
+   "status": "ej verifierad"
   },
   {
    "name": "Fasträntekonto 3 mån",
@@ -242,11 +235,11 @@
     "product_type": {
      "value": "fasträntekonto",
      "quote": "Ålandsbankens fasträntekonto är ett tryggt sparande för dig som vill veta precis hur mycket du får i slutet av bindningstiden.",
-     "source": 0,
+     "source": 1,
      "status": "osäkert",
      "jev": {
       "verdict": "contradicts",
-      "confidence": 0.55
+      "confidence": 0.27
      }
     },
     "rate_percent": {
@@ -257,12 +250,12 @@
     },
     "rate_type": {
      "value": "fast",
-     "quote": "Tryggt sparande till fast ränta under hela bindningstiden",
+     "quote": "Det är ett enkelt, tryggt och riskfritt sparande med en fast förutbestämd ränta.",
      "source": 1,
-     "status": "osäkert",
+     "status": "belagt",
      "jev": {
-      "verdict": "says_nothing",
-      "confidence": 0.34
+      "verdict": "supports",
+      "confidence": 0.97
      }
     },
     "binding_months": {
@@ -288,7 +281,7 @@
      "status": "okänt"
     },
     "withdrawal_terms": {
-     "value": "Uttag i förtid mot avgift om 3 % på det insatta beloppet.",
+     "value": "Uttag i förtid mot avgift om 3 % av insatt belopp.",
      "quote": "Pengarna kan tas ut i förtid mot en avgift om 3 % på det insatta beloppet.",
      "source": 1,
      "status": "belagt",
@@ -298,18 +291,24 @@
      }
     },
     "min_deposit_sek": {
-     "value": null,
-     "quote": "Lägsta insättning är 50.000 kr och högsta är 10.000.000 kr*",
+     "value": 50000,
+     "quote": "*Minsta insättning 50.000 kr.",
      "source": 1,
-     "status": "talet finns inte i citatet",
-     "claimed": 50000
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.8
+     }
     },
     "max_deposit_sek": {
-     "value": null,
+     "value": 10000000,
      "quote": "Lägsta insättning är 50.000 kr och högsta är 10.000.000 kr*",
      "source": 1,
-     "status": "talet finns inte i citatet",
-     "claimed": 10000000
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.86
+     }
     },
     "monthly_deposit_cap_sek": {
      "value": null,
@@ -318,24 +317,16 @@
      "status": "okänt"
     },
     "deposit_terms": {
-     "value": "Insättning 50 000–10 000 000 kr; över detta gäller Specialinlåning.",
-     "quote": "Angivna räntor för fasträntekonto gäller endast för belopp upp till 10.000.000 kr. För belopp över 10.000.000 kr gäller villkor enligt Specialinlåning.",
-     "source": 1,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.92
-     }
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
     },
     "eligibility": {
-     "value": "Kräver vanligt bankkonto i Ålandsbanken.",
-     "quote": "För att öppna ett fasträntekonto behöver du även ha ett vanligt bankkonto i Ålandsbanken.",
-     "source": 1,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.79
-     }
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
     },
     "requires_other_products": {
      "value": true,
@@ -370,13 +361,13 @@
      }
     },
     "guarantee_amount": {
-     "value": "högst av 100 000 euro eller 1 150 000 kr",
-     "quote": "med ett belopp om det högsta av 100 000 euro eller 1 150 000 kronor (SEK)",
+     "value": "100 000 euro eller 1 150 000 kronor (SEK)",
+     "quote": "ett belopp om det högsta av 100 000 euro eller 1 150 000 kronor (SEK)",
      "source": 2,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.94
+      "confidence": 0.91
      }
     },
     "rate_valid_from": {
@@ -401,11 +392,11 @@
     "product_type": {
      "value": "fasträntekonto",
      "quote": "Ålandsbankens fasträntekonto är ett tryggt sparande för dig som vill veta precis hur mycket du får i slutet av bindningstiden.",
-     "source": 0,
+     "source": 1,
      "status": "osäkert",
      "jev": {
       "verdict": "contradicts",
-      "confidence": 0.52
+      "confidence": 0.38
      }
     },
     "rate_percent": {
@@ -416,12 +407,12 @@
     },
     "rate_type": {
      "value": "fast",
-     "quote": "Tryggt sparande till fast ränta under hela bindningstiden",
+     "quote": "Det är ett enkelt, tryggt och riskfritt sparande med en fast förutbestämd ränta.",
      "source": 1,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.27
+      "confidence": 0.98
      }
     },
     "binding_months": {
@@ -447,7 +438,7 @@
      "status": "okänt"
     },
     "withdrawal_terms": {
-     "value": "Uttag i förtid mot avgift om 3 % på det insatta beloppet.",
+     "value": "Uttag i förtid mot avgift om 3 % av insatt belopp.",
      "quote": "Pengarna kan tas ut i förtid mot en avgift om 3 % på det insatta beloppet.",
      "source": 1,
      "status": "belagt",
@@ -457,18 +448,24 @@
      }
     },
     "min_deposit_sek": {
-     "value": null,
-     "quote": "Lägsta insättning är 50.000 kr och högsta är 10.000.000 kr*",
+     "value": 50000,
+     "quote": "*Minsta insättning 50.000 kr.",
      "source": 1,
-     "status": "talet finns inte i citatet",
-     "claimed": 50000
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.82
+     }
     },
     "max_deposit_sek": {
-     "value": null,
+     "value": 10000000,
      "quote": "Lägsta insättning är 50.000 kr och högsta är 10.000.000 kr*",
      "source": 1,
-     "status": "talet finns inte i citatet",
-     "claimed": 10000000
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.83
+     }
     },
     "monthly_deposit_cap_sek": {
      "value": null,
@@ -477,24 +474,16 @@
      "status": "okänt"
     },
     "deposit_terms": {
-     "value": "Insättning 50 000–10 000 000 kr; över detta gäller Specialinlåning.",
-     "quote": "Angivna räntor för fasträntekonto gäller endast för belopp upp till 10.000.000 kr. För belopp över 10.000.000 kr gäller villkor enligt Specialinlåning.",
-     "source": 1,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.92
-     }
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
     },
     "eligibility": {
-     "value": "Kräver vanligt bankkonto i Ålandsbanken.",
-     "quote": "För att öppna ett fasträntekonto behöver du även ha ett vanligt bankkonto i Ålandsbanken.",
-     "source": 1,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.83
-     }
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
     },
     "requires_other_products": {
      "value": true,
@@ -529,8 +518,8 @@
      }
     },
     "guarantee_amount": {
-     "value": "högst av 100 000 euro eller 1 150 000 kr",
-     "quote": "med ett belopp om det högsta av 100 000 euro eller 1 150 000 kronor (SEK)",
+     "value": "100 000 euro eller 1 150 000 kronor (SEK)",
+     "quote": "ett belopp om det högsta av 100 000 euro eller 1 150 000 kronor (SEK)",
      "source": 2,
      "status": "belagt",
      "jev": {
@@ -542,10 +531,10 @@
      "value": "2026-09-18",
      "quote": "| Fasträntekonto 6 mån | 1,85 % | 2026.09.18 | 0,00 % |",
      "source": 1,
-     "status": "osäkert",
+     "status": "belagt",
      "jev": {
-      "verdict": "says_nothing",
-      "confidence": 0.23
+      "verdict": "supports",
+      "confidence": 0.38
      }
     }
    },
@@ -560,11 +549,11 @@
     "product_type": {
      "value": "fasträntekonto",
      "quote": "Ålandsbankens fasträntekonto är ett tryggt sparande för dig som vill veta precis hur mycket du får i slutet av bindningstiden.",
-     "source": 0,
+     "source": 1,
      "status": "osäkert",
      "jev": {
       "verdict": "contradicts",
-      "confidence": 0.53
+      "confidence": 0.38
      }
     },
     "rate_percent": {
@@ -575,12 +564,12 @@
     },
     "rate_type": {
      "value": "fast",
-     "quote": "Tryggt sparande till fast ränta under hela bindningstiden",
+     "quote": "Det är ett enkelt, tryggt och riskfritt sparande med en fast förutbestämd ränta.",
      "source": 1,
-     "status": "osäkert",
+     "status": "belagt",
      "jev": {
-      "verdict": "says_nothing",
-      "confidence": 0.33
+      "verdict": "supports",
+      "confidence": 0.98
      }
     },
     "binding_months": {
@@ -606,7 +595,7 @@
      "status": "okänt"
     },
     "withdrawal_terms": {
-     "value": "Uttag i förtid mot avgift om 3 % på det insatta beloppet.",
+     "value": "Uttag i förtid mot avgift om 3 % av insatt belopp.",
      "quote": "Pengarna kan tas ut i förtid mot en avgift om 3 % på det insatta beloppet.",
      "source": 1,
      "status": "belagt",
@@ -616,18 +605,24 @@
      }
     },
     "min_deposit_sek": {
-     "value": null,
-     "quote": "Lägsta insättning är 50.000 kr och högsta är 10.000.000 kr*",
+     "value": 50000,
+     "quote": "*Minsta insättning 50.000 kr.",
      "source": 1,
-     "status": "talet finns inte i citatet",
-     "claimed": 50000
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.82
+     }
     },
     "max_deposit_sek": {
-     "value": null,
+     "value": 10000000,
      "quote": "Lägsta insättning är 50.000 kr och högsta är 10.000.000 kr*",
      "source": 1,
-     "status": "talet finns inte i citatet",
-     "claimed": 10000000
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.88
+     }
     },
     "monthly_deposit_cap_sek": {
      "value": null,
@@ -636,24 +631,16 @@
      "status": "okänt"
     },
     "deposit_terms": {
-     "value": "Insättning 50 000–10 000 000 kr; över detta gäller Specialinlåning.",
-     "quote": "Angivna räntor för fasträntekonto gäller endast för belopp upp till 10.000.000 kr. För belopp över 10.000.000 kr gäller villkor enligt Specialinlåning.",
-     "source": 1,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.91
-     }
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
     },
     "eligibility": {
-     "value": "Kräver vanligt bankkonto i Ålandsbanken.",
-     "quote": "För att öppna ett fasträntekonto behöver du även ha ett vanligt bankkonto i Ålandsbanken.",
-     "source": 1,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.86
-     }
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
     },
     "requires_other_products": {
      "value": true,
@@ -688,8 +675,8 @@
      }
     },
     "guarantee_amount": {
-     "value": "högst av 100 000 euro eller 1 150 000 kr",
-     "quote": "med ett belopp om det högsta av 100 000 euro eller 1 150 000 kronor (SEK)",
+     "value": "100 000 euro eller 1 150 000 kronor (SEK)",
+     "quote": "ett belopp om det högsta av 100 000 euro eller 1 150 000 kronor (SEK)",
      "source": 2,
      "status": "belagt",
      "jev": {
@@ -701,10 +688,10 @@
      "value": "2026-09-18",
      "quote": "| Fasträntekonto 12 mån | 2,10 % | 2026.09.18 | + 0,10 % |",
      "source": 1,
-     "status": "osäkert",
+     "status": "belagt",
      "jev": {
-      "verdict": "says_nothing",
-      "confidence": 0.23
+      "verdict": "supports",
+      "confidence": 0.55
      }
     }
    },
@@ -719,11 +706,11 @@
     "product_type": {
      "value": "fasträntekonto",
      "quote": "Ålandsbankens fasträntekonto är ett tryggt sparande för dig som vill veta precis hur mycket du får i slutet av bindningstiden.",
-     "source": 0,
+     "source": 1,
      "status": "osäkert",
      "jev": {
       "verdict": "contradicts",
-      "confidence": 0.53
+      "confidence": 0.46
      }
     },
     "rate_percent": {
@@ -734,12 +721,12 @@
     },
     "rate_type": {
      "value": "fast",
-     "quote": "Tryggt sparande till fast ränta under hela bindningstiden",
+     "quote": "Det är ett enkelt, tryggt och riskfritt sparande med en fast förutbestämd ränta.",
      "source": 1,
-     "status": "osäkert",
+     "status": "belagt",
      "jev": {
-      "verdict": "says_nothing",
-      "confidence": 0.38
+      "verdict": "supports",
+      "confidence": 0.95
      }
     },
     "binding_months": {
@@ -765,7 +752,7 @@
      "status": "okänt"
     },
     "withdrawal_terms": {
-     "value": "Uttag i förtid mot avgift om 3 % på det insatta beloppet.",
+     "value": "Uttag i förtid mot avgift om 3 % av insatt belopp.",
      "quote": "Pengarna kan tas ut i förtid mot en avgift om 3 % på det insatta beloppet.",
      "source": 1,
      "status": "belagt",
@@ -775,18 +762,24 @@
      }
     },
     "min_deposit_sek": {
-     "value": null,
-     "quote": "Lägsta insättning är 50.000 kr och högsta är 10.000.000 kr*",
+     "value": 50000,
+     "quote": "*Minsta insättning 50.000 kr.",
      "source": 1,
-     "status": "talet finns inte i citatet",
-     "claimed": 50000
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.85
+     }
     },
     "max_deposit_sek": {
-     "value": null,
+     "value": 10000000,
      "quote": "Lägsta insättning är 50.000 kr och högsta är 10.000.000 kr*",
      "source": 1,
-     "status": "talet finns inte i citatet",
-     "claimed": 10000000
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.86
+     }
     },
     "monthly_deposit_cap_sek": {
      "value": null,
@@ -795,24 +788,16 @@
      "status": "okänt"
     },
     "deposit_terms": {
-     "value": "Insättning 50 000–10 000 000 kr; över detta gäller Specialinlåning.",
-     "quote": "Angivna räntor för fasträntekonto gäller endast för belopp upp till 10.000.000 kr. För belopp över 10.000.000 kr gäller villkor enligt Specialinlåning.",
-     "source": 1,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.94
-     }
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
     },
     "eligibility": {
-     "value": "Kräver vanligt bankkonto i Ålandsbanken.",
-     "quote": "För att öppna ett fasträntekonto behöver du även ha ett vanligt bankkonto i Ålandsbanken.",
-     "source": 1,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.83
-     }
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
     },
     "requires_other_products": {
      "value": true,
@@ -847,13 +832,13 @@
      }
     },
     "guarantee_amount": {
-     "value": "högst av 100 000 euro eller 1 150 000 kr",
-     "quote": "med ett belopp om det högsta av 100 000 euro eller 1 150 000 kronor (SEK)",
+     "value": "100 000 euro eller 1 150 000 kronor (SEK)",
+     "quote": "ett belopp om det högsta av 100 000 euro eller 1 150 000 kronor (SEK)",
      "source": 2,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.94
+      "confidence": 0.91
      }
     },
     "rate_valid_from": {
@@ -878,11 +863,11 @@
     "product_type": {
      "value": "fasträntekonto",
      "quote": "Ålandsbankens fasträntekonto är ett tryggt sparande för dig som vill veta precis hur mycket du får i slutet av bindningstiden.",
-     "source": 0,
+     "source": 1,
      "status": "osäkert",
      "jev": {
       "verdict": "contradicts",
-      "confidence": 0.58
+      "confidence": 0.41
      }
     },
     "rate_percent": {
@@ -893,12 +878,12 @@
     },
     "rate_type": {
      "value": "fast",
-     "quote": "Tryggt sparande till fast ränta under hela bindningstiden",
+     "quote": "Det är ett enkelt, tryggt och riskfritt sparande med en fast förutbestämd ränta.",
      "source": 1,
-     "status": "osäkert",
+     "status": "belagt",
      "jev": {
-      "verdict": "says_nothing",
-      "confidence": 0.33
+      "verdict": "supports",
+      "confidence": 0.98
      }
     },
     "binding_months": {
@@ -924,7 +909,7 @@
      "status": "okänt"
     },
     "withdrawal_terms": {
-     "value": "Uttag i förtid mot avgift om 3 % på det insatta beloppet.",
+     "value": "Uttag i förtid mot avgift om 3 % av insatt belopp.",
      "quote": "Pengarna kan tas ut i förtid mot en avgift om 3 % på det insatta beloppet.",
      "source": 1,
      "status": "belagt",
@@ -934,18 +919,24 @@
      }
     },
     "min_deposit_sek": {
-     "value": null,
-     "quote": "Lägsta insättning är 50.000 kr och högsta är 10.000.000 kr*",
+     "value": 50000,
+     "quote": "*Minsta insättning 50.000 kr.",
      "source": 1,
-     "status": "talet finns inte i citatet",
-     "claimed": 50000
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.86
+     }
     },
     "max_deposit_sek": {
-     "value": null,
+     "value": 10000000,
      "quote": "Lägsta insättning är 50.000 kr och högsta är 10.000.000 kr*",
      "source": 1,
-     "status": "talet finns inte i citatet",
-     "claimed": 10000000
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.85
+     }
     },
     "monthly_deposit_cap_sek": {
      "value": null,
@@ -954,24 +945,16 @@
      "status": "okänt"
     },
     "deposit_terms": {
-     "value": "Insättning 50 000–10 000 000 kr; över detta gäller Specialinlåning.",
-     "quote": "Angivna räntor för fasträntekonto gäller endast för belopp upp till 10.000.000 kr. För belopp över 10.000.000 kr gäller villkor enligt Specialinlåning.",
-     "source": 1,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.94
-     }
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
     },
     "eligibility": {
-     "value": "Kräver vanligt bankkonto i Ålandsbanken.",
-     "quote": "För att öppna ett fasträntekonto behöver du även ha ett vanligt bankkonto i Ålandsbanken.",
-     "source": 1,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.8
-     }
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
     },
     "requires_other_products": {
      "value": true,
@@ -1006,13 +989,13 @@
      }
     },
     "guarantee_amount": {
-     "value": "högst av 100 000 euro eller 1 150 000 kr",
-     "quote": "med ett belopp om det högsta av 100 000 euro eller 1 150 000 kronor (SEK)",
+     "value": "100 000 euro eller 1 150 000 kronor (SEK)",
+     "quote": "ett belopp om det högsta av 100 000 euro eller 1 150 000 kronor (SEK)",
      "source": 2,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.92
+      "confidence": 0.91
      }
     },
     "rate_valid_from": {
@@ -1037,11 +1020,11 @@
     "product_type": {
      "value": "fasträntekonto",
      "quote": "Ålandsbankens fasträntekonto är ett tryggt sparande för dig som vill veta precis hur mycket du får i slutet av bindningstiden.",
-     "source": 0,
+     "source": 1,
      "status": "osäkert",
      "jev": {
       "verdict": "contradicts",
-      "confidence": 0.52
+      "confidence": 0.37
      }
     },
     "rate_percent": {
@@ -1052,12 +1035,12 @@
     },
     "rate_type": {
      "value": "fast",
-     "quote": "Tryggt sparande till fast ränta under hela bindningstiden",
+     "quote": "Det är ett enkelt, tryggt och riskfritt sparande med en fast förutbestämd ränta.",
      "source": 1,
-     "status": "osäkert",
+     "status": "belagt",
      "jev": {
-      "verdict": "says_nothing",
-      "confidence": 0.35
+      "verdict": "supports",
+      "confidence": 0.98
      }
     },
     "binding_months": {
@@ -1083,7 +1066,7 @@
      "status": "okänt"
     },
     "withdrawal_terms": {
-     "value": "Uttag i förtid mot avgift om 3 % på det insatta beloppet.",
+     "value": "Uttag i förtid mot avgift om 3 % av insatt belopp.",
      "quote": "Pengarna kan tas ut i förtid mot en avgift om 3 % på det insatta beloppet.",
      "source": 1,
      "status": "belagt",
@@ -1093,18 +1076,24 @@
      }
     },
     "min_deposit_sek": {
-     "value": null,
-     "quote": "Lägsta insättning är 50.000 kr och högsta är 10.000.000 kr*",
+     "value": 50000,
+     "quote": "*Minsta insättning 50.000 kr.",
      "source": 1,
-     "status": "talet finns inte i citatet",
-     "claimed": 50000
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.88
+     }
     },
     "max_deposit_sek": {
-     "value": null,
+     "value": 10000000,
      "quote": "Lägsta insättning är 50.000 kr och högsta är 10.000.000 kr*",
      "source": 1,
-     "status": "talet finns inte i citatet",
-     "claimed": 10000000
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.88
+     }
     },
     "monthly_deposit_cap_sek": {
      "value": null,
@@ -1113,24 +1102,16 @@
      "status": "okänt"
     },
     "deposit_terms": {
-     "value": "Insättning 50 000–10 000 000 kr; över detta gäller Specialinlåning.",
-     "quote": "Angivna räntor för fasträntekonto gäller endast för belopp upp till 10.000.000 kr. För belopp över 10.000.000 kr gäller villkor enligt Specialinlåning.",
-     "source": 1,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.94
-     }
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
     },
     "eligibility": {
-     "value": "Kräver vanligt bankkonto i Ålandsbanken.",
-     "quote": "För att öppna ett fasträntekonto behöver du även ha ett vanligt bankkonto i Ålandsbanken.",
-     "source": 1,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.88
-     }
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
     },
     "requires_other_products": {
      "value": true,
@@ -1165,8 +1146,8 @@
      }
     },
     "guarantee_amount": {
-     "value": "högst av 100 000 euro eller 1 150 000 kr",
-     "quote": "med ett belopp om det högsta av 100 000 euro eller 1 150 000 kronor (SEK)",
+     "value": "100 000 euro eller 1 150 000 kronor (SEK)",
+     "quote": "ett belopp om det högsta av 100 000 euro eller 1 150 000 kronor (SEK)",
      "source": 2,
      "status": "belagt",
      "jev": {
@@ -1178,10 +1159,10 @@
      "value": "2026-09-18",
      "quote": "| Fasträntekonto 48 mån | 2,50 % | 2026.09.18 | + 0,25 % |",
      "source": 1,
-     "status": "osäkert",
+     "status": "belagt",
      "jev": {
-      "verdict": "says_nothing",
-      "confidence": 0.31
+      "verdict": "supports",
+      "confidence": 0.43
      }
     }
    },
@@ -1196,11 +1177,11 @@
     "product_type": {
      "value": "fasträntekonto",
      "quote": "Ålandsbankens fasträntekonto är ett tryggt sparande för dig som vill veta precis hur mycket du får i slutet av bindningstiden.",
-     "source": 0,
+     "source": 1,
      "status": "osäkert",
      "jev": {
       "verdict": "contradicts",
-      "confidence": 0.58
+      "confidence": 0.48
      }
     },
     "rate_percent": {
@@ -1211,12 +1192,12 @@
     },
     "rate_type": {
      "value": "fast",
-     "quote": "Tryggt sparande till fast ränta under hela bindningstiden",
+     "quote": "Det är ett enkelt, tryggt och riskfritt sparande med en fast förutbestämd ränta.",
      "source": 1,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.27
+      "confidence": 0.98
      }
     },
     "binding_months": {
@@ -1242,7 +1223,7 @@
      "status": "okänt"
     },
     "withdrawal_terms": {
-     "value": "Uttag i förtid mot avgift om 3 % på det insatta beloppet.",
+     "value": "Uttag i förtid mot avgift om 3 % av insatt belopp.",
      "quote": "Pengarna kan tas ut i förtid mot en avgift om 3 % på det insatta beloppet.",
      "source": 1,
      "status": "belagt",
@@ -1252,18 +1233,24 @@
      }
     },
     "min_deposit_sek": {
-     "value": null,
-     "quote": "Lägsta insättning är 50.000 kr och högsta är 10.000.000 kr*",
+     "value": 50000,
+     "quote": "*Minsta insättning 50.000 kr.",
      "source": 1,
-     "status": "talet finns inte i citatet",
-     "claimed": 50000
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.82
+     }
     },
     "max_deposit_sek": {
-     "value": null,
+     "value": 10000000,
      "quote": "Lägsta insättning är 50.000 kr och högsta är 10.000.000 kr*",
      "source": 1,
-     "status": "talet finns inte i citatet",
-     "claimed": 10000000
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.86
+     }
     },
     "monthly_deposit_cap_sek": {
      "value": null,
@@ -1272,24 +1259,16 @@
      "status": "okänt"
     },
     "deposit_terms": {
-     "value": "Insättning 50 000–10 000 000 kr; över detta gäller Specialinlåning.",
-     "quote": "Angivna räntor för fasträntekonto gäller endast för belopp upp till 10.000.000 kr. För belopp över 10.000.000 kr gäller villkor enligt Specialinlåning.",
-     "source": 1,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.94
-     }
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
     },
     "eligibility": {
-     "value": "Kräver vanligt bankkonto i Ålandsbanken.",
-     "quote": "För att öppna ett fasträntekonto behöver du även ha ett vanligt bankkonto i Ålandsbanken.",
-     "source": 1,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.76
-     }
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
     },
     "requires_other_products": {
      "value": true,
@@ -1324,13 +1303,13 @@
      }
     },
     "guarantee_amount": {
-     "value": "högst av 100 000 euro eller 1 150 000 kr",
-     "quote": "med ett belopp om det högsta av 100 000 euro eller 1 150 000 kronor (SEK)",
+     "value": "100 000 euro eller 1 150 000 kronor (SEK)",
+     "quote": "ett belopp om det högsta av 100 000 euro eller 1 150 000 kronor (SEK)",
      "source": 2,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.94
+      "confidence": 0.92
      }
     },
     "rate_valid_from": {
@@ -1347,9 +1326,271 @@
    "rate_tiers": [],
    "pending_rate": null,
    "status": "verifierad"
+  },
+  {
+   "name": "Ålandskonto",
+   "flags": [],
+   "fields": {
+    "product_type": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "rate_percent": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "rate_type": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "binding_months": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "withdrawals": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "free_withdrawals_per_year": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "withdrawal_terms": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "min_deposit_sek": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "max_deposit_sek": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "monthly_deposit_cap_sek": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "deposit_terms": {
+     "value": "Påfyllning tillåten (när som helst, från eget konto i Ålandsbanken eller annan bank)",
+     "quote": "Du kan när som helst öka ditt sparande genom att föra över pengar till ditt Ålandskonto från ditt bankkonto i Ålandsbanken eller från ett konto i en annan bank.",
+     "source": 0,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 1.0
+     }
+    },
+    "eligibility": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "requires_other_products": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "intro_rate": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "interest_paid": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "guarantee_country": {
+     "value": "FI",
+     "quote": "Konton i Ålandsbanken Abp (Finland), svensk filial omfattas av den lagstadgade insättningsgarantin i Finland",
+     "source": 0,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.56
+     }
+    },
+    "guarantee_amount": {
+     "value": "100 000 euro eller 1 150 000 kronor (SEK)",
+     "quote": "ett belopp om det högsta av 100 000 euro eller 1 150 000 kronor (SEK)",
+     "source": 2,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.94
+     }
+    },
+    "rate_valid_from": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    }
+   },
+   "rate_tiers": [],
+   "pending_rate": null,
+   "status": "ej verifierad"
+  },
+  {
+   "name": "Premiumkonto",
+   "flags": [],
+   "fields": {
+    "product_type": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "rate_percent": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "rate_type": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "binding_months": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "withdrawals": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "free_withdrawals_per_year": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "withdrawal_terms": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "min_deposit_sek": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "max_deposit_sek": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "monthly_deposit_cap_sek": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "deposit_terms": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "eligibility": {
+     "value": "Konto för Premiumkunder",
+     "quote": "Ålandsbankens Premiumkonto är ett konto för våra Premiumkunder.",
+     "source": 0,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.55
+     }
+    },
+    "requires_other_products": {
+     "value": true,
+     "quote": "Premium Banking är för dig med minst 1 mkr i förvaltning.",
+     "source": 3,
+     "status": "osäkert",
+     "jev": {
+      "verdict": "says_nothing",
+      "confidence": 0.73
+     }
+    },
+    "intro_rate": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "interest_paid": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "guarantee_country": {
+     "value": "FI",
+     "quote": "Konton i Ålandsbanken Abp (Finland), svensk filial omfattas av den lagstadgade insättningsgarantin i Finland",
+     "source": 0,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.37
+     }
+    },
+    "guarantee_amount": {
+     "value": "100 000 euro eller 1 150 000 kronor (SEK)",
+     "quote": "ett belopp om det högsta av 100 000 euro eller 1 150 000 kronor (SEK)",
+     "source": 2,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.89
+     }
+    },
+    "rate_valid_from": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    }
+   },
+   "rate_tiers": [],
+   "pending_rate": null,
+   "status": "ej verifierad"
   }
  ],
- "source_hash": "4239654d4190eee3",
- "changed_at": "2026-10-12T09:38:20+00:00",
- "model": "claude-sonnet-5-5"
+ "source_hash": "e936881217df6996",
+ "changed_at": "2026-10-21T01:00:17+00:00",
+ "model": "claude-haiku-5-5"
 }
