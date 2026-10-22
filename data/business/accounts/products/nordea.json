@@ -7,7 +7,7 @@
   "kind": "storbank",
   "legal_name": "Nordea Bank Abp, filial i Sverige"
  },
- "checked_at": "2026-10-21T02:48:32+00:00",
+ "checked_at": "2026-10-22T02:39:20+00:00",
  "discovered_at": "2026-10-20T02:31:19+00:00",
  "sources": [
   {
@@ -36,7 +36,7 @@
    "title": "Bli företagskund hos Nordea | Företagskonto, företagspaket och rådgivning | Nordea",
    "kind": "html",
    "via": "http",
-   "chars": 10957
+   "chars": 10970
   },
   {
    "url": "https://www.nordea.se/Images/154-371737/Prislista-foretag-foreningar.pdf",
@@ -74,65 +74,72 @@
    "chars": 20601
   }
  ],
- "source_hash": "71e839864e833b0a",
  "status": "ok",
- "notes": "Bara ett företagskonto/paket (Företagspaket) finns. Ränta på kontot anges inte. Ansökan är digital med BankID, men banken ringer upp och avtal signeras efteråt, så open_online är satt till false (osäkert). Prislistan gäller från 1 aug 2026.",
+ "notes": "Källorna anger inte för AffärsGiro och PlusGirokonto Företag vilka företagsformer, nystartade företag, digital öppning, behörigheter eller insättningsgaranti som gäller, därför är dessa fält tomma. Företagskontot ingår i Företagspaketet; startavgift 2 500 kr gäller nya företagskunder (ingen för Private Banking eller Premium). Priser i prislistan gäller från 1 augusti 2026. Kontoutdrag och tilläggstjänster för kontona har inte tagits med i detalj.",
  "products": [
   {
-   "name": "Företagspaket (Företagskonto)",
+   "name": "Företagskonto (ingår i Företagspaket)",
    "flags": [],
    "fields": {
     "company_forms": {
-     "value": "aktiebolag, enskild firma, handelsbolag, kommanditbolag, förening",
+     "value": "aktiebolag, enskild firma, kommanditbolag, handelsbolag, förening",
      "quote": "Befintligt AB, enskild firma, kommandit- eller handelsbolag",
      "source": 2,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.58
+      "confidence": 0.52
      }
     },
     "accepts_new_companies": {
-     "value": null,
+     "value": true,
      "quote": "Ja. Du kan ansöka om att bli företagskund oavsett om du precis har startat företag eller håller på att registrera din verksamhet.",
      "source": 3,
-     "status": "citat hittades inte",
-     "claimed": true
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.43
+     }
     },
     "new_company_terms": {
-     "value": "Nystartade kan ansöka; organisationsnummer och registreringsbevis från Bolagsverket behövs. Nytt aktiebolag som behöver bankintyg ansöker separat.",
-     "quote": "Det som alltid behövs för att öppna konto är företagets organisationsnummer och registreringsbevis från Bolagsverket.",
+     "value": "Kan ansökas även när företaget precis startat; för nytt aktiebolag krävs bankintyg eller lagerbolag",
+     "quote": "Om du ska starta ett nytt aktiebolag och behöver ett bankintyg",
+     "source": 3,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.2
+     }
+    },
+    "open_online": {
+     "value": true,
+     "quote": "Ansök digitalt – vi guidar dig hela vägen.",
+     "source": 0,
+     "status": "osäkert",
+     "jev": {
+      "verdict": "contradicts",
+      "confidence": 0.2
+     }
+    },
+    "multiple_users": {
+     "value": true,
+     "quote": "lägg enkelt till användare och ändra signeringsutrymme för nätbanken och appen",
      "source": 0,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.35
+      "confidence": 0.22
      }
     },
-    "open_online": {
-     "value": null,
-     "quote": "Fyll i ansökan online och signera med Mobilt BankID.",
-     "source": 0,
-     "status": "motsägs av källan",
-     "jev": {
-      "verdict": "contradicts",
-      "confidence": 0.76
-     },
-     "claimed": false
-    },
-    "multiple_users": {
-     "value": null,
-     "quote": "Ja, flera användare kan läggas till under Hantera användare.",
-     "source": 7,
-     "status": "citat hittades inte",
-     "claimed": true
-    },
     "user_terms": {
-     "value": null,
-     "quote": "Om de kan signera var för sig eller två i förening",
-     "source": 5,
-     "status": "citat hittades inte",
-     "claimed": "Administratör lägger till användare och behörigheter; signering var för sig eller två i förening; tittabehörighet för revisor."
+     "value": "Administratör lägger till användare och ändrar behörigheter och signeringsutrymme i Nordea Business; kostnad per användare anges inte",
+     "quote": "Om du har ett avtal för Nordea Business och utsett minst en administratör, kommer administratören åt Hantera användare.",
+     "source": 7,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.41
+     }
     },
     "monthly_fee_sek": {
      "value": 109,
@@ -141,37 +148,37 @@
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.25
+      "confidence": 0.27
      }
     },
     "fee_terms": {
-     "value": "109 kr/mån (debiteras årsvis 1 300 kr), startavgift 2 500 kr (föreningar 5 000 kr). Ingår: PlusGirokonto, bankgironummer, Nordea Business, First Card, Företagskort Mastercard, Sparkonto Företag. Swish kostar extra (720 kr/år + 2 kr/transaktion).",
-     "quote": "Pris per år................................................................................................................................ 1 300 kr",
-     "source": 4,
-     "status": "osäkert",
-     "jev": {
-      "verdict": "contradicts",
-      "confidence": 0.52
-     }
-    },
-    "swish": {
-     "value": true,
-     "quote": "Swish företag, Swish Handel och kortinlösen - ta betalt av dina kunder i butik och online",
+     "value": "Företagspaket: 109 kr/månad, debiteras årsvis med 1 300 kr; startavgift 2 500 kr. Ingår företagskonto med PlusGironummer, Bankgiro, företagskort, nätbank och app, sparkonto utan bindningstid",
+     "quote": "Avgiften för paketet debiteras årsvis med 1 300 kronor.",
      "source": 0,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.48
+      "confidence": 0.18
+     }
+    },
+    "swish": {
+     "value": true,
+     "quote": "Bankgiro, Swish för företag och andra betaltjänster",
+     "source": 0,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.38
      }
     },
     "bankgiro": {
      "value": true,
-     "quote": "Bankgironummer ....................................................................................................................... Ingår i årspriset",
-     "source": 4,
+     "quote": "Företagskonto med PlusGironummer - och du kan lägga till Bankgiro",
+     "source": 0,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.27
+      "confidence": 0.19
      }
     },
     "account_interest_percent": {
@@ -181,11 +188,14 @@
      "status": "okänt"
     },
     "requirements": {
-     "value": null,
-     "quote": "Ansökan är digital, du använder BankID för att identifiera dig och efter att du har skickat in ansökan tar vi kontakt med dig för att hjälpa dig genom processen.",
-     "source": 3,
-     "status": "citat hittades inte",
-     "claimed": "Organisationsnummer och registreringsbevis från Bolagsverket; ansökan med BankID; företagsvarianter: AB, enskild firma, handels-/kommanditbolag, förening."
+     "value": "Organisationsnummer och registreringsbevis från Bolagsverket",
+     "quote": "Det som alltid behövs för att öppna konto är företagets organisationsnummer och registreringsbevis från Bolagsverket.",
+     "source": 0,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.34
+     }
     },
     "guarantee_country": {
      "value": "FI",
@@ -194,15 +204,198 @@
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.33
+      "confidence": 0.37
      }
     }
    },
    "rate_tiers": [],
    "pending_rate": null,
    "status": "verifierad"
+  },
+  {
+   "name": "AffärsGiro",
+   "flags": [],
+   "fields": {
+    "company_forms": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "accepts_new_companies": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "new_company_terms": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "open_online": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "multiple_users": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "user_terms": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "monthly_fee_sek": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "fee_terms": {
+     "value": "950 kr per år och konto; kontoutdrag via kuvert 1 500 kr per år och konto",
+     "quote": "Pris per år och konto",
+     "source": 4,
+     "status": "osäkert",
+     "jev": {
+      "verdict": "contradicts",
+      "confidence": 0.61
+     }
+    },
+    "swish": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "bankgiro": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "account_interest_percent": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "requirements": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "guarantee_country": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    }
+   },
+   "rate_tiers": [],
+   "pending_rate": null,
+   "status": "ej verifierad"
+  },
+  {
+   "name": "PlusGirokonto Företag",
+   "flags": [],
+   "fields": {
+    "company_forms": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "accepts_new_companies": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "new_company_terms": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "open_online": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "multiple_users": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "user_terms": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "monthly_fee_sek": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "fee_terms": {
+     "value": "950 kr per år och konto för konto utöver det som ingår i Företagspaket; ingår i årspriset för Företagspaketets PlusGirokonto",
+     "quote": "Pris per år och konto (gäller för konto utöver det som ingår i Företagspaket)",
+     "source": 4,
+     "status": "osäkert",
+     "jev": {
+      "verdict": "contradicts",
+      "confidence": 0.69
+     }
+    },
+    "swish": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "bankgiro": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "account_interest_percent": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "requirements": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "guarantee_country": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    }
+   },
+   "rate_tiers": [],
+   "pending_rate": null,
+   "status": "ej verifierad"
   }
  ],
- "changed_at": "2026-10-14T08:15:40+00:00",
- "model": "claude-sonnet-5-5"
+ "source_hash": "bbb0c179b08f959d",
+ "changed_at": "2026-10-22T02:39:20+00:00",
+ "model": "claude-haiku-5-5"
 }

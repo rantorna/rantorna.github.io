@@ -7,7 +7,7 @@
   "kind": "sparbank",
   "legal_name": "Sparbanken Syd"
  },
- "checked_at": "2026-10-21T02:44:58+00:00",
+ "checked_at": "2026-10-22T02:36:07+00:00",
  "discovered_at": "2026-10-20T02:26:31+00:00",
  "sources": [
   {
@@ -60,55 +60,72 @@
    "chars": 11691
   }
  ],
- "source_hash": "cb565d70629c24ea",
- "status": "senaste tolkning misslyckades (gränsen redan nådd i den här körningen)",
- "notes": "Månadsavgift och priser anges bara i en separat prislista (inte i dokumenten); endast uppläggningsavgift nämns. Konto öppnas via ansökningsformulär och avtal tecknas på kontor/telefon, inte helt digitalt. Ingen kontoränta eller insättningsgaranti angiven.",
+ "status": "ok",
+ "notes": "Priser (månadsavgift, uppläggningsavgift i kronor, transaktionsavgifter) finns endast i bankens prislista som inte ingick i underlaget. Ränta på företagskontot och insättningsgarantins land framgår inte. Baspaketets behörighets- och nyföretagsvillkor framgår inte. Kontot kan inte öppnas helt digitalt enligt underlaget; ansökan görs via formulär men avtal tecknas via kontor eller Kundcenter. Företagsformer för företagspaketet är hämtade från ansökningsformulärets alternativ, inte från en uttrycklig villkorstext.",
  "products": [
   {
-   "name": "Företagspaket (Företagskonto)",
+   "name": "Företagskonto (ingår i företagspaketet)",
    "flags": [],
    "fields": {
     "company_forms": {
-     "value": null,
-     "quote": "Aktiebolag\n\nHandelsbolag\n\nEnskild firma\n\nBostadsrättsförening\n\nIdeell förening\n\nÖvrig förening\n\nStiftelse",
+     "value": "aktiebolag, handelsbolag, enskild firma, bostadsrättsförening, ideell förening, övrig förening, stiftelse",
+     "quote": "Vilken verksamhetsform avser ansökan?",
      "source": 2,
-     "status": "citat hittades inte",
-     "claimed": "aktiebolag, handelsbolag, enskild firma, bostadsrättsförening, ideell förening, övrig förening, stiftelse"
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.33
+     }
     },
     "accepts_new_companies": {
-     "value": null,
-     "quote": "Gäller ansökan en befintlig eller ny verksamhet?\n\nVälj\n\nBefintlig verksamhet\n\nNy verksamhet",
+     "value": true,
+     "quote": "Gäller ansökan en befintlig eller ny verksamhet?",
      "source": 2,
-     "status": "citat hittades inte",
-     "claimed": true
+     "status": "osäkert",
+     "jev": {
+      "verdict": "says_nothing",
+      "confidence": 0.34
+     }
     },
     "new_company_terms": {
-     "value": null,
-     "quote": "Ska du starta aktiebolag eller köpa lagerbolag?\n\nVälj\n\nStarta aktiebolag\n\nKöpa lagerbolag",
-     "source": 2,
-     "status": "citat hittades inte",
-     "claimed": "Ansökan kan avse ny verksamhet, nytt aktiebolag eller köp av lagerbolag; kundkännedom och kopior på legitimationer krävs i senare skede."
+     "value": "Ansökan kan avse ny verksamhet, bl.a. start av aktiebolag; kundkännedom och kopior av legitimationer krävs i ett senare skede",
+     "quote": "I ett senare skede behöver ni fylla i en kundkännedom samt inkomma med kopior på legitimationer och övriga relevanta handlingar.",
+     "source": 1,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.62
+     }
     },
     "open_online": {
-     "value": null,
-     "quote": "För att kunna använda internetbanken behöver du först teckna avtal för tjänsten. Det gör du genom att:\n\nBesök ditt bankkontor.\n\nRing Kundcenter på 0411-82 20 00.",
+     "value": false,
+     "quote": "Besök ditt bankkontor.",
      "source": 6,
-     "status": "citat hittades inte",
-     "claimed": false
+     "status": "osäkert",
+     "jev": {
+      "verdict": "says_nothing",
+      "confidence": 0.23
+     }
     },
     "multiple_users": {
-     "value": null,
-     "quote": "Föreningen kan ha en eller flera firmatecknare.",
-     "source": 1,
-     "status": "citat hittades inte",
-     "claimed": true
-    },
-    "user_terms": {
-     "value": null,
+     "value": true,
      "quote": "Möjlighet till att ni ska vara två i förening för att godkänna en betalning och överföring.",
      "source": 6,
-     "status": "citat hittades inte",
-     "claimed": "Möjlighet att kräva två i förening för att godkänna betalning och överföring; flera personer kan ha åtkomst till företagets avtal."
+     "status": "osäkert",
+     "jev": {
+      "verdict": "says_nothing",
+      "confidence": 0.09
+     }
+    },
+    "user_terms": {
+     "value": "Flera personer kan ha åtkomst till företagets avtal; två-i-förening-godkännande av betalningar kan väljas. Kostnad per användare anges inte.",
+     "quote": "Möjlighet till att ni ska vara två i förening för att godkänna en betalning och överföring.",
+     "source": 6,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.1
+     }
     },
     "monthly_fee_sek": {
      "value": null,
@@ -117,13 +134,13 @@
      "status": "okänt"
     },
     "fee_terms": {
-     "value": "Uppläggningsavgift tas ut; transaktionsavgifter tillkommer och faktureras separat. Paketet innehåller företagskonto, bankgiroanslutning, internet- och mobilbank, Visa Business Card, bankkort Visa Företag, sparkonto och engagemangsbesked. Swish Företag är tilläggstjänst. Fler konton kostar inget extra att ansluta.",
+     "value": "Uppläggningsavgift vid start; transaktionsavgifter tillkommer och faktureras separat; övriga avgifter enligt prislista. Ingår: bankgiroanslutning, Internet- och Mobilbanken Företag, Bankkort/Visa Business Card (tillval).",
      "quote": "När du blir företagskund hos oss betalar du en uppläggningsavgift. Avgifter för transaktioner tillkommer och faktureras separat.",
      "source": 0,
      "status": "osäkert",
      "jev": {
       "verdict": "contradicts",
-      "confidence": 0.3
+      "confidence": 0.13
      }
     },
     "swish": {
@@ -133,17 +150,17 @@
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.37
+      "confidence": 0.28
      }
     },
     "bankgiro": {
      "value": true,
-     "quote": "Bankgiroanslutning",
+     "quote": "Bankgiroanslutning (gäller 1 bankgironummer inkl 500 fria transaktioner)",
      "source": 0,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.16
+      "confidence": 0.4
      }
     },
     "account_interest_percent": {
@@ -153,11 +170,14 @@
      "status": "okänt"
     },
     "requirements": {
-     "value": null,
+     "value": "Verksamhet med koppling till banken; banken samarbetar främst med företag och föreningar i sin region (Skåne); kundkännedom krävs",
      "quote": "Sparbanken Syd är en lokal sparbank i Skåne och samarbetar främst med företag och föreningar i vår region.",
      "source": 1,
-     "status": "citat hittades inte",
-     "claimed": "Lokal sparbank som främst samarbetar med företag och föreningar i Skåne; firmatecknare/innehavare ska vara kund i banken med banken som huvudbank; kundkännedom krävs."
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.28
+     }
     },
     "guarantee_country": {
      "value": null,
@@ -168,7 +188,7 @@
    },
    "rate_tiers": [],
    "pending_rate": null,
-   "status": "ej verifierad"
+   "status": "verifierad"
   },
   {
    "name": "Baspaket för enskilda firmor och ideella föreningar",
@@ -176,20 +196,19 @@
    "fields": {
     "company_forms": {
      "value": "enskild firma, ideell förening",
-     "quote": "Baspaket är ett paket avsett för enskilda firmor och ideella föreningar och innehåller de basprodukter och -tjänster som kan behövas.",
+     "quote": "Baspaket är ett paket avsett för enskilda firmor och ideella föreningar",
      "source": 0,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.46
+      "confidence": 0.59
      }
     },
     "accepts_new_companies": {
      "value": null,
-     "quote": "Gäller ansökan en befintlig eller ny verksamhet?\n\nVälj\n\nBefintlig verksamhet\n\nNy verksamhet",
-     "source": 2,
-     "status": "citat hittades inte",
-     "claimed": true
+     "quote": null,
+     "source": null,
+     "status": "okänt"
     },
     "new_company_terms": {
      "value": null,
@@ -198,25 +217,26 @@
      "status": "okänt"
     },
     "open_online": {
-     "value": null,
-     "quote": "För att kunna använda internetbanken behöver du först teckna avtal för tjänsten. Det gör du genom att:\n\nBesök ditt bankkontor.\n\nRing Kundcenter på 0411-82 20 00.",
+     "value": false,
+     "quote": "För att kunna använda internetbanken behöver du först teckna avtal för tjänsten.",
      "source": 6,
-     "status": "citat hittades inte",
-     "claimed": false
+     "status": "osäkert",
+     "jev": {
+      "verdict": "says_nothing",
+      "confidence": 0.23
+     }
     },
     "multiple_users": {
      "value": null,
-     "quote": "Föreningen kan ha en eller flera firmatecknare.",
-     "source": 1,
-     "status": "citat hittades inte",
-     "claimed": true
+     "quote": null,
+     "source": null,
+     "status": "okänt"
     },
     "user_terms": {
      "value": null,
-     "quote": "Möjlighet till att ni ska vara två i förening för att godkänna en betalning och överföring.",
-     "source": 6,
-     "status": "citat hittades inte",
-     "claimed": "Möjlighet att kräva två i förening för att godkänna betalning och överföring."
+     "quote": null,
+     "source": null,
+     "status": "okänt"
     },
     "monthly_fee_sek": {
      "value": null,
@@ -225,13 +245,13 @@
      "status": "okänt"
     },
     "fee_terms": {
-     "value": "Uppläggningsavgift; transaktionsavgifter tillkommer. Innehåller företagskonto, bankgiroanslutning inkl 500 fria transaktioner, internet- och mobilbank samt ett Bankkort Visa Företag.",
+     "value": "Uppläggningsavgift vid start; transaktionsavgifter tillkommer separat. Ingår: Företagskonto, bankgiroanslutning inkl 500 fria transaktioner (1 st), Internet- och mobilbanken Företag, Bankkort Visa Företag (1 st).",
      "quote": "Bankgiroanslutning inkl 500 fria transaktioner (1 st ingår)",
      "source": 0,
-     "status": "osäkert",
+     "status": "belagt",
      "jev": {
-      "verdict": "contradicts",
-      "confidence": 0.14
+      "verdict": "supports",
+      "confidence": 0.3
      }
     },
     "swish": {
@@ -258,10 +278,9 @@
     },
     "requirements": {
      "value": null,
-     "quote": "Du som driver den enskilda firman är kund i Sparbanken Syd och har banken som din huvudbank för vardagsekonomin, sparande och eventuella lån.",
-     "source": 1,
-     "status": "citat hittades inte",
-     "claimed": "Den som driver den enskilda firman ska vara kund med banken som huvudbank; för föreningar ska firmatecknaren vara kund."
+     "quote": null,
+     "source": null,
+     "status": "okänt"
     },
     "guarantee_country": {
      "value": null,
@@ -272,9 +291,10 @@
    },
    "rate_tiers": [],
    "pending_rate": null,
-   "status": "delvis verifierad"
+   "status": "verifierad"
   }
  ],
- "changed_at": "2026-10-14T08:06:42+00:00",
- "model": "claude-sonnet-5-5"
+ "source_hash": "bc2b03ff75a84aa9",
+ "changed_at": "2026-10-22T02:36:07+00:00",
+ "model": "claude-haiku-5-5"
 }

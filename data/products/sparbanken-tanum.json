@@ -7,7 +7,7 @@
   "kind": "sparbank",
   "legal_name": "Sparbanken Tanum"
  },
- "checked_at": "2026-10-21T00:33:07+00:00",
+ "checked_at": "2026-10-22T00:33:01+00:00",
  "discovered_at": "2026-10-18T08:24:37+00:00",
  "sources": [
   {
@@ -68,7 +68,7 @@
   }
  ],
  "status": "ok",
- "notes": "Källorna är delvis motsägelsefulla: fasträntekontot beskrivs i dokument 0 med ränteskillnadsersättning, i dokument 1 med en avgift vid förtidsuttag; dokument 1 (räntor daterade 2026-10-20) har använts. Privatkonto och Ungdomskonto finns bara i räntetabellen på dokument 0, utan egen produktsida; eligibility och produkttyp saknas, och Privatkonto har 0 % ränta. Tanumskonto och e-sparkonto saknar bindningstid och tydlig räntetyp i källorna. Garantibeloppet 1 150 000 kr gäller enligt allmän text om insättningsgarantin (dokument 6). Skogskonto, ISK och företagskonton har utelämnats enligt reglerna. Räntorna är inloggningsfria men kan visas med cookiegodkännande.",
+ "notes": "Skogskonto, skogsskadekonto och ISK exkluderade enligt reglerna. Fasträntekontot finns i åtta bindningstider (3 mån–5 år) och varje är en egen produkt. Fasträntetabellen är märkt \"aktuella räntor 2026-10-21\", men inget startdatum för räntan anges, så rate_valid_from är tomt. Privatkonto och Ungdomskonto finns bara i räntetabellen på rantor-sidan. Där saknas villkor (behörighet, uttag) utöver bindningstid och insättning, och de har lagts som transaktionskonto med ränta. Tanumskonto och Sparkonto Plus visar samma räntetrappa. Det finns ingen uppgift om minsta insättning för Tanumskonto. Uppgifterna om insättningsgaranti (1 150 000 kr) kommer från den allmänna sidan om insättningsgaranti och gäller för alla inlåningskonton. Ingen information om att räntan kräver andra produkter eller om kampanjräntor finns i källorna. e-sparkonto har en ränta på 0,00 % och kan därför ha mindre intresse för jämförelse.",
  "products": [
   {
    "name": "Sparkonto Plus",
@@ -81,15 +81,18 @@
      "status": "osäkert",
      "jev": {
       "verdict": "says_nothing",
-      "confidence": 0.76
+      "confidence": 0.77
      }
     },
     "rate_percent": {
-     "value": null,
-     "quote": "Ränta vid saldo mellan 50 000 kr - 250 000 kr",
+     "value": 0.3,
+     "quote": "Ränta vid saldo mellan 50 000 kr - 250 000 kr 0,30 %",
      "source": 3,
-     "status": "talet finns inte i citatet",
-     "claimed": 0.3
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.97
+     }
     },
     "rate_type": {
      "value": null,
@@ -98,18 +101,18 @@
      "status": "stöds inte av källan",
      "jev": {
       "verdict": "says_nothing",
-      "confidence": 0.89
+      "confidence": 0.97
      },
      "claimed": "rörlig"
     },
     "binding_months": {
      "value": 0,
-     "quote": "Ingen - fria uttag",
+     "quote": "Bindningstid Ingen - fria uttag",
      "source": 3,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.98
+      "confidence": 1.0
      }
     },
     "withdrawals": {
@@ -129,13 +132,13 @@
      "status": "okänt"
     },
     "withdrawal_terms": {
-     "value": "Fria uttag utan kostnad; pengarna landar på kontot efter tre kalenderdagar.",
-     "quote": "Pengarna landar på ditt konto efter tre kalenderdagar",
+     "value": "Uttag utan kostnad, men pengarna landar på kontot efter tre kalenderdagar. Överföring till eget konto i banken.",
+     "quote": "Du kan ta ut pengarna när du vill utan kostnad. Pengarna landar på ditt konto efter tre kalenderdagar",
      "source": 3,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.98
+      "confidence": 1.0
      }
     },
     "min_deposit_sek": {
@@ -161,23 +164,23 @@
      "status": "okänt"
     },
     "deposit_terms": {
-     "value": "Insättning kostar 0 kr; stående överföringar tillåtna",
-     "quote": "Kan jag ha stående överföringar till och från kontot? Ja.",
+     "value": "Insättning kostnadsfri (0 kr); engångsöverföring och stående överföring kostnadsfria",
+     "quote": "Insättning 0 kr",
      "source": 3,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.7
+      "confidence": 0.74
      }
     },
     "eligibility": {
-     "value": "Öppnas själv i appen eller internetbanken; ingen åldersgräns, barn via kontor",
-     "quote": "Du kan enkelt öppna kontot i appen och internetbanken under Konton och välj sedan Öppna nytt sparkonto.",
+     "value": "Kan öppnas själv i appen eller internetbanken; ingen åldersgräns",
+     "quote": "Det finns ingen åldersgräns på kontot.",
      "source": 3,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.98
+      "confidence": 0.95
      }
     },
     "requires_other_products": {
@@ -200,22 +203,22 @@
     },
     "guarantee_country": {
      "value": "SE",
-     "quote": "Våra konton omfattas av den statliga insättningsgarantin enligt beslut av Riksgälden.",
+     "quote": "Sparbanken Tanums inlåningskonton omfattas av den statliga insättningsgarantin.",
      "source": 6,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.66
+      "confidence": 0.41
      }
     },
     "guarantee_amount": {
      "value": "1 150 000 kr",
-     "quote": "Varje kontohavare har rätt till ersättning för sin sammanlagda kontobehållning i banken med ett belopp om högst 1 150 000 kr.",
+     "quote": "ersätter kapital och ränta på inlåningskonto upp till 1.150.000 kronor per person och bank/institut",
      "source": 6,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.95
+      "confidence": 0.98
      }
     },
     "rate_valid_from": {
@@ -230,29 +233,29 @@
      "min_sek": 0,
      "max_sek": 50000,
      "rate_percent": 0.05,
-     "quote": "Ränta vid saldo under 50 000 kr",
+     "quote": "Ränta vid saldo under 50 000 kr 0,05 %",
      "source": 3,
-     "status": "ej belagt"
+     "status": "belagt"
     },
     {
      "min_sek": 50000,
      "max_sek": 250000,
      "rate_percent": 0.3,
-     "quote": "Ränta vid saldo mellan 50 000 kr - 250 000 kr",
+     "quote": "Ränta vid saldo mellan 50 000 kr - 250 000 kr 0,30 %",
      "source": 3,
-     "status": "ej belagt"
+     "status": "belagt"
     },
     {
      "min_sek": 250000,
      "max_sek": null,
      "rate_percent": 1.1,
-     "quote": "Ränta vid saldo över 250 000 kr",
+     "quote": "Ränta vid saldo över 250 000 kr 1,10 %",
      "source": 3,
-     "status": "ej belagt"
+     "status": "belagt"
     }
    ],
    "pending_rate": null,
-   "status": "ej verifierad"
+   "status": "verifierad"
   },
   {
    "name": "Fasträntekonto 3 mån",
@@ -265,12 +268,12 @@
      "status": "osäkert",
      "jev": {
       "verdict": "says_nothing",
-      "confidence": 0.49
+      "confidence": 0.54
      }
     },
     "rate_percent": {
      "value": 1.75,
-     "quote": "| 3 mån | 1,75 % |",
+     "quote": "| 3 mån | 1,75 % | |",
      "source": 1,
      "status": "belagt"
     },
@@ -281,12 +284,12 @@
      "status": "osäkert",
      "jev": {
       "verdict": "says_nothing",
-      "confidence": 0.43
+      "confidence": 0.28
      }
     },
     "binding_months": {
      "value": 3,
-     "quote": "| 3 mån | 1,75 % |",
+     "quote": "| 3 mån | 1,75 % | |",
      "source": 1,
      "status": "belagt"
     },
@@ -307,8 +310,8 @@
      "status": "okänt"
     },
     "withdrawal_terms": {
-     "value": "Förtidsuttag mot avgift baserad på skillnaden mot marknadsräntan",
-     "quote": "Avgiften är baserad på skillnaden mellan den avtalade räntan och den rådande marknadsräntan",
+     "value": "Uttag i förtid medför avgift baserad på skillnaden mot marknadsräntan; avgiften tas först från upplupen ränta.",
+     "quote": "Om du tar ut pengar innan bindningstiden är slut tillkommer en avgift.",
      "source": 1,
      "status": "belagt",
      "jev": {
@@ -349,14 +352,10 @@
      }
     },
     "eligibility": {
-     "value": "Kund i banken; konto med medkontohavare öppnas via kontor",
-     "quote": "Om du vill att en annan person ska ha tillgång till kontot, det vill säga ha en medkontohavare, så behöver du öppna fasträntekontot via ett kontor.",
-     "source": 1,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.38
-     }
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
     },
     "requires_other_products": {
      "value": null,
@@ -371,7 +370,7 @@
      "status": "okänt"
     },
     "interest_paid": {
-     "value": "Vid bindningstidens slut (slutförfallodagen)",
+     "value": "vid bindningstidens slut (hela räntan betalas ut på slutförfallodagen)",
      "quote": "Räntan på Fasträntekonto beräknas också utifrån att hela räntan betalas ut på slutförfallodagen.",
      "source": 1,
      "status": "belagt",
@@ -382,33 +381,29 @@
     },
     "guarantee_country": {
      "value": "SE",
-     "quote": "Kontot omfattas av insättningsgarantin",
-     "source": 1,
+     "quote": "Sparbanken Tanums inlåningskonton omfattas av den statliga insättningsgarantin.",
+     "source": 6,
      "status": "osäkert",
      "jev": {
       "verdict": "says_nothing",
-      "confidence": 0.69
+      "confidence": 0.25
      }
     },
     "guarantee_amount": {
      "value": "1 150 000 kr",
-     "quote": "Varje kontohavare har rätt till ersättning för sin sammanlagda kontobehållning i banken med ett belopp om högst 1 150 000 kr.",
+     "quote": "ersätter kapital och ränta på inlåningskonto upp till 1.150.000 kronor per person och bank/institut",
      "source": 6,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.97
+      "confidence": 0.95
      }
     },
     "rate_valid_from": {
-     "value": "2026-10-20",
-     "quote": "Fasträntekonto – aktuella räntor 2026-10-20",
-     "source": 1,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.43
-     }
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
     }
    },
    "rate_tiers": [],
@@ -426,12 +421,12 @@
      "status": "osäkert",
      "jev": {
       "verdict": "says_nothing",
-      "confidence": 0.56
+      "confidence": 0.58
      }
     },
     "rate_percent": {
      "value": 1.9,
-     "quote": "| 6 mån | 1,90 % |",
+     "quote": "| 6 mån | 1,90 % | |",
      "source": 1,
      "status": "belagt"
     },
@@ -442,12 +437,12 @@
      "status": "osäkert",
      "jev": {
       "verdict": "says_nothing",
-      "confidence": 0.33
+      "confidence": 0.23
      }
     },
     "binding_months": {
      "value": 6,
-     "quote": "| 6 mån | 1,90 % |",
+     "quote": "| 6 mån | 1,90 % | |",
      "source": 1,
      "status": "belagt"
     },
@@ -468,8 +463,8 @@
      "status": "okänt"
     },
     "withdrawal_terms": {
-     "value": "Förtidsuttag mot avgift baserad på skillnaden mot marknadsräntan",
-     "quote": "Avgiften är baserad på skillnaden mellan den avtalade räntan och den rådande marknadsräntan",
+     "value": "Uttag i förtid medför avgift baserad på skillnaden mot marknadsräntan; avgiften tas först från upplupen ränta.",
+     "quote": "Om du tar ut pengar innan bindningstiden är slut tillkommer en avgift.",
      "source": 1,
      "status": "belagt",
      "jev": {
@@ -510,14 +505,10 @@
      }
     },
     "eligibility": {
-     "value": "Kund i banken; konto med medkontohavare öppnas via kontor",
-     "quote": "Om du vill att en annan person ska ha tillgång till kontot, det vill säga ha en medkontohavare, så behöver du öppna fasträntekontot via ett kontor.",
-     "source": 1,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.45
-     }
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
     },
     "requires_other_products": {
      "value": null,
@@ -532,7 +523,7 @@
      "status": "okänt"
     },
     "interest_paid": {
-     "value": "Vid bindningstidens slut (slutförfallodagen)",
+     "value": "vid bindningstidens slut (hela räntan betalas ut på slutförfallodagen)",
      "quote": "Räntan på Fasträntekonto beräknas också utifrån att hela räntan betalas ut på slutförfallodagen.",
      "source": 1,
      "status": "belagt",
@@ -543,33 +534,29 @@
     },
     "guarantee_country": {
      "value": "SE",
-     "quote": "Kontot omfattas av insättningsgarantin",
-     "source": 1,
+     "quote": "Sparbanken Tanums inlåningskonton omfattas av den statliga insättningsgarantin.",
+     "source": 6,
      "status": "osäkert",
      "jev": {
       "verdict": "says_nothing",
-      "confidence": 0.64
+      "confidence": 0.31
      }
     },
     "guarantee_amount": {
      "value": "1 150 000 kr",
-     "quote": "Varje kontohavare har rätt till ersättning för sin sammanlagda kontobehållning i banken med ett belopp om högst 1 150 000 kr.",
+     "quote": "ersätter kapital och ränta på inlåningskonto upp till 1.150.000 kronor per person och bank/institut",
      "source": 6,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.95
+      "confidence": 0.94
      }
     },
     "rate_valid_from": {
-     "value": "2026-10-20",
-     "quote": "Fasträntekonto – aktuella räntor 2026-10-20",
-     "source": 1,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.49
-     }
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
     }
    },
    "rate_tiers": [],
@@ -587,7 +574,7 @@
      "status": "osäkert",
      "jev": {
       "verdict": "says_nothing",
-      "confidence": 0.64
+      "confidence": 0.62
      }
     },
     "rate_percent": {
@@ -603,7 +590,7 @@
      "status": "osäkert",
      "jev": {
       "verdict": "says_nothing",
-      "confidence": 0.4
+      "confidence": 0.33
      }
     },
     "binding_months": {
@@ -629,8 +616,8 @@
      "status": "okänt"
     },
     "withdrawal_terms": {
-     "value": "Förtidsuttag mot avgift baserad på skillnaden mot marknadsräntan",
-     "quote": "Avgiften är baserad på skillnaden mellan den avtalade räntan och den rådande marknadsräntan",
+     "value": "Uttag i förtid medför avgift baserad på skillnaden mot marknadsräntan; avgiften tas först från upplupen ränta.",
+     "quote": "Om du tar ut pengar innan bindningstiden är slut tillkommer en avgift.",
      "source": 1,
      "status": "belagt",
      "jev": {
@@ -671,14 +658,10 @@
      }
     },
     "eligibility": {
-     "value": "Kund i banken; konto med medkontohavare öppnas via kontor",
-     "quote": "Om du vill att en annan person ska ha tillgång till kontot, det vill säga ha en medkontohavare, så behöver du öppna fasträntekontot via ett kontor.",
-     "source": 1,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.41
-     }
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
     },
     "requires_other_products": {
      "value": null,
@@ -693,7 +676,7 @@
      "status": "okänt"
     },
     "interest_paid": {
-     "value": "Vid bindningstidens slut (slutförfallodagen)",
+     "value": "vid bindningstidens slut (hela räntan betalas ut på slutförfallodagen)",
      "quote": "Räntan på Fasträntekonto beräknas också utifrån att hela räntan betalas ut på slutförfallodagen.",
      "source": 1,
      "status": "belagt",
@@ -704,17 +687,17 @@
     },
     "guarantee_country": {
      "value": "SE",
-     "quote": "Kontot omfattas av insättningsgarantin",
-     "source": 1,
+     "quote": "Sparbanken Tanums inlåningskonton omfattas av den statliga insättningsgarantin.",
+     "source": 6,
      "status": "osäkert",
      "jev": {
       "verdict": "says_nothing",
-      "confidence": 0.66
+      "confidence": 0.37
      }
     },
     "guarantee_amount": {
      "value": "1 150 000 kr",
-     "quote": "Varje kontohavare har rätt till ersättning för sin sammanlagda kontobehållning i banken med ett belopp om högst 1 150 000 kr.",
+     "quote": "ersätter kapital och ränta på inlåningskonto upp till 1.150.000 kronor per person och bank/institut",
      "source": 6,
      "status": "belagt",
      "jev": {
@@ -723,14 +706,10 @@
      }
     },
     "rate_valid_from": {
-     "value": "2026-10-20",
-     "quote": "Fasträntekonto – aktuella räntor 2026-10-20",
-     "source": 1,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.48
-     }
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
     }
    },
    "rate_tiers": [],
@@ -748,7 +727,7 @@
      "status": "osäkert",
      "jev": {
       "verdict": "says_nothing",
-      "confidence": 0.64
+      "confidence": 0.56
      }
     },
     "rate_percent": {
@@ -764,7 +743,7 @@
      "status": "osäkert",
      "jev": {
       "verdict": "says_nothing",
-      "confidence": 0.37
+      "confidence": 0.3
      }
     },
     "binding_months": {
@@ -790,8 +769,8 @@
      "status": "okänt"
     },
     "withdrawal_terms": {
-     "value": "Förtidsuttag mot avgift baserad på skillnaden mot marknadsräntan",
-     "quote": "Avgiften är baserad på skillnaden mellan den avtalade räntan och den rådande marknadsräntan",
+     "value": "Uttag i förtid medför avgift baserad på skillnaden mot marknadsräntan; avgiften tas först från upplupen ränta.",
+     "quote": "Om du tar ut pengar innan bindningstiden är slut tillkommer en avgift.",
      "source": 1,
      "status": "belagt",
      "jev": {
@@ -832,14 +811,10 @@
      }
     },
     "eligibility": {
-     "value": "Kund i banken; konto med medkontohavare öppnas via kontor",
-     "quote": "Om du vill att en annan person ska ha tillgång till kontot, det vill säga ha en medkontohavare, så behöver du öppna fasträntekontot via ett kontor.",
-     "source": 1,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.37
-     }
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
     },
     "requires_other_products": {
      "value": null,
@@ -854,7 +829,7 @@
      "status": "okänt"
     },
     "interest_paid": {
-     "value": "Vid bindningstidens slut (slutförfallodagen)",
+     "value": "vid bindningstidens slut (hela räntan betalas ut på slutförfallodagen)",
      "quote": "Räntan på Fasträntekonto beräknas också utifrån att hela räntan betalas ut på slutförfallodagen.",
      "source": 1,
      "status": "belagt",
@@ -865,17 +840,17 @@
     },
     "guarantee_country": {
      "value": "SE",
-     "quote": "Kontot omfattas av insättningsgarantin",
-     "source": 1,
+     "quote": "Sparbanken Tanums inlåningskonton omfattas av den statliga insättningsgarantin.",
+     "source": 6,
      "status": "osäkert",
      "jev": {
       "verdict": "says_nothing",
-      "confidence": 0.72
+      "confidence": 0.4
      }
     },
     "guarantee_amount": {
      "value": "1 150 000 kr",
-     "quote": "Varje kontohavare har rätt till ersättning för sin sammanlagda kontobehållning i banken med ett belopp om högst 1 150 000 kr.",
+     "quote": "ersätter kapital och ränta på inlåningskonto upp till 1.150.000 kronor per person och bank/institut",
      "source": 6,
      "status": "belagt",
      "jev": {
@@ -884,14 +859,10 @@
      }
     },
     "rate_valid_from": {
-     "value": "2026-10-20",
-     "quote": "Fasträntekonto – aktuella räntor 2026-10-20",
-     "source": 1,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.49
-     }
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
     }
    },
    "rate_tiers": [],
@@ -909,12 +880,12 @@
      "status": "osäkert",
      "jev": {
       "verdict": "says_nothing",
-      "confidence": 0.66
+      "confidence": 0.55
      }
     },
     "rate_percent": {
-     "value": 2.54,
-     "quote": "| 2 år | 2,54% | 2,55 % |",
+     "value": 2.53,
+     "quote": "| 2 år | 2,53% | 2,54 % |",
      "source": 1,
      "status": "belagt"
     },
@@ -925,12 +896,12 @@
      "status": "osäkert",
      "jev": {
       "verdict": "says_nothing",
-      "confidence": 0.41
+      "confidence": 0.22
      }
     },
     "binding_months": {
      "value": 24,
-     "quote": "| 2 år | 2,54% | 2,55 % |",
+     "quote": "| 2 år | 2,53% | 2,54 % |",
      "source": 1,
      "status": "belagt"
     },
@@ -951,8 +922,8 @@
      "status": "okänt"
     },
     "withdrawal_terms": {
-     "value": "Förtidsuttag mot avgift baserad på skillnaden mot marknadsräntan",
-     "quote": "Avgiften är baserad på skillnaden mellan den avtalade räntan och den rådande marknadsräntan",
+     "value": "Uttag i förtid medför avgift baserad på skillnaden mot marknadsräntan; avgiften tas först från upplupen ränta.",
+     "quote": "Om du tar ut pengar innan bindningstiden är slut tillkommer en avgift.",
      "source": 1,
      "status": "belagt",
      "jev": {
@@ -993,14 +964,10 @@
      }
     },
     "eligibility": {
-     "value": "Kund i banken; konto med medkontohavare öppnas via kontor",
-     "quote": "Om du vill att en annan person ska ha tillgång till kontot, det vill säga ha en medkontohavare, så behöver du öppna fasträntekontot via ett kontor.",
-     "source": 1,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.35
-     }
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
     },
     "requires_other_products": {
      "value": null,
@@ -1015,7 +982,7 @@
      "status": "okänt"
     },
     "interest_paid": {
-     "value": "Vid bindningstidens slut (slutförfallodagen)",
+     "value": "vid bindningstidens slut (hela räntan betalas ut på slutförfallodagen)",
      "quote": "Räntan på Fasträntekonto beräknas också utifrån att hela räntan betalas ut på slutförfallodagen.",
      "source": 1,
      "status": "belagt",
@@ -1026,17 +993,17 @@
     },
     "guarantee_country": {
      "value": "SE",
-     "quote": "Kontot omfattas av insättningsgarantin",
-     "source": 1,
+     "quote": "Sparbanken Tanums inlåningskonton omfattas av den statliga insättningsgarantin.",
+     "source": 6,
      "status": "osäkert",
      "jev": {
       "verdict": "says_nothing",
-      "confidence": 0.79
+      "confidence": 0.33
      }
     },
     "guarantee_amount": {
      "value": "1 150 000 kr",
-     "quote": "Varje kontohavare har rätt till ersättning för sin sammanlagda kontobehållning i banken med ett belopp om högst 1 150 000 kr.",
+     "quote": "ersätter kapital och ränta på inlåningskonto upp till 1.150.000 kronor per person och bank/institut",
      "source": 6,
      "status": "belagt",
      "jev": {
@@ -1045,14 +1012,10 @@
      }
     },
     "rate_valid_from": {
-     "value": "2026-10-20",
-     "quote": "Fasträntekonto – aktuella räntor 2026-10-20",
-     "source": 1,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.56
-     }
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
     }
    },
    "rate_tiers": [],
@@ -1070,7 +1033,7 @@
      "status": "osäkert",
      "jev": {
       "verdict": "says_nothing",
-      "confidence": 0.56
+      "confidence": 0.51
      }
     },
     "rate_percent": {
@@ -1086,7 +1049,7 @@
      "status": "osäkert",
      "jev": {
       "verdict": "says_nothing",
-      "confidence": 0.34
+      "confidence": 0.38
      }
     },
     "binding_months": {
@@ -1112,8 +1075,8 @@
      "status": "okänt"
     },
     "withdrawal_terms": {
-     "value": "Förtidsuttag mot avgift baserad på skillnaden mot marknadsräntan",
-     "quote": "Avgiften är baserad på skillnaden mellan den avtalade räntan och den rådande marknadsräntan",
+     "value": "Uttag i förtid medför avgift baserad på skillnaden mot marknadsräntan; avgiften tas först från upplupen ränta.",
+     "quote": "Om du tar ut pengar innan bindningstiden är slut tillkommer en avgift.",
      "source": 1,
      "status": "belagt",
      "jev": {
@@ -1154,14 +1117,10 @@
      }
     },
     "eligibility": {
-     "value": "Kund i banken; konto med medkontohavare öppnas via kontor",
-     "quote": "Om du vill att en annan person ska ha tillgång till kontot, det vill säga ha en medkontohavare, så behöver du öppna fasträntekontot via ett kontor.",
-     "source": 1,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.38
-     }
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
     },
     "requires_other_products": {
      "value": null,
@@ -1176,7 +1135,7 @@
      "status": "okänt"
     },
     "interest_paid": {
-     "value": "Vid bindningstidens slut (slutförfallodagen)",
+     "value": "vid bindningstidens slut (hela räntan betalas ut på slutförfallodagen)",
      "quote": "Räntan på Fasträntekonto beräknas också utifrån att hela räntan betalas ut på slutförfallodagen.",
      "source": 1,
      "status": "belagt",
@@ -1187,17 +1146,17 @@
     },
     "guarantee_country": {
      "value": "SE",
-     "quote": "Kontot omfattas av insättningsgarantin",
-     "source": 1,
+     "quote": "Sparbanken Tanums inlåningskonton omfattas av den statliga insättningsgarantin.",
+     "source": 6,
      "status": "osäkert",
      "jev": {
       "verdict": "says_nothing",
-      "confidence": 0.67
+      "confidence": 0.33
      }
     },
     "guarantee_amount": {
      "value": "1 150 000 kr",
-     "quote": "Varje kontohavare har rätt till ersättning för sin sammanlagda kontobehållning i banken med ett belopp om högst 1 150 000 kr.",
+     "quote": "ersätter kapital och ränta på inlåningskonto upp till 1.150.000 kronor per person och bank/institut",
      "source": 6,
      "status": "belagt",
      "jev": {
@@ -1206,14 +1165,10 @@
      }
     },
     "rate_valid_from": {
-     "value": "2026-10-20",
-     "quote": "Fasträntekonto – aktuella räntor 2026-10-20",
-     "source": 1,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.49
-     }
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
     }
    },
    "rate_tiers": [],
@@ -1235,8 +1190,8 @@
      }
     },
     "rate_percent": {
-     "value": 2.7,
-     "quote": "| 4 år | 2,70 % | 2,63 % |",
+     "value": 2.69,
+     "quote": "| 4 år | 2,69 % | 2,62 % |",
      "source": 1,
      "status": "belagt"
     },
@@ -1247,12 +1202,12 @@
      "status": "osäkert",
      "jev": {
       "verdict": "says_nothing",
-      "confidence": 0.41
+      "confidence": 0.23
      }
     },
     "binding_months": {
      "value": 48,
-     "quote": "| 4 år | 2,70 % | 2,63 % |",
+     "quote": "| 4 år | 2,69 % | 2,62 % |",
      "source": 1,
      "status": "belagt"
     },
@@ -1273,8 +1228,8 @@
      "status": "okänt"
     },
     "withdrawal_terms": {
-     "value": "Förtidsuttag mot avgift baserad på skillnaden mot marknadsräntan",
-     "quote": "Avgiften är baserad på skillnaden mellan den avtalade räntan och den rådande marknadsräntan",
+     "value": "Uttag i förtid medför avgift baserad på skillnaden mot marknadsräntan; avgiften tas först från upplupen ränta.",
+     "quote": "Om du tar ut pengar innan bindningstiden är slut tillkommer en avgift.",
      "source": 1,
      "status": "belagt",
      "jev": {
@@ -1315,14 +1270,10 @@
      }
     },
     "eligibility": {
-     "value": "Kund i banken; konto med medkontohavare öppnas via kontor",
-     "quote": "Om du vill att en annan person ska ha tillgång till kontot, det vill säga ha en medkontohavare, så behöver du öppna fasträntekontot via ett kontor.",
-     "source": 1,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.43
-     }
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
     },
     "requires_other_products": {
      "value": null,
@@ -1337,28 +1288,28 @@
      "status": "okänt"
     },
     "interest_paid": {
-     "value": "Vid bindningstidens slut (slutförfallodagen)",
+     "value": "vid bindningstidens slut (hela räntan betalas ut på slutförfallodagen)",
      "quote": "Räntan på Fasträntekonto beräknas också utifrån att hela räntan betalas ut på slutförfallodagen.",
      "source": 1,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.98
+      "confidence": 1.0
      }
     },
     "guarantee_country": {
      "value": "SE",
-     "quote": "Kontot omfattas av insättningsgarantin",
-     "source": 1,
+     "quote": "Sparbanken Tanums inlåningskonton omfattas av den statliga insättningsgarantin.",
+     "source": 6,
      "status": "osäkert",
      "jev": {
       "verdict": "says_nothing",
-      "confidence": 0.73
+      "confidence": 0.34
      }
     },
     "guarantee_amount": {
      "value": "1 150 000 kr",
-     "quote": "Varje kontohavare har rätt till ersättning för sin sammanlagda kontobehållning i banken med ett belopp om högst 1 150 000 kr.",
+     "quote": "ersätter kapital och ränta på inlåningskonto upp till 1.150.000 kronor per person och bank/institut",
      "source": 6,
      "status": "belagt",
      "jev": {
@@ -1367,14 +1318,10 @@
      }
     },
     "rate_valid_from": {
-     "value": "2026-10-20",
-     "quote": "Fasträntekonto – aktuella räntor 2026-10-20",
-     "source": 1,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.56
-     }
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
     }
    },
    "rate_tiers": [],
@@ -1392,12 +1339,12 @@
      "status": "osäkert",
      "jev": {
       "verdict": "says_nothing",
-      "confidence": 0.55
+      "confidence": 0.67
      }
     },
     "rate_percent": {
-     "value": 2.75,
-     "quote": "| 5 år | 2,75 % | 2,65 % |",
+     "value": 2.73,
+     "quote": "| 5 år | 2,73 % | 2,63 % |",
      "source": 1,
      "status": "belagt"
     },
@@ -1408,12 +1355,12 @@
      "status": "osäkert",
      "jev": {
       "verdict": "says_nothing",
-      "confidence": 0.35
+      "confidence": 0.31
      }
     },
     "binding_months": {
      "value": 60,
-     "quote": "| 5 år | 2,75 % | 2,65 % |",
+     "quote": "| 5 år | 2,73 % | 2,63 % |",
      "source": 1,
      "status": "belagt"
     },
@@ -1434,8 +1381,8 @@
      "status": "okänt"
     },
     "withdrawal_terms": {
-     "value": "Förtidsuttag mot avgift baserad på skillnaden mot marknadsräntan",
-     "quote": "Avgiften är baserad på skillnaden mellan den avtalade räntan och den rådande marknadsräntan",
+     "value": "Uttag i förtid medför avgift baserad på skillnaden mot marknadsräntan; avgiften tas först från upplupen ränta.",
+     "quote": "Om du tar ut pengar innan bindningstiden är slut tillkommer en avgift.",
      "source": 1,
      "status": "belagt",
      "jev": {
@@ -1476,14 +1423,10 @@
      }
     },
     "eligibility": {
-     "value": "Kund i banken; konto med medkontohavare öppnas via kontor",
-     "quote": "Om du vill att en annan person ska ha tillgång till kontot, det vill säga ha en medkontohavare, så behöver du öppna fasträntekontot via ett kontor.",
-     "source": 1,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.35
-     }
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
     },
     "requires_other_products": {
      "value": null,
@@ -1498,44 +1441,40 @@
      "status": "okänt"
     },
     "interest_paid": {
-     "value": "Vid bindningstidens slut (slutförfallodagen)",
+     "value": "vid bindningstidens slut (hela räntan betalas ut på slutförfallodagen)",
      "quote": "Räntan på Fasträntekonto beräknas också utifrån att hela räntan betalas ut på slutförfallodagen.",
      "source": 1,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 1.0
+      "confidence": 0.98
      }
     },
     "guarantee_country": {
      "value": "SE",
-     "quote": "Kontot omfattas av insättningsgarantin",
-     "source": 1,
+     "quote": "Sparbanken Tanums inlåningskonton omfattas av den statliga insättningsgarantin.",
+     "source": 6,
      "status": "osäkert",
      "jev": {
       "verdict": "says_nothing",
-      "confidence": 0.67
+      "confidence": 0.31
      }
     },
     "guarantee_amount": {
      "value": "1 150 000 kr",
-     "quote": "Varje kontohavare har rätt till ersättning för sin sammanlagda kontobehållning i banken med ett belopp om högst 1 150 000 kr.",
+     "quote": "ersätter kapital och ränta på inlåningskonto upp till 1.150.000 kronor per person och bank/institut",
      "source": 6,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.97
+      "confidence": 0.95
      }
     },
     "rate_valid_from": {
-     "value": "2026-10-20",
-     "quote": "Fasträntekonto – aktuella räntor 2026-10-20",
-     "source": 1,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.52
-     }
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
     }
    },
    "rate_tiers": [],
@@ -1547,39 +1486,43 @@
    "flags": [],
    "fields": {
     "product_type": {
-     "value": "annat",
-     "quote": "e-sparkontot passar dig som vill spara till buffert och vill ha fria uttag.",
+     "value": "rörligt sparkonto",
+     "quote": "Aktuell ränta 0,00 %",
      "source": 2,
      "status": "osäkert",
      "jev": {
-      "verdict": "contradicts",
-      "confidence": 0.51
+      "verdict": "says_nothing",
+      "confidence": 0.55
      }
     },
     "rate_percent": {
-     "value": 0.0,
-     "quote": "0,00 %",
+     "value": 0,
+     "quote": "Aktuell ränta 0,00 %",
      "source": 2,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.94
+      "confidence": 0.97
      }
     },
     "rate_type": {
-     "value": null,
-     "quote": null,
-     "source": null,
-     "status": "okänt"
+     "value": "rörlig",
+     "quote": "Aktuell ränta 0,00 %",
+     "source": 2,
+     "status": "osäkert",
+     "jev": {
+      "verdict": "says_nothing",
+      "confidence": 0.77
+     }
     },
     "binding_months": {
      "value": 0,
-     "quote": "Ingen, fria uttag.",
+     "quote": "Bindningstid Ingen, fria uttag.",
      "source": 2,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.8
+      "confidence": 1.0
      }
     },
     "withdrawals": {
@@ -1599,13 +1542,13 @@
      "status": "okänt"
     },
     "withdrawal_terms": {
-     "value": "Fria uttag; avslut av kontot sker via bankkontor",
+     "value": "Fria uttag. Avslut av kontot sker via bankkontor.",
      "quote": "Du behöver kontakta ett bankkontor för att avsluta ett e-sparkonto.",
      "source": 2,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.98
+      "confidence": 0.73
      }
     },
     "min_deposit_sek": {
@@ -1631,23 +1574,23 @@
      "status": "okänt"
     },
     "deposit_terms": {
-     "value": "Enkelt att sätta in pengar; månadssparande kan skapas",
-     "quote": "Du kan enkelt skapa ett månadssparande till ditt konto.",
+     "value": "Minsta insättning 0 kr; kan månadsspara till kontot",
+     "quote": "Minsta insättning 0 kr",
      "source": 2,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.98
+      "confidence": 0.27
      }
     },
     "eligibility": {
-     "value": "Inloggad med säkerhetsdosa eller Mobilt BankID; max tre e-sparkonton själv",
+     "value": "Öppnas i internetbanken eller appen med säkerhetsdosa eller Mobilt BankID; max tre e-sparkonton",
      "quote": "Du behöver vara inloggad med säkerhetsdosa eller Mobilt BankID.",
      "source": 2,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 1.0
+      "confidence": 0.98
      }
     },
     "requires_other_products": {
@@ -1669,19 +1612,18 @@
      "status": "okänt"
     },
     "guarantee_country": {
-     "value": null,
-     "quote": "Omfattas av insättningsgarantin",
-     "source": 2,
-     "status": "stöds inte av källan",
+     "value": "SE",
+     "quote": "Sparbanken Tanums inlåningskonton omfattas av den statliga insättningsgarantin.",
+     "source": 6,
+     "status": "osäkert",
      "jev": {
       "verdict": "says_nothing",
-      "confidence": 1.0
-     },
-     "claimed": "SE"
+      "confidence": 0.43
+     }
     },
     "guarantee_amount": {
      "value": "1 150 000 kr",
-     "quote": "Varje kontohavare har rätt till ersättning för sin sammanlagda kontobehållning i banken med ett belopp om högst 1 150 000 kr.",
+     "quote": "ersätter kapital och ränta på inlåningskonto upp till 1.150.000 kronor per person och bank/institut",
      "source": 6,
      "status": "belagt",
      "jev": {
@@ -1711,28 +1653,39 @@
      "status": "motsägs av källan",
      "jev": {
       "verdict": "contradicts",
-      "confidence": 0.8
+      "confidence": 0.85
      },
-     "claimed": "annat"
+     "claimed": "rörligt sparkonto"
     },
     "rate_percent": {
-     "value": null,
-     "quote": "Ränta på belopp mellan 50 000 kr - 250 000 kr",
+     "value": 0.3,
+     "quote": "Ränta på belopp mellan 50 000 kr - 250 000 kr 0,30 %",
      "source": 4,
-     "status": "talet finns inte i citatet",
-     "claimed": 0.3
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.95
+     }
     },
     "rate_type": {
-     "value": null,
-     "quote": null,
-     "source": null,
-     "status": "okänt"
+     "value": "rörlig",
+     "quote": "Aktuella räntor",
+     "source": 4,
+     "status": "osäkert",
+     "jev": {
+      "verdict": "says_nothing",
+      "confidence": 0.58
+     }
     },
     "binding_months": {
-     "value": null,
-     "quote": null,
-     "source": null,
-     "status": "okänt"
+     "value": 0,
+     "quote": "Ha pengarna lätt tillgängliga när du behöver dem",
+     "source": 4,
+     "status": "osäkert",
+     "jev": {
+      "verdict": "says_nothing",
+      "confidence": 0.79
+     }
     },
     "withdrawals": {
      "value": "fria",
@@ -1751,13 +1704,13 @@
      "status": "okänt"
     },
     "withdrawal_terms": {
-     "value": "Fria uttag; kontoutdrag en gång om året; inga bankkort kopplade",
+     "value": "Fria uttag. Kontot kan inte kopplas till bankkort eller andra betaltjänster.",
      "quote": "Eftersom kontot är ett sparkonto kan du inte ansluta till exempel bankkort eller andra betaltjänster till det.",
      "source": 4,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.89
+      "confidence": 0.82
      }
     },
     "min_deposit_sek": {
@@ -1789,13 +1742,13 @@
      }
     },
     "eligibility": {
-     "value": "Kontakta banken för att skaffa Tanumskonto",
+     "value": "Ansökan via kontakt med banken",
      "quote": "Kontakta oss för att skaffa Tanumskonto",
      "source": 4,
-     "status": "belagt",
+     "status": "osäkert",
      "jev": {
-      "verdict": "supports",
-      "confidence": 0.55
+      "verdict": "says_nothing",
+      "confidence": 0.79
      }
     },
     "requires_other_products": {
@@ -1818,22 +1771,22 @@
     },
     "guarantee_country": {
      "value": "SE",
-     "quote": "Våra konton omfattas av den statliga insättningsgarantin enligt beslut av Riksgälden.",
+     "quote": "Sparbanken Tanums inlåningskonton omfattas av den statliga insättningsgarantin.",
      "source": 6,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.61
+      "confidence": 0.33
      }
     },
     "guarantee_amount": {
      "value": "1 150 000 kr",
-     "quote": "Varje kontohavare har rätt till ersättning för sin sammanlagda kontobehållning i banken med ett belopp om högst 1 150 000 kr.",
+     "quote": "ersätter kapital och ränta på inlåningskonto upp till 1.150.000 kronor per person och bank/institut",
      "source": 6,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.97
+      "confidence": 1.0
      }
     },
     "rate_valid_from": {
@@ -1848,29 +1801,29 @@
      "min_sek": 0,
      "max_sek": 50000,
      "rate_percent": 0.05,
-     "quote": "Ränta på belopp upp till 50 000 kr",
+     "quote": "Ränta på belopp upp till 50 000 kr 0,05 %",
      "source": 4,
-     "status": "ej belagt"
+     "status": "belagt"
     },
     {
      "min_sek": 50000,
      "max_sek": 250000,
      "rate_percent": 0.3,
-     "quote": "Ränta på belopp mellan 50 000 kr - 250 000 kr",
+     "quote": "Ränta på belopp mellan 50 000 kr - 250 000 kr 0,30 %",
      "source": 4,
-     "status": "ej belagt"
+     "status": "belagt"
     },
     {
      "min_sek": 250000,
      "max_sek": null,
      "rate_percent": 1.1,
-     "quote": "Ränta på belopp över 250 000 kr",
+     "quote": "Ränta på belopp över 250 000 kr 1,10 %",
      "source": 4,
-     "status": "ej belagt"
+     "status": "belagt"
     }
    ],
    "pending_rate": null,
-   "status": "ej verifierad"
+   "status": "verifierad"
   },
   {
    "name": "Privatkonto",
@@ -1878,35 +1831,42 @@
    "fields": {
     "product_type": {
      "value": "transaktionskonto med ränta",
-     "quote": "Aktuell ränta (vid belopp under 100 000 kr)",
+     "quote": "Aktuell ränta (vid belopp under 100 000 kr) 0,00 %",
      "source": 0,
      "status": "osäkert",
      "jev": {
       "verdict": "says_nothing",
-      "confidence": 0.61
+      "confidence": 0.52
      }
     },
     "rate_percent": {
-     "value": null,
-     "quote": "Aktuell ränta (vid belopp under 100 000 kr)",
+     "value": 0,
+     "quote": "Aktuell ränta (vid belopp på minst 100 000 kr) 0,00 %",
      "source": 0,
-     "status": "talet finns inte i citatet",
-     "claimed": 0.0
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.95
+     }
     },
     "rate_type": {
-     "value": null,
-     "quote": null,
-     "source": null,
-     "status": "okänt"
-    },
-    "binding_months": {
-     "value": 0,
-     "quote": "Ingen, fria uttag.",
+     "value": "rörlig",
+     "quote": "Aktuell ränta (vid belopp under 100 000 kr) 0,00 %",
      "source": 0,
      "status": "osäkert",
      "jev": {
-      "verdict": "says_nothing",
-      "confidence": 0.4
+      "verdict": "contradicts",
+      "confidence": 0.1
+     }
+    },
+    "binding_months": {
+     "value": 0,
+     "quote": "Bindningstid Ingen, fria uttag.",
+     "source": 0,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.94
      }
     },
     "withdrawals": {
@@ -1926,23 +1886,23 @@
      "status": "okänt"
     },
     "withdrawal_terms": {
-     "value": "Fria uttag",
+     "value": "Fria uttag.",
      "quote": "Ingen, fria uttag.",
      "source": 0,
-     "status": "belagt",
+     "status": "osäkert",
      "jev": {
-      "verdict": "supports",
-      "confidence": 0.52
+      "verdict": "contradicts",
+      "confidence": 0.35
      }
     },
     "min_deposit_sek": {
      "value": 0,
-     "quote": "Minsta insättning\n\n0 kr",
+     "quote": "Minsta insättning 0 kr",
      "source": 0,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.19
+      "confidence": 0.95
      }
     },
     "max_deposit_sek": {
@@ -1958,10 +1918,14 @@
      "status": "okänt"
     },
     "deposit_terms": {
-     "value": null,
-     "quote": null,
-     "source": null,
-     "status": "okänt"
+     "value": "Minsta insättning 0 kr",
+     "quote": "Minsta insättning 0 kr",
+     "source": 0,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.92
+     }
     },
     "eligibility": {
      "value": null,
@@ -1989,22 +1953,22 @@
     },
     "guarantee_country": {
      "value": "SE",
-     "quote": "Våra konton omfattas av den statliga insättningsgarantin enligt beslut av Riksgälden.",
+     "quote": "Sparbanken Tanums inlåningskonton omfattas av den statliga insättningsgarantin.",
      "source": 6,
-     "status": "belagt",
+     "status": "osäkert",
      "jev": {
-      "verdict": "supports",
-      "confidence": 0.49
+      "verdict": "says_nothing",
+      "confidence": 0.77
      }
     },
     "guarantee_amount": {
      "value": "1 150 000 kr",
-     "quote": "Varje kontohavare har rätt till ersättning för sin sammanlagda kontobehållning i banken med ett belopp om högst 1 150 000 kr.",
+     "quote": "ersätter kapital och ränta på inlåningskonto upp till 1.150.000 kronor per person och bank/institut",
      "source": 6,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.91
+      "confidence": 0.92
      }
     },
     "rate_valid_from": {
@@ -2014,65 +1978,52 @@
      "status": "okänt"
     }
    },
-   "rate_tiers": [
-    {
-     "min_sek": 0,
-     "max_sek": 100000,
-     "rate_percent": 0.0,
-     "quote": "Aktuell ränta (vid belopp under 100 000 kr)",
-     "source": 0,
-     "status": "ej belagt"
-    },
-    {
-     "min_sek": 100000,
-     "max_sek": null,
-     "rate_percent": 0.0,
-     "quote": "Aktuell ränta (vid belopp på minst 100 000 kr)",
-     "source": 0,
-     "status": "ej belagt"
-    }
-   ],
+   "rate_tiers": [],
    "pending_rate": null,
-   "status": "ej verifierad"
+   "status": "verifierad"
   },
   {
    "name": "Ungdomskonto",
    "flags": [],
    "fields": {
     "product_type": {
-     "value": "annat",
-     "quote": "Ungdomskonto",
+     "value": "transaktionskonto med ränta",
+     "quote": "Aktuell ränta 0,30 %",
      "source": 0,
      "status": "osäkert",
      "jev": {
       "verdict": "says_nothing",
-      "confidence": 0.38
+      "confidence": 0.69
      }
     },
     "rate_percent": {
      "value": 0.3,
-     "quote": "Aktuell ränta\n\n0,30 %",
+     "quote": "Aktuell ränta 0,30 %",
      "source": 0,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.85
+      "confidence": 0.95
      }
     },
     "rate_type": {
-     "value": null,
-     "quote": null,
-     "source": null,
-     "status": "okänt"
+     "value": "rörlig",
+     "quote": "Aktuell ränta 0,30 %",
+     "source": 0,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.37
+     }
     },
     "binding_months": {
      "value": 0,
-     "quote": "Ingen, fria uttag.",
+     "quote": "Bindningstid Ingen, fria uttag.",
      "source": 0,
-     "status": "osäkert",
+     "status": "belagt",
      "jev": {
-      "verdict": "says_nothing",
-      "confidence": 0.45
+      "verdict": "supports",
+      "confidence": 1.0
      }
     },
     "withdrawals": {
@@ -2092,23 +2043,23 @@
      "status": "okänt"
     },
     "withdrawal_terms": {
-     "value": "Fria uttag",
+     "value": "Fria uttag.",
      "quote": "Ingen, fria uttag.",
      "source": 0,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.56
+      "confidence": 0.45
      }
     },
     "min_deposit_sek": {
      "value": 0,
-     "quote": "Minsta insättning\n\n0 kr",
+     "quote": "Minsta insättning 0 kr",
      "source": 0,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.49
+      "confidence": 1.0
      }
     },
     "max_deposit_sek": {
@@ -2124,10 +2075,14 @@
      "status": "okänt"
     },
     "deposit_terms": {
-     "value": null,
-     "quote": null,
-     "source": null,
-     "status": "okänt"
+     "value": "Minsta insättning 0 kr",
+     "quote": "Minsta insättning 0 kr",
+     "source": 0,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.98
+     }
     },
     "eligibility": {
      "value": null,
@@ -2155,22 +2110,22 @@
     },
     "guarantee_country": {
      "value": "SE",
-     "quote": "Våra konton omfattas av den statliga insättningsgarantin enligt beslut av Riksgälden.",
+     "quote": "Sparbanken Tanums inlåningskonton omfattas av den statliga insättningsgarantin.",
      "source": 6,
-     "status": "belagt",
+     "status": "osäkert",
      "jev": {
-      "verdict": "supports",
-      "confidence": 0.55
+      "verdict": "says_nothing",
+      "confidence": 0.67
      }
     },
     "guarantee_amount": {
      "value": "1 150 000 kr",
-     "quote": "Varje kontohavare har rätt till ersättning för sin sammanlagda kontobehållning i banken med ett belopp om högst 1 150 000 kr.",
+     "quote": "ersätter kapital och ränta på inlåningskonto upp till 1.150.000 kronor per person och bank/institut",
      "source": 6,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.82
+      "confidence": 0.8
      }
     },
     "rate_valid_from": {
@@ -2185,7 +2140,7 @@
    "status": "verifierad"
   }
  ],
- "source_hash": "1b6e4249f2d43d88",
- "changed_at": "2026-10-21T00:33:07+00:00",
+ "source_hash": "d0dd5d89f774cf08",
+ "changed_at": "2026-10-22T00:33:01+00:00",
  "model": "claude-haiku-5-5"
 }

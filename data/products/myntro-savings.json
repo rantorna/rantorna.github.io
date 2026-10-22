@@ -7,7 +7,7 @@
   "kind": "kreditmarknadsbolag",
   "legal_name": "Myntro AB"
  },
- "checked_at": "2026-10-21T00:54:21+00:00",
+ "checked_at": "2026-10-22T00:54:26+00:00",
  "discovered_at": "2026-10-20T00:57:22+00:00",
  "sources": [
   {
@@ -36,11 +36,11 @@
    "title": "Spara tryggt hos Myntro Savings",
    "kind": "html",
    "via": "http",
-   "chars": 4620
+   "chars": 4621
   }
  ],
  "status": "ok",
- "notes": "Myntro erbjuder bara fasträntekonton (7 löptider). Dokumenten anger inget om förtida uttag (om det är tillåtet eller kostar något), inget datum för när räntorna började gälla och inget om kampanjränta eller krav på andra produkter, så dessa fält är null. 'Ej under bindningstid' bygger på att pengarna 'binds under en viss tid'. Villkoren (§4) säger att kontot kan förlängas automatiskt med en ny bindningstid till då gällande ränta. Villkoren anger 30 % preliminärskatt på räntan.",
+ "notes": "Källorna har olika räntor för samma löptider. Fasträntekontots produktsida (dok 0) anger 6 mån 2,95 %, 9 mån 3,00 %, 12 mån 3,05 %, 2 år 3,2 %, medan startsidan (dok 3) anger 6 mån 3,05 %, 9 mån 3,05 %, 12 mån 3,22 %, 2 år 3,25 %. Ingen av sidorna har datum. Produktsidans värden har använts. Övriga sidor har ingen datummarkering. Uttagsregler (fria uttag, uppsägning, ränteavdrag vid förtida uttag) saknas i källorna och är därför null. Dokumenten anger inte om insättningar kan göras löpande, och kontots ränta gäller inte separat för olika belopp. Startdatum för räntan saknas. Öppnings- och BankID-krav finns i villkoren (BankID-inloggning och 18 år). Rörlig ränta och introduktionsränta nämns inte.",
  "products": [
   {
    "name": "Fasträntekonto 3 mån",
@@ -48,7 +48,7 @@
    "fields": {
     "product_type": {
      "value": "fasträntekonto",
-     "quote": "Ett fasträntekonto är ett sparkonto med fast ränta",
+     "quote": "Ett fasträntekonto är ett sparkonto med fast ränta för dig som vill spara tryggt",
      "source": 0,
      "status": "belagt",
      "jev": {
@@ -68,12 +68,12 @@
     },
     "rate_type": {
      "value": "fast",
-     "quote": "Den avtalade räntan är fast under hela den valda bindningstiden och ändras inte under denna period.",
+     "quote": "Den avtalade räntan är fast under hela den valda bindningstiden",
      "source": 1,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.98
+      "confidence": 1.0
      }
     },
     "binding_months": {
@@ -87,14 +87,10 @@
      }
     },
     "withdrawals": {
-     "value": "ej tillåtna",
-     "quote": "Ett fasträntekonto är ett sparkonto där dina pengar binds under en viss tid, till exempel i 12 månader.",
-     "source": 0,
-     "status": "osäkert",
-     "jev": {
-      "verdict": "contradicts",
-      "confidence": 0.19
-     }
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
     },
     "free_withdrawals_per_year": {
      "value": null,
@@ -103,47 +99,59 @@
      "status": "okänt"
     },
     "withdrawal_terms": {
-     "value": "Uttag betalas till föranmält svenskt bankkonto inom fem bankdagar efter uttagsanmälan.",
-     "quote": "Uttagsbelopp kan endast överföras till ett av Kontohavaren\nföranmält konto i svenska kronor i Kontohavarens namn i en\nbank i Sverige inom fem (5) bankdagar från det att Myntro\nerhållit uttagsanmälan.",
+     "value": "Uttag endast till föranmält svenskt konto i eget namn inom fem bankdagar från uttagsanmälan. Övriga uttagsregler saknas i källorna.",
+     "quote": "Uttagsbelopp kan endast överföras till ett av Kontohavaren föranmält konto i svenska kronor i Kontohavarens namn i en bank i Sverige inom fem (5) bankdagar",
      "source": 1,
-     "status": "belagt",
+     "status": "osäkert",
      "jev": {
-      "verdict": "supports",
-      "confidence": 0.94
+      "verdict": "says_nothing",
+      "confidence": 0.58
      }
     },
     "min_deposit_sek": {
-     "value": null,
+     "value": 5000,
      "quote": "Du kan spara minst 5,000 SEK och högst 1,150,000 SEK hos oss.",
      "source": 3,
-     "status": "talet finns inte i citatet",
-     "claimed": 5000
-    },
-    "max_deposit_sek": {
-     "value": null,
-     "quote": "Du kan spara minst 5,000 SEK och högst 1,150,000 SEK hos oss.",
-     "source": 3,
-     "status": "talet finns inte i citatet",
-     "claimed": 1150000
-    },
-    "deposit_terms": {
-     "value": "Insättning via plusgiro eller bankgiro.",
-     "quote": "Insättning till sparkontot görs via plusgiro eller bankgiro.",
-     "source": 1,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.98
+      "confidence": 0.79
      }
     },
-    "eligibility": {
-     "value": "Privatperson som fyllt 18 år; konto kan inte samägas.",
-     "quote": "Kontohavaren måste ha uppnått myndighetsålder dvs. ska ha\nfyllt 18 år.",
+    "max_deposit_sek": {
+     "value": 1150000,
+     "quote": "Kontohavaren får högst inneha ett belopp om 1.150.000 kronor, exklusive kapitaliserad ränta vid årsskifte",
      "source": 1,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
       "confidence": 0.97
+     }
+    },
+    "monthly_deposit_cap_sek": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "deposit_terms": {
+     "value": "Insättning via bankgiro eller plusgiro",
+     "quote": "Insättning till sparkontot görs via plusgiro eller bankgiro.",
+     "source": 1,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.82
+     }
+    },
+    "eligibility": {
+     "value": "Kontohavaren måste ha fyllt 18 år",
+     "quote": "Kontohavaren måste ha uppnått myndighetsålder dvs. ska ha fyllt 18 år.",
+     "source": 1,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.98
      }
     },
     "requires_other_products": {
@@ -159,33 +167,33 @@
      "status": "okänt"
     },
     "interest_paid": {
-     "value": "Vid bindningstidens slut och vid kontots avslut.",
-     "quote": "Räntan gottskrivs kontot\nvid bindningstidens slut (förfallodagen) samt vid kontots\navslut.",
+     "value": "Vid bindningstidens slut och vid kontots avslut",
+     "quote": "Räntan gottskrivs kontot vid bindningstidens slut (förfallodagen) samt vid kontots avslut.",
      "source": 1,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.97
+      "confidence": 1.0
      }
     },
     "guarantee_country": {
      "value": "SE",
-     "quote": "Insättningar hos Myntro AB skyddas av: Riksgälden",
-     "source": 2,
+     "quote": "Myntro fasträntekonto omfattas av den statliga insättningsgarantin.",
+     "source": 1,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.58
+      "confidence": 0.27
      }
     },
     "guarantee_amount": {
-     "value": "SEK 1.150.000",
+     "value": "1 150 000 SEK",
      "quote": "Garantibelopp: SEK 1.150.000 per insättare per kreditinstitut",
      "source": 2,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.94
+      "confidence": 0.97
      }
     },
     "rate_valid_from": {
@@ -197,7 +205,7 @@
    },
    "rate_tiers": [],
    "pending_rate": null,
-   "status": "verifierad"
+   "status": "delvis verifierad"
   },
   {
    "name": "Fasträntekonto 6 mån",
@@ -205,12 +213,12 @@
    "fields": {
     "product_type": {
      "value": "fasträntekonto",
-     "quote": "Ett fasträntekonto är ett sparkonto med fast ränta",
+     "quote": "Ett fasträntekonto är ett sparkonto med fast ränta för dig som vill spara tryggt",
      "source": 0,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.98
+      "confidence": 1.0
      }
     },
     "rate_percent": {
@@ -225,7 +233,7 @@
     },
     "rate_type": {
      "value": "fast",
-     "quote": "Den avtalade räntan är fast under hela den valda bindningstiden och ändras inte under denna period.",
+     "quote": "Den avtalade räntan är fast under hela den valda bindningstiden",
      "source": 1,
      "status": "belagt",
      "jev": {
@@ -244,14 +252,10 @@
      }
     },
     "withdrawals": {
-     "value": "ej tillåtna",
-     "quote": "Ett fasträntekonto är ett sparkonto där dina pengar binds under en viss tid, till exempel i 12 månader.",
-     "source": 0,
-     "status": "osäkert",
-     "jev": {
-      "verdict": "contradicts",
-      "confidence": 0.22
-     }
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
     },
     "free_withdrawals_per_year": {
      "value": null,
@@ -260,47 +264,59 @@
      "status": "okänt"
     },
     "withdrawal_terms": {
-     "value": "Uttag betalas till föranmält svenskt bankkonto inom fem bankdagar efter uttagsanmälan.",
-     "quote": "Uttagsbelopp kan endast överföras till ett av Kontohavaren\nföranmält konto i svenska kronor i Kontohavarens namn i en\nbank i Sverige inom fem (5) bankdagar från det att Myntro\nerhållit uttagsanmälan.",
+     "value": "Uttag endast till föranmält svenskt konto i eget namn inom fem bankdagar från uttagsanmälan. Övriga uttagsregler saknas i källorna.",
+     "quote": "Uttagsbelopp kan endast överföras till ett av Kontohavaren föranmält konto i svenska kronor i Kontohavarens namn i en bank i Sverige inom fem (5) bankdagar",
      "source": 1,
-     "status": "belagt",
+     "status": "osäkert",
      "jev": {
-      "verdict": "supports",
-      "confidence": 0.95
+      "verdict": "says_nothing",
+      "confidence": 0.56
      }
     },
     "min_deposit_sek": {
-     "value": null,
+     "value": 5000,
      "quote": "Du kan spara minst 5,000 SEK och högst 1,150,000 SEK hos oss.",
      "source": 3,
-     "status": "talet finns inte i citatet",
-     "claimed": 5000
-    },
-    "max_deposit_sek": {
-     "value": null,
-     "quote": "Du kan spara minst 5,000 SEK och högst 1,150,000 SEK hos oss.",
-     "source": 3,
-     "status": "talet finns inte i citatet",
-     "claimed": 1150000
-    },
-    "deposit_terms": {
-     "value": "Insättning via plusgiro eller bankgiro.",
-     "quote": "Insättning till sparkontot görs via plusgiro eller bankgiro.",
-     "source": 1,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.98
+      "confidence": 0.86
      }
     },
-    "eligibility": {
-     "value": "Privatperson som fyllt 18 år; konto kan inte samägas.",
-     "quote": "Kontohavaren måste ha uppnått myndighetsålder dvs. ska ha\nfyllt 18 år.",
+    "max_deposit_sek": {
+     "value": 1150000,
+     "quote": "Kontohavaren får högst inneha ett belopp om 1.150.000 kronor, exklusive kapitaliserad ränta vid årsskifte",
      "source": 1,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
       "confidence": 0.97
+     }
+    },
+    "monthly_deposit_cap_sek": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "deposit_terms": {
+     "value": "Insättning via bankgiro eller plusgiro",
+     "quote": "Insättning till sparkontot görs via plusgiro eller bankgiro.",
+     "source": 1,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.85
+     }
+    },
+    "eligibility": {
+     "value": "Kontohavaren måste ha fyllt 18 år",
+     "quote": "Kontohavaren måste ha uppnått myndighetsålder dvs. ska ha fyllt 18 år.",
+     "source": 1,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.98
      }
     },
     "requires_other_products": {
@@ -316,33 +332,33 @@
      "status": "okänt"
     },
     "interest_paid": {
-     "value": "Vid bindningstidens slut och vid kontots avslut.",
-     "quote": "Räntan gottskrivs kontot\nvid bindningstidens slut (förfallodagen) samt vid kontots\navslut.",
+     "value": "Vid bindningstidens slut och vid kontots avslut",
+     "quote": "Räntan gottskrivs kontot vid bindningstidens slut (förfallodagen) samt vid kontots avslut.",
      "source": 1,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.95
+      "confidence": 1.0
      }
     },
     "guarantee_country": {
      "value": "SE",
-     "quote": "Insättningar hos Myntro AB skyddas av: Riksgälden",
-     "source": 2,
+     "quote": "Myntro fasträntekonto omfattas av den statliga insättningsgarantin.",
+     "source": 1,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.59
+      "confidence": 0.31
      }
     },
     "guarantee_amount": {
-     "value": "SEK 1.150.000",
+     "value": "1 150 000 SEK",
      "quote": "Garantibelopp: SEK 1.150.000 per insättare per kreditinstitut",
      "source": 2,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.94
+      "confidence": 0.98
      }
     },
     "rate_valid_from": {
@@ -354,7 +370,7 @@
    },
    "rate_tiers": [],
    "pending_rate": null,
-   "status": "verifierad"
+   "status": "delvis verifierad"
   },
   {
    "name": "Fasträntekonto 9 mån",
@@ -362,16 +378,16 @@
    "fields": {
     "product_type": {
      "value": "fasträntekonto",
-     "quote": "Ett fasträntekonto är ett sparkonto med fast ränta",
+     "quote": "Ett fasträntekonto är ett sparkonto med fast ränta för dig som vill spara tryggt",
      "source": 0,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.98
+      "confidence": 1.0
      }
     },
     "rate_percent": {
-     "value": 3,
+     "value": 3.0,
      "quote": "| 9 mån | 3,00% |",
      "source": 0,
      "status": "belagt",
@@ -382,7 +398,7 @@
     },
     "rate_type": {
      "value": "fast",
-     "quote": "Den avtalade räntan är fast under hela den valda bindningstiden och ändras inte under denna period.",
+     "quote": "Den avtalade räntan är fast under hela den valda bindningstiden",
      "source": 1,
      "status": "belagt",
      "jev": {
@@ -401,14 +417,10 @@
      }
     },
     "withdrawals": {
-     "value": "ej tillåtna",
-     "quote": "Ett fasträntekonto är ett sparkonto där dina pengar binds under en viss tid, till exempel i 12 månader.",
-     "source": 0,
-     "status": "osäkert",
-     "jev": {
-      "verdict": "contradicts",
-      "confidence": 0.2
-     }
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
     },
     "free_withdrawals_per_year": {
      "value": null,
@@ -417,32 +429,28 @@
      "status": "okänt"
     },
     "withdrawal_terms": {
-     "value": "Uttag betalas till föranmält svenskt bankkonto inom fem bankdagar efter uttagsanmälan.",
-     "quote": "Uttagsbelopp kan endast överföras till ett av Kontohavaren\nföranmält konto i svenska kronor i Kontohavarens namn i en\nbank i Sverige inom fem (5) bankdagar från det att Myntro\nerhållit uttagsanmälan.",
+     "value": "Uttag endast till föranmält svenskt konto i eget namn inom fem bankdagar från uttagsanmälan. Övriga uttagsregler saknas i källorna.",
+     "quote": "Uttagsbelopp kan endast överföras till ett av Kontohavaren föranmält konto i svenska kronor i Kontohavarens namn i en bank i Sverige inom fem (5) bankdagar",
      "source": 1,
-     "status": "belagt",
+     "status": "osäkert",
      "jev": {
-      "verdict": "supports",
-      "confidence": 0.95
+      "verdict": "says_nothing",
+      "confidence": 0.59
      }
     },
     "min_deposit_sek": {
-     "value": null,
+     "value": 5000,
      "quote": "Du kan spara minst 5,000 SEK och högst 1,150,000 SEK hos oss.",
      "source": 3,
-     "status": "talet finns inte i citatet",
-     "claimed": 5000
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.92
+     }
     },
     "max_deposit_sek": {
-     "value": null,
-     "quote": "Du kan spara minst 5,000 SEK och högst 1,150,000 SEK hos oss.",
-     "source": 3,
-     "status": "talet finns inte i citatet",
-     "claimed": 1150000
-    },
-    "deposit_terms": {
-     "value": "Insättning via plusgiro eller bankgiro.",
-     "quote": "Insättning till sparkontot görs via plusgiro eller bankgiro.",
+     "value": 1150000,
+     "quote": "Kontohavaren får högst inneha ett belopp om 1.150.000 kronor, exklusive kapitaliserad ränta vid årsskifte",
      "source": 1,
      "status": "belagt",
      "jev": {
@@ -450,14 +458,30 @@
       "confidence": 0.98
      }
     },
-    "eligibility": {
-     "value": "Privatperson som fyllt 18 år; konto kan inte samägas.",
-     "quote": "Kontohavaren måste ha uppnått myndighetsålder dvs. ska ha\nfyllt 18 år.",
+    "monthly_deposit_cap_sek": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "deposit_terms": {
+     "value": "Insättning via bankgiro eller plusgiro",
+     "quote": "Insättning till sparkontot görs via plusgiro eller bankgiro.",
      "source": 1,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.97
+      "confidence": 0.86
+     }
+    },
+    "eligibility": {
+     "value": "Kontohavaren måste ha fyllt 18 år",
+     "quote": "Kontohavaren måste ha uppnått myndighetsålder dvs. ska ha fyllt 18 år.",
+     "source": 1,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.98
      }
     },
     "requires_other_products": {
@@ -473,33 +497,33 @@
      "status": "okänt"
     },
     "interest_paid": {
-     "value": "Vid bindningstidens slut och vid kontots avslut.",
-     "quote": "Räntan gottskrivs kontot\nvid bindningstidens slut (förfallodagen) samt vid kontots\navslut.",
+     "value": "Vid bindningstidens slut och vid kontots avslut",
+     "quote": "Räntan gottskrivs kontot vid bindningstidens slut (förfallodagen) samt vid kontots avslut.",
      "source": 1,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.97
+      "confidence": 1.0
      }
     },
     "guarantee_country": {
      "value": "SE",
-     "quote": "Insättningar hos Myntro AB skyddas av: Riksgälden",
-     "source": 2,
+     "quote": "Myntro fasträntekonto omfattas av den statliga insättningsgarantin.",
+     "source": 1,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.67
+      "confidence": 0.43
      }
     },
     "guarantee_amount": {
-     "value": "SEK 1.150.000",
+     "value": "1 150 000 SEK",
      "quote": "Garantibelopp: SEK 1.150.000 per insättare per kreditinstitut",
      "source": 2,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.95
+      "confidence": 1.0
      }
     },
     "rate_valid_from": {
@@ -511,7 +535,7 @@
    },
    "rate_tiers": [],
    "pending_rate": null,
-   "status": "verifierad"
+   "status": "delvis verifierad"
   },
   {
    "name": "Fasträntekonto 12 mån",
@@ -519,7 +543,7 @@
    "fields": {
     "product_type": {
      "value": "fasträntekonto",
-     "quote": "Ett fasträntekonto är ett sparkonto med fast ränta",
+     "quote": "Ett fasträntekonto är ett sparkonto med fast ränta för dig som vill spara tryggt",
      "source": 0,
      "status": "belagt",
      "jev": {
@@ -539,7 +563,7 @@
     },
     "rate_type": {
      "value": "fast",
-     "quote": "Den avtalade räntan är fast under hela den valda bindningstiden och ändras inte under denna period.",
+     "quote": "Den avtalade räntan är fast under hela den valda bindningstiden",
      "source": 1,
      "status": "belagt",
      "jev": {
@@ -558,14 +582,10 @@
      }
     },
     "withdrawals": {
-     "value": "ej tillåtna",
-     "quote": "Ett fasträntekonto är ett sparkonto där dina pengar binds under en viss tid, till exempel i 12 månader.",
-     "source": 0,
-     "status": "osäkert",
-     "jev": {
-      "verdict": "contradicts",
-      "confidence": 0.13
-     }
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
     },
     "free_withdrawals_per_year": {
      "value": null,
@@ -574,47 +594,59 @@
      "status": "okänt"
     },
     "withdrawal_terms": {
-     "value": "Uttag betalas till föranmält svenskt bankkonto inom fem bankdagar efter uttagsanmälan.",
-     "quote": "Uttagsbelopp kan endast överföras till ett av Kontohavaren\nföranmält konto i svenska kronor i Kontohavarens namn i en\nbank i Sverige inom fem (5) bankdagar från det att Myntro\nerhållit uttagsanmälan.",
+     "value": "Uttag endast till föranmält svenskt konto i eget namn inom fem bankdagar från uttagsanmälan. Övriga uttagsregler saknas i källorna.",
+     "quote": "Uttagsbelopp kan endast överföras till ett av Kontohavaren föranmält konto i svenska kronor i Kontohavarens namn i en bank i Sverige inom fem (5) bankdagar",
+     "source": 1,
+     "status": "osäkert",
+     "jev": {
+      "verdict": "says_nothing",
+      "confidence": 0.62
+     }
+    },
+    "min_deposit_sek": {
+     "value": 5000,
+     "quote": "Du kan spara minst 5,000 SEK och högst 1,150,000 SEK hos oss.",
+     "source": 3,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.91
+     }
+    },
+    "max_deposit_sek": {
+     "value": 1150000,
+     "quote": "Kontohavaren får högst inneha ett belopp om 1.150.000 kronor, exklusive kapitaliserad ränta vid årsskifte",
      "source": 1,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.94
+      "confidence": 1.0
      }
     },
-    "min_deposit_sek": {
+    "monthly_deposit_cap_sek": {
      "value": null,
-     "quote": "Du kan spara minst 5,000 SEK och högst 1,150,000 SEK hos oss.",
-     "source": 3,
-     "status": "talet finns inte i citatet",
-     "claimed": 5000
-    },
-    "max_deposit_sek": {
-     "value": null,
-     "quote": "Du kan spara minst 5,000 SEK och högst 1,150,000 SEK hos oss.",
-     "source": 3,
-     "status": "talet finns inte i citatet",
-     "claimed": 1150000
+     "quote": null,
+     "source": null,
+     "status": "okänt"
     },
     "deposit_terms": {
-     "value": "Insättning via plusgiro eller bankgiro.",
+     "value": "Insättning via bankgiro eller plusgiro",
      "quote": "Insättning till sparkontot görs via plusgiro eller bankgiro.",
      "source": 1,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.98
+      "confidence": 0.85
      }
     },
     "eligibility": {
-     "value": "Privatperson som fyllt 18 år; konto kan inte samägas.",
-     "quote": "Kontohavaren måste ha uppnått myndighetsålder dvs. ska ha\nfyllt 18 år.",
+     "value": "Kontohavaren måste ha fyllt 18 år",
+     "quote": "Kontohavaren måste ha uppnått myndighetsålder dvs. ska ha fyllt 18 år.",
      "source": 1,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.97
+      "confidence": 0.98
      }
     },
     "requires_other_products": {
@@ -630,33 +662,33 @@
      "status": "okänt"
     },
     "interest_paid": {
-     "value": "Vid bindningstidens slut och vid kontots avslut.",
-     "quote": "Räntan gottskrivs kontot\nvid bindningstidens slut (förfallodagen) samt vid kontots\navslut.",
+     "value": "Vid bindningstidens slut och vid kontots avslut",
+     "quote": "Räntan gottskrivs kontot vid bindningstidens slut (förfallodagen) samt vid kontots avslut.",
      "source": 1,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.97
+      "confidence": 1.0
      }
     },
     "guarantee_country": {
      "value": "SE",
-     "quote": "Insättningar hos Myntro AB skyddas av: Riksgälden",
-     "source": 2,
+     "quote": "Myntro fasträntekonto omfattas av den statliga insättningsgarantin.",
+     "source": 1,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.66
+      "confidence": 0.41
      }
     },
     "guarantee_amount": {
-     "value": "SEK 1.150.000",
+     "value": "1 150 000 SEK",
      "quote": "Garantibelopp: SEK 1.150.000 per insättare per kreditinstitut",
      "source": 2,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.95
+      "confidence": 1.0
      }
     },
     "rate_valid_from": {
@@ -668,15 +700,15 @@
    },
    "rate_tiers": [],
    "pending_rate": null,
-   "status": "verifierad"
+   "status": "delvis verifierad"
   },
   {
-   "name": "Fasträntekonto 2 år",
+   "name": "Fasträntekonto 24 mån",
    "flags": [],
    "fields": {
     "product_type": {
      "value": "fasträntekonto",
-     "quote": "Ett fasträntekonto är ett sparkonto med fast ränta",
+     "quote": "Ett fasträntekonto är ett sparkonto med fast ränta för dig som vill spara tryggt",
      "source": 0,
      "status": "belagt",
      "jev": {
@@ -688,15 +720,11 @@
      "value": 3.2,
      "quote": "| 2 år | 3,2% |",
      "source": 0,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.98
-     }
+     "status": "belagt"
     },
     "rate_type": {
      "value": "fast",
-     "quote": "Den avtalade räntan är fast under hela den valda bindningstiden och ändras inte under denna period.",
+     "quote": "Den avtalade räntan är fast under hela den valda bindningstiden",
      "source": 1,
      "status": "belagt",
      "jev": {
@@ -708,21 +736,13 @@
      "value": 24,
      "quote": "| 2 år | 3,2% |",
      "source": 0,
-     "status": "osäkert",
-     "jev": {
-      "verdict": "says_nothing",
-      "confidence": 0.3
-     }
+     "status": "belagt"
     },
     "withdrawals": {
-     "value": "ej tillåtna",
-     "quote": "Ett fasträntekonto är ett sparkonto där dina pengar binds under en viss tid, till exempel i 12 månader.",
-     "source": 0,
-     "status": "osäkert",
-     "jev": {
-      "verdict": "contradicts",
-      "confidence": 0.19
-     }
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
     },
     "free_withdrawals_per_year": {
      "value": null,
@@ -731,8 +751,28 @@
      "status": "okänt"
     },
     "withdrawal_terms": {
-     "value": "Uttag betalas till föranmält svenskt bankkonto inom fem bankdagar efter uttagsanmälan.",
-     "quote": "Uttagsbelopp kan endast överföras till ett av Kontohavaren\nföranmält konto i svenska kronor i Kontohavarens namn i en\nbank i Sverige inom fem (5) bankdagar från det att Myntro\nerhållit uttagsanmälan.",
+     "value": "Uttag endast till föranmält svenskt konto i eget namn inom fem bankdagar från uttagsanmälan. Övriga uttagsregler saknas i källorna.",
+     "quote": "Uttagsbelopp kan endast överföras till ett av Kontohavaren föranmält konto i svenska kronor i Kontohavarens namn i en bank i Sverige inom fem (5) bankdagar",
+     "source": 1,
+     "status": "osäkert",
+     "jev": {
+      "verdict": "says_nothing",
+      "confidence": 0.59
+     }
+    },
+    "min_deposit_sek": {
+     "value": 5000,
+     "quote": "Du kan spara minst 5,000 SEK och högst 1,150,000 SEK hos oss.",
+     "source": 3,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.92
+     }
+    },
+    "max_deposit_sek": {
+     "value": 1150000,
+     "quote": "Kontohavaren får högst inneha ett belopp om 1.150.000 kronor, exklusive kapitaliserad ränta vid årsskifte",
      "source": 1,
      "status": "belagt",
      "jev": {
@@ -740,38 +780,30 @@
       "confidence": 0.97
      }
     },
-    "min_deposit_sek": {
+    "monthly_deposit_cap_sek": {
      "value": null,
-     "quote": "Du kan spara minst 5,000 SEK och högst 1,150,000 SEK hos oss.",
-     "source": 3,
-     "status": "talet finns inte i citatet",
-     "claimed": 5000
-    },
-    "max_deposit_sek": {
-     "value": null,
-     "quote": "Du kan spara minst 5,000 SEK och högst 1,150,000 SEK hos oss.",
-     "source": 3,
-     "status": "talet finns inte i citatet",
-     "claimed": 1150000
+     "quote": null,
+     "source": null,
+     "status": "okänt"
     },
     "deposit_terms": {
-     "value": "Insättning via plusgiro eller bankgiro.",
+     "value": "Insättning via bankgiro eller plusgiro",
      "quote": "Insättning till sparkontot görs via plusgiro eller bankgiro.",
      "source": 1,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.98
+      "confidence": 0.86
      }
     },
     "eligibility": {
-     "value": "Privatperson som fyllt 18 år; konto kan inte samägas.",
-     "quote": "Kontohavaren måste ha uppnått myndighetsålder dvs. ska ha\nfyllt 18 år.",
+     "value": "Kontohavaren måste ha fyllt 18 år",
+     "quote": "Kontohavaren måste ha uppnått myndighetsålder dvs. ska ha fyllt 18 år.",
      "source": 1,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.97
+      "confidence": 0.98
      }
     },
     "requires_other_products": {
@@ -787,33 +819,33 @@
      "status": "okänt"
     },
     "interest_paid": {
-     "value": "Vid bindningstidens slut och vid kontots avslut.",
-     "quote": "Räntan gottskrivs kontot\nvid bindningstidens slut (förfallodagen) samt vid kontots\navslut.",
+     "value": "Vid bindningstidens slut och vid kontots avslut",
+     "quote": "Räntan gottskrivs kontot vid bindningstidens slut (förfallodagen) samt vid kontots avslut.",
      "source": 1,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.94
+      "confidence": 0.98
      }
     },
     "guarantee_country": {
      "value": "SE",
-     "quote": "Insättningar hos Myntro AB skyddas av: Riksgälden",
-     "source": 2,
+     "quote": "Myntro fasträntekonto omfattas av den statliga insättningsgarantin.",
+     "source": 1,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.59
+      "confidence": 0.4
      }
     },
     "guarantee_amount": {
-     "value": "SEK 1.150.000",
+     "value": "1 150 000 SEK",
      "quote": "Garantibelopp: SEK 1.150.000 per insättare per kreditinstitut",
      "source": 2,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.95
+      "confidence": 0.97
      }
     },
     "rate_valid_from": {
@@ -825,15 +857,15 @@
    },
    "rate_tiers": [],
    "pending_rate": null,
-   "status": "verifierad"
+   "status": "delvis verifierad"
   },
   {
-   "name": "Fasträntekonto 3 år",
+   "name": "Fasträntekonto 36 mån",
    "flags": [],
    "fields": {
     "product_type": {
      "value": "fasträntekonto",
-     "quote": "Ett fasträntekonto är ett sparkonto med fast ränta",
+     "quote": "Ett fasträntekonto är ett sparkonto med fast ränta för dig som vill spara tryggt",
      "source": 0,
      "status": "belagt",
      "jev": {
@@ -845,15 +877,11 @@
      "value": 3.25,
      "quote": "| 3 år | 3,25% |",
      "source": 0,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.94
-     }
+     "status": "belagt"
     },
     "rate_type": {
      "value": "fast",
-     "quote": "Den avtalade räntan är fast under hela den valda bindningstiden och ändras inte under denna period.",
+     "quote": "Den avtalade räntan är fast under hela den valda bindningstiden",
      "source": 1,
      "status": "belagt",
      "jev": {
@@ -865,21 +893,13 @@
      "value": 36,
      "quote": "| 3 år | 3,25% |",
      "source": 0,
-     "status": "osäkert",
-     "jev": {
-      "verdict": "says_nothing",
-      "confidence": 0.46
-     }
+     "status": "belagt"
     },
     "withdrawals": {
-     "value": "ej tillåtna",
-     "quote": "Ett fasträntekonto är ett sparkonto där dina pengar binds under en viss tid, till exempel i 12 månader.",
-     "source": 0,
-     "status": "osäkert",
-     "jev": {
-      "verdict": "says_nothing",
-      "confidence": 0.13
-     }
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
     },
     "free_withdrawals_per_year": {
      "value": null,
@@ -888,47 +908,59 @@
      "status": "okänt"
     },
     "withdrawal_terms": {
-     "value": "Uttag betalas till föranmält svenskt bankkonto inom fem bankdagar efter uttagsanmälan.",
-     "quote": "Uttagsbelopp kan endast överföras till ett av Kontohavaren\nföranmält konto i svenska kronor i Kontohavarens namn i en\nbank i Sverige inom fem (5) bankdagar från det att Myntro\nerhållit uttagsanmälan.",
+     "value": "Uttag endast till föranmält svenskt konto i eget namn inom fem bankdagar från uttagsanmälan. Övriga uttagsregler saknas i källorna.",
+     "quote": "Uttagsbelopp kan endast överföras till ett av Kontohavaren föranmält konto i svenska kronor i Kontohavarens namn i en bank i Sverige inom fem (5) bankdagar",
      "source": 1,
-     "status": "belagt",
+     "status": "osäkert",
      "jev": {
-      "verdict": "supports",
-      "confidence": 0.94
+      "verdict": "says_nothing",
+      "confidence": 0.61
      }
     },
     "min_deposit_sek": {
-     "value": null,
+     "value": 5000,
      "quote": "Du kan spara minst 5,000 SEK och högst 1,150,000 SEK hos oss.",
      "source": 3,
-     "status": "talet finns inte i citatet",
-     "claimed": 5000
-    },
-    "max_deposit_sek": {
-     "value": null,
-     "quote": "Du kan spara minst 5,000 SEK och högst 1,150,000 SEK hos oss.",
-     "source": 3,
-     "status": "talet finns inte i citatet",
-     "claimed": 1150000
-    },
-    "deposit_terms": {
-     "value": "Insättning via plusgiro eller bankgiro.",
-     "quote": "Insättning till sparkontot görs via plusgiro eller bankgiro.",
-     "source": 1,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.98
+      "confidence": 0.86
      }
     },
-    "eligibility": {
-     "value": "Privatperson som fyllt 18 år; konto kan inte samägas.",
-     "quote": "Kontohavaren måste ha uppnått myndighetsålder dvs. ska ha\nfyllt 18 år.",
+    "max_deposit_sek": {
+     "value": 1150000,
+     "quote": "Kontohavaren får högst inneha ett belopp om 1.150.000 kronor, exklusive kapitaliserad ränta vid årsskifte",
      "source": 1,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
       "confidence": 0.97
+     }
+    },
+    "monthly_deposit_cap_sek": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "deposit_terms": {
+     "value": "Insättning via bankgiro eller plusgiro",
+     "quote": "Insättning till sparkontot görs via plusgiro eller bankgiro.",
+     "source": 1,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.86
+     }
+    },
+    "eligibility": {
+     "value": "Kontohavaren måste ha fyllt 18 år",
+     "quote": "Kontohavaren måste ha uppnått myndighetsålder dvs. ska ha fyllt 18 år.",
+     "source": 1,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.98
      }
     },
     "requires_other_products": {
@@ -944,33 +976,33 @@
      "status": "okänt"
     },
     "interest_paid": {
-     "value": "Vid bindningstidens slut och vid kontots avslut.",
-     "quote": "Räntan gottskrivs kontot\nvid bindningstidens slut (förfallodagen) samt vid kontots\navslut.",
+     "value": "Vid bindningstidens slut och vid kontots avslut",
+     "quote": "Räntan gottskrivs kontot vid bindningstidens slut (förfallodagen) samt vid kontots avslut.",
      "source": 1,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.94
+      "confidence": 0.98
      }
     },
     "guarantee_country": {
      "value": "SE",
-     "quote": "Insättningar hos Myntro AB skyddas av: Riksgälden",
-     "source": 2,
+     "quote": "Myntro fasträntekonto omfattas av den statliga insättningsgarantin.",
+     "source": 1,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.61
+      "confidence": 0.37
      }
     },
     "guarantee_amount": {
-     "value": "SEK 1.150.000",
+     "value": "1 150 000 SEK",
      "quote": "Garantibelopp: SEK 1.150.000 per insättare per kreditinstitut",
      "source": 2,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.94
+      "confidence": 1.0
      }
     },
     "rate_valid_from": {
@@ -982,35 +1014,31 @@
    },
    "rate_tiers": [],
    "pending_rate": null,
-   "status": "verifierad"
+   "status": "delvis verifierad"
   },
   {
-   "name": "Fasträntekonto 5 år",
+   "name": "Fasträntekonto 60 mån",
    "flags": [],
    "fields": {
     "product_type": {
      "value": "fasträntekonto",
-     "quote": "Ett fasträntekonto är ett sparkonto med fast ränta",
+     "quote": "Ett fasträntekonto är ett sparkonto med fast ränta för dig som vill spara tryggt",
      "source": 0,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.98
+      "confidence": 1.0
      }
     },
     "rate_percent": {
      "value": 3.3,
      "quote": "| 5 år | 3,3% |",
      "source": 0,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.97
-     }
+     "status": "belagt"
     },
     "rate_type": {
      "value": "fast",
-     "quote": "Den avtalade räntan är fast under hela den valda bindningstiden och ändras inte under denna period.",
+     "quote": "Den avtalade räntan är fast under hela den valda bindningstiden",
      "source": 1,
      "status": "belagt",
      "jev": {
@@ -1022,21 +1050,13 @@
      "value": 60,
      "quote": "| 5 år | 3,3% |",
      "source": 0,
-     "status": "osäkert",
-     "jev": {
-      "verdict": "says_nothing",
-      "confidence": 0.25
-     }
+     "status": "belagt"
     },
     "withdrawals": {
-     "value": "ej tillåtna",
-     "quote": "Ett fasträntekonto är ett sparkonto där dina pengar binds under en viss tid, till exempel i 12 månader.",
-     "source": 0,
-     "status": "osäkert",
-     "jev": {
-      "verdict": "contradicts",
-      "confidence": 0.25
-     }
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
     },
     "free_withdrawals_per_year": {
      "value": null,
@@ -1045,47 +1065,59 @@
      "status": "okänt"
     },
     "withdrawal_terms": {
-     "value": "Uttag betalas till föranmält svenskt bankkonto inom fem bankdagar efter uttagsanmälan.",
-     "quote": "Uttagsbelopp kan endast överföras till ett av Kontohavaren\nföranmält konto i svenska kronor i Kontohavarens namn i en\nbank i Sverige inom fem (5) bankdagar från det att Myntro\nerhållit uttagsanmälan.",
+     "value": "Uttag endast till föranmält svenskt konto i eget namn inom fem bankdagar från uttagsanmälan. Övriga uttagsregler saknas i källorna.",
+     "quote": "Uttagsbelopp kan endast överföras till ett av Kontohavaren föranmält konto i svenska kronor i Kontohavarens namn i en bank i Sverige inom fem (5) bankdagar",
      "source": 1,
-     "status": "belagt",
+     "status": "osäkert",
      "jev": {
-      "verdict": "supports",
-      "confidence": 0.94
+      "verdict": "says_nothing",
+      "confidence": 0.67
      }
     },
     "min_deposit_sek": {
-     "value": null,
+     "value": 5000,
      "quote": "Du kan spara minst 5,000 SEK och högst 1,150,000 SEK hos oss.",
      "source": 3,
-     "status": "talet finns inte i citatet",
-     "claimed": 5000
-    },
-    "max_deposit_sek": {
-     "value": null,
-     "quote": "Du kan spara minst 5,000 SEK och högst 1,150,000 SEK hos oss.",
-     "source": 3,
-     "status": "talet finns inte i citatet",
-     "claimed": 1150000
-    },
-    "deposit_terms": {
-     "value": "Insättning via plusgiro eller bankgiro.",
-     "quote": "Insättning till sparkontot görs via plusgiro eller bankgiro.",
-     "source": 1,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.98
+      "confidence": 0.91
      }
     },
-    "eligibility": {
-     "value": "Privatperson som fyllt 18 år; konto kan inte samägas.",
-     "quote": "Kontohavaren måste ha uppnått myndighetsålder dvs. ska ha\nfyllt 18 år.",
+    "max_deposit_sek": {
+     "value": 1150000,
+     "quote": "Kontohavaren får högst inneha ett belopp om 1.150.000 kronor, exklusive kapitaliserad ränta vid årsskifte",
      "source": 1,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
       "confidence": 0.97
+     }
+    },
+    "monthly_deposit_cap_sek": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "deposit_terms": {
+     "value": "Insättning via bankgiro eller plusgiro",
+     "quote": "Insättning till sparkontot görs via plusgiro eller bankgiro.",
+     "source": 1,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.8
+     }
+    },
+    "eligibility": {
+     "value": "Kontohavaren måste ha fyllt 18 år",
+     "quote": "Kontohavaren måste ha uppnått myndighetsålder dvs. ska ha fyllt 18 år.",
+     "source": 1,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.98
      }
     },
     "requires_other_products": {
@@ -1101,33 +1133,33 @@
      "status": "okänt"
     },
     "interest_paid": {
-     "value": "Vid bindningstidens slut och vid kontots avslut.",
-     "quote": "Räntan gottskrivs kontot\nvid bindningstidens slut (förfallodagen) samt vid kontots\navslut.",
+     "value": "Vid bindningstidens slut och vid kontots avslut",
+     "quote": "Räntan gottskrivs kontot vid bindningstidens slut (förfallodagen) samt vid kontots avslut.",
      "source": 1,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.94
+      "confidence": 0.98
      }
     },
     "guarantee_country": {
      "value": "SE",
-     "quote": "Insättningar hos Myntro AB skyddas av: Riksgälden",
-     "source": 2,
+     "quote": "Myntro fasträntekonto omfattas av den statliga insättningsgarantin.",
+     "source": 1,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.35
+      "confidence": 0.52
      }
     },
     "guarantee_amount": {
-     "value": "SEK 1.150.000",
+     "value": "1 150 000 SEK",
      "quote": "Garantibelopp: SEK 1.150.000 per insättare per kreditinstitut",
      "source": 2,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.94
+      "confidence": 0.98
      }
     },
     "rate_valid_from": {
@@ -1139,10 +1171,10 @@
    },
    "rate_tiers": [],
    "pending_rate": null,
-   "status": "verifierad"
+   "status": "delvis verifierad"
   }
  ],
- "source_hash": "36f41165a6e0d5b8",
- "changed_at": "2026-10-11T14:05:22+00:00",
- "model": "claude-sonnet-5-5"
+ "source_hash": "dc3fbbcd344b0bdb",
+ "changed_at": "2026-10-22T00:54:26+00:00",
+ "model": "claude-haiku-5-5"
 }
