@@ -7,7 +7,7 @@
   "kind": "sparbank",
   "legal_name": "Valdemarsviks Sparbank"
  },
- "checked_at": "2026-10-22T00:22:01+00:00",
+ "checked_at": "2026-10-23T00:22:42+00:00",
  "discovered_at": "2026-10-18T08:15:57+00:00",
  "sources": [
   {
@@ -75,7 +75,7 @@
   }
  ],
  "status": "ok",
- "notes": "Dokumenten har olika datum: sidan för Räntor anger \"senast uppdaterade 2025-10-10\", medan fasträntekontosidan har rubriken \"aktuella räntor 2026-10-21\". Fasträntekontots räntor har använts eftersom de är från den specifika produktsidan. Privatkonto, Ungdomskonto, E-sparkonto och Kapitalkonto anges med 0 % ränta på räntesidan, men utan ytterligare villkor i källorna; de har utelämnats. Uppgifter om vem som kan öppna kontot, minsta/högsta insättning och när ränta utbetalas för Valdemarsvikskontot saknas. Insättningsgarantisidan refererar till Swedbank AB:s konton, vilket har använts som generell bekräftelse för den statliga garantin.",
+ "notes": "Fasträntekontot har en egen räntetabell (3 mån–5 år) på sidan för fasträntekonto, daterad 2026-10-22; räntorna står inte på översiktssidan för räntor (som är uppdaterad 2025-10-10), så de senare kan vara inaktuella. Nominell ränta används; effektiv ränta finns för 1 år–5 år men inte för 3 och 6 mån. Villkor för Valdemarsvikskontot och Kapitalkonto/E-sparkonto saknar detaljer (insättningsregler, uttagsregler, rörlig/fast, åldersgränser) i källorna. Privatkonto och Ungdomskonto (0 %) har utelämnats eftersom de är transaktionskonton, inte sparkonton. Insättningsgarantins belopp och täckning är hämtade från den generella sidan om statlig insättningsgaranti, som nämner Swedbank AB; Valdemarsviks Sparbank anges inte uttryckligen där. Inga minimi- eller maxbelopp, insättningsregler eller kundkrav framgår av källorna.",
  "products": [
   {
    "name": "Valdemarsvikskontot",
@@ -83,22 +83,22 @@
    "fields": {
     "product_type": {
      "value": "sparkonto med uttagsbegränsning",
-     "quote": "Vårt Valdemarsvikskonto är ett sparkonto med 1,40% ränta och fyra fria uttag per år.",
+     "quote": "ett sparkonto med 1,40% ränta och fyra fria uttag per år",
      "source": 2,
-     "status": "belagt",
+     "status": "osäkert",
      "jev": {
-      "verdict": "supports",
+      "verdict": "says_nothing",
       "confidence": 0.66
      }
     },
     "rate_percent": {
      "value": 1.4,
-     "quote": "Vårt Valdemarsvikskonto är ett sparkonto med 1,40% ränta och fyra fria uttag per år.",
+     "quote": "ett sparkonto med 1,40% ränta och fyra fria uttag per år",
      "source": 2,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.51
+      "confidence": 0.34
      }
     },
     "rate_type": {
@@ -111,16 +111,17 @@
      "value": null,
      "quote": null,
      "source": null,
-     "status": "okänt"
+     "status": "saknar belägg",
+     "claimed": 0
     },
     "withdrawals": {
      "value": "begränsade",
-     "quote": "Fyra fria uttag per år.",
+     "quote": "Fyra fria uttag per år. Därefter uttagsavgift på 1% av uttaget belopp, dock högst årets intjänade ränta.",
      "source": 0,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.88
+      "confidence": 0.95
      }
     },
     "free_withdrawals_per_year": {
@@ -134,13 +135,13 @@
      }
     },
     "withdrawal_terms": {
-     "value": "Fyra fria uttag per år, därefter uttagsavgift på 1 % av uttaget belopp, dock högst årets intjänade ränta.",
+     "value": "Fyra fria uttag per år. Därefter uttagsavgift på 1 % av uttaget, högst årets intjänade ränta.",
      "quote": "Fyra fria uttag per år. Därefter uttagsavgift på 1% av uttaget belopp, dock högst årets intjänade ränta.",
      "source": 0,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 1.0
+      "confidence": 0.98
      }
     },
     "min_deposit_sek": {
@@ -198,14 +199,18 @@
      "status": "osäkert",
      "jev": {
       "verdict": "contradicts",
-      "confidence": 0.61
+      "confidence": 0.31
      }
     },
     "guarantee_amount": {
-     "value": null,
-     "quote": null,
-     "source": null,
-     "status": "okänt"
+     "value": "1.150.000 kronor",
+     "quote": "upp till 1.150.000 kronor per person och bank/institut",
+     "source": 3,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.28
+     }
     },
     "rate_valid_from": {
      "value": null,
@@ -219,17 +224,279 @@
    "status": "delvis verifierad"
   },
   {
+   "name": "E-sparkonto",
+   "flags": [],
+   "fields": {
+    "product_type": {
+     "value": "annat",
+     "quote": "E-sparkonto",
+     "source": 0,
+     "status": "osäkert",
+     "jev": {
+      "verdict": "contradicts",
+      "confidence": 0.23
+     }
+    },
+    "rate_percent": {
+     "value": null,
+     "quote": "0%",
+     "source": 0,
+     "status": "citat hittades inte",
+     "claimed": 0
+    },
+    "rate_type": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "binding_months": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "saknar belägg",
+     "claimed": 0
+    },
+    "withdrawals": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "free_withdrawals_per_year": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "withdrawal_terms": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "min_deposit_sek": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "max_deposit_sek": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "monthly_deposit_cap_sek": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "deposit_terms": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "eligibility": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "requires_other_products": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "intro_rate": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "interest_paid": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "guarantee_country": {
+     "value": "SE",
+     "quote": "Sparande på inlåningskonto är skyddat av den statliga insättningsgarantin enligt regler i lag.",
+     "source": 3,
+     "status": "osäkert",
+     "jev": {
+      "verdict": "says_nothing",
+      "confidence": 0.33
+     }
+    },
+    "guarantee_amount": {
+     "value": "1.150.000 kronor",
+     "quote": "upp till 1.150.000 kronor per person och bank/institut",
+     "source": 3,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.14
+     }
+    },
+    "rate_valid_from": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    }
+   },
+   "rate_tiers": [],
+   "pending_rate": null,
+   "status": "ej verifierad"
+  },
+  {
+   "name": "Kapitalkonto",
+   "flags": [],
+   "fields": {
+    "product_type": {
+     "value": "annat",
+     "quote": "Kapitalkonto",
+     "source": 0,
+     "status": "osäkert",
+     "jev": {
+      "verdict": "says_nothing",
+      "confidence": 0.52
+     }
+    },
+    "rate_percent": {
+     "value": null,
+     "quote": "0%",
+     "source": 0,
+     "status": "citat hittades inte",
+     "claimed": 0
+    },
+    "rate_type": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "binding_months": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "saknar belägg",
+     "claimed": 0
+    },
+    "withdrawals": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "free_withdrawals_per_year": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "withdrawal_terms": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "min_deposit_sek": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "max_deposit_sek": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "monthly_deposit_cap_sek": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "deposit_terms": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "eligibility": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "requires_other_products": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "intro_rate": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "interest_paid": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "guarantee_country": {
+     "value": "SE",
+     "quote": "Sparande på inlåningskonto är skyddat av den statliga insättningsgarantin enligt regler i lag.",
+     "source": 3,
+     "status": "osäkert",
+     "jev": {
+      "verdict": "says_nothing",
+      "confidence": 0.35
+     }
+    },
+    "guarantee_amount": {
+     "value": "1.150.000 kronor",
+     "quote": "upp till 1.150.000 kronor per person och bank/institut",
+     "source": 3,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.1
+     }
+    },
+    "rate_valid_from": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    }
+   },
+   "rate_tiers": [],
+   "pending_rate": null,
+   "status": "ej verifierad"
+  },
+  {
    "name": "Fasträntekonto 3 mån",
    "flags": [],
    "fields": {
     "product_type": {
      "value": "fasträntekonto",
-     "quote": "Fasträntekontot är ett bundet sparande med fast ränta som omfattas av den statliga insättningsgarantin.",
+     "quote": "Fasträntekontot är ett bundet sparande med fast ränta",
      "source": 1,
-     "status": "belagt",
+     "status": "osäkert",
      "jev": {
-      "verdict": "supports",
-      "confidence": 0.11
+      "verdict": "contradicts",
+      "confidence": 0.41
      }
     },
     "rate_percent": {
@@ -256,12 +523,12 @@
     },
     "withdrawals": {
      "value": "mot avgift",
-     "quote": "Om du tar ut pengar innan bindningstiden är slut tillkommer en avgift.",
+     "quote": "Om du tar ut pengarna i förtid tillkommer en avgift.",
      "source": 1,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 1.0
+      "confidence": 0.35
      }
     },
     "free_withdrawals_per_year": {
@@ -271,13 +538,13 @@
      "status": "okänt"
     },
     "withdrawal_terms": {
-     "value": "Uttag i förtid tillkommer en avgift baserad på skillnaden mellan avtalad ränta och marknadsränta.",
+     "value": "Uttag i förtid mot avgift baserad på skillnaden mot marknadsräntan.",
      "quote": "Avgiften är baserad på skillnaden mellan den avtalade räntan och den rådande marknadsräntan",
      "source": 1,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.98
+      "confidence": 0.95
      }
     },
     "min_deposit_sek": {
@@ -323,33 +590,34 @@
      "status": "okänt"
     },
     "interest_paid": {
-     "value": "vid bindningstidens slut (slutförfallodagen)",
+     "value": "Hela räntan betalas ut på slutförfallodagen",
      "quote": "Räntan på Fasträntekonto beräknas också utifrån att hela räntan betalas ut på slutförfallodagen.",
      "source": 1,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.8
+      "confidence": 0.91
      }
     },
     "guarantee_country": {
-     "value": "SE",
-     "quote": "Sparande på inlåningskonto är skyddat av den statliga insättningsgarantin enligt regler i lag.",
-     "source": 3,
-     "status": "osäkert",
+     "value": null,
+     "quote": "omfattas av den statliga insättningsgarantin",
+     "source": 1,
+     "status": "stöds inte av källan",
      "jev": {
-      "verdict": "contradicts",
-      "confidence": 0.43
-     }
+      "verdict": "says_nothing",
+      "confidence": 0.85
+     },
+     "claimed": "SE"
     },
     "guarantee_amount": {
      "value": "1.150.000 kronor",
-     "quote": "ersätter kapital och ränta på inlåningskonto upp till 1.150.000 kronor per person och bank/institut.",
+     "quote": "upp till 1.150.000 kronor per person och bank/institut",
      "source": 3,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.25
+      "confidence": 0.74
      }
     },
     "rate_valid_from": {
@@ -369,12 +637,12 @@
    "fields": {
     "product_type": {
      "value": "fasträntekonto",
-     "quote": "Fasträntekontot är ett bundet sparande med fast ränta som omfattas av den statliga insättningsgarantin.",
+     "quote": "Fasträntekontot är ett bundet sparande med fast ränta",
      "source": 1,
-     "status": "belagt",
+     "status": "osäkert",
      "jev": {
-      "verdict": "supports",
-      "confidence": 0.14
+      "verdict": "contradicts",
+      "confidence": 0.38
      }
     },
     "rate_percent": {
@@ -401,12 +669,12 @@
     },
     "withdrawals": {
      "value": "mot avgift",
-     "quote": "Om du tar ut pengar innan bindningstiden är slut tillkommer en avgift.",
+     "quote": "Om du tar ut pengarna i förtid tillkommer en avgift.",
      "source": 1,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.97
+      "confidence": 0.35
      }
     },
     "free_withdrawals_per_year": {
@@ -416,13 +684,13 @@
      "status": "okänt"
     },
     "withdrawal_terms": {
-     "value": "Uttag i förtid tillkommer en avgift baserad på skillnaden mellan avtalad ränta och marknadsränta.",
+     "value": "Uttag i förtid mot avgift baserad på skillnaden mot marknadsräntan.",
      "quote": "Avgiften är baserad på skillnaden mellan den avtalade räntan och den rådande marknadsräntan",
      "source": 1,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.98
+      "confidence": 0.97
      }
     },
     "min_deposit_sek": {
@@ -468,33 +736,34 @@
      "status": "okänt"
     },
     "interest_paid": {
-     "value": "vid bindningstidens slut (slutförfallodagen)",
+     "value": "Hela räntan betalas ut på slutförfallodagen",
      "quote": "Räntan på Fasträntekonto beräknas också utifrån att hela räntan betalas ut på slutförfallodagen.",
      "source": 1,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.83
+      "confidence": 0.91
      }
     },
     "guarantee_country": {
-     "value": "SE",
-     "quote": "Sparande på inlåningskonto är skyddat av den statliga insättningsgarantin enligt regler i lag.",
-     "source": 3,
-     "status": "osäkert",
+     "value": null,
+     "quote": "omfattas av den statliga insättningsgarantin",
+     "source": 1,
+     "status": "stöds inte av källan",
      "jev": {
-      "verdict": "contradicts",
-      "confidence": 0.49
-     }
+      "verdict": "says_nothing",
+      "confidence": 0.88
+     },
+     "claimed": "SE"
     },
     "guarantee_amount": {
      "value": "1.150.000 kronor",
-     "quote": "ersätter kapital och ränta på inlåningskonto upp till 1.150.000 kronor per person och bank/institut.",
+     "quote": "upp till 1.150.000 kronor per person och bank/institut",
      "source": 3,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.34
+      "confidence": 0.8
      }
     },
     "rate_valid_from": {
@@ -514,12 +783,12 @@
    "fields": {
     "product_type": {
      "value": "fasträntekonto",
-     "quote": "Fasträntekontot är ett bundet sparande med fast ränta som omfattas av den statliga insättningsgarantin.",
+     "quote": "Fasträntekontot är ett bundet sparande med fast ränta",
      "source": 1,
-     "status": "belagt",
+     "status": "osäkert",
      "jev": {
-      "verdict": "supports",
-      "confidence": 0.13
+      "verdict": "contradicts",
+      "confidence": 0.3
      }
     },
     "rate_percent": {
@@ -546,12 +815,12 @@
     },
     "withdrawals": {
      "value": "mot avgift",
-     "quote": "Om du tar ut pengar innan bindningstiden är slut tillkommer en avgift.",
+     "quote": "Om du tar ut pengarna i förtid tillkommer en avgift.",
      "source": 1,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.98
+      "confidence": 0.38
      }
     },
     "free_withdrawals_per_year": {
@@ -561,7 +830,7 @@
      "status": "okänt"
     },
     "withdrawal_terms": {
-     "value": "Uttag i förtid tillkommer en avgift baserad på skillnaden mellan avtalad ränta och marknadsränta.",
+     "value": "Uttag i förtid mot avgift baserad på skillnaden mot marknadsräntan.",
      "quote": "Avgiften är baserad på skillnaden mellan den avtalade räntan och den rådande marknadsräntan",
      "source": 1,
      "status": "belagt",
@@ -613,33 +882,34 @@
      "status": "okänt"
     },
     "interest_paid": {
-     "value": "vid bindningstidens slut (slutförfallodagen)",
+     "value": "Hela räntan betalas ut på slutförfallodagen",
      "quote": "Räntan på Fasträntekonto beräknas också utifrån att hela räntan betalas ut på slutförfallodagen.",
      "source": 1,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.83
+      "confidence": 0.95
      }
     },
     "guarantee_country": {
-     "value": "SE",
-     "quote": "Sparande på inlåningskonto är skyddat av den statliga insättningsgarantin enligt regler i lag.",
-     "source": 3,
-     "status": "osäkert",
+     "value": null,
+     "quote": "omfattas av den statliga insättningsgarantin",
+     "source": 1,
+     "status": "stöds inte av källan",
      "jev": {
-      "verdict": "contradicts",
-      "confidence": 0.35
-     }
+      "verdict": "says_nothing",
+      "confidence": 0.8
+     },
+     "claimed": "SE"
     },
     "guarantee_amount": {
      "value": "1.150.000 kronor",
-     "quote": "ersätter kapital och ränta på inlåningskonto upp till 1.150.000 kronor per person och bank/institut.",
+     "quote": "upp till 1.150.000 kronor per person och bank/institut",
      "source": 3,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.31
+      "confidence": 0.83
      }
     },
     "rate_valid_from": {
@@ -659,17 +929,17 @@
    "fields": {
     "product_type": {
      "value": "fasträntekonto",
-     "quote": "Fasträntekontot är ett bundet sparande med fast ränta som omfattas av den statliga insättningsgarantin.",
+     "quote": "Fasträntekontot är ett bundet sparande med fast ränta",
      "source": 1,
-     "status": "belagt",
+     "status": "osäkert",
      "jev": {
-      "verdict": "supports",
-      "confidence": 0.13
+      "verdict": "contradicts",
+      "confidence": 0.28
      }
     },
     "rate_percent": {
-     "value": 2.39,
-     "quote": "1,5 år | 2,39 % | 2,41 %",
+     "value": 2.41,
+     "quote": "1,5 år | 2,41 % | 2,43 %",
      "source": 1,
      "status": "belagt"
     },
@@ -685,18 +955,18 @@
     },
     "binding_months": {
      "value": 18,
-     "quote": "1,5 år | 2,39 % | 2,41 %",
+     "quote": "1,5 år | 2,41 % | 2,43 %",
      "source": 1,
      "status": "belagt"
     },
     "withdrawals": {
      "value": "mot avgift",
-     "quote": "Om du tar ut pengar innan bindningstiden är slut tillkommer en avgift.",
+     "quote": "Om du tar ut pengarna i förtid tillkommer en avgift.",
      "source": 1,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 1.0
+      "confidence": 0.45
      }
     },
     "free_withdrawals_per_year": {
@@ -706,13 +976,13 @@
      "status": "okänt"
     },
     "withdrawal_terms": {
-     "value": "Uttag i förtid tillkommer en avgift baserad på skillnaden mellan avtalad ränta och marknadsränta.",
+     "value": "Uttag i förtid mot avgift baserad på skillnaden mot marknadsräntan.",
      "quote": "Avgiften är baserad på skillnaden mellan den avtalade räntan och den rådande marknadsräntan",
      "source": 1,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.98
+      "confidence": 0.97
      }
     },
     "min_deposit_sek": {
@@ -758,33 +1028,34 @@
      "status": "okänt"
     },
     "interest_paid": {
-     "value": "vid bindningstidens slut (slutförfallodagen)",
+     "value": "Hela räntan betalas ut på slutförfallodagen",
      "quote": "Räntan på Fasträntekonto beräknas också utifrån att hela räntan betalas ut på slutförfallodagen.",
      "source": 1,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.86
+      "confidence": 0.94
      }
     },
     "guarantee_country": {
-     "value": "SE",
-     "quote": "Sparande på inlåningskonto är skyddat av den statliga insättningsgarantin enligt regler i lag.",
-     "source": 3,
-     "status": "osäkert",
+     "value": null,
+     "quote": "omfattas av den statliga insättningsgarantin",
+     "source": 1,
+     "status": "stöds inte av källan",
      "jev": {
-      "verdict": "contradicts",
-      "confidence": 0.51
-     }
+      "verdict": "says_nothing",
+      "confidence": 0.86
+     },
+     "claimed": "SE"
     },
     "guarantee_amount": {
      "value": "1.150.000 kronor",
-     "quote": "ersätter kapital och ränta på inlåningskonto upp till 1.150.000 kronor per person och bank/institut.",
+     "quote": "upp till 1.150.000 kronor per person och bank/institut",
      "source": 3,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.31
+      "confidence": 0.77
      }
     },
     "rate_valid_from": {
@@ -804,17 +1075,17 @@
    "fields": {
     "product_type": {
      "value": "fasträntekonto",
-     "quote": "Fasträntekontot är ett bundet sparande med fast ränta som omfattas av den statliga insättningsgarantin.",
+     "quote": "Fasträntekontot är ett bundet sparande med fast ränta",
      "source": 1,
-     "status": "belagt",
+     "status": "osäkert",
      "jev": {
-      "verdict": "supports",
-      "confidence": 0.11
+      "verdict": "contradicts",
+      "confidence": 0.2
      }
     },
     "rate_percent": {
-     "value": 2.53,
-     "quote": "2 år | 2,53% | 2,54 %",
+     "value": 2.55,
+     "quote": "2 år | 2,55% | 2,56 %",
      "source": 1,
      "status": "belagt"
     },
@@ -830,18 +1101,18 @@
     },
     "binding_months": {
      "value": 24,
-     "quote": "2 år | 2,53% | 2,54 %",
+     "quote": "2 år | 2,55% | 2,56 %",
      "source": 1,
      "status": "belagt"
     },
     "withdrawals": {
      "value": "mot avgift",
-     "quote": "Om du tar ut pengar innan bindningstiden är slut tillkommer en avgift.",
+     "quote": "Om du tar ut pengarna i förtid tillkommer en avgift.",
      "source": 1,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.98
+      "confidence": 0.46
      }
     },
     "free_withdrawals_per_year": {
@@ -851,13 +1122,13 @@
      "status": "okänt"
     },
     "withdrawal_terms": {
-     "value": "Uttag i förtid tillkommer en avgift baserad på skillnaden mellan avtalad ränta och marknadsränta.",
+     "value": "Uttag i förtid mot avgift baserad på skillnaden mot marknadsräntan.",
      "quote": "Avgiften är baserad på skillnaden mellan den avtalade räntan och den rådande marknadsräntan",
      "source": 1,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.98
+      "confidence": 0.97
      }
     },
     "min_deposit_sek": {
@@ -903,33 +1174,34 @@
      "status": "okänt"
     },
     "interest_paid": {
-     "value": "vid bindningstidens slut (slutförfallodagen)",
+     "value": "Hela räntan betalas ut på slutförfallodagen",
      "quote": "Räntan på Fasträntekonto beräknas också utifrån att hela räntan betalas ut på slutförfallodagen.",
      "source": 1,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.86
+      "confidence": 0.92
      }
     },
     "guarantee_country": {
-     "value": "SE",
-     "quote": "Sparande på inlåningskonto är skyddat av den statliga insättningsgarantin enligt regler i lag.",
-     "source": 3,
-     "status": "osäkert",
+     "value": null,
+     "quote": "omfattas av den statliga insättningsgarantin",
+     "source": 1,
+     "status": "stöds inte av källan",
      "jev": {
-      "verdict": "contradicts",
-      "confidence": 0.45
-     }
+      "verdict": "says_nothing",
+      "confidence": 0.82
+     },
+     "claimed": "SE"
     },
     "guarantee_amount": {
      "value": "1.150.000 kronor",
-     "quote": "ersätter kapital och ränta på inlåningskonto upp till 1.150.000 kronor per person och bank/institut.",
+     "quote": "upp till 1.150.000 kronor per person och bank/institut",
      "source": 3,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.28
+      "confidence": 0.79
      }
     },
     "rate_valid_from": {
@@ -949,17 +1221,17 @@
    "fields": {
     "product_type": {
      "value": "fasträntekonto",
-     "quote": "Fasträntekontot är ett bundet sparande med fast ränta som omfattas av den statliga insättningsgarantin.",
+     "quote": "Fasträntekontot är ett bundet sparande med fast ränta",
      "source": 1,
-     "status": "belagt",
+     "status": "osäkert",
      "jev": {
-      "verdict": "supports",
-      "confidence": 0.13
+      "verdict": "contradicts",
+      "confidence": 0.48
      }
     },
     "rate_percent": {
-     "value": 2.64,
-     "quote": "3 år | 2,64 % | 2,61 %",
+     "value": 2.66,
+     "quote": "3 år | 2,66 % | 2,63 %",
      "source": 1,
      "status": "belagt"
     },
@@ -975,18 +1247,18 @@
     },
     "binding_months": {
      "value": 36,
-     "quote": "3 år | 2,64 % | 2,61 %",
+     "quote": "3 år | 2,66 % | 2,63 %",
      "source": 1,
      "status": "belagt"
     },
     "withdrawals": {
      "value": "mot avgift",
-     "quote": "Om du tar ut pengar innan bindningstiden är slut tillkommer en avgift.",
+     "quote": "Om du tar ut pengarna i förtid tillkommer en avgift.",
      "source": 1,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 1.0
+      "confidence": 0.45
      }
     },
     "free_withdrawals_per_year": {
@@ -996,13 +1268,13 @@
      "status": "okänt"
     },
     "withdrawal_terms": {
-     "value": "Uttag i förtid tillkommer en avgift baserad på skillnaden mellan avtalad ränta och marknadsränta.",
+     "value": "Uttag i förtid mot avgift baserad på skillnaden mot marknadsräntan.",
      "quote": "Avgiften är baserad på skillnaden mellan den avtalade räntan och den rådande marknadsräntan",
      "source": 1,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 1.0
+      "confidence": 0.97
      }
     },
     "min_deposit_sek": {
@@ -1048,33 +1320,34 @@
      "status": "okänt"
     },
     "interest_paid": {
-     "value": "vid bindningstidens slut (slutförfallodagen)",
+     "value": "Hela räntan betalas ut på slutförfallodagen",
      "quote": "Räntan på Fasträntekonto beräknas också utifrån att hela räntan betalas ut på slutförfallodagen.",
      "source": 1,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.88
+      "confidence": 0.94
      }
     },
     "guarantee_country": {
-     "value": "SE",
-     "quote": "Sparande på inlåningskonto är skyddat av den statliga insättningsgarantin enligt regler i lag.",
-     "source": 3,
-     "status": "osäkert",
+     "value": null,
+     "quote": "omfattas av den statliga insättningsgarantin",
+     "source": 1,
+     "status": "stöds inte av källan",
      "jev": {
-      "verdict": "contradicts",
-      "confidence": 0.46
-     }
+      "verdict": "says_nothing",
+      "confidence": 0.83
+     },
+     "claimed": "SE"
     },
     "guarantee_amount": {
      "value": "1.150.000 kronor",
-     "quote": "ersätter kapital och ränta på inlåningskonto upp till 1.150.000 kronor per person och bank/institut.",
+     "quote": "upp till 1.150.000 kronor per person och bank/institut",
      "source": 3,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.28
+      "confidence": 0.82
      }
     },
     "rate_valid_from": {
@@ -1094,17 +1367,17 @@
    "fields": {
     "product_type": {
      "value": "fasträntekonto",
-     "quote": "Fasträntekontot är ett bundet sparande med fast ränta som omfattas av den statliga insättningsgarantin.",
+     "quote": "Fasträntekontot är ett bundet sparande med fast ränta",
      "source": 1,
-     "status": "belagt",
+     "status": "osäkert",
      "jev": {
-      "verdict": "supports",
-      "confidence": 0.14
+      "verdict": "contradicts",
+      "confidence": 0.35
      }
     },
     "rate_percent": {
-     "value": 2.69,
-     "quote": "4 år | 2,69 % | 2,62 %",
+     "value": 2.71,
+     "quote": "4 år | 2,71 % | 2,64 %",
      "source": 1,
      "status": "belagt"
     },
@@ -1120,18 +1393,18 @@
     },
     "binding_months": {
      "value": 48,
-     "quote": "4 år | 2,69 % | 2,62 %",
+     "quote": "4 år | 2,71 % | 2,64 %",
      "source": 1,
      "status": "belagt"
     },
     "withdrawals": {
      "value": "mot avgift",
-     "quote": "Om du tar ut pengar innan bindningstiden är slut tillkommer en avgift.",
+     "quote": "Om du tar ut pengarna i förtid tillkommer en avgift.",
      "source": 1,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.98
+      "confidence": 0.45
      }
     },
     "free_withdrawals_per_year": {
@@ -1141,13 +1414,13 @@
      "status": "okänt"
     },
     "withdrawal_terms": {
-     "value": "Uttag i förtid tillkommer en avgift baserad på skillnaden mellan avtalad ränta och marknadsränta.",
+     "value": "Uttag i förtid mot avgift baserad på skillnaden mot marknadsräntan.",
      "quote": "Avgiften är baserad på skillnaden mellan den avtalade räntan och den rådande marknadsräntan",
      "source": 1,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.98
+      "confidence": 0.97
      }
     },
     "min_deposit_sek": {
@@ -1193,33 +1466,34 @@
      "status": "okänt"
     },
     "interest_paid": {
-     "value": "vid bindningstidens slut (slutförfallodagen)",
+     "value": "Hela räntan betalas ut på slutförfallodagen",
      "quote": "Räntan på Fasträntekonto beräknas också utifrån att hela räntan betalas ut på slutförfallodagen.",
      "source": 1,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.85
+      "confidence": 0.92
      }
     },
     "guarantee_country": {
-     "value": "SE",
-     "quote": "Sparande på inlåningskonto är skyddat av den statliga insättningsgarantin enligt regler i lag.",
-     "source": 3,
-     "status": "osäkert",
+     "value": null,
+     "quote": "omfattas av den statliga insättningsgarantin",
+     "source": 1,
+     "status": "stöds inte av källan",
      "jev": {
-      "verdict": "contradicts",
-      "confidence": 0.49
-     }
+      "verdict": "says_nothing",
+      "confidence": 0.83
+     },
+     "claimed": "SE"
     },
     "guarantee_amount": {
      "value": "1.150.000 kronor",
-     "quote": "ersätter kapital och ränta på inlåningskonto upp till 1.150.000 kronor per person och bank/institut.",
+     "quote": "upp till 1.150.000 kronor per person och bank/institut",
      "source": 3,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.3
+      "confidence": 0.77
      }
     },
     "rate_valid_from": {
@@ -1239,17 +1513,17 @@
    "fields": {
     "product_type": {
      "value": "fasträntekonto",
-     "quote": "Fasträntekontot är ett bundet sparande med fast ränta som omfattas av den statliga insättningsgarantin.",
+     "quote": "Fasträntekontot är ett bundet sparande med fast ränta",
      "source": 1,
-     "status": "belagt",
+     "status": "osäkert",
      "jev": {
-      "verdict": "supports",
-      "confidence": 0.09
+      "verdict": "contradicts",
+      "confidence": 0.3
      }
     },
     "rate_percent": {
-     "value": 2.73,
-     "quote": "5 år | 2,73 % | 2,63 %",
+     "value": 2.75,
+     "quote": "5 år | 2,75 % | 2,65 %",
      "source": 1,
      "status": "belagt"
     },
@@ -1265,18 +1539,18 @@
     },
     "binding_months": {
      "value": 60,
-     "quote": "5 år | 2,73 % | 2,63 %",
+     "quote": "5 år | 2,75 % | 2,65 %",
      "source": 1,
      "status": "belagt"
     },
     "withdrawals": {
      "value": "mot avgift",
-     "quote": "Om du tar ut pengar innan bindningstiden är slut tillkommer en avgift.",
+     "quote": "Om du tar ut pengarna i förtid tillkommer en avgift.",
      "source": 1,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 1.0
+      "confidence": 0.49
      }
     },
     "free_withdrawals_per_year": {
@@ -1286,13 +1560,13 @@
      "status": "okänt"
     },
     "withdrawal_terms": {
-     "value": "Uttag i förtid tillkommer en avgift baserad på skillnaden mellan avtalad ränta och marknadsränta.",
+     "value": "Uttag i förtid mot avgift baserad på skillnaden mot marknadsräntan.",
      "quote": "Avgiften är baserad på skillnaden mellan den avtalade räntan och den rådande marknadsräntan",
      "source": 1,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 1.0
+      "confidence": 0.97
      }
     },
     "min_deposit_sek": {
@@ -1338,33 +1612,34 @@
      "status": "okänt"
     },
     "interest_paid": {
-     "value": "vid bindningstidens slut (slutförfallodagen)",
+     "value": "Hela räntan betalas ut på slutförfallodagen",
      "quote": "Räntan på Fasträntekonto beräknas också utifrån att hela räntan betalas ut på slutförfallodagen.",
      "source": 1,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.86
+      "confidence": 0.94
      }
     },
     "guarantee_country": {
-     "value": "SE",
-     "quote": "Sparande på inlåningskonto är skyddat av den statliga insättningsgarantin enligt regler i lag.",
-     "source": 3,
-     "status": "osäkert",
+     "value": null,
+     "quote": "omfattas av den statliga insättningsgarantin",
+     "source": 1,
+     "status": "stöds inte av källan",
      "jev": {
-      "verdict": "contradicts",
-      "confidence": 0.49
-     }
+      "verdict": "says_nothing",
+      "confidence": 0.85
+     },
+     "claimed": "SE"
     },
     "guarantee_amount": {
      "value": "1.150.000 kronor",
-     "quote": "ersätter kapital och ränta på inlåningskonto upp till 1.150.000 kronor per person och bank/institut.",
+     "quote": "upp till 1.150.000 kronor per person och bank/institut",
      "source": 3,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.4
+      "confidence": 0.8
      }
     },
     "rate_valid_from": {
@@ -1379,7 +1654,7 @@
    "status": "verifierad"
   }
  ],
- "source_hash": "1f39c9deaf398e4c",
- "changed_at": "2026-10-22T00:22:01+00:00",
+ "source_hash": "6a844db803bb8f96",
+ "changed_at": "2026-10-23T00:22:42+00:00",
  "model": "claude-haiku-5-5"
 }

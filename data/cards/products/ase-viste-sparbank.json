@@ -7,8 +7,8 @@
   "kind": "sparbank",
   "legal_name": "Åse och Viste härads Sparbank"
  },
- "checked_at": "2026-10-22T03:59:19+00:00",
- "discovered_at": "2026-10-16T13:41:02+00:00",
+ "checked_at": "2026-10-23T04:14:18+00:00",
+ "discovered_at": "2026-10-23T04:14:18+00:00",
  "sources": [
   {
    "url": "https://www.avsparbank.se/privat/kort/kreditkort.html",
@@ -57,7 +57,7 @@
    "title": "Valutakurser betalningar - betala på resan | Valuta | Åse Viste Sparbank",
    "kind": "html",
    "via": "http",
-   "chars": 6170
+   "chars": 6171
   },
   {
    "url": "https://www.avsparbank.se/privat/rantor-priser-och-kurser/rantor.html",
@@ -65,27 +65,6 @@
    "kind": "html",
    "via": "http",
    "chars": 6163
-  },
-  {
-   "url": "https://www.entercard.com/terms-and-conditions/mastercard_platinum_8440.pdf",
-   "title": "mastercard_platinum_8440.pdf",
-   "kind": "pdf",
-   "via": "http",
-   "chars": 64713
-  },
-  {
-   "url": "https://www.entercard.com/terms-and-conditions/betal_kreditkort_mc_8440.pdf",
-   "title": "betal_kreditkort_mc_8440.pdf",
-   "kind": "pdf",
-   "via": "http",
-   "chars": 62581
-  },
-  {
-   "url": "https://www.entercard.com/terms-and-conditions/mastercard_guld_8440.pdf",
-   "title": "mastercard_guld_8440.pdf",
-   "kind": "pdf",
-   "via": "http",
-   "chars": 64794
   },
   {
    "url": "https://kort.trygghansa.se/globalassets/cards/swedbank/tryg-se_swedbank-sparbankernas_betal-och-kreditkort_rf02-2901-02_nov25_aa.pdf",
@@ -96,20 +75,22 @@
   }
  ],
  "status": "ok",
- "notes": "Prissektionen på varje kortsida visar en lägre ränta (10,95 % / 10,95 % / 10,45 %) och lägre effektiv ränta än räkneexemplet och Entercards standardiserade kreditinformation (13,55 % / 13,55 % / 13,05 %). Jag använde räkneexemplets värden, eftersom de stämmer med de effektiva räntorna i rubriken och i PDF:erna. Nyckelkund-priser (Mastercard 0 kr, Guld 295 kr, Platinum 1 400 kr) är inte inlagda som årsavgift. Krav på bankkund anges inte för själva kortet, så requires_other_products är null. Bonus anges för Guld och Platinum men inte för Mastercard.",
+ "notes": "Källorna anger olika räntor: prislistan (tabellen) visar 10,95 % (Mastercard, Guld) och 10,45 % (Platinum), medan räkneexemplen anger 13,55 % respektive 13,05 % 'för närvarande, rörlig'. Ränta och effektiv ränta i prislistan skiljer sig också från räkneexemplen (t.ex. effektiv ränta 11,18 % i tabellen mot 13,50 % i exemplet för Mastercard). Här används prislistans nominella ränta och exemplets effektiva ränta; kontrollera mot kortvillkoren (PDF) som inte kunde läsas. Nyckelkundspriser (årsavgift 0 kr / 295 kr / 1 400 kr) finns men är inte huvudvärden. Årsavgift anges som ordinarie pris. Kreditgivare Entercard; villkor för kreditgränser och ålder/inkomst gäller generellt enligt FAQ. Ingen bonus angiven för vanliga Mastercard.",
  "products": [
   {
    "name": "Betal- och kreditkort Mastercard",
-   "flags": [],
+   "flags": [
+    "räntan hoppade 13.55 → 10.95 %, väntar på bekräftelse nästa körning"
+   ],
    "fields": {
     "card_type": {
      "value": "kreditkort",
-     "quote": "Dela upp beloppet och betala i omgångar, med ränta",
+     "quote": "Kredit 20 000-100 000 kronor, med upp till 55 dagars räntefri kredit.",
      "source": 2,
-     "status": "belagt",
+     "status": "osäkert",
      "jev": {
-      "verdict": "supports",
-      "confidence": 0.25
+      "verdict": "says_nothing",
+      "confidence": 0.46
      }
     },
     "network": {
@@ -129,7 +110,7 @@
      "status": "osäkert",
      "jev": {
       "verdict": "contradicts",
-      "confidence": 0.23
+      "confidence": 0.38
      }
     },
     "monthly_fee_sek": {
@@ -140,22 +121,22 @@
     },
     "invoice_fee_sek": {
      "value": 0,
-     "quote": "Pappersfaktura 29 kr (e-faktura 0 kr)",
-     "source": 9,
+     "quote": "anmäla e-faktura som är utan avgift",
+     "source": 4,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.83
+      "confidence": 0.66
      }
     },
     "rate_percent": {
-     "value": 13.55,
-     "quote": "Ränta för närvarande 13,55 % (2025-10-01), rörlig. Årsavgift 195 kr.",
+     "value": 10.95,
+     "quote": "10,95 %",
      "source": 2,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.88
+      "confidence": 0.82
      }
     },
     "rate_max_percent": {
@@ -166,48 +147,48 @@
     },
     "interest_free_days": {
      "value": 55,
-     "quote": "Du har upp till 55 dagars räntefri kredit.",
-     "source": 2,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.58
-     }
-    },
-    "credit_limit_max_sek": {
-     "value": 100000,
      "quote": "Kredit 20 000-100 000 kronor, med upp till 55 dagars räntefri kredit.",
      "source": 2,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.94
+      "confidence": 0.38
+     }
+    },
+    "credit_limit_max_sek": {
+     "value": 100000,
+     "quote": "Kredit 20 000-100 000 kronor",
+     "source": 2,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.97
      }
     },
     "currency_fee_percent": {
      "value": 1.65,
-     "quote": "Valutaväxlingspåslag 1,65 % på valutakursen.",
-     "source": 9,
+     "quote": "1,65 %",
+     "source": 2,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.86
+      "confidence": 0.98
      }
     },
     "atm_fee_percent": {
      "value": 3,
-     "quote": "Kontantuttagsavgift 3 %, lägst 45 kr.",
-     "source": 9,
+     "quote": "3 % (lägst 45 kr)",
+     "source": 2,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.72
+      "confidence": 0.98
      }
     },
     "atm_fee_min_sek": {
      "value": 45,
-     "quote": "Kontantuttagsavgift 3 %, lägst 45 kr.",
-     "source": 9,
+     "quote": "3 % (lägst 45 kr)",
+     "source": 2,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
@@ -226,12 +207,12 @@
     },
     "example_effective_rate_percent": {
      "value": 13.5,
-     "quote": "Utnyttjad kredit på 20 000 kr: effektiva räntan är för närvarande 13,50 %",
+     "quote": "effektiva räntan är för närvarande 13,50 %",
      "source": 2,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.98
+      "confidence": 0.91
      }
     },
     "min_age": {
@@ -256,7 +237,7 @@
     },
     "travel_insurance": {
      "value": true,
-     "quote": "När du betalar resan med kreditkortet ingår en reseförsäkring, med avbeställningsskydd.",
+     "quote": "Mer trygghet när du handlar med kreditkortet då reseförsäkring och köpförsäkringar ingår.",
      "source": 2,
      "status": "belagt",
      "jev": {
@@ -277,28 +258,34 @@
      "status": "okänt"
     },
     "requirements": {
-     "value": null,
-     "quote": null,
-     "source": null,
-     "status": "okänt"
-    }
-   },
-   "rate_tiers": [],
-   "pending_rate": null,
-   "status": "verifierad"
-  },
-  {
-   "name": "Betal- och kreditkort Mastercard Guld",
-   "flags": [],
-   "fields": {
-    "card_type": {
-     "value": "kreditkort",
-     "quote": "Dela upp beloppet och betala i omgångar, med ränta",
-     "source": 3,
+     "value": "Kreditbedömning. Nyckelkund har alltid kostnadsfri årsavgift.",
+     "quote": "Som Nyckelkund är det alltid kostnadsfritt.",
+     "source": 2,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.58
+      "confidence": 0.33
+     }
+    }
+   },
+   "rate_tiers": [],
+   "pending_rate": 10.95,
+   "status": "ej verifierad"
+  },
+  {
+   "name": "Betal- och kreditkort Mastercard Guld",
+   "flags": [
+    "räntan hoppade 13.55 → 10.95 %, väntar på bekräftelse nästa körning"
+   ],
+   "fields": {
+    "card_type": {
+     "value": "kreditkort",
+     "quote": "Kredit 30 000-500 000 kronor, med upp till 55 dagars räntefri kredit.",
+     "source": 3,
+     "status": "osäkert",
+     "jev": {
+      "verdict": "says_nothing",
+      "confidence": 0.48
      }
     },
     "network": {
@@ -313,12 +300,12 @@
     },
     "annual_fee_sek": {
      "value": 495,
-     "quote": "Ordinarie pris 495 kr (Nyckelkund 295 kr)",
-     "source": 10,
-     "status": "belagt",
+     "quote": "(ordinarie pris 495 kr)",
+     "source": 3,
+     "status": "osäkert",
      "jev": {
-      "verdict": "supports",
-      "confidence": 0.37
+      "verdict": "says_nothing",
+      "confidence": 0.62
      }
     },
     "monthly_fee_sek": {
@@ -329,22 +316,22 @@
     },
     "invoice_fee_sek": {
      "value": 0,
-     "quote": "Pappersfaktura 29 kr (e-faktura 0 kr)",
-     "source": 10,
+     "quote": "anmäla e-faktura som är utan avgift",
+     "source": 4,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.79
+      "confidence": 0.62
      }
     },
     "rate_percent": {
-     "value": 13.55,
-     "quote": "Ränta för närvarande 13,55 % (2025-10-01), rörlig. Årsavgift 495 kr.",
+     "value": 10.95,
+     "quote": "10,95 %",
      "source": 3,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.98
+      "confidence": 0.77
      }
     },
     "rate_max_percent": {
@@ -355,72 +342,72 @@
     },
     "interest_free_days": {
      "value": 55,
-     "quote": "Du har upp till 55 dagars räntefri kredit.",
-     "source": 3,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.62
-     }
-    },
-    "credit_limit_max_sek": {
-     "value": 500000,
      "quote": "Kredit 30 000-500 000 kronor, med upp till 55 dagars räntefri kredit.",
      "source": 3,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.97
+      "confidence": 0.53
+     }
+    },
+    "credit_limit_max_sek": {
+     "value": 500000,
+     "quote": "Kredit 30 000-500 000 kronor",
+     "source": 3,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.92
      }
     },
     "currency_fee_percent": {
      "value": 1.65,
-     "quote": "Valutaväxlingspåslag 1,65 % på valutakursen.",
-     "source": 10,
+     "quote": "1,65 %",
+     "source": 3,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.95
+     }
+    },
+    "atm_fee_percent": {
+     "value": 3,
+     "quote": "3 % (lägst 45 kr)",
+     "source": 3,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
       "confidence": 0.98
      }
     },
-    "atm_fee_percent": {
-     "value": 3,
-     "quote": "Kontantuttagsavgift 3 %, lägst 45 kr.",
-     "source": 10,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.97
-     }
-    },
     "atm_fee_min_sek": {
      "value": 45,
-     "quote": "Kontantuttagsavgift 3 %, lägst 45 kr.",
-     "source": 10,
+     "quote": "3 % (lägst 45 kr)",
+     "source": 3,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.97
+      "confidence": 0.94
      }
     },
     "example_credit_sek": {
      "value": 70000,
-     "quote": "Utnyttjad kredit på 70 000 kr: effektiva närvarande 12,93 % (Nyckelkund: 12,32 %)",
+     "quote": "Utnyttjad kredit på 70 000 kr: effektiva närvarande 12,93 %",
      "source": 3,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 1.0
+      "confidence": 0.98
      }
     },
     "example_effective_rate_percent": {
      "value": 12.93,
-     "quote": "Utnyttjad kredit på 70 000 kr: effektiva närvarande 12,93 % (Nyckelkund: 12,32 %)",
+     "quote": "effektiva närvarande 12,93 %",
      "source": 3,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 1.0
+      "confidence": 0.94
      }
     },
     "min_age": {
@@ -445,18 +432,18 @@
     },
     "travel_insurance": {
      "value": true,
-     "quote": "När du betalar resan med kreditkortet ingår en reseförsäkring, med avbeställningsskydd.",
+     "quote": "Smidigare resor med reseförsäkring och köpförsäkringar när du handlar.",
      "source": 3,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 1.0
+      "confidence": 0.95
      }
     },
     "bonus": {
-     "value": "1 bonuspoäng per spenderad krona; 100 kr utbetalning per 25 000 poäng",
-     "quote": "Bonus utgår med 1 bonuspoäng per spenderad krona",
-     "source": 10,
+     "value": "Bonus på allt du handlar, rabatt på drivmedel hos Preem",
+     "quote": "Bonus på allt du handlar och rabatt på bensin och andra drivmedel.",
+     "source": 3,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
@@ -470,28 +457,34 @@
      "status": "okänt"
     },
     "requirements": {
-     "value": null,
-     "quote": null,
-     "source": null,
-     "status": "okänt"
-    }
-   },
-   "rate_tiers": [],
-   "pending_rate": null,
-   "status": "verifierad"
-  },
-  {
-   "name": "Betal- och kreditkort Mastercard Platinum",
-   "flags": [],
-   "fields": {
-    "card_type": {
-     "value": "kreditkort",
-     "quote": "Dela upp beloppet och betala i omgångar, med ränta",
-     "source": 1,
+     "value": "Kreditbedömning. Nyckelkund betalar 295 kr i årsavgift.",
+     "quote": "(ordinarie pris 495 kr)",
+     "source": 3,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.55
+      "confidence": 0.28
+     }
+    }
+   },
+   "rate_tiers": [],
+   "pending_rate": 10.95,
+   "status": "ej verifierad"
+  },
+  {
+   "name": "Betal- och kreditkort Mastercard Platinum",
+   "flags": [
+    "räntan hoppade 13.05 → 10.45 %, väntar på bekräftelse nästa körning"
+   ],
+   "fields": {
+    "card_type": {
+     "value": "kreditkort",
+     "quote": "Kredit 50 000-750 000 kronor, med upp till 55 dagars räntefri kredit.",
+     "source": 1,
+     "status": "osäkert",
+     "jev": {
+      "verdict": "says_nothing",
+      "confidence": 0.49
      }
     },
     "network": {
@@ -500,18 +493,18 @@
      "source": 1,
      "status": "osäkert",
      "jev": {
-      "verdict": "says_nothing",
-      "confidence": 0.3
+      "verdict": "contradicts",
+      "confidence": 0.51
      }
     },
     "annual_fee_sek": {
      "value": 1700,
-     "quote": "Årsavgift 1 700 kr (Nyckelkund 1 400 kr)",
-     "source": 8,
+     "quote": "Årsavgift 1 700 kr.",
+     "source": 1,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.66
+      "confidence": 0.13
      }
     },
     "monthly_fee_sek": {
@@ -522,22 +515,22 @@
     },
     "invoice_fee_sek": {
      "value": 0,
-     "quote": "Pappersfaktura 29 kr (e-faktura 0 kr)",
-     "source": 8,
+     "quote": "anmäla e-faktura som är utan avgift",
+     "source": 4,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.88
+      "confidence": 0.28
      }
     },
     "rate_percent": {
-     "value": 13.05,
-     "quote": "Ränta för närvarande 13,05 % (2025-10-01), rörlig. Årsavgift 1 700 kr.",
+     "value": 10.45,
+     "quote": "10,45 %",
      "source": 1,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 1.0
+      "confidence": 0.76
      }
     },
     "rate_max_percent": {
@@ -558,62 +551,62 @@
     },
     "credit_limit_max_sek": {
      "value": 750000,
-     "quote": "Kredit 50 000-750 000 kronor, med upp till 55 dagars räntefri kredit.",
+     "quote": "Kredit 50 000-750 000 kronor",
      "source": 1,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 1.0
+      "confidence": 0.95
      }
     },
     "currency_fee_percent": {
      "value": 1.65,
-     "quote": "Valutaväxlingspåslag 1,65 % på valutakursen.",
-     "source": 8,
+     "quote": "1,65 %",
+     "source": 1,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.98
+      "confidence": 0.97
      }
     },
     "atm_fee_percent": {
      "value": 3,
-     "quote": "Kontantuttagsavgift 3 %, lägst 45 kr.",
-     "source": 8,
+     "quote": "3 % (lägst 45 kr)",
+     "source": 1,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 1.0
+      "confidence": 0.94
      }
     },
     "atm_fee_min_sek": {
      "value": 45,
-     "quote": "Kontantuttagsavgift 3 %, lägst 45 kr.",
-     "source": 8,
+     "quote": "3 % (lägst 45 kr)",
+     "source": 1,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.98
+      "confidence": 0.97
      }
     },
     "example_credit_sek": {
      "value": 100000,
-     "quote": "Utnyttjad kredit på 100 000 kr: effektiva räntan är för närvarande 14,62 % (Nyckelkund: 13,97 %)",
+     "quote": "Utnyttjad kredit på 100 000 kr: effektiva räntan är för närvarande 14,62 %",
      "source": 1,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.98
+      "confidence": 0.97
      }
     },
     "example_effective_rate_percent": {
      "value": 14.62,
-     "quote": "Utnyttjad kredit på 100 000 kr: effektiva räntan är för närvarande 14,62 % (Nyckelkund: 13,97 %)",
+     "quote": "effektiva räntan är för närvarande 14,62 %",
      "source": 1,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 1.0
+      "confidence": 0.94
      }
     },
     "min_age": {
@@ -638,18 +631,18 @@
     },
     "travel_insurance": {
      "value": true,
-     "quote": "När du betalar resan med kreditkortet ingår en reseförsäkring, med avbeställningsskydd.",
+     "quote": "Reseförsäkring och köpförsäkring ingår, samt bonus på allt du handlar.",
      "source": 1,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 1.0
+      "confidence": 0.98
      }
     },
     "bonus": {
-     "value": "1 bonuspoäng per spenderad krona; 100 kr utbetalning per 25 000 poäng",
-     "quote": "Bonus utgår med 1 bonuspoäng per spenderad krona",
-     "source": 8,
+     "value": "Bonus på allt du handlar, rabatt på drivmedel hos Preem",
+     "quote": "Varje gång du handlar med Mastercard Platinum samlar du bonus.",
+     "source": 1,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
@@ -670,11 +663,11 @@
     }
    },
    "rate_tiers": [],
-   "pending_rate": null,
-   "status": "verifierad"
+   "pending_rate": 10.45,
+   "status": "ej verifierad"
   }
  ],
- "source_hash": "0f59a09d1319ca9f",
- "changed_at": "2026-10-16T16:49:50+00:00",
- "model": "claude-sonnet-5-5"
+ "source_hash": "0bb1443aa108bab5",
+ "changed_at": "2026-10-23T04:14:18+00:00",
+ "model": "claude-haiku-5-5"
 }
