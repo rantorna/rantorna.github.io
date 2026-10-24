@@ -7,15 +7,15 @@
   "kind": "nischbank",
   "legal_name": "Lea Bank AB"
  },
- "checked_at": "2026-10-23T04:26:15+00:00",
- "discovered_at": "2026-10-16T17:00:43+00:00",
+ "checked_at": "2026-10-24T04:35:50+00:00",
+ "discovered_at": "2026-10-24T04:35:50+00:00",
  "sources": [
   {
-   "url": "https://leabank.se/kundservice/priser",
-   "title": "Produkter och priser",
-   "kind": "html",
-   "via": "browser",
-   "chars": 3746
+   "url": "https://leabankstorage.blob.core.windows.net/strapi-uploads/assets/Kreditkort_010525_Kopi_4e1e2ad4ec.pdf",
+   "title": "Kreditkort_010525_Kopi_4e1e2ad4ec.pdf",
+   "kind": "pdf",
+   "via": "http",
+   "chars": 60242
   },
   {
    "url": "https://leabank.se/kreditkort",
@@ -25,6 +25,13 @@
    "chars": 7474
   },
   {
+   "url": "https://leabank.se/kundservice/priser",
+   "title": "Produkter och priser",
+   "kind": "html",
+   "via": "browser",
+   "chars": 3746
+  },
+  {
    "url": "https://kreditkort.leabank.se/",
    "title": "Ansökan om kreditkort – Lea Bank",
    "kind": "html",
@@ -32,35 +39,62 @@
    "chars": 940
   },
   {
-   "url": "https://leabankstorage.blob.core.windows.net/strapi-uploads/assets/Kreditkort_010525_Kopi_4e1e2ad4ec.pdf",
-   "title": "Kreditkort_010525_Kopi_4e1e2ad4ec.pdf",
+   "url": "https://leabank.se/kreditkort/apple-pay",
+   "title": "Apple Pay",
+   "kind": "html",
+   "via": "browser",
+   "chars": 5720
+  },
+  {
+   "url": "https://leabank.se/",
+   "title": "Lea Bank - Privatlån, samla lån, kreditkort och sparande",
+   "kind": "html",
+   "via": "browser",
+   "chars": 4983
+  },
+  {
+   "url": "https://leabank.se/forsakringar/utgiftsskydd",
+   "title": "Utgiftsskydd",
+   "kind": "html",
+   "via": "browser",
+   "chars": 5046
+  },
+  {
+   "url": "https://leabank.se/kundservice/cookies",
+   "title": "Cookies",
+   "kind": "html",
+   "via": "browser",
+   "chars": 3122
+  },
+  {
+   "url": "https://cms.leabank.no/media-proxy/uploads/uploads/Villkor_Utgiftsskydd_Lea_Bank_602b1cca86.pdf",
+   "title": "Villkor_Utgiftsskydd_Lea_Bank_602b1cca86.pdf",
    "kind": "pdf",
    "via": "http",
-   "chars": 60242
+   "chars": 24698
   }
  ],
- "status": "senaste tolkning misslyckades (gränsen redan nådd i den här körningen)",
- "notes": "Ett kort (virtuellt Visa-kreditkort). Inkomstkravet anges per månad (15 000 kr); värdet 180000 är omräknat till år (15 000 × 12), citatet anger månadsbeloppet. Effektiv ränta i SEKKI (18,87 % på 50 000 kr) skiljer sig från webbens exempel (26,45 % på 20 000 kr); webbens exempel valdes. Aviavgift finns endast för pappersavi (30 kr), ingen avgift för e-faktura angavs.",
+ "status": "ok",
+ "notes": "Produkten heter i källorna \"Lea Bank Kreditkort\" (virtuellt kort, Visa); ordet \"Classic\" finns inte i dokumenten, så namnet är satt efter källan. Kravet på inkomst anges per månad (15 000 kr/månad), därför är min_income_sek null. Avi-/fakturaavgift för e-faktura saknas; endast pappersavi 30 kr anges, så fältet är null. Effektiv ränta: SEKKI anger 18,87 % för 50 000 kr/12 månader, men webbsidan anger 26,45 % för exemplet 20 000 kr; SEKKI-värdet används här. Årsavgift 0 kr enligt flera källor.",
  "products": [
   {
    "name": "Lea Bank Kreditkort",
    "flags": [],
    "fields": {
     "card_type": {
-     "value": null,
-     "quote": "Betal- och kreditkort med eventuellt\navtalade tilläggstjänster (försäkring etc)",
-     "source": 3,
-     "status": "stöds inte av källan",
+     "value": "kreditkort",
+     "quote": "Krediten disponeras med ett kreditkort.",
+     "source": 0,
+     "status": "belagt",
      "jev": {
-      "verdict": "says_nothing",
-      "confidence": 0.91
-     },
-     "claimed": "kreditkort"
+      "verdict": "supports",
+      "confidence": 0.55
+     }
     },
     "network": {
      "value": "Visa",
      "quote": "som är anslutet till VISA kortnätverk",
-     "source": 3,
+     "source": 0,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
@@ -69,18 +103,18 @@
     },
     "annual_fee_sek": {
      "value": 0,
-     "quote": "Årsavgift 0 kr.",
-     "source": 0,
+     "quote": "Lea Bank Kreditkort har ingen årsavgift.",
+     "source": 1,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.85
+      "confidence": 0.33
      }
     },
     "monthly_fee_sek": {
      "value": 0,
      "quote": "Månadsavgift: 0 KR",
-     "source": 3,
+     "source": 0,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
@@ -95,12 +129,12 @@
     },
     "rate_percent": {
      "value": 19.9,
-     "quote": "| Ränta | 19,90% |",
-     "source": 0,
+     "quote": "Ränta för närvarande 19,90% (2026-01-28), fast.",
+     "source": 1,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.98
+      "confidence": 0.91
      }
     },
     "rate_max_percent": {
@@ -111,38 +145,38 @@
     },
     "interest_free_days": {
      "value": 47,
-     "quote": "upp till 47 dagars räntefri kredit",
+     "quote": "Få upp till 47 dagars räntefri kredit",
      "source": 1,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.77
+      "confidence": 0.48
      }
     },
     "credit_limit_max_sek": {
      "value": 50000,
-     "quote": "Vi erbjuder en kreditgräns upp till 50 000 kronor och upp till 47 dagars räntefri kredit.",
+     "quote": "Du kan ansöka om en kreditgräns på upp till 50 000 kronor.",
      "source": 1,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.69
+     }
+    },
+    "currency_fee_percent": {
+     "value": 1.75,
+     "quote": "Valutaväxlingspåslag 1.75% på betalningsbeloppet.",
+     "source": 0,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
       "confidence": 0.92
      }
     },
-    "currency_fee_percent": {
-     "value": 1.75,
-     "quote": "| Valutapåslag | 1,75 % |",
-     "source": 0,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.98
-     }
-    },
     "atm_fee_percent": {
      "value": 3,
-     "quote": "Kontantuttagsavgift: 3% av\nuttagsbeloppet dock lägst 50kr",
-     "source": 3,
+     "quote": "Kontantuttagsavgift: 3% av uttagsbeloppet dock lägst 50kr",
+     "source": 0,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
@@ -151,38 +185,38 @@
     },
     "atm_fee_min_sek": {
      "value": 50,
-     "quote": "Kontantuttagsavgift: 3% av\nuttagsbeloppet dock lägst 50kr",
-     "source": 3,
+     "quote": "Kontantuttagsavgift: 3% av uttagsbeloppet dock lägst 50kr",
+     "source": 0,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 1.0
+      "confidence": 0.97
      }
     },
     "example_credit_sek": {
-     "value": 20000,
-     "quote": "Utnyttjad kredit på 20 000 kr: effektiva räntan är för närvarande 26,45% och det sammanlagda belopp som ska betalas är 22 221 kr.",
+     "value": 50000,
+     "quote": "Kreditbelopp: 50.000 KR",
      "source": 0,
-     "status": "belagt",
+     "status": "osäkert",
      "jev": {
-      "verdict": "supports",
-      "confidence": 0.95
+      "verdict": "says_nothing",
+      "confidence": 0.23
      }
     },
     "example_effective_rate_percent": {
-     "value": 26.45,
-     "quote": "Utnyttjad kredit på 20 000 kr: effektiva räntan är för närvarande 26,45% och det sammanlagda belopp som ska betalas är 22 221 kr.",
+     "value": 18.87,
+     "quote": "Eﬀektiv ränta: 18.87 %",
      "source": 0,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.98
+      "confidence": 0.85
      }
     },
     "min_age": {
      "value": 23,
      "quote": "Vara minst 23 år",
-     "source": 2,
+     "source": 3,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
@@ -191,10 +225,9 @@
     },
     "min_income_sek": {
      "value": null,
-     "quote": "En månadsinkomst på minst 15 000 kr",
-     "source": 2,
-     "status": "talet finns inte i citatet",
-     "claimed": 180000
+     "quote": null,
+     "source": null,
+     "status": "okänt"
     },
     "travel_insurance": {
      "value": true,
@@ -219,9 +252,9 @@
      "status": "okänt"
     },
     "requirements": {
-     "value": "Bott i Sverige minst 3 år, månadsinkomst minst 15 000 kr, inga betalningsanmärkningar eller skulder hos Kronofogden. Virtuellt kort.",
+     "value": "Ha bott i Sverige i minst 3 år; månadsinkomst minst 15 000 kr; inga betalningsanmärkningar eller skulder hos Kronofogden",
      "quote": "Ha bott i Sverige i minst 3 år",
-     "source": 2,
+     "source": 3,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
@@ -234,7 +267,7 @@
    "status": "verifierad"
   }
  ],
- "source_hash": "0d00cf5bc1846bb5",
- "changed_at": "2026-10-16T17:00:43+00:00",
- "model": "claude-sonnet-5-5"
+ "source_hash": "e0e8731525494b99",
+ "changed_at": "2026-10-24T04:35:50+00:00",
+ "model": "claude-haiku-5-5"
 }

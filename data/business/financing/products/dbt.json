@@ -7,7 +7,7 @@
   "kind": "kreditmarknadsbolag",
   "legal_name": "NOBA Bank Group AB (publ)"
  },
- "checked_at": "2026-10-23T03:15:41+00:00",
+ "checked_at": "2026-10-24T03:22:51+00:00",
  "discovered_at": "2026-10-23T03:15:41+00:00",
  "sources": [
   {
@@ -40,10 +40,10 @@
   },
   {
    "url": "https://www.dbt.se/foretagslan/tillvaxtlan",
-   "title": "Tillväxtlån - Lån för företag som vill växa - Från 5 MSEK | DBT",
+   "title": "",
    "kind": "html",
-   "via": "http",
-   "chars": 4712
+   "via": "browser",
+   "chars": 2476
   },
   {
    "url": "https://www.dbt.se/foretagslan/likviditetslan",
@@ -82,7 +82,7 @@
   }
  ],
  "status": "ok",
- "notes": "DBT erbjuder inga fakturaköp/factoring och inga startlån/mikrolån; nystartade bolag verkar uteslutna (reviderat bokslut krävs). Rörelsekapital, likviditetslån, order-/lagerfinansiering och refinansiering beskrivs på egna sidor men använder samma företagslån (5–150 MSEK, upp till 7 år, upp till 24 månaders amorteringsfrihet) och är därför inte listade som separata produkter. Uppgifterna om belopp är motstridiga mellan källorna: företagslånet anges 5–150 MSEK, tillväxtlånet 5–50 MSEK på tillväxtsidan men 3–35 MSEK på aktiebolagssidan, och företagskrediten 3–10 MSEK; omsättningskravet anges som 20 MSEK för företagslån och 15 MSEK för tillväxtlån. Räntan är individuell; inga effektiva räntor eller kostnadsexempel publiceras. Utbetalningstid anges inte, endast att kreditbeslut tar ca 5 arbetsdagar. Personlig borgen nämns endast som möjlig säkerhet, inte som krav.",
+ "notes": "Källorna är motsägelsefulla om beloppsintervall: startsidan för aktiebolag (källa 0) anger företagskredit 3–10 MKR och Tillväxtlånet 3–35 MKR, medan övriga sidor anger 5–150 MKR för alla lån. Tillväxtlån, rörelsekapital, likviditetslån, förvärvslån och refinansiering presenteras som varianter av samma företagslån (5–150 MKR, upp till 7 år, upp till 24 månaders amorteringsfrihet). Amorteringsfrihet: upp till 24 månader (källa 1). Ränta: 'Från 4,5% + STIBOR' är ett påslag över STIBOR, inte en fast årsränta; effektiv ränta anges inte. Utbetalningstid anges inte; ca 5 arbetsdagar gäller till kreditbeslut (källa 0). Personlig borgen nämns som möjlig säkerhet men krav anges inte. Ingen uppgift om lägsta tid i drift. Inga startups: kravet på reviderat bokslut och 20 MKR i omsättning tolkas som att nystartade bolag inte kvalificerar. Lånet är frikopplat från övriga banktjänster.",
  "products": [
   {
    "name": "Företagslån",
@@ -90,33 +90,37 @@
    "fields": {
     "product_type": {
      "value": "företagslån",
-     "quote": "Lånebelopp för svenska företag",
-     "source": 1,
+     "quote": "Lånevolym från 5-150 miljoner kr",
+     "source": 0,
      "status": "osäkert",
      "jev": {
       "verdict": "contradicts",
-      "confidence": 0.48
+      "confidence": 0.61
      }
     },
     "min_amount_sek": {
      "value": null,
-     "quote": "5 till 150 miljoner kronor",
+     "quote": "Du kan låna från 5 till 150 miljoner kronor.",
      "source": 1,
      "status": "talet finns inte i citatet",
      "claimed": 5000000
     },
     "max_amount_sek": {
      "value": null,
-     "quote": "5 till 150 miljoner kronor",
+     "quote": "Du kan låna från 5 till 150 miljoner kronor.",
      "source": 1,
      "status": "talet finns inte i citatet",
      "claimed": 150000000
     },
     "term_min_months": {
-     "value": null,
-     "quote": null,
-     "source": null,
-     "status": "okänt"
+     "value": 12,
+     "quote": "1-7 år",
+     "source": 2,
+     "status": "osäkert",
+     "jev": {
+      "verdict": "contradicts",
+      "confidence": 0.59
+     }
     },
     "term_max_months": {
      "value": 84,
@@ -125,7 +129,7 @@
      "status": "osäkert",
      "jev": {
       "verdict": "contradicts",
-      "confidence": 0.25
+      "confidence": 0.34
      }
     },
     "rate_from_percent": {
@@ -135,7 +139,7 @@
      "status": "osäkert",
      "jev": {
       "verdict": "contradicts",
-      "confidence": 0.2
+      "confidence": 0.4
      }
     },
     "monthly_fee_percent": {
@@ -151,24 +155,25 @@
      "status": "okänt"
     },
     "cost_terms": {
-     "value": "Ränta från 4,5 % + STIBOR; ränta bestäms individuellt utifrån bedömning av återbetalningsförmåga och säkerhetsstruktur.",
+     "value": "Individuell prissättning; räntan bestäms av DBT:s interna bedömningar av återbetalningsförmåga och säkerhetsstruktur",
      "quote": "Varje ansökan behandlas individuellt och den ränta som ett företag erhåller bestäms baserat på våra interna bedömningar av er återbetalningsförmåga och säkerhetsstruktur.",
      "source": 0,
-     "status": "osäkert",
+     "status": "belagt",
      "jev": {
-      "verdict": "contradicts",
-      "confidence": 0.07
+      "verdict": "supports",
+      "confidence": 0.19
      }
     },
     "accepts_new_companies": {
-     "value": false,
-     "quote": "har reviderat bokslut och löpande bokföring",
+     "value": null,
+     "quote": "har reviderat bokslut och löpande bokföring och är lönsamma eller har en tydligt positiv trend",
      "source": 1,
-     "status": "osäkert",
+     "status": "stöds inte av källan",
      "jev": {
       "verdict": "says_nothing",
-      "confidence": 0.3
-     }
+      "confidence": 0.41
+     },
+     "claimed": false
     },
     "min_months_in_business": {
      "value": null,
@@ -178,8 +183,8 @@
     },
     "min_turnover_sek": {
      "value": null,
-     "quote": "från 20 miljoner kronor, har reviderat bokslut och löpande bokföring",
-     "source": 1,
+     "quote": "Svenska aktiebolag från 20 miljoner kronor i omsättning",
+     "source": 3,
      "status": "talet finns inte i citatet",
      "claimed": 20000000
     },
@@ -190,13 +195,13 @@
      "status": "okänt"
     },
     "collateral": {
-     "value": "Företagsinteckning som standard, normalt 1:1 mot skuld; alternativt aktiepant eller fastighetspant vid behov.",
-     "quote": "Flexibelt med företagsinteckning som standard, normalt 1:1 mot skuld.",
+     "value": "Företagsinteckning som standard, normalt 1:1 mot skuld; alternativt aktiepant eller fastighetspant vid behov",
+     "quote": "Flexibelt med företagsinteckning som standard, normalt 1:1 mot skuld. Alternativa säkerheter så som aktiepant eller fastighetspant kan tillkomma vid behov.",
      "source": 2,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.72
+      "confidence": 0.76
      }
     },
     "payout_speed": {
@@ -207,164 +212,22 @@
     },
     "company_forms": {
      "value": "aktiebolag",
-     "quote": "DBT är till för svenska aktiebolag som omsätter",
-     "source": 1,
+     "quote": "Svenska aktiebolag från 20 miljoner kronor i omsättning",
+     "source": 3,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.72
+      "confidence": 0.33
      }
     },
     "requirements": {
-     "value": "Svenskt aktiebolag som omsätter från 20 MSEK, har reviderat bokslut och löpande bokföring samt är lönsamt eller har tydligt positiv trend; amorteringsfrihet upp till 24 månader.",
-     "quote": "Upp till 24 månader amorteringsfritt",
-     "source": 2,
-     "status": "osäkert",
-     "jev": {
-      "verdict": "contradicts",
-      "confidence": 0.31
-     }
-    }
-   },
-   "rate_tiers": [],
-   "pending_rate": null,
-   "status": "verifierad"
-  },
-  {
-   "name": "Tillväxtlån",
-   "flags": [],
-   "fields": {
-    "product_type": {
-     "value": "företagslån",
-     "quote": "Tillväxtlån - Lån för företag som vill växa - Från 5 MSEK",
-     "source": 4,
-     "status": "osäkert",
-     "jev": {
-      "verdict": "contradicts",
-      "confidence": 0.37
-     }
-    },
-    "min_amount_sek": {
-     "value": null,
-     "quote": "Lånevolym från 5 MSEK till 50 MSEK",
-     "source": 4,
-     "status": "talet finns inte i citatet",
-     "claimed": 5000000
-    },
-    "max_amount_sek": {
-     "value": null,
-     "quote": "Lånevolym från 5 MSEK till 50 MSEK",
-     "source": 4,
-     "status": "talet finns inte i citatet",
-     "claimed": 50000000
-    },
-    "term_min_months": {
-     "value": null,
-     "quote": null,
-     "source": null,
-     "status": "okänt"
-    },
-    "term_max_months": {
-     "value": 84,
-     "quote": "Upp till 7 års löptid",
+     "value": "Reviderat bokslut och löpande bokföring; lönsamt eller tydligt positiv trend; omsättning från 20 miljoner kronor",
+     "quote": "har reviderat bokslut och löpande bokföring och är lönsamma eller har en tydligt positiv trend",
      "source": 1,
      "status": "osäkert",
      "jev": {
       "verdict": "contradicts",
-      "confidence": 0.23
-     }
-    },
-    "rate_from_percent": {
-     "value": 4.95,
-     "quote": "Vi erbjuder konkurrenskraftiga räntor från 4,95%",
-     "source": 4,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.07
-     }
-    },
-    "monthly_fee_percent": {
-     "value": null,
-     "quote": null,
-     "source": null,
-     "status": "okänt"
-    },
-    "effective_rate_percent": {
-     "value": null,
-     "quote": null,
-     "source": null,
-     "status": "okänt"
-    },
-    "cost_terms": {
-     "value": "Ränta från 4,95 %, sätts individuellt beroende på kreditrisk, löptid, säkerheter och bolagets finansiella status.",
-     "quote": "Räntan sätts individuellt per låntagare och några av de faktorer som vägs in är kreditrisk, löptid,",
-     "source": 4,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.3
-     }
-    },
-    "accepts_new_companies": {
-     "value": null,
-     "quote": null,
-     "source": null,
-     "status": "okänt"
-    },
-    "min_months_in_business": {
-     "value": null,
-     "quote": null,
-     "source": null,
-     "status": "okänt"
-    },
-    "min_turnover_sek": {
-     "value": null,
-     "quote": "omsätter minst 15 miljoner kronor",
-     "source": 4,
-     "status": "talet finns inte i citatet",
-     "claimed": 15000000
-    },
-    "personal_guarantee": {
-     "value": null,
-     "quote": null,
-     "source": null,
-     "status": "okänt"
-    },
-    "collateral": {
-     "value": "Individuell bedömning av säkerhetsstruktur; exempel på godkända säkerheter: företagsinteckning, fastighetsinteckning, personlig borgen, moderbolagsborgen, aktiepant.",
-     "quote": "Vi gör en individuell bedömning av säkerhetsstrukturen vid varje låneansökan.",
-     "source": 4,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
       "confidence": 0.43
-     }
-    },
-    "payout_speed": {
-     "value": null,
-     "quote": null,
-     "source": null,
-     "status": "okänt"
-    },
-    "company_forms": {
-     "value": "aktiebolag",
-     "quote": "Vi erbjuder finansiering i form av tillväxtlån till både publika och privata aktiebolag",
-     "source": 4,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.48
-     }
-    },
-    "requirements": {
-     "value": "Aktivt och registrerat aktiebolag i Sverige som omsätter minst 15 MSEK; krav på bokföringsdata, budget och verksamhetsbeskrivning.",
-     "quote": "Grundkraven för att kunna få tillväxtlån hos DBT är att du har ett aktiebolag som är aktivt och registrerat i Sverige, samt att företaget omsätter minst 15 miljoner kronor.",
-     "source": 4,
-     "status": "osäkert",
-     "jev": {
-      "verdict": "contradicts",
-      "confidence": 0.22
      }
     }
    },
@@ -378,12 +241,12 @@
    "fields": {
     "product_type": {
      "value": "checkkredit/rörelsekredit",
-     "quote": "Företagskrediten är en fördelaktig finansiering för företag med löpande utgifter och kortsiktigt likviditetsbehov.",
+     "quote": "Vi erbjuder företagskredit på 3–10 miljoner kronor.",
      "source": 0,
      "status": "osäkert",
      "jev": {
       "verdict": "contradicts",
-      "confidence": 0.59
+      "confidence": 0.52
      }
     },
     "min_amount_sek": {
@@ -473,14 +336,10 @@
      "status": "okänt"
     },
     "company_forms": {
-     "value": "aktiebolag",
-     "quote": "Vi finansierar både publika och privata aktiebolag.",
-     "source": 0,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.34
-     }
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
     },
     "requirements": {
      "value": null,
@@ -494,7 +353,7 @@
    "status": "verifierad"
   }
  ],
- "source_hash": "1d9d891a126e232e",
- "changed_at": "2026-10-22T03:15:37+00:00",
+ "source_hash": "5f02735530ae7b08",
+ "changed_at": "2026-10-24T03:22:51+00:00",
  "model": "claude-haiku-5-5"
 }
