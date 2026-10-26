@@ -7,8 +7,8 @@
   "kind": "utlandsk_bank",
   "legal_name": "Bank of China (Europe) S.A."
  },
- "checked_at": "2026-10-25T04:48:40+00:00",
- "discovered_at": "2026-10-18T08:09:26+00:00",
+ "checked_at": "2026-10-26T01:17:04+00:00",
+ "discovered_at": "2026-10-26T01:17:04+00:00",
  "sources": [
   {
    "url": "https://www.boc.cn/se/en/pbservice/pb1/",
@@ -18,6 +18,13 @@
    "chars": 738
   },
   {
+   "url": "https://www.boc.cn/se/en/pbservice/pb1/201805/t20180524_12345046.html",
+   "title": "Personal Current Deposit Account",
+   "kind": "html",
+   "via": "http",
+   "chars": 1153
+  },
+  {
    "url": "https://www.boc.cn/se/en/pbservice/pb1/201806/t20180606_12458814.html",
    "title": "Personal Time Deposit Account",
    "kind": "html",
@@ -25,30 +32,36 @@
    "chars": 1139
   },
   {
-   "url": "https://www.boc.cn/se/en/pbservice/pb1/201805/t20180524_12345046.html",
-   "title": "Personal Current Deposit Account",
+   "url": "https://www.boc.cn/se/",
+   "title": "中国银行全球服务 Always with You @ 瑞典 The Kingdom of Sweden",
    "kind": "html",
    "via": "http",
-   "chars": 1153
+   "chars": 1140
+  },
+  {
+   "url": "https://www.boc.cn/se/index.html",
+   "title": "中国银行全球服务 Always with You @ 瑞典 The Kingdom of Sweden",
+   "kind": "html",
+   "via": "http",
+   "chars": 1140
   }
  ],
  "status": "ok",
- "notes": "Källorna innehåller inga räntesatser: sidan om tidsbundna konton hänvisar till en separat \"Interest Rate Form\" som inte finns bland dokumenten, och inget av kontona har ränta angiven. Tidsbundna kontot anges med tre löptider (3, 6 och 12 månader) men utan koppling till specifik ränta, så det är en produkt med binding_months lämnat tomt; varje löptid bör få egen ränta när den hämtas. Valutor enligt källan: tidsbundet konto i SEK, CNY, USD, EUR och GBP (minimum 100 000 SEK; övriga valutor har andra minimibelopp). Lönekonto-liknande kontot (Current Deposit Account) i SEK, CNY, USD, EUR och GBP; ingen ränta, uttagsregler, minimibelopp eller behörighetskriterier angivna. Ingen information om insättningsgaranti i dokumenten. Källa 0 innehöll endast navigering.",
+ "notes": "Räntorna saknas i källorna: för tidskontot hänvisar sidan till en separat \"Interest Rate Form\" som inte ingår i underlaget, och för lönekontot/aktuella kontot finns ingen ränta angiven. Därför är alla räntesatser null. Minimibeloppet 100 000 kr gäller endast SEK-konton (övriga valutor har andra minimibelopp). Tidskontot har angivits som tre separata produkter (3, 6 och 12 månader) eftersom sidan anger dessa tre löptider, men inga räntor eller villkor per löptid finns. Tillgängliga valutor för båda kontona: SEK, CNY, USD, EUR och GBP. Ingen uppgift om insättningsgaranti, uttagsregler eller behörighet finns i underlaget. Startsidor (index 3 och 4) innehåller inga räntor.",
  "products": [
   {
-   "name": "Current Deposit Account",
+   "name": "Personal Current Deposit Account",
    "flags": [],
    "fields": {
     "product_type": {
-     "value": null,
-     "quote": "Current deposit account is a type of savings deposit with no deposit term specified. It can be used for personal transfer, exchange, outward and inward remittance.",
-     "source": 2,
-     "status": "motsägs av källan",
+     "value": "rörligt sparkonto",
+     "quote": "Current deposit account is a type of savings deposit with no deposit term specified.",
+     "source": 1,
+     "status": "osäkert",
      "jev": {
       "verdict": "contradicts",
-      "confidence": 0.94
-     },
-     "claimed": "annat"
+      "confidence": 0.04
+     }
     },
     "rate_percent": {
      "value": null,
@@ -65,11 +78,11 @@
     "binding_months": {
      "value": 0,
      "quote": "Current deposit account is a type of savings deposit with no deposit term specified.",
-     "source": 2,
+     "source": 1,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.46
+      "confidence": 0.35
      }
     },
     "withdrawals": {
@@ -162,17 +175,17 @@
    "status": "ej verifierad"
   },
   {
-   "name": "Time Deposit Account",
+   "name": "Personal Time Deposit Account 3 mån",
    "flags": [],
    "fields": {
     "product_type": {
      "value": "fasträntekonto",
      "quote": "Time deposit account is a type of savings deposit with fixed deposit period.",
-     "source": 1,
+     "source": 2,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.34
+      "confidence": 0.31
      }
     },
     "rate_percent": {
@@ -182,16 +195,21 @@
      "status": "okänt"
     },
     "rate_type": {
-     "value": null,
-     "quote": null,
-     "source": null,
-     "status": "okänt"
+     "value": "fast",
+     "quote": "Time deposit account is a type of savings deposit with fixed deposit period.",
+     "source": 2,
+     "status": "osäkert",
+     "jev": {
+      "verdict": "says_nothing",
+      "confidence": 0.76
+     }
     },
     "binding_months": {
      "value": null,
-     "quote": null,
-     "source": null,
-     "status": "okänt"
+     "quote": "Three deposit terms of three months, six months and one year are available.",
+     "source": 2,
+     "status": "talet finns inte i citatet",
+     "claimed": 3
     },
     "withdrawals": {
      "value": null,
@@ -212,11 +230,276 @@
      "status": "okänt"
     },
     "min_deposit_sek": {
-     "value": null,
+     "value": 100000,
      "quote": "SEK: 100,000",
-     "source": 1,
+     "source": 2,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.43
+     }
+    },
+    "max_deposit_sek": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "monthly_deposit_cap_sek": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "deposit_terms": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "eligibility": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "requires_other_products": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "intro_rate": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "interest_paid": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "guarantee_country": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "guarantee_amount": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "rate_valid_from": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    }
+   },
+   "rate_tiers": [],
+   "pending_rate": null,
+   "status": "ej verifierad"
+  },
+  {
+   "name": "Personal Time Deposit Account 6 mån",
+   "flags": [],
+   "fields": {
+    "product_type": {
+     "value": "fasträntekonto",
+     "quote": "Time deposit account is a type of savings deposit with fixed deposit period.",
+     "source": 2,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.16
+     }
+    },
+    "rate_percent": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "rate_type": {
+     "value": null,
+     "quote": "Time deposit account is a type of savings deposit with fixed deposit period.",
+     "source": 2,
+     "status": "stöds inte av källan",
+     "jev": {
+      "verdict": "says_nothing",
+      "confidence": 0.8
+     },
+     "claimed": "fast"
+    },
+    "binding_months": {
+     "value": null,
+     "quote": "Three deposit terms of three months, six months and one year are available.",
+     "source": 2,
      "status": "talet finns inte i citatet",
-     "claimed": 100000
+     "claimed": 6
+    },
+    "withdrawals": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "free_withdrawals_per_year": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "withdrawal_terms": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "min_deposit_sek": {
+     "value": 100000,
+     "quote": "SEK: 100,000",
+     "source": 2,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.38
+     }
+    },
+    "max_deposit_sek": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "monthly_deposit_cap_sek": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "deposit_terms": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "eligibility": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "requires_other_products": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "intro_rate": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "interest_paid": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "guarantee_country": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "guarantee_amount": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "rate_valid_from": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    }
+   },
+   "rate_tiers": [],
+   "pending_rate": null,
+   "status": "ej verifierad"
+  },
+  {
+   "name": "Personal Time Deposit Account 12 mån",
+   "flags": [],
+   "fields": {
+    "product_type": {
+     "value": "fasträntekonto",
+     "quote": "Time deposit account is a type of savings deposit with fixed deposit period.",
+     "source": 2,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.13
+     }
+    },
+    "rate_percent": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "rate_type": {
+     "value": null,
+     "quote": "Time deposit account is a type of savings deposit with fixed deposit period.",
+     "source": 2,
+     "status": "stöds inte av källan",
+     "jev": {
+      "verdict": "says_nothing",
+      "confidence": 0.8
+     },
+     "claimed": "fast"
+    },
+    "binding_months": {
+     "value": null,
+     "quote": "Three deposit terms of three months, six months and one year are available.",
+     "source": 2,
+     "status": "talet finns inte i citatet",
+     "claimed": 12
+    },
+    "withdrawals": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "free_withdrawals_per_year": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "withdrawal_terms": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "min_deposit_sek": {
+     "value": 100000,
+     "quote": "SEK: 100,000",
+     "source": 2,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.37
+     }
     },
     "max_deposit_sek": {
      "value": null,
@@ -284,7 +567,7 @@
    "status": "ej verifierad"
   }
  ],
- "source_hash": "29a3c8688327ef75",
- "changed_at": "2026-10-18T08:09:26+00:00",
+ "source_hash": "106b10e132462bb3",
+ "changed_at": "2026-10-26T01:17:04+00:00",
  "model": "claude-haiku-5-5"
 }
