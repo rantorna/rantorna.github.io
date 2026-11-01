@@ -26,6 +26,7 @@ from . import llm, segments
 
 DATA = Path(__file__).resolve().parent.parent / "data"
 RECHECK_DAYS = 120
+RECHECK_FOREIGN_NO_DAYS = 365   # utländska institut som inte erbjuder något i Sverige – nästan aldrig ändrat
 WORKERS = 6
 
 # Frågan till modellen kommer från segmentet (collector/segments.py).
@@ -79,9 +80,14 @@ def queue(db: dict, only: str | None) -> list[tuple[str, str]]:
     """(nyckel, fråga) i prioritetsordning: ledtrådar, svenska institut, utländska."""
     fresh_after = dt.datetime.now(dt.timezone.utc) - dt.timedelta(days=RECHECK_DAYS)
 
-    def due(key):
+    foreign_after = dt.datetime.now(dt.timezone.utc) - dt.timedelta(days=RECHECK_FOREIGN_NO_DAYS)
+
+    def due(key, prio):
         e = db.get(key)
-        return not e or dt.datetime.fromisoformat(e["checked_at"]) < fresh_after
+        if not e:
+            return True
+        limit = foreign_after if prio == 2 and e.get("offers_in_sweden") is False else fresh_after
+        return dt.datetime.fromisoformat(e["checked_at"]) < limit
 
     items = []
     seg = segments.cur()
@@ -95,7 +101,7 @@ def queue(db: dict, only: str | None) -> list[tuple[str, str]]:
         items.append((prio, f"fi:{r['fi_id']}",
                       f'Institut i Finansinspektionens register: "{r["name"]}" (FI-id {r["fi_id"]}, kategori: {r["category_name"]}).'))
     items.sort(key=lambda x: x[0])
-    out = [(k, q) for _, k, q in items if due(k)]
+    out = [(k, q) for prio, k, q in items if due(k, prio)]
     if only:
         out = [(k, q) for k, q in out if only.lower() in q.lower()]
     return out

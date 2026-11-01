@@ -17,15 +17,16 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 NOW = dt.datetime.now(dt.timezone.utc)
 
-# Datafil, flikens namn, högsta ålder i timmar. Nattjobbet går varje natt; ränteläget bara vardagar.
+# Datafil, flikens namn, högsta ålder i timmar. Insamlingen går tre nätter i veckan (längsta uppehåll
+# lördag–tisdag); ränteläget bara vardagar.
 FILES = [
-    ("data/rates.json", "Sparkonton", 30), ("data/youth.json", "Barn & unga", 30),
-    ("data/fx_savings.json", "Sparkonton i utländsk valuta", 30), ("data/mortgage.json", "Bolån", 30),
-    ("data/personal_loans.json", "Privatlån", 30), ("data/cards.json", "Kreditkort", 30),
-    ("data/business_accounts.json", "Företagskonton", 30), ("data/business_savings.json", "Företagssparande", 30),
-    ("data/business_financing.json", "Företagsfinansiering", 30), ("data/business_transfers.json", "Företagens utlandsbetalningar", 30),
-    ("data/pension.json", "Pension", 30), ("data/transfers.json", "Utlandsbetalningar", 30),
-    ("data/broker_fx.json", "Utländska aktier", 30), ("data/debit_cards.json", "Bankkort utomlands", 30),
+    ("data/rates.json", "Sparkonton", 80), ("data/youth.json", "Barn & unga", 80),
+    ("data/fx_savings.json", "Sparkonton i utländsk valuta", 80), ("data/mortgage.json", "Bolån", 80),
+    ("data/personal_loans.json", "Privatlån", 80), ("data/cards.json", "Kreditkort", 80),
+    ("data/business_accounts.json", "Företagskonton", 80), ("data/business_savings.json", "Företagssparande", 80),
+    ("data/business_financing.json", "Företagsfinansiering", 80), ("data/business_transfers.json", "Företagens utlandsbetalningar", 80),
+    ("data/pension.json", "Pension", 80), ("data/transfers.json", "Utlandsbetalningar", 80),
+    ("data/broker_fx.json", "Utländska aktier", 80), ("data/debit_cards.json", "Bankkort utomlands", 80),
     ("data/macro.json", "Ränteläget", 100), ("data/fx.json", "Valutakurser", 100),
 ]
 DROP_SHARE = 0.2      # larma om en flik tappat mer än 20 % av bankerna med uppgifter …

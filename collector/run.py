@@ -63,7 +63,7 @@ def load_banks() -> list[dict]:
     return [b for b in out if not b.get("skip")]
 
 
-REDISCOVER_DAYS = 7
+REDISCOVER_DAYS = 28
 
 
 def collect_pages(bank: dict, log, previous: dict | None = None, rediscover: bool = False) -> list[fetch.Page]:
@@ -228,12 +228,12 @@ def quotes_present(previous: dict, pages: list[fetch.Page]) -> bool:
     return bool(quotes) and sum(any(verify.quote_in(q, d) for d in docs) for q in quotes) >= 0.9 * len(quotes)
 
 
-FULL_EXTRACT_DAYS = 7
+FULL_EXTRACT_DAYS = 28
 
 
 def quotes_still_there(previous: dict, pages: list[fetch.Page]) -> bool:
     """Sant om förra tolkningen har belagda värden och alla deras citat finns kvar i sidorna,
-    och den inte är äldre än en vecka (då tolkas allt om, så att nya produkter kommer med)."""
+    och den inte är äldre än fyra veckor (då tolkas allt om, så att nya produkter kommer med)."""
     changed = previous.get("changed_at")
     if not changed or (dt.datetime.now(dt.timezone.utc) - dt.datetime.fromisoformat(changed)).days >= FULL_EXTRACT_DAYS:
         return False
