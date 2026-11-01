@@ -10,6 +10,8 @@ import argparse
 import datetime as dt
 import hashlib
 import json
+import os
+import time
 import re
 import sys
 from concurrent.futures import ThreadPoolExecutor
@@ -185,7 +187,8 @@ def process(bank: dict, discover_only: bool, force: bool, log, rediscover: bool 
         log(f"  ! tolkning misslyckades: {e}")
         if previous:
             previous["checked_at"] = record["checked_at"]
-            previous["status"] = f"senaste tolkning misslyckades ({str(e)[:80]})"
+            why = "API-nyckelns utgiftsgräns är nådd" if "usage limits" in str(e) else str(e)[:80]
+            previous["status"] = f"senaste tolkning misslyckades ({why})"
             out_path.write_text(json.dumps(previous, ensure_ascii=False, indent=1))
         return previous
     rec = finish(bank, record, raw, pages, previous, out_path, log, h, save=False)
@@ -378,6 +381,14 @@ def load_dotenv():
                 os.environ.setdefault(k.strip(), v.strip().strip('"').strip("'"))
 
 
+def last_checked(bank_id: str) -> str:
+    f = segments.cur().products / f"{bank_id}.json"
+    try:
+        return json.loads(f.read_text()).get("checked_at") or ""
+    except (OSError, json.JSONDecodeError):
+        return ""
+
+
 def main():
     load_dotenv()
     ap = argparse.ArgumentParser()
@@ -393,11 +404,17 @@ def main():
     segments.use(args.segment)
     segments.cur().products.mkdir(parents=True, exist_ok=True)
     banks = [b for b in load_banks() if not args.bank or b["id"] in args.bank]
+    # Längst sedan kontrollerade först, så att en natt som inte hinner klart inte drabbar samma banker igen.
+    banks.sort(key=lambda b: last_checked(b["id"]))
+    deadline = float(os.environ.get("RANTORNA_DEADLINE") or 0)
     print(f"{len(banks)} banker", flush=True)
     failures = 0
 
     def work(b):
         lines = []
+        if deadline and time.time() > deadline:   # nattens tidsbudget är slut – banken tas nästa natt
+            print(f"== {b['name']}: hoppar över, tidsbudgeten är slut", flush=True)
+            return True
         try:
             process(b, args.discover_only, args.force, lines.append, rediscover=args.rediscover,
                     reverify=args.reverify, relink_only=args.relink)

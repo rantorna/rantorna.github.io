@@ -83,6 +83,10 @@ def main() -> int:
         if h is None or h > max_age:
             problems.append(f"**{label}**: uppgifterna är {'okänt' if h is None else f'{h / 24:.1f} dygn'} gamla (`{path}`).")
         if "banks" in d:
+            failed = [b for b in d["banks"] if (b.get("status") or "").startswith("senaste tolkning misslyckades")]
+            if len(failed) >= 3 and len(failed) > 0.1 * len(d["banks"]):
+                problems.append(f"**{label}**: AI-tolkningen misslyckades för {len(failed)} av {len(d['banks'])} banker, "
+                                f"som visar sina förra uppgifter. Exempel: {failed[0]['status'][:160]}")
             now_n, old = with_data(d), old_version(path)
             old_n = with_data(old) if old else None
             if old_n and old_n - now_n >= DROP_MIN and (old_n - now_n) / old_n > DROP_SHARE:

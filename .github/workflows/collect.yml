@@ -56,6 +56,11 @@ jobs:
       # Uppslag med webbsökning: Haiku räcker och kostar en tjugondel
       RANTORNA_RESEARCH_MODEL: ${{ vars.RANTORNA_RESEARCH_MODEL || 'claude-haiku-5-5' }}
     steps:
+      - name: Tidsbudget
+        # Insamlingen slutar ta nya banker efter 4 h 10 min, så att sparsteget alltid hinner köras
+        # före jobbets tidsgräns. Bankerna som inte hanns med tas först nästa natt.
+        run: echo "RANTORNA_DEADLINE=$(( $(date +%s) + 250 * 60 ))" >> "$GITHUB_ENV"
+
       - uses: actions/checkout@v4
 
       - uses: actions/setup-python@v5
@@ -176,6 +181,7 @@ jobs:
         run: python -m collector.run --segment pension --workers 4
 
       - name: Spara ändringar
+        if: ${{ always() }}   # spara det som hunnits även om ett steg fallerat eller jobbet avbrutits
         run: |
           git config user.name "rantorna-bot"
           git config user.email "rantorna-bot@users.noreply.github.com"
