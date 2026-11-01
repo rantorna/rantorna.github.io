@@ -192,6 +192,8 @@ def _api_research(model, system, user, schema):
             msg = stream.get_final_message()
         usage["input_tokens"] += msg.usage.input_tokens
         usage["output_tokens"] += msg.usage.output_tokens
+        stu = getattr(msg.usage, "server_tool_use", None)   # webbsökningar kostar extra per sökning
+        usage["web_searches"] = usage.get("web_searches", 0) + (getattr(stu, "web_search_requests", 0) or 0)
         if msg.stop_reason == "pause_turn":
             messages.append({"role": "assistant", "content": msg.content})
             continue
