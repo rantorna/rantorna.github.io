@@ -7,7 +7,7 @@
   "kind": "utlandsk_bank",
   "legal_name": "Lån & Spar Sverige, bankfilial"
  },
- "checked_at": "2026-10-31T02:14:53+00:00",
+ "checked_at": "2026-11-02T13:46:25+00:00",
  "discovered_at": "2026-10-25T06:50:05+00:00",
  "sources": [
   {
@@ -15,14 +15,14 @@
    "title": "Bolåneräntor: aktuell ränta på bolån | Lån & Spar Bank",
    "kind": "html",
    "via": "http",
-   "chars": 9161
+   "chars": 9163
   },
   {
    "url": "https://www.lsb.se/historiska-snittrantor",
    "title": "Historisk ränta och genomsnittsränta på bolån | LSB",
    "kind": "html",
    "via": "http",
-   "chars": 6027
+   "chars": 6011
   },
   {
    "url": "https://www.lsb.se/rantor-priser",
@@ -64,7 +64,7 @@
    "title": "Villkor & blanketter | Lån & Spar Bank",
    "kind": "html",
    "via": "http",
-   "chars": 7206
+   "chars": 7236
   },
   {
    "url": "https://www.lsb.se/sites/default/files/2026-01/Generella%20villkor%20f%C3%B6r%20f%C3%B6rmedling%20av%20bostadskrediter_3.pdf",
@@ -89,7 +89,7 @@
   }
  ],
  "status": "ok",
- "notes": "Listräntor hämtade från tabellen 'Aktuella räntor för bolån' (källa 0). Snitträntor: i den aktuella tabellen (september 2026) saknas värden för alla bindningstider (för litet underlag). I historiska snitträntor (källa 1) finns endast 3 mån med värde för juli 2026 (3,01 %); maj 2026 (2,97 %) och april 2026 (3,03 %) finns också, men juli är senaste månaden med värde. Övriga bindningstider saknar snittränta i alla redovisade månader. Ingen uppgift om belåningsgrad-tabell, max belåningsgrad, effektiv ränta eller datum för listräntan. Källorna anger att ränterabatt beror på belåningsgrad och bindningstid men inte värdena. Eligibility och andra produktkrav saknas i dokumenten.",
+ "notes": "Listräntor hämtade från sidan Bolåneräntor (källa 0). Snitträntan redovisas bara för 3 mån (2,99 %, oktober 2026); för övriga bindningstider är underlaget för litet (\"-*\"), så snittränta är null. Bindningstid 2 år–10 år är omräknad till månader (24, 36, 48, 60, 84, 120). Ränterabatt beror på belåningsgrad och bindningstid men banken publicerar ingen tabell per belåningsgrad, så rate_tiers är tomma. Ingen max belåningsgrad, villkor för kundrelation eller gällande-från-datum angavs i dokumenten. Källa 6 användes för ränterabatt-citatet.",
  "products": [
   {
    "name": "3 mån",
@@ -97,45 +97,41 @@
    "fields": {
     "loan_category": {
      "value": null,
-     "quote": "Vi hjälper dig göra genomtänkta val för ditt bolån",
-     "source": 4,
+     "quote": "Aktuella räntor för bolån",
+     "source": 0,
      "status": "stöds inte av källan",
      "jev": {
       "verdict": "says_nothing",
-      "confidence": 0.91
+      "confidence": 0.96
      },
      "claimed": "vanligt bolån"
     },
     "binding_months": {
      "value": 3,
-     "quote": "| 3 mån | 3,34 % | -* |",
+     "quote": "| 3 mån | 3,34 % | 2,99 % |",
      "source": 0,
      "status": "belagt"
     },
     "rate_percent": {
      "value": 3.34,
-     "quote": "| 3 mån | 3,34 % | -* |",
+     "quote": "| 3 mån | 3,34 % | 2,99 % |",
      "source": 0,
      "status": "belagt"
     },
     "avg_rate_percent": {
-     "value": 3.01,
-     "quote": "| Juli 2026 | 3,01 % | -* | -* | -* |",
-     "source": 1,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.13
-     }
+     "value": 2.99,
+     "quote": "| 3 mån | 3,34 % | 2,99 % |",
+     "source": 0,
+     "status": "belagt"
     },
     "avg_rate_month": {
-     "value": "2026-07",
-     "quote": "| Juli 2026 | 3,01 % | -* | -* | -* |",
-     "source": 1,
+     "value": "2026-10",
+     "quote": "Snittränta oktober 2026",
+     "source": 0,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.52
+      "confidence": 0.79
      }
     },
     "effective_rate_percent": {
@@ -151,23 +147,23 @@
      "status": "okänt"
     },
     "ltv_pricing": {
-     "value": "Ränterabatt beror på belåningsgrad och bindningstid; ingen tabell per belåningsgrad publicerad",
+     "value": "Ränterabatt beror på belåningsgrad (hur stor del av bostadens värde som lånas)",
      "quote": "Vilken ränterabatt du får beror dels på din belåningsgrad",
      "source": 0,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.64
+      "confidence": 0.77
      }
     },
     "discounts": {
-     "value": "Ränterabatt beroende på belåningsgrad och bindningstid",
-     "quote": "Vilken ränterabatt du får beror dels på din belåningsgrad",
-     "source": 0,
+     "value": "Ränterabatt dras av från listräntan",
+     "quote": "Därefter får du en ränterabatt som dras av från listräntan.",
+     "source": 6,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.7
+      "confidence": 0.72
      }
     },
     "requires_other_products": {
@@ -199,12 +195,12 @@
    "fields": {
     "loan_category": {
      "value": null,
-     "quote": "Vi hjälper dig göra genomtänkta val för ditt bolån",
-     "source": 4,
+     "quote": "Aktuella räntor för bolån",
+     "source": 0,
      "status": "stöds inte av källan",
      "jev": {
       "verdict": "says_nothing",
-      "confidence": 0.95
+      "confidence": 0.94
      },
      "claimed": "vanligt bolån"
     },
@@ -245,23 +241,23 @@
      "status": "okänt"
     },
     "ltv_pricing": {
-     "value": "Ränterabatt beror på belåningsgrad och bindningstid; ingen tabell per belåningsgrad publicerad",
+     "value": "Ränterabatt beror på belåningsgrad (hur stor del av bostadens värde som lånas)",
      "quote": "Vilken ränterabatt du får beror dels på din belåningsgrad",
      "source": 0,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.25
+      "confidence": 0.76
      }
     },
     "discounts": {
-     "value": "Ränterabatt beroende på belåningsgrad och bindningstid",
-     "quote": "Vilken ränterabatt du får beror dels på din belåningsgrad",
-     "source": 0,
-     "status": "osäkert",
+     "value": "Ränterabatt dras av från listräntan",
+     "quote": "Därefter får du en ränterabatt som dras av från listräntan.",
+     "source": 6,
+     "status": "belagt",
      "jev": {
-      "verdict": "says_nothing",
-      "confidence": 0.07
+      "verdict": "supports",
+      "confidence": 0.73
      }
     },
     "requires_other_products": {
@@ -293,12 +289,12 @@
    "fields": {
     "loan_category": {
      "value": null,
-     "quote": "Vi hjälper dig göra genomtänkta val för ditt bolån",
-     "source": 4,
+     "quote": "Aktuella räntor för bolån",
+     "source": 0,
      "status": "stöds inte av källan",
      "jev": {
       "verdict": "says_nothing",
-      "confidence": 0.95
+      "confidence": 0.98
      },
      "claimed": "vanligt bolån"
     },
@@ -339,23 +335,23 @@
      "status": "okänt"
     },
     "ltv_pricing": {
-     "value": "Ränterabatt beror på belåningsgrad och bindningstid; ingen tabell per belåningsgrad publicerad",
+     "value": "Ränterabatt beror på belåningsgrad (hur stor del av bostadens värde som lånas)",
      "quote": "Vilken ränterabatt du får beror dels på din belåningsgrad",
      "source": 0,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.48
+      "confidence": 0.85
      }
     },
     "discounts": {
-     "value": "Ränterabatt beroende på belåningsgrad och bindningstid",
-     "quote": "Vilken ränterabatt du får beror dels på din belåningsgrad",
-     "source": 0,
+     "value": "Ränterabatt dras av från listräntan",
+     "quote": "Därefter får du en ränterabatt som dras av från listräntan.",
+     "source": 6,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.33
+      "confidence": 0.64
      }
     },
     "requires_other_products": {
@@ -387,12 +383,12 @@
    "fields": {
     "loan_category": {
      "value": null,
-     "quote": "Vi hjälper dig göra genomtänkta val för ditt bolån",
-     "source": 4,
+     "quote": "Aktuella räntor för bolån",
+     "source": 0,
      "status": "stöds inte av källan",
      "jev": {
       "verdict": "says_nothing",
-      "confidence": 0.95
+      "confidence": 0.94
      },
      "claimed": "vanligt bolån"
     },
@@ -433,23 +429,23 @@
      "status": "okänt"
     },
     "ltv_pricing": {
-     "value": "Ränterabatt beror på belåningsgrad och bindningstid; ingen tabell per belåningsgrad publicerad",
+     "value": "Ränterabatt beror på belåningsgrad (hur stor del av bostadens värde som lånas)",
      "quote": "Vilken ränterabatt du får beror dels på din belåningsgrad",
      "source": 0,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.49
+      "confidence": 0.86
      }
     },
     "discounts": {
-     "value": "Ränterabatt beroende på belåningsgrad och bindningstid",
-     "quote": "Vilken ränterabatt du får beror dels på din belåningsgrad",
-     "source": 0,
+     "value": "Ränterabatt dras av från listräntan",
+     "quote": "Därefter får du en ränterabatt som dras av från listräntan.",
+     "source": 6,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.4
+      "confidence": 0.8
      }
     },
     "requires_other_products": {
@@ -481,12 +477,12 @@
    "fields": {
     "loan_category": {
      "value": null,
-     "quote": "Vi hjälper dig göra genomtänkta val för ditt bolån",
-     "source": 4,
+     "quote": "Aktuella räntor för bolån",
+     "source": 0,
      "status": "stöds inte av källan",
      "jev": {
       "verdict": "says_nothing",
-      "confidence": 0.97
+      "confidence": 0.94
      },
      "claimed": "vanligt bolån"
     },
@@ -527,23 +523,23 @@
      "status": "okänt"
     },
     "ltv_pricing": {
-     "value": "Ränterabatt beror på belåningsgrad och bindningstid; ingen tabell per belåningsgrad publicerad",
+     "value": "Ränterabatt beror på belåningsgrad (hur stor del av bostadens värde som lånas)",
      "quote": "Vilken ränterabatt du får beror dels på din belåningsgrad",
      "source": 0,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.55
+      "confidence": 0.85
      }
     },
     "discounts": {
-     "value": "Ränterabatt beroende på belåningsgrad och bindningstid",
-     "quote": "Vilken ränterabatt du får beror dels på din belåningsgrad",
-     "source": 0,
+     "value": "Ränterabatt dras av från listräntan",
+     "quote": "Därefter får du en ränterabatt som dras av från listräntan.",
+     "source": 6,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.58
+      "confidence": 0.7
      }
     },
     "requires_other_products": {
@@ -575,12 +571,12 @@
    "fields": {
     "loan_category": {
      "value": null,
-     "quote": "Vi hjälper dig göra genomtänkta val för ditt bolån",
-     "source": 4,
+     "quote": "Aktuella räntor för bolån",
+     "source": 0,
      "status": "stöds inte av källan",
      "jev": {
       "verdict": "says_nothing",
-      "confidence": 0.97
+      "confidence": 0.94
      },
      "claimed": "vanligt bolån"
     },
@@ -621,23 +617,23 @@
      "status": "okänt"
     },
     "ltv_pricing": {
-     "value": "Ränterabatt beror på belåningsgrad och bindningstid; ingen tabell per belåningsgrad publicerad",
+     "value": "Ränterabatt beror på belåningsgrad (hur stor del av bostadens värde som lånas)",
      "quote": "Vilken ränterabatt du får beror dels på din belåningsgrad",
      "source": 0,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.61
+      "confidence": 0.82
      }
     },
     "discounts": {
-     "value": "Ränterabatt beroende på belåningsgrad och bindningstid",
-     "quote": "Vilken ränterabatt du får beror dels på din belåningsgrad",
-     "source": 0,
+     "value": "Ränterabatt dras av från listräntan",
+     "quote": "Därefter får du en ränterabatt som dras av från listräntan.",
+     "source": 6,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.55
+      "confidence": 0.72
      }
     },
     "requires_other_products": {
@@ -669,8 +665,8 @@
    "fields": {
     "loan_category": {
      "value": null,
-     "quote": "Vi hjälper dig göra genomtänkta val för ditt bolån",
-     "source": 4,
+     "quote": "Aktuella räntor för bolån",
+     "source": 0,
      "status": "stöds inte av källan",
      "jev": {
       "verdict": "says_nothing",
@@ -715,23 +711,23 @@
      "status": "okänt"
     },
     "ltv_pricing": {
-     "value": "Ränterabatt beror på belåningsgrad och bindningstid; ingen tabell per belåningsgrad publicerad",
+     "value": "Ränterabatt beror på belåningsgrad (hur stor del av bostadens värde som lånas)",
      "quote": "Vilken ränterabatt du får beror dels på din belåningsgrad",
      "source": 0,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.66
+      "confidence": 0.85
      }
     },
     "discounts": {
-     "value": "Ränterabatt beroende på belåningsgrad och bindningstid",
-     "quote": "Vilken ränterabatt du får beror dels på din belåningsgrad",
-     "source": 0,
+     "value": "Ränterabatt dras av från listräntan",
+     "quote": "Därefter får du en ränterabatt som dras av från listräntan.",
+     "source": 6,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.58
+      "confidence": 0.73
      }
     },
     "requires_other_products": {
@@ -763,8 +759,8 @@
    "fields": {
     "loan_category": {
      "value": null,
-     "quote": "Vi hjälper dig göra genomtänkta val för ditt bolån",
-     "source": 4,
+     "quote": "Aktuella räntor för bolån",
+     "source": 0,
      "status": "stöds inte av källan",
      "jev": {
       "verdict": "says_nothing",
@@ -809,23 +805,23 @@
      "status": "okänt"
     },
     "ltv_pricing": {
-     "value": "Ränterabatt beror på belåningsgrad och bindningstid; ingen tabell per belåningsgrad publicerad",
+     "value": "Ränterabatt beror på belåningsgrad (hur stor del av bostadens värde som lånas)",
      "quote": "Vilken ränterabatt du får beror dels på din belåningsgrad",
      "source": 0,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.66
+      "confidence": 0.82
      }
     },
     "discounts": {
-     "value": "Ränterabatt beroende på belåningsgrad och bindningstid",
-     "quote": "Vilken ränterabatt du får beror dels på din belåningsgrad",
-     "source": 0,
+     "value": "Ränterabatt dras av från listräntan",
+     "quote": "Därefter får du en ränterabatt som dras av från listräntan.",
+     "source": 6,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.64
+      "confidence": 0.74
      }
     },
     "requires_other_products": {
@@ -852,7 +848,7 @@
    "status": "verifierad"
   }
  ],
- "source_hash": "bd3aac2f5a93bbaa",
- "changed_at": "2026-10-25T06:50:05+00:00",
+ "source_hash": "37a04de1fe78f7e3",
+ "changed_at": "2026-11-02T13:46:25+00:00",
  "model": "claude-haiku-5-5"
 }

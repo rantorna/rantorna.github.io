@@ -7,7 +7,7 @@
   "kind": "sparbank",
   "legal_name": "Ekeby Sparbank"
  },
- "checked_at": "2026-10-31T02:43:02+00:00",
+ "checked_at": "2026-11-02T14:55:23+00:00",
  "discovered_at": "2026-10-24T03:44:47+00:00",
  "sources": [
   {
@@ -15,14 +15,14 @@
    "title": "Låna pengar | Ansök om lån till allt | Ekeby Sparbank",
    "kind": "html",
    "via": "http",
-   "chars": 8532
+   "chars": 8549
   },
   {
    "url": "https://www.ekebysparbank.se/privat/privatlan-och-krediter.html",
    "title": "Privatlån | Blancolån | Ta lån utan säkerhet | Ekeby Sparbank",
    "kind": "html",
    "via": "http",
-   "chars": 6268
+   "chars": 6450
   },
   {
    "url": "https://www.ekebysparbank.se/privat/rantor-priser-och-kurser/rantor.html",
@@ -50,25 +50,25 @@
    "title": "Samla lån & krediter | Samlingslån – få bättre koll | Ekeby Sparbank",
    "kind": "html",
    "via": "http",
-   "chars": 8841
+   "chars": 8695
   },
   {
    "url": "https://www.ekebysparbank.se/privat/privatlan-och-krediter/medlemslan.html",
    "title": "Medlemslån - lån med förmånlig ränta | Fackligt ansluten | Ekeby Sparbank",
    "kind": "html",
    "via": "http",
-   "chars": 8098
+   "chars": 8308
   },
   {
    "url": "https://www.ekebysparbank.se/privat/privatlan-och-krediter/lana-till-bil/billan.html",
    "title": "Billån ränta & räkna | Köp ny bil – låna 80 % av värdet | Ekeby Sparbank",
    "kind": "html",
    "via": "http",
-   "chars": 9799
+   "chars": 9996
   }
  ],
- "status": "senaste tolkning misslyckades (Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', ')",
- "notes": "Räntan för privatlån/samlingslån sätts individuellt (5,95–16,09 %). Exemplet för privatlån och samlingslån är detsamma. Lånebeloppet för billån har inget högsta belopp angivet. Medsökande nämns inte. Lender_role-citatet är bankens namn (ingen explicit formulering), source null. Kontokrediter, kortkredit och bostadslån är uteslutna.",
+ "status": "ok",
+ "notes": "Räntan sätts individuellt för privatlån, samlingslån och medlemslån; spannen gäller för alla. Medlemslånets uppläggningsavgift anges som 0-300 kr utan närmare villkor, därför tomt. Samlingslån är samma produkt som privatlån (lån för att lösa befintliga lån), med samma villkor och exempel. Billånets exempelränta 6,19 % och effektiva ränta 6,54 % gäller exemplet med 150 000 kr och 60 000 kr kontantinsats; sidan visar även en effektiv ränta på 7,07 % i prislistan (doc 3), som inte är kopplad till något exempel och har utelämnats. Billånets maxbelopp anges inte. Aviseringsavgift med autogiro är 19 kr och med postala avier 45 kr (ej inräknat i monthly_fee_sek). Uppgifter om medsökande saknas i källorna.",
  "products": [
   {
    "name": "Privatlån",
@@ -76,34 +76,58 @@
    "fields": {
     "product_type": {
      "value": "privatlån",
-     "quote": "Låna pengar utan säkerhet",
-     "source": 0,
-     "status": "osäkert",
+     "quote": "Privatlån passar till exempel för renovering, möbler eller andra större köp.",
+     "source": 1,
+     "status": "belagt",
      "jev": {
-      "verdict": "contradicts",
-      "confidence": 0.55
+      "verdict": "supports",
+      "confidence": 0.4
      }
     },
     "lender_role": {
      "value": null,
-     "quote": "Ekeby Sparbank",
-     "source": 0,
-     "status": "saknar belägg",
+     "quote": "Vi som bank förbehåller oss rätten att ändra priserna.",
+     "source": 3,
+     "status": "stöds inte av källan",
+     "jev": {
+      "verdict": "says_nothing",
+      "confidence": 0.8
+     },
      "claimed": "långivare"
     },
     "rate_percent": {
      "value": 5.95,
-     "quote": "Räntan är rörlig och mellan 5,95 - 16,09 % (senaste ränteändring 2025-10-03) och sätts individuellt efter dina ekonomiska förutsättningar.",
+     "quote": "5,95 - 16,09 % (senaste ränteändring 2025-10-03) räntan är rörlig",
      "source": 0,
-     "status": "belagt",
+     "status": "osäkert",
      "jev": {
-      "verdict": "supports",
-      "confidence": 0.92
+      "verdict": "says_nothing",
+      "confidence": 0.4
      }
     },
     "rate_max_percent": {
      "value": 16.09,
-     "quote": "Räntan är rörlig och mellan 5,95 - 16,09 % (senaste ränteändring 2025-10-03) och sätts individuellt efter dina ekonomiska förutsättningar.",
+     "quote": "5,95 - 16,09 % (senaste ränteändring 2025-10-03) räntan är rörlig",
+     "source": 0,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.38
+     }
+    },
+    "rate_type": {
+     "value": "rörlig",
+     "quote": "Räntan är rörlig och mellan 5,95 - 16,09 % (senaste ränteändring 2025-10-03)",
+     "source": 0,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.82
+     }
+    },
+    "min_amount_sek": {
+     "value": 20000,
+     "quote": "Lånebelopp 20 000 - 350 000 kr",
      "source": 0,
      "status": "belagt",
      "jev": {
@@ -111,34 +135,14 @@
       "confidence": 1.0
      }
     },
-    "rate_type": {
-     "value": "rörlig",
-     "quote": "Räntan är rörlig och sätts individuellt efter dina ekonomiska förutsättningar.",
-     "source": 0,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.74
-     }
-    },
-    "min_amount_sek": {
-     "value": 20000,
-     "quote": "20 000 - 350 000 kr",
-     "source": 0,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.28
-     }
-    },
     "max_amount_sek": {
      "value": 350000,
-     "quote": "20 000 - 350 000 kr",
+     "quote": "Lånebelopp 20 000 - 350 000 kr",
      "source": 0,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.92
+      "confidence": 0.94
      }
     },
     "term_min_months": {
@@ -158,48 +162,48 @@
      "status": "motsägs av källan",
      "jev": {
       "verdict": "contradicts",
-      "confidence": 0.94
+      "confidence": 0.88
      },
      "claimed": 144
     },
     "setup_fee_sek": {
      "value": 300,
-     "quote": "Aviseringsavgiften är 0 kr och uppläggningsavgift 300 kr.",
+     "quote": "Uppläggningsavgift 300 kr",
      "source": 0,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 1.0
+      "confidence": 0.97
      }
     },
     "monthly_fee_sek": {
      "value": 0,
-     "quote": "Aviseringsavgiften är 0 kr och uppläggningsavgift 300 kr.",
+     "quote": "Aviseringsavgift e-faktura 0 kr",
      "source": 0,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.66
+      "confidence": 0.7
      }
     },
     "example_amount_sek": {
      "value": 100000,
-     "quote": "Ett lån på 100 000 kr med 7,73 % rörlig ränta, räntespann 5,95 - 16,09 % (senaste ränteändring 2025-10-03), med rak amortering och en återbetalningstid på 5 år, ger en effektiv ränta på 8,15 %.",
+     "quote": "Ett lån på 100 000 kr med 7,73 % rörlig ränta",
      "source": 0,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.43
+      "confidence": 0.25
      }
     },
     "example_term_months": {
      "value": 60,
-     "quote": "med rak amortering och en återbetalningstid på 5 år, ger en effektiv ränta på 8,15 %.",
+     "quote": "en återbetalningstid på 5 år",
      "source": 0,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.77
+      "confidence": 0.91
      }
     },
     "example_rate_percent": {
@@ -214,17 +218,7 @@
     },
     "example_effective_rate_percent": {
      "value": 8.15,
-     "quote": "ger en effektiv ränta på 8,15 %.",
-     "source": 0,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.97
-     }
-    },
-    "example_total_sek": {
-     "value": 119947,
-     "quote": "Totalt belopp att betala under lånets löptid är 119 947 kr.",
+     "quote": "ger en effektiv ränta på 8,15 %",
      "source": 0,
      "status": "belagt",
      "jev": {
@@ -232,9 +226,19 @@
       "confidence": 1.0
      }
     },
+    "example_total_sek": {
+     "value": 119947,
+     "quote": "Totalt belopp att betala under lånets löptid är 119 947 kr",
+     "source": 0,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.98
+     }
+    },
     "min_age": {
      "value": 18,
-     "quote": "Du ska vara 18 år och ha en regelbunden inkomst, som inte är bidrag, studiemedel eller liknande.",
+     "quote": "Du ska vara 18 år och ha en regelbunden inkomst",
      "source": 0,
      "status": "belagt",
      "jev": {
@@ -249,13 +253,13 @@
      "status": "okänt"
     },
     "requirements": {
-     "value": "Kund i banken, regelbunden inkomst (ej bidrag/studiemedel), inga betalningsanmärkningar, kreditupplysning tas",
-     "quote": "Du får inte ha några betalningsanmärkningar. I samband med din ansökan tas en kreditupplysning.",
+     "value": "18 år, regelbunden inkomst, ingen betalningsanmärkning, kund i banken",
+     "quote": "Du får inte ha några betalningsanmärkningar.",
      "source": 0,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.95
+      "confidence": 0.91
      }
     }
    },
@@ -269,69 +273,72 @@
    "fields": {
     "product_type": {
      "value": "samlingslån",
-     "quote": "För att samla dina lån ansöker du om Privatlån och väljer lösen av befintliga lån och krediter.",
+     "quote": "Samla lån – samlingslån",
+     "source": 5,
+     "status": "osäkert",
+     "jev": {
+      "verdict": "contradicts",
+      "confidence": 0.26
+     }
+    },
+    "lender_role": {
+     "value": "långivare",
+     "quote": "Vi som bank förbehåller oss rätten att ändra priserna.",
+     "source": 3,
+     "status": "osäkert",
+     "jev": {
+      "verdict": "says_nothing",
+      "confidence": 0.64
+     }
+    },
+    "rate_percent": {
+     "value": 5.95,
+     "quote": "5,95 - 16,09 % (senaste ränteändring 2025-10-03) räntan är rörlig",
      "source": 5,
      "status": "osäkert",
      "jev": {
       "verdict": "says_nothing",
-      "confidence": 0.18
-     }
-    },
-    "lender_role": {
-     "value": null,
-     "quote": "Ekeby Sparbank",
-     "source": 0,
-     "status": "saknar belägg",
-     "claimed": "långivare"
-    },
-    "rate_percent": {
-     "value": 5.95,
-     "quote": "Räntan är rörlig och mellan 5,95 - 16,09 % (senaste ränteändring 2025-10-03) och sätts individuellt efter dina ekonomiska förutsättningar.",
-     "source": 0,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.95
+      "confidence": 0.42
      }
     },
     "rate_max_percent": {
      "value": 16.09,
-     "quote": "Räntan är rörlig och mellan 5,95 - 16,09 % (senaste ränteändring 2025-10-03) och sätts individuellt efter dina ekonomiska förutsättningar.",
-     "source": 0,
+     "quote": "5,95 - 16,09 % (senaste ränteändring 2025-10-03) räntan är rörlig",
+     "source": 5,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.98
+      "confidence": 0.46
      }
     },
     "rate_type": {
      "value": "rörlig",
-     "quote": "Räntan är rörlig och mellan 5,95 - 16,09 %",
-     "source": 0,
+     "quote": "Räntan är rörlig och mellan 5,95 - 16,09 % (senaste ränteändring 2025-10-03)",
+     "source": 5,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.89
+      "confidence": 0.67
      }
     },
     "min_amount_sek": {
      "value": 20000,
-     "quote": "20 000 - 500 000 kr",
+     "quote": "Lånebelopp 20 000 - 350 000 kr",
      "source": 5,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.72
+      "confidence": 1.0
      }
     },
     "max_amount_sek": {
-     "value": 500000,
-     "quote": "20 000 - 500 000 kr",
+     "value": 350000,
+     "quote": "Lånebelopp 20 000 - 350 000 kr",
      "source": 5,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.91
+      "confidence": 0.98
      }
     },
     "term_min_months": {
@@ -341,7 +348,7 @@
      "status": "osäkert",
      "jev": {
       "verdict": "contradicts",
-      "confidence": 0.2
+      "confidence": 0.38
      }
     },
     "term_max_months": {
@@ -351,54 +358,54 @@
      "status": "motsägs av källan",
      "jev": {
       "verdict": "contradicts",
-      "confidence": 0.89
+      "confidence": 0.8
      },
      "claimed": 144
     },
     "setup_fee_sek": {
      "value": 300,
-     "quote": "Aviseringsavgiften är 0 kr och uppläggningsavgift 300 kr.",
-     "source": 0,
+     "quote": "Uppläggningsavgift 300 kr",
+     "source": 5,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.97
+      "confidence": 0.76
      }
     },
     "monthly_fee_sek": {
      "value": 0,
-     "quote": "Aviseringsavgiften är 0 kr och uppläggningsavgift 300 kr.",
-     "source": 0,
+     "quote": "Aviseringsavgift 0 kr",
+     "source": 5,
      "status": "osäkert",
      "jev": {
       "verdict": "says_nothing",
-      "confidence": 0.37
+      "confidence": 0.5
      }
     },
     "example_amount_sek": {
      "value": 100000,
-     "quote": "Ett lån på 100 000 kr med 7,73 % rörlig ränta, räntespann 5,95 - 16,09 % (senaste ränteändring 2025-10-03), med rak amortering och en återbetalningstid på 5 år, ger en effektiv ränta på 8,15 %.",
-     "source": 0,
+     "quote": "Ett lån på 100 000 kr med 7,73 % rörlig ränta",
+     "source": 5,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.41
+      "confidence": 0.09
      }
     },
     "example_term_months": {
      "value": 60,
-     "quote": "med rak amortering och en återbetalningstid på 5 år, ger en effektiv ränta på 8,15 %.",
-     "source": 0,
+     "quote": "en återbetalningstid på 5 år",
+     "source": 5,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.86
+      "confidence": 0.72
      }
     },
     "example_rate_percent": {
      "value": 7.73,
      "quote": "Ett lån på 100 000 kr med 7,73 % rörlig ränta",
-     "source": 0,
+     "source": 5,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
@@ -407,32 +414,32 @@
     },
     "example_effective_rate_percent": {
      "value": 8.15,
-     "quote": "ger en effektiv ränta på 8,15 %.",
-     "source": 0,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.92
-     }
-    },
-    "example_total_sek": {
-     "value": 119947,
-     "quote": "Totalt belopp att betala under lånets löptid är 119 947 kr.",
-     "source": 0,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.94
-     }
-    },
-    "min_age": {
-     "value": 18,
-     "quote": "För att få låna ska du vara 18 år och ha en regelbunden inkomst, som inte är bidrag, studiemedel eller liknande.",
+     "quote": "ger en effektiv ränta på 8,15 %",
      "source": 5,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.98
+      "confidence": 0.72
+     }
+    },
+    "example_total_sek": {
+     "value": 119947,
+     "quote": "Totalt belopp att betala under lånets löptid är 119 947 kr",
+     "source": 5,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.6
+     }
+    },
+    "min_age": {
+     "value": 18,
+     "quote": "För att få låna ska du vara 18 år",
+     "source": 5,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.8
      }
     },
     "co_applicant": {
@@ -442,13 +449,13 @@
      "status": "okänt"
     },
     "requirements": {
-     "value": "Kund i banken, regelbunden inkomst (ej bidrag/studiemedel), inga betalningsanmärkningar",
-     "quote": "Du får inte ha några betalningsanmärkningar.",
-     "source": 0,
+     "value": "18 år, regelbunden inkomst, ingen betalningsanmärkning, måste vara kund",
+     "quote": "Ja, du behöver vara kund för att få låna och slå ihop lån.",
+     "source": 5,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.95
+      "confidence": 0.97
      }
     }
    },
@@ -462,25 +469,28 @@
    "fields": {
     "product_type": {
      "value": "privatlån",
-     "quote": "Låna 20 000 – 350 000 kronor utan säkerhet med rörlig ränta",
+     "quote": "Ett privatlån med ränta förhandlad av facket och inga extra avgifter.",
      "source": 6,
      "status": "osäkert",
      "jev": {
-      "verdict": "contradicts",
+      "verdict": "says_nothing",
       "confidence": 0.67
      }
     },
     "lender_role": {
-     "value": null,
-     "quote": "Ekeby Sparbank",
-     "source": 0,
-     "status": "saknar belägg",
-     "claimed": "långivare"
+     "value": "långivare",
+     "quote": "Vi som bank förbehåller oss rätten att ändra priserna.",
+     "source": 3,
+     "status": "osäkert",
+     "jev": {
+      "verdict": "says_nothing",
+      "confidence": 0.48
+     }
     },
     "rate_percent": {
      "value": 7.3,
      "quote": "7,30 % (senaste ränteändring 2025-10-03). Räntan är rörlig.",
-     "source": 3,
+     "source": 6,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
@@ -496,7 +506,7 @@
     "rate_type": {
      "value": "rörlig",
      "quote": "7,30 % (senaste ränteändring 2025-10-03). Räntan är rörlig.",
-     "source": 3,
+     "source": 6,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
@@ -505,123 +515,118 @@
     },
     "min_amount_sek": {
      "value": 20000,
-     "quote": "Lånebelopp\n\n20 000 - 350 000 kr",
-     "source": 0,
+     "quote": "Lånebelopp 20 000 - 350 000 kr",
+     "source": 6,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.82
+      "confidence": 1.0
      }
     },
     "max_amount_sek": {
      "value": 350000,
-     "quote": "Lånebelopp\n\n20 000 - 350 000 kr",
-     "source": 0,
+     "quote": "Lånebelopp 20 000 - 350 000 kr",
+     "source": 6,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.97
+      "confidence": 1.0
      }
     },
     "term_min_months": {
      "value": 12,
      "quote": "Återbetalningstiden för lånet är 1 - 12 år beroende på lånets storlek och syfte.",
-     "source": 0,
+     "source": 6,
      "status": "osäkert",
      "jev": {
       "verdict": "contradicts",
-      "confidence": 0.62
+      "confidence": 0.34
      }
     },
     "term_max_months": {
-     "value": null,
-     "quote": "Återbetalningstiden för lånet är 1 - 12 år beroende på lånets storlek och syfte.",
-     "source": 0,
-     "status": "motsägs av källan",
+     "value": 144,
+     "quote": "Återbetalningstid upp till 12 år",
+     "source": 6,
+     "status": "osäkert",
      "jev": {
       "verdict": "contradicts",
-      "confidence": 0.86
-     },
-     "claimed": 144
+      "confidence": 0.55
+     }
     },
     "setup_fee_sek": {
-     "value": 0,
-     "quote": "aviseringsavgift och uppläggningsavgift 0 kr ger en effektiv ränta på 7,55 %.",
-     "source": 3,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.53
-     }
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
     },
     "monthly_fee_sek": {
      "value": 0,
-     "quote": "Aviseringsavgift e-faktura\n\n0 kr",
-     "source": 0,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.38
-     }
-    },
-    "example_amount_sek": {
-     "value": 100000,
-     "quote": "Ett lån på 100 000 kronor:",
-     "source": 3,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.23
-     }
-    },
-    "example_term_months": {
-     "value": 60,
-     "quote": "med rak amortering och en återbetalningstid på 5 år",
-     "source": 0,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.52
-     }
-    },
-    "example_rate_percent": {
-     "value": 7.3,
-     "quote": "7,30 % rörlig ränta (senaste ränteändring 2025-10-03)",
+     "quote": "Aviseringsavgift e-faktura 0 kr",
      "source": 6,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.59
+      "confidence": 0.83
+     }
+    },
+    "example_amount_sek": {
+     "value": 100000,
+     "quote": "Ett lån på 100 000 kronor: 7,30 % (senaste ränteändring 2025-10-03)",
+     "source": 6,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.46
+     }
+    },
+    "example_term_months": {
+     "value": 60,
+     "quote": "en återbetalningstid på 5 år",
+     "source": 6,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.56
+     }
+    },
+    "example_rate_percent": {
+     "value": 7.3,
+     "quote": "Ett lån på 100 000 kronor: 7,30 % (senaste ränteändring 2025-10-03)",
+     "source": 6,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.68
      }
     },
     "example_effective_rate_percent": {
      "value": 7.55,
-     "quote": "ger en effektiv ränta på 7,55 %.",
-     "source": 3,
+     "quote": "ger en effektiv ränta på 7,55 %",
+     "source": 6,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.67
+      "confidence": 0.73
      }
     },
     "example_total_sek": {
      "value": 118554,
-     "quote": "118 554 kronor",
-     "source": 3,
+     "quote": "118 554 kronor. Återbetalningsbeloppet är i snitt 1 976 kronor",
+     "source": 6,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 1.0
+      "confidence": 0.85
      }
     },
     "min_age": {
      "value": 18,
-     "quote": "Du ska vara 18 år och ha en regelbunden inkomst, som inte är bidrag, studiemedel eller liknande.",
-     "source": 0,
+     "quote": "Du ska vara 18 år och ha en regelbunden inkomst",
+     "source": 6,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 1.0
+      "confidence": 0.77
      }
     },
     "co_applicant": {
@@ -631,7 +636,7 @@
      "status": "okänt"
     },
     "requirements": {
-     "value": "Medlem i LO- eller SACO-förbund i minst 6 månader, lönekonto i banken, regelbunden inkomst, inga betalningsanmärkningar",
+     "value": "Medlem i LO- eller SACO-förbund i minst 6 månader, lönekonto, 18 år, inga betalningsanmärkningar",
      "quote": "Du behöver vara medlem i ett LO- eller SACO-förbund och varit det i minst 6 månader.",
      "source": 6,
      "status": "belagt",
@@ -656,24 +661,27 @@
      "status": "osäkert",
      "jev": {
       "verdict": "says_nothing",
-      "confidence": 0.36
+      "confidence": 0.2
      }
     },
     "lender_role": {
-     "value": null,
-     "quote": "Ekeby Sparbank",
-     "source": 0,
-     "status": "saknar belägg",
-     "claimed": "långivare"
-    },
-    "rate_percent": {
-     "value": 6.19,
-     "quote": "6,19 % (senaste ränteändring 2025-10-03)",
+     "value": "långivare",
+     "quote": "Vi som bank förbehåller oss rätten att ändra priserna.",
      "source": 3,
      "status": "osäkert",
      "jev": {
       "verdict": "says_nothing",
-      "confidence": 0.53
+      "confidence": 0.76
+     }
+    },
+    "rate_percent": {
+     "value": 6.19,
+     "quote": "6,19 % (senaste ränteändring 2025-10-03)",
+     "source": 7,
+     "status": "osäkert",
+     "jev": {
+      "verdict": "says_nothing",
+      "confidence": 0.43
      }
     },
     "rate_max_percent": {
@@ -684,12 +692,12 @@
     },
     "rate_type": {
      "value": "rörlig",
-     "quote": "Ett lån på 150 000 kr med en rörlig exempelränta på 6,19 %",
-     "source": 3,
+     "quote": "med en rörlig exempelränta på 6,19 %",
+     "source": 7,
      "status": "osäkert",
      "jev": {
       "verdict": "says_nothing",
-      "confidence": 0.76
+      "confidence": 0.55
      }
     },
     "min_amount_sek": {
@@ -710,49 +718,48 @@
     },
     "term_min_months": {
      "value": 12,
-     "quote": "Återbetalningstiden på billånet är 1 - 8 år, beroende på hur gammal bilen är.",
+     "quote": "Återbetalningstiden på billånet är 1 - 8 år",
      "source": 7,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.7
+      "confidence": 0.38
      }
     },
     "term_max_months": {
-     "value": null,
-     "quote": "Återbetalningstiden på billånet är 1 - 8 år, beroende på hur gammal bilen är.",
+     "value": 96,
+     "quote": "Återbetalningstiden på billånet är 1 - 8 år",
      "source": 7,
-     "status": "motsägs av källan",
+     "status": "osäkert",
      "jev": {
       "verdict": "contradicts",
-      "confidence": 0.91
-     },
-     "claimed": 96
+      "confidence": 0.55
+     }
     },
     "setup_fee_sek": {
      "value": 550,
-     "quote": "Uppläggningsavgift\n\n550 kr",
-     "source": 3,
+     "quote": "Uppläggningsavgift 550 kr",
+     "source": 7,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.95
+      "confidence": 1.0
      }
     },
     "monthly_fee_sek": {
      "value": 0,
-     "quote": "Aviavgift 0 kronor vid e-faktura.",
-     "source": 3,
+     "quote": "Aviseringsavgift 0 kr",
+     "source": 7,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.76
+      "confidence": 0.94
      }
     },
     "example_amount_sek": {
      "value": 150000,
      "quote": "Ett lån på 150 000 kr med en rörlig exempelränta på 6,19 %",
-     "source": 3,
+     "source": 7,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
@@ -762,7 +769,7 @@
     "example_term_months": {
      "value": 60,
      "quote": "en återbetalningstid på 5 år med 60 betalningar",
-     "source": 3,
+     "source": 7,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
@@ -771,18 +778,18 @@
     },
     "example_rate_percent": {
      "value": 6.19,
-     "quote": "Ett lån på 150 000 kr med en rörlig exempelränta på 6,19 %",
-     "source": 3,
+     "quote": "med en rörlig exempelränta på 6,19 %",
+     "source": 7,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.72
+      "confidence": 0.97
      }
     },
     "example_effective_rate_percent": {
      "value": 6.54,
      "quote": "ger en effektiv ränta på 6,54 %",
-     "source": 3,
+     "source": 7,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
@@ -792,7 +799,7 @@
     "example_total_sek": {
      "value": 174149,
      "quote": "Totalt belopp att betala under lånets löptid är 174 149 kronor.",
-     "source": 3,
+     "source": 7,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
@@ -801,12 +808,12 @@
     },
     "min_age": {
      "value": 18,
-     "quote": "Du ska vara 18 år och ha en regelbunden inkomst, som inte är bidrag, studiemedel eller liknande.",
-     "source": 0,
+     "quote": "Du ska vara 18 år och ha en regelbunden inkomst",
+     "source": 7,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 1.0
+      "confidence": 0.96
      }
     },
     "co_applicant": {
@@ -816,13 +823,13 @@
      "status": "okänt"
     },
     "requirements": {
-     "value": "Bil köpt av auktoriserad bilhandlare, kontantinsats minst 20 %, regelbunden inkomst, inga betalningsanmärkningar, kund i banken",
-     "quote": "Bilen ska vara köpt av en auktoriserad bilhandlare och avbetalningskontraktet behöver vara underskrivet innan bilen levereras.",
+     "value": "Bilen köpt av auktoriserad bilhandlare, lån minst 80 000 kr, kontantinsats minst 20 %, 18 år, inga betalningsanmärkningar",
+     "quote": "Bilen ska vara köpt av en auktoriserad bilhandlare",
      "source": 7,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.8
+      "confidence": 0.92
      }
     }
    },
@@ -831,7 +838,7 @@
    "status": "verifierad"
   }
  ],
- "source_hash": "82da8d2cb218c6a8",
- "changed_at": "2026-10-16T07:35:12+00:00",
- "model": "claude-sonnet-5-5"
+ "source_hash": "0782714966e85e04",
+ "changed_at": "2026-11-02T14:55:23+00:00",
+ "model": "claude-haiku-5-5"
 }

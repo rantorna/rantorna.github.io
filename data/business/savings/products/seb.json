@@ -7,15 +7,15 @@
   "kind": "storbank",
   "legal_name": "Skandinaviska Enskilda Banken AB"
  },
- "checked_at": "2026-10-27T02:38:24+00:00",
+ "checked_at": "2026-11-02T14:01:53+00:00",
  "discovered_at": "2026-10-20T02:39:02+00:00",
  "sources": [
   {
    "url": "https://seb.se/foretag/spara-och-placera/sparkonton-for-foretag",
-   "title": "Sparkonto och placeringskonto – öppna konto för ditt företag | SEB",
+   "title": "Sparkonto för företag – öppna sparkonto eller placeringskonto | SEB",
    "kind": "html",
    "via": "http",
-   "chars": 5340
+   "chars": 5206
   },
   {
    "url": "https://seb.se/foretag/tjanster/aktuella-rantor",
@@ -29,7 +29,7 @@
    "title": "Spara och placera företagets pengar | SEB",
    "kind": "html",
    "via": "http",
-   "chars": 2904
+   "chars": 2780
   },
   {
    "url": "https://seb.se/foretag",
@@ -43,14 +43,14 @@
    "title": "Aktuella priser för företag | SEB",
    "kind": "html",
    "via": "http",
-   "chars": 34545
+   "chars": 34972
   },
   {
    "url": "https://seb.se/foretag/tjanster/alla-produkter-och-tjanster",
    "title": "Alla produkter och tjänster för företag | SEB",
    "kind": "html",
    "via": "http",
-   "chars": 2928
+   "chars": 2932
   },
   {
    "url": "https://seb.se/foretag/foretagsfaser",
@@ -67,31 +67,32 @@
    "chars": 7354
   }
  ],
- "status": "senaste tolkning misslyckades (Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', ')",
- "notes": "Källorna anger inga minimi- eller maxbelopp, behörighetskrav eller om Enkla sparkontot har rörlig ränta. Placeringskonton på 1–5 år har indikativa räntor som kan ändras innan kontot öppnas. Placeringskonton öppnas via telefon (0771-62 53 53). Företagskonto (0,00 %), skogskonton, klientmedels-, upphovsmanna- och notariatkonton utelämnade enligt reglerna.",
+ "status": "ok",
+ "notes": "Källorna: Enkla sparkontot företag (0,00 %) och Placeringskonto med bindningstider 3 mån–5 år. Räntorna för 1–5 år är enligt SEB indikativa och kan ändras innan kontot öppnats (fotnot 2 på räntesidan). Ingen källa anger minsta eller högsta insättningsbelopp, kapitalisering av räntan för sparkontot, eller om kontot kräver andra produkter. Avgiften vid förtida avslut anges som minimiavgift 500 kr för konton öppnade från 2026-11-02; för äldre konton finns ingen uppgift. Ränta för placeringskonto är fast under hela bindningstiden. Räntorna är hämtade från räntesidan (källa 1); startsidan (källa 0) visar samma värden för 0,00 %, 1,70 % och 2,75 %.",
  "products": [
   {
    "name": "Enkla sparkontot företag",
    "flags": [],
    "fields": {
     "product_type": {
-     "value": "rörligt sparkonto",
-     "quote": "Enkla sparkontot företag – fria uttag",
+     "value": null,
+     "quote": "Enkla sparkontot företag – sparkonto med fria uttag",
      "source": 0,
-     "status": "osäkert",
+     "status": "motsägs av källan",
      "jev": {
       "verdict": "contradicts",
-      "confidence": 0.66
-     }
+      "confidence": 0.83
+     },
+     "claimed": "rörligt sparkonto"
     },
     "rate_percent": {
-     "value": 0,
+     "value": 0.0,
      "quote": "| 0,00 % | -0,05 % | 2025-11-07 |",
      "source": 1,
      "status": "osäkert",
      "jev": {
       "verdict": "contradicts",
-      "confidence": 0.28
+      "confidence": 0.34
      }
     },
     "rate_type": {
@@ -107,17 +108,17 @@
      "status": "osäkert",
      "jev": {
       "verdict": "contradicts",
-      "confidence": 0.34
+      "confidence": 0.67
      }
     },
     "withdrawals": {
      "value": "fria",
-     "quote": "Fria insättningar och uttag.",
+     "quote": "Företaget har direkt tillgång till pengarna.",
      "source": 0,
      "status": "osäkert",
      "jev": {
       "verdict": "contradicts",
-      "confidence": 0.62
+      "confidence": 0.6
      }
     },
     "free_withdrawals_per_year": {
@@ -127,13 +128,13 @@
      "status": "okänt"
     },
     "withdrawal_terms": {
-     "value": "Fria insättningar och uttag, kostnadsfritt konto som löper tillsvidare.",
-     "quote": "Fria insättningar och uttag.",
+     "value": "Fria uttag och insättningar. Kontot är kostnadsfritt och kan avslutas när som helst.",
+     "quote": "Kontot löper tillsvidare och du kan avsluta företagets sparkonto när som helst.",
      "source": 0,
      "status": "osäkert",
      "jev": {
       "verdict": "contradicts",
-      "confidence": 0.28
+      "confidence": 0.42
      }
     },
     "min_deposit_sek": {
@@ -155,20 +156,24 @@
      "status": "okänt"
     },
     "deposit_terms": {
-     "value": "Fria insättningar.",
+     "value": "Fria insättningar och uttag",
      "quote": "Fria insättningar och uttag.",
      "source": 0,
      "status": "osäkert",
      "jev": {
       "verdict": "contradicts",
-      "confidence": 0.46
+      "confidence": 0.67
      }
     },
     "eligibility": {
-     "value": null,
-     "quote": null,
-     "source": null,
-     "status": "okänt"
+     "value": "Företag; kontot kan öppnas digitalt",
+     "quote": "Öppna företagets konton helt digitalt",
+     "source": 0,
+     "status": "osäkert",
+     "jev": {
+      "verdict": "contradicts",
+      "confidence": 0.6
+     }
     },
     "requires_other_products": {
      "value": null,
@@ -190,22 +195,22 @@
     },
     "guarantee_country": {
      "value": "SE",
-     "quote": "Kontot omfattas av den statliga insättningsgarantin enligt beslut av Riksgälden.",
-     "source": 0,
-     "status": "osäkert",
-     "jev": {
-      "verdict": "says_nothing",
-      "confidence": 0.48
-     }
-    },
-    "guarantee_amount": {
-     "value": "1 150 000 kr",
-     "quote": "1 150 000 kronor",
+     "quote": "Kontot omfattas av den statliga insättnings­garantin enligt beslut av Riksgälden.",
      "source": 0,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.31
+      "confidence": 0.06
+     }
+    },
+    "guarantee_amount": {
+     "value": "1 150 000 kr",
+     "quote": "Varje kund har rätt till ersättning för sin sammanlagda kontobehållning i banken med ett belopp om högst 1 150 000 kronor",
+     "source": 1,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.13
      }
     },
     "rate_valid_from": {
@@ -215,7 +220,7 @@
      "status": "osäkert",
      "jev": {
       "verdict": "contradicts",
-      "confidence": 0.43
+      "confidence": 0.44
      }
     }
    },
@@ -234,39 +239,39 @@
      "status": "osäkert",
      "jev": {
       "verdict": "contradicts",
-      "confidence": 0.58
+      "confidence": 0.76
      }
     },
     "rate_percent": {
      "value": 1.7,
-     "quote": "| 3 månader¹ | 1,70 % | 2026-04-28 |",
+     "quote": "3 månader¹ | 1,70 % | 2026-04-28",
      "source": 1,
      "status": "belagt"
     },
     "rate_type": {
      "value": "fast",
-     "quote": "får en fast ränta hela bindningstiden.",
+     "quote": "Företaget binder kapitalet under en period och får en fast ränta hela bindningstiden.",
      "source": 0,
      "status": "osäkert",
      "jev": {
       "verdict": "contradicts",
-      "confidence": 0.58
+      "confidence": 0.66
      }
     },
     "binding_months": {
      "value": 3,
-     "quote": "| 3 månader¹ | 1,70 % | 2026-04-28 |",
-     "source": 1,
+     "quote": "Bindningstid från 3 månader till 5 år.",
+     "source": 0,
      "status": "belagt"
     },
     "withdrawals": {
      "value": "mot avgift",
-     "quote": "ta ut pengarna i förtid mot ett ränteavdrag",
+     "quote": "Ditt företag kan avsluta ett placeringskonto och ta ut pengarna i förtid mot en avgift.",
      "source": 0,
      "status": "osäkert",
      "jev": {
       "verdict": "contradicts",
-      "confidence": 0.3
+      "confidence": 0.72
      }
     },
     "free_withdrawals_per_year": {
@@ -276,13 +281,13 @@
      "status": "okänt"
     },
     "withdrawal_terms": {
-     "value": "Uttag i förtid mot ränteavdrag; endast hela beloppet kan tas ut.",
-     "quote": "Det går bara att ta ut hela beloppet från kontot, inte delar av beloppet.",
-     "source": 0,
+     "value": "Förtida uttag mot avgift baserad på marknadsräntan; minimiavgift 500 kr för konton öppnade från 2026-11-02.",
+     "quote": "Placeringskonto, avgift vid förtida avslut (gäller konton öppnade fr.o.m. 2026-11-02) | minimiavgift 500 kr*",
+     "source": 4,
      "status": "osäkert",
      "jev": {
       "verdict": "contradicts",
-      "confidence": 0.49
+      "confidence": 0.64
      }
     },
     "min_deposit_sek": {
@@ -304,20 +309,24 @@
      "status": "okänt"
     },
     "deposit_terms": {
-     "value": "Engångsinsättning när kontot öppnas.",
+     "value": "Engångsinsättning när kontot öppnas",
      "quote": "Engångsinsättning när kontot öppnas.",
      "source": 0,
      "status": "osäkert",
      "jev": {
       "verdict": "contradicts",
-      "confidence": 0.48
+      "confidence": 0.64
      }
     },
     "eligibility": {
-     "value": null,
-     "quote": null,
-     "source": null,
-     "status": "okänt"
+     "value": "Företag; kontot kan öppnas i Business Arena eller appen för företag",
+     "quote": "Du kan öppna placeringskonton för företaget direkt i Business Arena eller i appen för företag.",
+     "source": 0,
+     "status": "osäkert",
+     "jev": {
+      "verdict": "contradicts",
+      "confidence": 0.52
+     }
     },
     "requires_other_products": {
      "value": null,
@@ -332,43 +341,43 @@
      "status": "okänt"
     },
     "interest_paid": {
-     "value": "Räntan betalas ut på förfallodagen; vid automatisk förlängning kan den återinvesteras.",
-     "quote": "Räntan betalas ut på",
+     "value": "På förfallodagen (vid bindningstidens slut)",
+     "quote": "På förfallodagen betalas räntan ut till det konto som företaget har valt.",
      "source": 0,
      "status": "osäkert",
      "jev": {
       "verdict": "contradicts",
-      "confidence": 0.31
+      "confidence": 0.66
      }
     },
     "guarantee_country": {
      "value": "SE",
-     "quote": "Kontot omfattas av den statliga insättningsgarantin enligt beslut av Riksgälden.",
+     "quote": "Kontot omfattas av den statliga insättnings­garantin enligt beslut av Riksgälden.",
      "source": 0,
      "status": "osäkert",
      "jev": {
-      "verdict": "says_nothing",
-      "confidence": 0.46
+      "verdict": "contradicts",
+      "confidence": 0.26
      }
     },
     "guarantee_amount": {
      "value": "1 150 000 kr",
-     "quote": "1 150 000 kronor",
-     "source": 0,
+     "quote": "Varje kund har rätt till ersättning för sin sammanlagda kontobehållning i banken med ett belopp om högst 1 150 000 kronor",
+     "source": 1,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.46
+      "confidence": 0.13
      }
     },
     "rate_valid_from": {
      "value": "2026-04-28",
-     "quote": "| 3 månader¹ | 1,70 % | 2026-04-28 |",
+     "quote": "3 månader¹ | 1,70 % | 2026-04-28",
      "source": 1,
      "status": "osäkert",
      "jev": {
       "verdict": "contradicts",
-      "confidence": 0.38
+      "confidence": 0.61
      }
     }
    },
@@ -387,39 +396,39 @@
      "status": "osäkert",
      "jev": {
       "verdict": "contradicts",
-      "confidence": 0.52
+      "confidence": 0.77
      }
     },
     "rate_percent": {
      "value": 1.9,
-     "quote": "| 6 månader¹ | 1,90 % | 2026-04-01 |",
+     "quote": "6 månader¹ | 1,90 % | 2026-04-01",
      "source": 1,
      "status": "belagt"
     },
     "rate_type": {
      "value": "fast",
-     "quote": "får en fast ränta hela bindningstiden.",
+     "quote": "Företaget binder kapitalet under en period och får en fast ränta hela bindningstiden.",
      "source": 0,
      "status": "osäkert",
      "jev": {
       "verdict": "contradicts",
-      "confidence": 0.52
+      "confidence": 0.72
      }
     },
     "binding_months": {
      "value": 6,
-     "quote": "| 6 månader¹ | 1,90 % | 2026-04-01 |",
+     "quote": "6 månader¹ | 1,90 % | 2026-04-01",
      "source": 1,
      "status": "belagt"
     },
     "withdrawals": {
      "value": "mot avgift",
-     "quote": "ta ut pengarna i förtid mot ett ränteavdrag",
+     "quote": "Ditt företag kan avsluta ett placeringskonto och ta ut pengarna i förtid mot en avgift.",
      "source": 0,
-     "status": "belagt",
+     "status": "osäkert",
      "jev": {
-      "verdict": "supports",
-      "confidence": 0.28
+      "verdict": "contradicts",
+      "confidence": 0.68
      }
     },
     "free_withdrawals_per_year": {
@@ -429,13 +438,13 @@
      "status": "okänt"
     },
     "withdrawal_terms": {
-     "value": "Uttag i förtid mot ränteavdrag; endast hela beloppet kan tas ut.",
-     "quote": "Det går bara att ta ut hela beloppet från kontot, inte delar av beloppet.",
-     "source": 0,
+     "value": "Förtida uttag mot avgift baserad på marknadsräntan; minimiavgift 500 kr för konton öppnade från 2026-11-02.",
+     "quote": "Placeringskonto, avgift vid förtida avslut (gäller konton öppnade fr.o.m. 2026-11-02) | minimiavgift 500 kr*",
+     "source": 4,
      "status": "osäkert",
      "jev": {
       "verdict": "contradicts",
-      "confidence": 0.49
+      "confidence": 0.6
      }
     },
     "min_deposit_sek": {
@@ -457,20 +466,24 @@
      "status": "okänt"
     },
     "deposit_terms": {
-     "value": "Engångsinsättning när kontot öppnas.",
+     "value": "Engångsinsättning när kontot öppnas",
      "quote": "Engångsinsättning när kontot öppnas.",
      "source": 0,
      "status": "osäkert",
      "jev": {
       "verdict": "contradicts",
-      "confidence": 0.45
+      "confidence": 0.67
      }
     },
     "eligibility": {
-     "value": null,
-     "quote": null,
-     "source": null,
-     "status": "okänt"
+     "value": "Företag; kontot kan öppnas i Business Arena eller appen för företag",
+     "quote": "Du kan öppna placeringskonton för företaget direkt i Business Arena eller i appen för företag.",
+     "source": 0,
+     "status": "osäkert",
+     "jev": {
+      "verdict": "contradicts",
+      "confidence": 0.4
+     }
     },
     "requires_other_products": {
      "value": null,
@@ -485,43 +498,43 @@
      "status": "okänt"
     },
     "interest_paid": {
-     "value": "Räntan betalas ut på förfallodagen; vid automatisk förlängning kan den återinvesteras.",
-     "quote": "Räntan betalas ut på",
+     "value": "På förfallodagen (vid bindningstidens slut)",
+     "quote": "På förfallodagen betalas räntan ut till det konto som företaget har valt.",
      "source": 0,
      "status": "osäkert",
      "jev": {
       "verdict": "contradicts",
-      "confidence": 0.33
+      "confidence": 0.67
      }
     },
     "guarantee_country": {
      "value": "SE",
-     "quote": "Kontot omfattas av den statliga insättningsgarantin enligt beslut av Riksgälden.",
+     "quote": "Kontot omfattas av den statliga insättnings­garantin enligt beslut av Riksgälden.",
      "source": 0,
      "status": "osäkert",
      "jev": {
-      "verdict": "says_nothing",
-      "confidence": 0.46
+      "verdict": "contradicts",
+      "confidence": 0.1
      }
     },
     "guarantee_amount": {
      "value": "1 150 000 kr",
-     "quote": "1 150 000 kronor",
-     "source": 0,
+     "quote": "Varje kund har rätt till ersättning för sin sammanlagda kontobehållning i banken med ett belopp om högst 1 150 000 kronor",
+     "source": 1,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.52
+      "confidence": 0.19
      }
     },
     "rate_valid_from": {
      "value": "2026-04-01",
-     "quote": "| 6 månader¹ | 1,90 % | 2026-04-01 |",
+     "quote": "6 månader¹ | 1,90 % | 2026-04-01",
      "source": 1,
      "status": "osäkert",
      "jev": {
       "verdict": "contradicts",
-      "confidence": 0.33
+      "confidence": 0.53
      }
     }
    },
@@ -540,39 +553,39 @@
      "status": "osäkert",
      "jev": {
       "verdict": "contradicts",
-      "confidence": 0.56
+      "confidence": 0.76
      }
     },
     "rate_percent": {
-     "value": 2.15,
-     "quote": "| 1 år¹ , ² | 2,15 % | 2026-09-24 |",
+     "value": 2.25,
+     "quote": "1 år¹ , ² | 2,25 % | 2026-10-26",
      "source": 1,
      "status": "belagt"
     },
     "rate_type": {
      "value": "fast",
-     "quote": "får en fast ränta hela bindningstiden.",
+     "quote": "Företaget binder kapitalet under en period och får en fast ränta hela bindningstiden.",
      "source": 0,
      "status": "osäkert",
      "jev": {
       "verdict": "contradicts",
-      "confidence": 0.52
+      "confidence": 0.72
      }
     },
     "binding_months": {
      "value": 12,
-     "quote": "| 1 år¹ , ² | 2,15 % | 2026-09-24 |",
+     "quote": "1 år¹ , ² | 2,25 % | 2026-10-26",
      "source": 1,
      "status": "belagt"
     },
     "withdrawals": {
      "value": "mot avgift",
-     "quote": "ta ut pengarna i förtid mot ett ränteavdrag",
+     "quote": "Ditt företag kan avsluta ett placeringskonto och ta ut pengarna i förtid mot en avgift.",
      "source": 0,
-     "status": "belagt",
+     "status": "osäkert",
      "jev": {
-      "verdict": "supports",
-      "confidence": 0.28
+      "verdict": "contradicts",
+      "confidence": 0.67
      }
     },
     "free_withdrawals_per_year": {
@@ -582,13 +595,13 @@
      "status": "okänt"
     },
     "withdrawal_terms": {
-     "value": "Uttag i förtid mot ränteavdrag; endast hela beloppet kan tas ut.",
-     "quote": "Det går bara att ta ut hela beloppet från kontot, inte delar av beloppet.",
-     "source": 0,
+     "value": "Förtida uttag mot avgift baserad på marknadsräntan; minimiavgift 500 kr för konton öppnade från 2026-11-02.",
+     "quote": "Placeringskonto, avgift vid förtida avslut (gäller konton öppnade fr.o.m. 2026-11-02) | minimiavgift 500 kr*",
+     "source": 4,
      "status": "osäkert",
      "jev": {
       "verdict": "contradicts",
-      "confidence": 0.49
+      "confidence": 0.56
      }
     },
     "min_deposit_sek": {
@@ -610,20 +623,24 @@
      "status": "okänt"
     },
     "deposit_terms": {
-     "value": "Engångsinsättning när kontot öppnas.",
+     "value": "Engångsinsättning när kontot öppnas",
      "quote": "Engångsinsättning när kontot öppnas.",
      "source": 0,
      "status": "osäkert",
      "jev": {
       "verdict": "contradicts",
-      "confidence": 0.49
+      "confidence": 0.6
      }
     },
     "eligibility": {
-     "value": null,
-     "quote": null,
-     "source": null,
-     "status": "okänt"
+     "value": "Företag; kontot kan öppnas i Business Arena eller appen för företag",
+     "quote": "Du kan öppna placeringskonton för företaget direkt i Business Arena eller i appen för företag.",
+     "source": 0,
+     "status": "osäkert",
+     "jev": {
+      "verdict": "contradicts",
+      "confidence": 0.4
+     }
     },
     "requires_other_products": {
      "value": null,
@@ -638,43 +655,43 @@
      "status": "okänt"
     },
     "interest_paid": {
-     "value": "Räntan betalas ut på förfallodagen.",
-     "quote": "Räntan betalas ut på",
+     "value": "På förfallodagen (vid bindningstidens slut)",
+     "quote": "På förfallodagen betalas räntan ut till det konto som företaget har valt.",
      "source": 0,
      "status": "osäkert",
      "jev": {
       "verdict": "contradicts",
-      "confidence": 0.34
+      "confidence": 0.67
      }
     },
     "guarantee_country": {
      "value": "SE",
-     "quote": "Kontot omfattas av den statliga insättningsgarantin enligt beslut av Riksgälden.",
+     "quote": "Kontot omfattas av den statliga insättnings­garantin enligt beslut av Riksgälden.",
      "source": 0,
      "status": "osäkert",
      "jev": {
-      "verdict": "says_nothing",
-      "confidence": 0.41
+      "verdict": "contradicts",
+      "confidence": 0.19
      }
     },
     "guarantee_amount": {
      "value": "1 150 000 kr",
-     "quote": "1 150 000 kronor",
-     "source": 0,
+     "quote": "Varje kund har rätt till ersättning för sin sammanlagda kontobehållning i banken med ett belopp om högst 1 150 000 kronor",
+     "source": 1,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.59
+      "confidence": 0.26
      }
     },
     "rate_valid_from": {
-     "value": "2026-09-24",
-     "quote": "| 1 år¹ , ² | 2,15 % | 2026-09-24 |",
+     "value": "2026-10-26",
+     "quote": "1 år¹ , ² | 2,25 % | 2026-10-26",
      "source": 1,
      "status": "osäkert",
      "jev": {
       "verdict": "contradicts",
-      "confidence": 0.37
+      "confidence": 0.56
      }
     }
    },
@@ -693,39 +710,39 @@
      "status": "osäkert",
      "jev": {
       "verdict": "contradicts",
-      "confidence": 0.58
+      "confidence": 0.74
      }
     },
     "rate_percent": {
-     "value": 2.35,
-     "quote": "| 2 år¹ , ² | 2,35 % | 2026-09-24 |",
+     "value": 2.6,
+     "quote": "2 år¹ , ² | 2,60 % | 2026-10-26",
      "source": 1,
      "status": "belagt"
     },
     "rate_type": {
      "value": "fast",
-     "quote": "får en fast ränta hela bindningstiden.",
+     "quote": "Företaget binder kapitalet under en period och får en fast ränta hela bindningstiden.",
      "source": 0,
      "status": "osäkert",
      "jev": {
       "verdict": "contradicts",
-      "confidence": 0.52
+      "confidence": 0.74
      }
     },
     "binding_months": {
      "value": 24,
-     "quote": "| 2 år¹ , ² | 2,35 % | 2026-09-24 |",
+     "quote": "2 år¹ , ² | 2,60 % | 2026-10-26",
      "source": 1,
      "status": "belagt"
     },
     "withdrawals": {
      "value": "mot avgift",
-     "quote": "ta ut pengarna i förtid mot ett ränteavdrag",
+     "quote": "Ditt företag kan avsluta ett placeringskonto och ta ut pengarna i förtid mot en avgift.",
      "source": 0,
      "status": "osäkert",
      "jev": {
       "verdict": "contradicts",
-      "confidence": 0.28
+      "confidence": 0.62
      }
     },
     "free_withdrawals_per_year": {
@@ -735,13 +752,13 @@
      "status": "okänt"
     },
     "withdrawal_terms": {
-     "value": "Uttag i förtid mot ränteavdrag; endast hela beloppet kan tas ut.",
-     "quote": "Det går bara att ta ut hela beloppet från kontot, inte delar av beloppet.",
-     "source": 0,
+     "value": "Förtida uttag mot avgift baserad på marknadsräntan; minimiavgift 500 kr för konton öppnade från 2026-11-02.",
+     "quote": "Placeringskonto, avgift vid förtida avslut (gäller konton öppnade fr.o.m. 2026-11-02) | minimiavgift 500 kr*",
+     "source": 4,
      "status": "osäkert",
      "jev": {
       "verdict": "contradicts",
-      "confidence": 0.48
+      "confidence": 0.6
      }
     },
     "min_deposit_sek": {
@@ -763,20 +780,24 @@
      "status": "okänt"
     },
     "deposit_terms": {
-     "value": "Engångsinsättning när kontot öppnas.",
+     "value": "Engångsinsättning när kontot öppnas",
      "quote": "Engångsinsättning när kontot öppnas.",
      "source": 0,
      "status": "osäkert",
      "jev": {
       "verdict": "contradicts",
-      "confidence": 0.46
+      "confidence": 0.68
      }
     },
     "eligibility": {
-     "value": null,
-     "quote": null,
-     "source": null,
-     "status": "okänt"
+     "value": "Företag; kontot kan öppnas i Business Arena eller appen för företag",
+     "quote": "Du kan öppna placeringskonton för företaget direkt i Business Arena eller i appen för företag.",
+     "source": 0,
+     "status": "osäkert",
+     "jev": {
+      "verdict": "contradicts",
+      "confidence": 0.42
+     }
     },
     "requires_other_products": {
      "value": null,
@@ -791,43 +812,43 @@
      "status": "okänt"
     },
     "interest_paid": {
-     "value": "Räntan betalas ut på förfallodagen.",
-     "quote": "Räntan betalas ut på",
+     "value": "På förfallodagen (vid bindningstidens slut)",
+     "quote": "På förfallodagen betalas räntan ut till det konto som företaget har valt.",
      "source": 0,
      "status": "osäkert",
      "jev": {
       "verdict": "contradicts",
-      "confidence": 0.3
+      "confidence": 0.72
      }
     },
     "guarantee_country": {
      "value": "SE",
-     "quote": "Kontot omfattas av den statliga insättningsgarantin enligt beslut av Riksgälden.",
+     "quote": "Kontot omfattas av den statliga insättnings­garantin enligt beslut av Riksgälden.",
      "source": 0,
      "status": "osäkert",
      "jev": {
-      "verdict": "says_nothing",
-      "confidence": 0.55
+      "verdict": "contradicts",
+      "confidence": 0.16
      }
     },
     "guarantee_amount": {
      "value": "1 150 000 kr",
-     "quote": "1 150 000 kronor",
-     "source": 0,
+     "quote": "Varje kund har rätt till ersättning för sin sammanlagda kontobehållning i banken med ett belopp om högst 1 150 000 kronor",
+     "source": 1,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.61
+      "confidence": 0.37
      }
     },
     "rate_valid_from": {
-     "value": "2026-09-24",
-     "quote": "| 2 år¹ , ² | 2,35 % | 2026-09-24 |",
+     "value": "2026-10-26",
+     "quote": "2 år¹ , ² | 2,60 % | 2026-10-26",
      "source": 1,
      "status": "osäkert",
      "jev": {
       "verdict": "contradicts",
-      "confidence": 0.38
+      "confidence": 0.46
      }
     }
    },
@@ -846,39 +867,39 @@
      "status": "osäkert",
      "jev": {
       "verdict": "contradicts",
-      "confidence": 0.64
+      "confidence": 0.77
      }
     },
     "rate_percent": {
-     "value": 2.4,
-     "quote": "| 3 år¹ , ² | 2,40 % | 2026-09-24 |",
+     "value": 2.6,
+     "quote": "3 år¹ , ² | 2,60 % | 2026-10-26",
      "source": 1,
      "status": "belagt"
     },
     "rate_type": {
      "value": "fast",
-     "quote": "får en fast ränta hela bindningstiden.",
+     "quote": "Företaget binder kapitalet under en period och får en fast ränta hela bindningstiden.",
      "source": 0,
      "status": "osäkert",
      "jev": {
       "verdict": "contradicts",
-      "confidence": 0.49
+      "confidence": 0.73
      }
     },
     "binding_months": {
      "value": 36,
-     "quote": "| 3 år¹ , ² | 2,40 % | 2026-09-24 |",
+     "quote": "3 år¹ , ² | 2,60 % | 2026-10-26",
      "source": 1,
      "status": "belagt"
     },
     "withdrawals": {
      "value": "mot avgift",
-     "quote": "ta ut pengarna i förtid mot ett ränteavdrag",
+     "quote": "Ditt företag kan avsluta ett placeringskonto och ta ut pengarna i förtid mot en avgift.",
      "source": 0,
      "status": "osäkert",
      "jev": {
       "verdict": "contradicts",
-      "confidence": 0.28
+      "confidence": 0.72
      }
     },
     "free_withdrawals_per_year": {
@@ -888,13 +909,13 @@
      "status": "okänt"
     },
     "withdrawal_terms": {
-     "value": "Uttag i förtid mot ränteavdrag; endast hela beloppet kan tas ut.",
-     "quote": "Det går bara att ta ut hela beloppet från kontot, inte delar av beloppet.",
-     "source": 0,
+     "value": "Förtida uttag mot avgift baserad på marknadsräntan; minimiavgift 500 kr för konton öppnade från 2026-11-02.",
+     "quote": "Placeringskonto, avgift vid förtida avslut (gäller konton öppnade fr.o.m. 2026-11-02) | minimiavgift 500 kr*",
+     "source": 4,
      "status": "osäkert",
      "jev": {
       "verdict": "contradicts",
-      "confidence": 0.41
+      "confidence": 0.6
      }
     },
     "min_deposit_sek": {
@@ -916,20 +937,24 @@
      "status": "okänt"
     },
     "deposit_terms": {
-     "value": "Engångsinsättning när kontot öppnas.",
+     "value": "Engångsinsättning när kontot öppnas",
      "quote": "Engångsinsättning när kontot öppnas.",
      "source": 0,
      "status": "osäkert",
      "jev": {
       "verdict": "contradicts",
-      "confidence": 0.43
+      "confidence": 0.64
      }
     },
     "eligibility": {
-     "value": null,
-     "quote": null,
-     "source": null,
-     "status": "okänt"
+     "value": "Företag; kontot kan öppnas i Business Arena eller appen för företag",
+     "quote": "Du kan öppna placeringskonton för företaget direkt i Business Arena eller i appen för företag.",
+     "source": 0,
+     "status": "osäkert",
+     "jev": {
+      "verdict": "contradicts",
+      "confidence": 0.44
+     }
     },
     "requires_other_products": {
      "value": null,
@@ -944,43 +969,43 @@
      "status": "okänt"
     },
     "interest_paid": {
-     "value": "Räntan betalas ut på förfallodagen.",
-     "quote": "Räntan betalas ut på",
+     "value": "På förfallodagen (vid bindningstidens slut)",
+     "quote": "På förfallodagen betalas räntan ut till det konto som företaget har valt.",
      "source": 0,
      "status": "osäkert",
      "jev": {
       "verdict": "contradicts",
-      "confidence": 0.34
+      "confidence": 0.73
      }
     },
     "guarantee_country": {
      "value": "SE",
-     "quote": "Kontot omfattas av den statliga insättningsgarantin enligt beslut av Riksgälden.",
+     "quote": "Kontot omfattas av den statliga insättnings­garantin enligt beslut av Riksgälden.",
      "source": 0,
      "status": "osäkert",
      "jev": {
       "verdict": "says_nothing",
-      "confidence": 0.46
+      "confidence": 0.11
      }
     },
     "guarantee_amount": {
      "value": "1 150 000 kr",
-     "quote": "1 150 000 kronor",
-     "source": 0,
+     "quote": "Varje kund har rätt till ersättning för sin sammanlagda kontobehållning i banken med ett belopp om högst 1 150 000 kronor",
+     "source": 1,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.49
+      "confidence": 0.3
      }
     },
     "rate_valid_from": {
-     "value": "2026-09-24",
-     "quote": "| 3 år¹ , ² | 2,40 % | 2026-09-24 |",
+     "value": "2026-10-26",
+     "quote": "3 år¹ , ² | 2,60 % | 2026-10-26",
      "source": 1,
      "status": "osäkert",
      "jev": {
       "verdict": "contradicts",
-      "confidence": 0.31
+      "confidence": 0.42
      }
     }
    },
@@ -999,39 +1024,39 @@
      "status": "osäkert",
      "jev": {
       "verdict": "contradicts",
-      "confidence": 0.66
+      "confidence": 0.74
      }
     },
     "rate_percent": {
-     "value": 2.45,
-     "quote": "| 4 år¹ , ² | 2,45 % | 2026-09-24 |",
+     "value": 2.7,
+     "quote": "4 år¹ , ² | 2,70 % | 2026-10-26",
      "source": 1,
      "status": "belagt"
     },
     "rate_type": {
      "value": "fast",
-     "quote": "får en fast ränta hela bindningstiden.",
+     "quote": "Företaget binder kapitalet under en period och får en fast ränta hela bindningstiden.",
      "source": 0,
      "status": "osäkert",
      "jev": {
       "verdict": "contradicts",
-      "confidence": 0.58
+      "confidence": 0.73
      }
     },
     "binding_months": {
      "value": 48,
-     "quote": "| 4 år¹ , ² | 2,45 % | 2026-09-24 |",
+     "quote": "4 år¹ , ² | 2,70 % | 2026-10-26",
      "source": 1,
      "status": "belagt"
     },
     "withdrawals": {
      "value": "mot avgift",
-     "quote": "ta ut pengarna i förtid mot ett ränteavdrag",
+     "quote": "Ditt företag kan avsluta ett placeringskonto och ta ut pengarna i förtid mot en avgift.",
      "source": 0,
      "status": "osäkert",
      "jev": {
       "verdict": "contradicts",
-      "confidence": 0.28
+      "confidence": 0.62
      }
     },
     "free_withdrawals_per_year": {
@@ -1041,13 +1066,13 @@
      "status": "okänt"
     },
     "withdrawal_terms": {
-     "value": "Uttag i förtid mot ränteavdrag; endast hela beloppet kan tas ut.",
-     "quote": "Det går bara att ta ut hela beloppet från kontot, inte delar av beloppet.",
-     "source": 0,
+     "value": "Förtida uttag mot avgift baserad på marknadsräntan; minimiavgift 500 kr för konton öppnade från 2026-11-02.",
+     "quote": "Placeringskonto, avgift vid förtida avslut (gäller konton öppnade fr.o.m. 2026-11-02) | minimiavgift 500 kr*",
+     "source": 4,
      "status": "osäkert",
      "jev": {
       "verdict": "contradicts",
-      "confidence": 0.41
+      "confidence": 0.6
      }
     },
     "min_deposit_sek": {
@@ -1069,20 +1094,24 @@
      "status": "okänt"
     },
     "deposit_terms": {
-     "value": "Engångsinsättning när kontot öppnas.",
+     "value": "Engångsinsättning när kontot öppnas",
      "quote": "Engångsinsättning när kontot öppnas.",
      "source": 0,
      "status": "osäkert",
      "jev": {
       "verdict": "contradicts",
-      "confidence": 0.45
+      "confidence": 0.64
      }
     },
     "eligibility": {
-     "value": null,
-     "quote": null,
-     "source": null,
-     "status": "okänt"
+     "value": "Företag; kontot kan öppnas i Business Arena eller appen för företag",
+     "quote": "Du kan öppna placeringskonton för företaget direkt i Business Arena eller i appen för företag.",
+     "source": 0,
+     "status": "osäkert",
+     "jev": {
+      "verdict": "contradicts",
+      "confidence": 0.49
+     }
     },
     "requires_other_products": {
      "value": null,
@@ -1097,43 +1126,43 @@
      "status": "okänt"
     },
     "interest_paid": {
-     "value": "Räntan betalas ut på förfallodagen.",
-     "quote": "Räntan betalas ut på",
+     "value": "På förfallodagen (vid bindningstidens slut)",
+     "quote": "På förfallodagen betalas räntan ut till det konto som företaget har valt.",
      "source": 0,
      "status": "osäkert",
      "jev": {
       "verdict": "contradicts",
-      "confidence": 0.34
+      "confidence": 0.7
      }
     },
     "guarantee_country": {
      "value": "SE",
-     "quote": "Kontot omfattas av den statliga insättningsgarantin enligt beslut av Riksgälden.",
+     "quote": "Kontot omfattas av den statliga insättnings­garantin enligt beslut av Riksgälden.",
      "source": 0,
      "status": "osäkert",
      "jev": {
-      "verdict": "says_nothing",
-      "confidence": 0.43
+      "verdict": "contradicts",
+      "confidence": 0.19
      }
     },
     "guarantee_amount": {
      "value": "1 150 000 kr",
-     "quote": "1 150 000 kronor",
-     "source": 0,
+     "quote": "Varje kund har rätt till ersättning för sin sammanlagda kontobehållning i banken med ett belopp om högst 1 150 000 kronor",
+     "source": 1,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.55
+      "confidence": 0.34
      }
     },
     "rate_valid_from": {
-     "value": "2026-09-24",
-     "quote": "| 4 år¹ , ² | 2,45 % | 2026-09-24 |",
+     "value": "2026-10-26",
+     "quote": "4 år¹ , ² | 2,70 % | 2026-10-26",
      "source": 1,
      "status": "osäkert",
      "jev": {
       "verdict": "contradicts",
-      "confidence": 0.34
+      "confidence": 0.4
      }
     }
    },
@@ -1152,39 +1181,39 @@
      "status": "osäkert",
      "jev": {
       "verdict": "contradicts",
-      "confidence": 0.56
+      "confidence": 0.77
      }
     },
     "rate_percent": {
-     "value": 2.6,
-     "quote": "| 5 år¹ , ² | 2,60 % | 2026-09-24 |",
+     "value": 2.75,
+     "quote": "5 år¹ , ² | 2,75 % | 2026-10-26",
      "source": 1,
      "status": "belagt"
     },
     "rate_type": {
      "value": "fast",
-     "quote": "får en fast ränta hela bindningstiden.",
+     "quote": "Företaget binder kapitalet under en period och får en fast ränta hela bindningstiden.",
      "source": 0,
      "status": "osäkert",
      "jev": {
       "verdict": "contradicts",
-      "confidence": 0.51
+      "confidence": 0.68
      }
     },
     "binding_months": {
      "value": 60,
-     "quote": "| 5 år¹ , ² | 2,60 % | 2026-09-24 |",
+     "quote": "5 år¹ , ² | 2,75 % | 2026-10-26",
      "source": 1,
      "status": "belagt"
     },
     "withdrawals": {
      "value": "mot avgift",
-     "quote": "ta ut pengarna i förtid mot ett ränteavdrag",
+     "quote": "Ditt företag kan avsluta ett placeringskonto och ta ut pengarna i förtid mot en avgift.",
      "source": 0,
-     "status": "belagt",
+     "status": "osäkert",
      "jev": {
-      "verdict": "supports",
-      "confidence": 0.31
+      "verdict": "contradicts",
+      "confidence": 0.62
      }
     },
     "free_withdrawals_per_year": {
@@ -1194,13 +1223,13 @@
      "status": "okänt"
     },
     "withdrawal_terms": {
-     "value": "Uttag i förtid mot ränteavdrag; endast hela beloppet kan tas ut.",
-     "quote": "Det går bara att ta ut hela beloppet från kontot, inte delar av beloppet.",
-     "source": 0,
+     "value": "Förtida uttag mot avgift baserad på marknadsräntan; minimiavgift 500 kr för konton öppnade från 2026-11-02.",
+     "quote": "Placeringskonto, avgift vid förtida avslut (gäller konton öppnade fr.o.m. 2026-11-02) | minimiavgift 500 kr*",
+     "source": 4,
      "status": "osäkert",
      "jev": {
       "verdict": "contradicts",
-      "confidence": 0.34
+      "confidence": 0.56
      }
     },
     "min_deposit_sek": {
@@ -1222,20 +1251,24 @@
      "status": "okänt"
     },
     "deposit_terms": {
-     "value": "Engångsinsättning när kontot öppnas.",
+     "value": "Engångsinsättning när kontot öppnas",
      "quote": "Engångsinsättning när kontot öppnas.",
      "source": 0,
      "status": "osäkert",
      "jev": {
       "verdict": "contradicts",
-      "confidence": 0.34
+      "confidence": 0.64
      }
     },
     "eligibility": {
-     "value": null,
-     "quote": null,
-     "source": null,
-     "status": "okänt"
+     "value": "Företag; kontot kan öppnas i Business Arena eller appen för företag",
+     "quote": "Du kan öppna placeringskonton för företaget direkt i Business Arena eller i appen för företag.",
+     "source": 0,
+     "status": "osäkert",
+     "jev": {
+      "verdict": "contradicts",
+      "confidence": 0.31
+     }
     },
     "requires_other_products": {
      "value": null,
@@ -1250,43 +1283,43 @@
      "status": "okänt"
     },
     "interest_paid": {
-     "value": "Räntan betalas ut på förfallodagen.",
-     "quote": "Räntan betalas ut på",
+     "value": "På förfallodagen (vid bindningstidens slut)",
+     "quote": "På förfallodagen betalas räntan ut till det konto som företaget har valt.",
      "source": 0,
      "status": "osäkert",
      "jev": {
       "verdict": "contradicts",
-      "confidence": 0.27
+      "confidence": 0.58
      }
     },
     "guarantee_country": {
      "value": "SE",
-     "quote": "Kontot omfattas av den statliga insättningsgarantin enligt beslut av Riksgälden.",
+     "quote": "Kontot omfattas av den statliga insättnings­garantin enligt beslut av Riksgälden.",
      "source": 0,
      "status": "osäkert",
      "jev": {
-      "verdict": "says_nothing",
-      "confidence": 0.4
+      "verdict": "contradicts",
+      "confidence": 0.28
      }
     },
     "guarantee_amount": {
      "value": "1 150 000 kr",
-     "quote": "1 150 000 kronor",
-     "source": 0,
+     "quote": "Varje kund har rätt till ersättning för sin sammanlagda kontobehållning i banken med ett belopp om högst 1 150 000 kronor",
+     "source": 1,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.59
+      "confidence": 0.28
      }
     },
     "rate_valid_from": {
-     "value": "2026-09-24",
-     "quote": "| 5 år¹ , ² | 2,60 % | 2026-09-24 |",
+     "value": "2026-10-26",
+     "quote": "5 år¹ , ² | 2,75 % | 2026-10-26",
      "source": 1,
      "status": "osäkert",
      "jev": {
       "verdict": "contradicts",
-      "confidence": 0.38
+      "confidence": 0.52
      }
     }
    },
@@ -1295,7 +1328,7 @@
    "status": "verifierad"
   }
  ],
- "source_hash": "87f7dc49776e71d6",
- "changed_at": "2026-10-13T21:51:41+00:00",
- "model": "claude-sonnet-5-5"
+ "source_hash": "f262b120bcd847b0",
+ "changed_at": "2026-11-02T14:01:53+00:00",
+ "model": "claude-haiku-5-5"
 }
