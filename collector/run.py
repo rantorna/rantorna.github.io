@@ -150,6 +150,9 @@ def process(bank: dict, discover_only: bool, force: bool, log, rediscover: bool 
     if discover_only:
         log(f"  hash {h}")
         return None
+    failed_before = (previous or {}).get("status", "").startswith("senaste tolkning misslyckades")
+    if failed_before:
+        force = True   # förra försöket misslyckades – tolka om även om sidan är oförändrad
     if previous and previous.get("source_hash") == h and not force and not reverify:
         log("  oförändrat – ingen ny tolkning")
         previous["checked_at"] = record["checked_at"]
@@ -400,6 +403,7 @@ def main():
     ap.add_argument("--relink", action="store_true", help="hämta källorna och koppla om citat till rätt sida (inga Claude-anrop)")
     ap.add_argument("--reverify", action="store_true", help="kör om kontrollen mot sparade tolkningar (inga nya Claude-anrop)")
     ap.add_argument("--rediscover", action="store_true", help="leta sidor på nytt i stället för att återanvända förra körningens")
+    ap.add_argument("--budget", type=float, help="minuter för den här fliken; därefter tas inga nya banker")
     args = ap.parse_args()
     segments.use(args.segment)
     segments.cur().products.mkdir(parents=True, exist_ok=True)
@@ -407,6 +411,9 @@ def main():
     # Längst sedan kontrollerade först, så att en natt som inte hinner klart inte drabbar samma banker igen.
     banks.sort(key=lambda b: last_checked(b["id"]))
     deadline = float(os.environ.get("RANTORNA_DEADLINE") or 0)
+    if args.budget:
+        step_end = time.time() + args.budget * 60
+        deadline = min(deadline, step_end) if deadline else step_end
     print(f"{len(banks)} banker", flush=True)
     failures = 0
 

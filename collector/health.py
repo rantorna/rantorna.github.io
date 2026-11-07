@@ -81,6 +81,9 @@ def main() -> int:
             continue
         d = json.loads(f.read_text())
         h = age_hours(d.get("generated_at"))
+        checked = [b["checked_at"] for b in d.get("banks") or [] if b.get("checked_at")]
+        if checked and h is not None:   # filen kan skrivas om utan att någon bank hunnits kontrolleras
+            h = max(h, age_hours(max(checked)))
         if h is None or h > max_age:
             problems.append(f"**{label}**: uppgifterna är {'okänt' if h is None else f'{h / 24:.1f} dygn'} gamla (`{path}`).")
         if "banks" in d:

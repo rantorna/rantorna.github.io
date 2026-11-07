@@ -45,9 +45,10 @@ jobs:
         run: |
           # Manuella körningar (en bank, omtolkning eller "alltid") går alltid.
           if [ -n "$BANK" ] || [ "$FORCE" = "true" ] || [ "$ALWAYS" = "true" ]; then echo "skip=false" >> "$GITHUB_OUTPUT"; exit 0; fi
-          # Insamlingen körs nätterna mot tisdag, torsdag och lördag (svensk tid).
-          day=$(TZ=Europe/Stockholm date -d '12 hours ago' +%u)   # natten räknas till dagen innan (även om reserven startar sent)
-          if [ "$day" != "1" ] && [ "$day" != "3" ] && [ "$day" != "5" ]; then
+          # Insamlingen körs nätterna mot tisdag, torsdag och lördag – 02:10 svensk tid, eller
+          # reserven senare samma dag.
+          day=$(TZ=Europe/Stockholm date +%u)
+          if [ "$day" != "2" ] && [ "$day" != "4" ] && [ "$day" != "6" ]; then
             echo "ingen insamling i natt (dag $day)"; echo "skip=true" >> "$GITHUB_OUTPUT"; exit 0
           fi
           # Redan insamlat i natt? (ett avbrutet eller överhoppat jobb ger ingen sådan commit)
@@ -71,7 +72,8 @@ jobs:
     steps:
       - name: Tidsbudget
         # Insamlingen slutar ta nya banker efter 4 h 10 min, så att sparsteget alltid hinner köras
-        # före jobbets tidsgräns. Bankerna som inte hanns med tas först nästa natt.
+        # före jobbets tidsgräns. Varje flik har dessutom en egen budget (--budget, minuter), så att
+        # också de sista flikarna hinns med. Bankerna som inte hanns med tas först nästa gång.
         run: echo "RANTORNA_DEADLINE=$(( $(date +%s) + 250 * 60 ))" >> "$GITHUB_ENV"
 
       - uses: actions/checkout@v4
@@ -110,15 +112,15 @@ jobs:
           args=""
           if [ -n "$BANK" ]; then args="$args --bank $BANK"; fi
           if [ "$FORCE" = "true" ]; then args="$args --force"; fi
-          python -m collector.run --workers 4 $args
+          python -m collector.run --workers 4 --budget 45 $args
 
       - name: Barn och unga
         if: ${{ !inputs.bank }}
-        run: python -m collector.run --segment youth --workers 4
+        run: python -m collector.run --segment youth --workers 4 --budget 20
 
       - name: Sparkonton i utländsk valuta
         if: ${{ !inputs.bank }}
-        run: python -m collector.run --segment fx_savings --workers 4
+        run: python -m collector.run --segment fx_savings --workers 4 --budget 20
 
       - name: Bolån – slå upp nya långivare
         if: ${{ !inputs.bank }}
@@ -126,7 +128,7 @@ jobs:
 
       - name: Bolån – hämta och tolka
         if: ${{ !inputs.bank }}
-        run: python -m collector.run --segment mortgage --workers 4
+        run: python -m collector.run --segment mortgage --workers 4 --budget 30
 
       - name: Företag – slå upp nya banker
         if: ${{ !inputs.bank }}
@@ -134,53 +136,53 @@ jobs:
 
       - name: Företag – konton
         if: ${{ !inputs.bank }}
-        run: python -m collector.run --segment business_accounts --workers 4
+        run: python -m collector.run --segment business_accounts --workers 4 --budget 12
 
       - name: Företag – sparande
         if: ${{ !inputs.bank }}
-        run: python -m collector.run --segment business_savings --workers 4
+        run: python -m collector.run --segment business_savings --workers 4 --budget 15
 
       - name: Företag – finansiering
         if: ${{ !inputs.bank }}
         run: |
           python -m collector.resolve --segment business_financing --limit 10
-          python -m collector.run --segment business_financing --workers 4
+          python -m collector.run --segment business_financing --workers 4 --budget 12
 
       - name: Privatlån
         if: ${{ !inputs.bank }}
         run: |
           python -m collector.resolve --segment personal_loans --limit 10
-          python -m collector.run --segment personal_loans --workers 4
+          python -m collector.run --segment personal_loans --workers 4 --budget 25
 
       - name: Kreditkort
         if: ${{ !inputs.bank }}
         run: |
           python -m collector.resolve --segment cards --limit 10
-          python -m collector.run --segment cards --workers 4
+          python -m collector.run --segment cards --workers 4 --budget 20
 
       - name: Utlandsbetalningar
         if: ${{ !inputs.bank }}
         run: |
           python -m collector.resolve --segment transfers --limit 10
-          python -m collector.run --segment transfers --workers 4
+          python -m collector.run --segment transfers --workers 4 --budget 10
 
       - name: Utlandsbetalningar för företag
         if: ${{ !inputs.bank }}
         run: |
           python -m collector.resolve --segment business_transfers --limit 5
-          python -m collector.run --segment business_transfers --workers 4
+          python -m collector.run --segment business_transfers --workers 4 --budget 8
 
       - name: Valutaväxling i depån
         if: ${{ !inputs.bank }}
         run: |
           python -m collector.resolve --segment broker_fx --limit 5
-          python -m collector.run --segment broker_fx --workers 4
+          python -m collector.run --segment broker_fx --workers 4 --budget 8
 
       - name: Bankkort utomlands
         if: ${{ !inputs.bank }}
         run: |
           python -m collector.resolve --segment debit_cards --limit 5
-          python -m collector.run --segment debit_cards --workers 4
+          python -m collector.run --segment debit_cards --workers 4 --budget 8
 
       - name: Växlingskontorens kurser
         if: ${{ !inputs.bank }}
@@ -192,7 +194,7 @@ jobs:
 
       - name: Pension – hämta och tolka
         if: ${{ !inputs.bank }}
-        run: python -m collector.run --segment pension --workers 4
+        run: python -m collector.run --segment pension --workers 4 --budget 15
 
       - name: Spara ändringar
         if: ${{ always() }}   # spara det som hunnits även om ett steg fallerat eller jobbet avbrutits
