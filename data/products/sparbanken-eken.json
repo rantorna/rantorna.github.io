@@ -7,7 +7,7 @@
   "kind": "sparbank",
   "legal_name": "Sparbanken Eken AB"
  },
- "checked_at": "2026-11-05T02:03:19+00:00",
+ "checked_at": "2026-11-07T02:06:24+00:00",
  "discovered_at": "2026-10-26T01:58:50+00:00",
  "sources": [
   {
@@ -68,42 +68,48 @@
   }
  ],
  "status": "ok",
- "notes": "Ej extraherade: ISK, Skogskonto, Skogslikvidkonto och Skogskadekonto (skogsägare/ISK är undantagna enligt reglerna). Sparkapitalkonto och Framtidskonto saknar angiven ränta på källsidorna; räntefälten är därför tomma. Framtidskonto har minsta sparbelopp 50 000 kr; Sparkapitalkonto anger endast \"Högre ränta från 50 000 kr\" utan räntesats. Fasträntekontots sida anger \"aktuella räntor 2026-11-04\" men inget datum då räntan började gälla, så rate_valid_from är tomt. Ränta för e-sparkonto, Privatkonto, Servicekonto och Ungdomskonto är 0,00 %. Privatkonto och Servicekonto är transaktionskonton men står på sparkontosidan med 0 % ränta och tas därför med. Ränteinformation för Eken Pluskonto, Seniorkonto och Ung anges bara i ränteöversikten (källa 0). Sparkonto Plus: källsidor anger inte något antal fria uttag per år. Insättningsgarantin (1 150 000 kr) gäller enligt källa 5 för alla konton.",
+ "notes": "Källorna 0 och 7 (samt 1) är delvis dubbletter. Sparkapitalkonto och Framtidskonto har ingen ränta angiven i källorna och därför är räntefälten tomma; produkttyp för dessa är också okänd. Privatkonto, Servicekonto och Ungdomskonto anges med 0,00 % på räntesidan utan närmare beskrivning, och kan vara transaktionskonton; de är medtagna men bör verifieras. Skogskonton (Skogskonto, Skogslikvidkonto, Skogskadekonto) och ISK är uteslutna enligt reglerna. Fasträntekontots räntor visas i tabell med datum 2026-11-06 på sidan. Vid förtida uttag beskriver rates-sidan en ränteskillnadsersättning medan fasträntesidan beskriver en avgift; båda citeras inte separat. Insättningsgarantin (1 150 000 kr) gäller för alla konton enligt källa 5. Eken Plus-konton kräver rådgivning vid öppning enligt källa 0.",
  "products": [
   {
    "name": "Sparkonto Plus",
    "flags": [],
    "fields": {
     "product_type": {
-     "value": "annat",
+     "value": null,
      "quote": "Sparkonto Plus",
      "source": 4,
-     "status": "osäkert",
+     "status": "stöds inte av källan",
      "jev": {
-      "verdict": "contradicts",
-      "confidence": 0.73
-     }
+      "verdict": "says_nothing",
+      "confidence": 0.8
+     },
+     "claimed": "rörligt sparkonto"
     },
     "rate_percent": {
      "value": 0.8,
-     "quote": "0,80 %",
+     "quote": "Aktuell ränta 0,80 %",
      "source": 4,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.64
+      "confidence": 0.92
      }
     },
     "rate_type": {
      "value": null,
-     "quote": null,
-     "source": null,
-     "status": "okänt"
+     "quote": "Aktuell ränta",
+     "source": 4,
+     "status": "stöds inte av källan",
+     "jev": {
+      "verdict": "says_nothing",
+      "confidence": 0.98
+     },
+     "claimed": "rörlig"
     },
     "binding_months": {
      "value": 0,
      "quote": "Ingen - fria uttag",
-     "source": 4,
+     "source": 0,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
@@ -127,13 +133,13 @@
      "status": "okänt"
     },
     "withdrawal_terms": {
-     "value": "Uttag utan kostnad, pengarna landar på kontot efter tre kalenderdagar. Endast överföring till egna konton i banken.",
-     "quote": "Du kan ta ut pengarna när du vill utan kostnad. Pengarna landar på ditt konto efter tre kalenderdagar",
+     "value": "Fria uttag utan kostnad, men överföringar landar på kontot efter tre kalenderdagar.",
+     "quote": "Pengarna landar på ditt konto efter tre kalenderdagar",
      "source": 4,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.88
+      "confidence": 0.96
      }
     },
     "min_deposit_sek": {
@@ -159,30 +165,31 @@
      "status": "okänt"
     },
     "deposit_terms": {
-     "value": "Enkelt att månadsspara till kontot",
-     "quote": "Enkelt att månadsspara till kontot",
-     "source": 1,
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "eligibility": {
+     "value": "Ingen åldersgräns; kan öppnas själv i appen eller internetbanken.",
+     "quote": "Ja, det finns ingen åldersgräns på kontot.",
+     "source": 4,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
       "confidence": 0.92
      }
     },
-    "eligibility": {
-     "value": "Kan öppnas själv i internetbanken eller appen; ingen åldersgräns",
-     "quote": "Ja, det finns ingen åldersgräns på kontot.",
-     "source": 4,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.89
-     }
-    },
     "requires_other_products": {
      "value": null,
-     "quote": null,
-     "source": null,
-     "status": "okänt"
+     "quote": "Eftersom det är ett sparkonto går det inte att koppla till exempel bankkort eller e-faktura till kontot.",
+     "source": 4,
+     "status": "stöds inte av källan",
+     "jev": {
+      "verdict": "says_nothing",
+      "confidence": 0.83
+     },
+     "claimed": false
     },
     "intro_rate": {
      "value": null,
@@ -198,12 +205,12 @@
     },
     "guarantee_country": {
      "value": "SE",
-     "quote": "Våra konton omfattas av den statliga insättningsgarantin enligt beslut av Riksgälden.",
+     "quote": "Sparbanken Ekens inlåningskonton omfattas av den statliga insättningsgarantin.",
      "source": 5,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.35
+      "confidence": 0.44
      }
     },
     "guarantee_amount": {
@@ -280,23 +287,23 @@
      "status": "okänt"
     },
     "withdrawal_terms": {
-     "value": "Förtida uttag mot avgift baserad på skillnaden mot marknadsräntan; ränteskillnadsersättning vid uttag före slutförfallodagen.",
-     "quote": "Om du tar ut pengar innan bindningstiden är slut tillkommer en avgift.",
+     "value": "Uttag i förtid mot avgift baserad på skillnaden mot marknadsräntan.",
+     "quote": "Avgiften är baserad på skillnaden mellan den avtalade räntan och den rådande marknadsräntan",
      "source": 2,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.68
+      "confidence": 0.96
      }
     },
     "min_deposit_sek": {
      "value": 5000,
-     "quote": "Minsta insättning 5 000 kr",
+     "quote": "Minsta sparbelopp: 5 000 kr",
      "source": 2,
-     "status": "belagt",
+     "status": "osäkert",
      "jev": {
-      "verdict": "supports",
-      "confidence": 0.88
+      "verdict": "says_nothing",
+      "confidence": 0.19
      }
     },
     "max_deposit_sek": {
@@ -336,23 +343,23 @@
      "status": "okänt"
     },
     "interest_paid": {
-     "value": "vid bindningstidens slut",
+     "value": "Hela räntan betalas ut på slutförfallodagen",
      "quote": "Räntan på Fasträntekonto beräknas också utifrån att hela räntan betalas ut på slutförfallodagen.",
      "source": 2,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.88
+      "confidence": 0.6
      }
     },
     "guarantee_country": {
      "value": "SE",
-     "quote": "Våra konton omfattas av den statliga insättningsgarantin enligt beslut av Riksgälden.",
+     "quote": "Sparbanken Ekens inlåningskonton omfattas av den statliga insättningsgarantin.",
      "source": 5,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.5
+      "confidence": 0.44
      }
     },
     "guarantee_amount": {
@@ -366,10 +373,14 @@
      }
     },
     "rate_valid_from": {
-     "value": null,
-     "quote": null,
-     "source": null,
-     "status": "okänt"
+     "value": "2026-11-06",
+     "quote": "Fasträntekonto – aktuella räntor 2026-11-06",
+     "source": 2,
+     "status": "osäkert",
+     "jev": {
+      "verdict": "says_nothing",
+      "confidence": 0.4
+     }
     }
    },
    "rate_tiers": [],
@@ -429,23 +440,23 @@
      "status": "okänt"
     },
     "withdrawal_terms": {
-     "value": "Förtida uttag mot avgift baserad på skillnaden mot marknadsräntan; ränteskillnadsersättning vid uttag före slutförfallodagen.",
-     "quote": "Om du tar ut pengar innan bindningstiden är slut tillkommer en avgift.",
+     "value": "Uttag i förtid mot avgift baserad på skillnaden mot marknadsräntan.",
+     "quote": "Avgiften är baserad på skillnaden mellan den avtalade räntan och den rådande marknadsräntan",
      "source": 2,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.7
+      "confidence": 0.96
      }
     },
     "min_deposit_sek": {
      "value": 5000,
-     "quote": "Minsta insättning 5 000 kr",
+     "quote": "Minsta sparbelopp: 5 000 kr",
      "source": 2,
-     "status": "belagt",
+     "status": "osäkert",
      "jev": {
-      "verdict": "supports",
-      "confidence": 0.89
+      "verdict": "says_nothing",
+      "confidence": 0.11
      }
     },
     "max_deposit_sek": {
@@ -485,23 +496,23 @@
      "status": "okänt"
     },
     "interest_paid": {
-     "value": "vid bindningstidens slut",
+     "value": "Hela räntan betalas ut på slutförfallodagen",
      "quote": "Räntan på Fasträntekonto beräknas också utifrån att hela räntan betalas ut på slutförfallodagen.",
      "source": 2,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.88
+      "confidence": 0.68
      }
     },
     "guarantee_country": {
      "value": "SE",
-     "quote": "Våra konton omfattas av den statliga insättningsgarantin enligt beslut av Riksgälden.",
+     "quote": "Sparbanken Ekens inlåningskonton omfattas av den statliga insättningsgarantin.",
      "source": 5,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.49
+      "confidence": 0.44
      }
     },
     "guarantee_amount": {
@@ -515,10 +526,14 @@
      }
     },
     "rate_valid_from": {
-     "value": null,
-     "quote": null,
-     "source": null,
-     "status": "okänt"
+     "value": "2026-11-06",
+     "quote": "Fasträntekonto – aktuella räntor 2026-11-06",
+     "source": 2,
+     "status": "osäkert",
+     "jev": {
+      "verdict": "says_nothing",
+      "confidence": 0.52
+     }
     }
    },
    "rate_tiers": [],
@@ -541,7 +556,7 @@
     },
     "rate_percent": {
      "value": 2.2,
-     "quote": "1 år | 2,20 % | 2,23 %",
+     "quote": "1 år | 2,20 %",
      "source": 2,
      "status": "belagt"
     },
@@ -557,7 +572,7 @@
     },
     "binding_months": {
      "value": 12,
-     "quote": "1 år | 2,20 % | 2,23 %",
+     "quote": "1 år | 2,20 %",
      "source": 2,
      "status": "belagt"
     },
@@ -578,23 +593,23 @@
      "status": "okänt"
     },
     "withdrawal_terms": {
-     "value": "Förtida uttag mot avgift baserad på skillnaden mot marknadsräntan; ränteskillnadsersättning vid uttag före slutförfallodagen.",
-     "quote": "Om du tar ut pengar innan bindningstiden är slut tillkommer en avgift.",
+     "value": "Uttag i förtid mot avgift baserad på skillnaden mot marknadsräntan.",
+     "quote": "Avgiften är baserad på skillnaden mellan den avtalade räntan och den rådande marknadsräntan",
      "source": 2,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.73
+      "confidence": 0.98
      }
     },
     "min_deposit_sek": {
      "value": 5000,
-     "quote": "Minsta insättning 5 000 kr",
+     "quote": "Minsta sparbelopp: 5 000 kr",
      "source": 2,
-     "status": "belagt",
+     "status": "osäkert",
      "jev": {
-      "verdict": "supports",
-      "confidence": 0.91
+      "verdict": "says_nothing",
+      "confidence": 0.16
      }
     },
     "max_deposit_sek": {
@@ -634,23 +649,23 @@
      "status": "okänt"
     },
     "interest_paid": {
-     "value": "vid bindningstidens slut",
+     "value": "Hela räntan betalas ut på slutförfallodagen",
      "quote": "Räntan på Fasträntekonto beräknas också utifrån att hela räntan betalas ut på slutförfallodagen.",
      "source": 2,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.94
+      "confidence": 0.82
      }
     },
     "guarantee_country": {
      "value": "SE",
-     "quote": "Våra konton omfattas av den statliga insättningsgarantin enligt beslut av Riksgälden.",
+     "quote": "Sparbanken Ekens inlåningskonton omfattas av den statliga insättningsgarantin.",
      "source": 5,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.56
+      "confidence": 0.42
      }
     },
     "guarantee_amount": {
@@ -664,10 +679,14 @@
      }
     },
     "rate_valid_from": {
-     "value": null,
-     "quote": null,
-     "source": null,
-     "status": "okänt"
+     "value": "2026-11-06",
+     "quote": "Fasträntekonto – aktuella räntor 2026-11-06",
+     "source": 2,
+     "status": "osäkert",
+     "jev": {
+      "verdict": "says_nothing",
+      "confidence": 0.28
+     }
     }
    },
    "rate_tiers": [],
@@ -689,8 +708,8 @@
      }
     },
     "rate_percent": {
-     "value": 2.39,
-     "quote": "1,5 år | 2,39 % | 2,41 %",
+     "value": 2.3,
+     "quote": "1,5 år | 2,30 %",
      "source": 2,
      "status": "belagt"
     },
@@ -706,7 +725,7 @@
     },
     "binding_months": {
      "value": 18,
-     "quote": "1,5 år | 2,39 % | 2,41 %",
+     "quote": "1,5 år | 2,30 %",
      "source": 2,
      "status": "belagt"
     },
@@ -727,23 +746,23 @@
      "status": "okänt"
     },
     "withdrawal_terms": {
-     "value": "Förtida uttag mot avgift baserad på skillnaden mot marknadsräntan; ränteskillnadsersättning vid uttag före slutförfallodagen.",
-     "quote": "Om du tar ut pengar innan bindningstiden är slut tillkommer en avgift.",
+     "value": "Uttag i förtid mot avgift baserad på skillnaden mot marknadsräntan.",
+     "quote": "Avgiften är baserad på skillnaden mellan den avtalade räntan och den rådande marknadsräntan",
      "source": 2,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.67
+      "confidence": 0.97
      }
     },
     "min_deposit_sek": {
      "value": 5000,
-     "quote": "Minsta insättning 5 000 kr",
+     "quote": "Minsta sparbelopp: 5 000 kr",
      "source": 2,
-     "status": "belagt",
+     "status": "osäkert",
      "jev": {
-      "verdict": "supports",
-      "confidence": 0.83
+      "verdict": "says_nothing",
+      "confidence": 0.24
      }
     },
     "max_deposit_sek": {
@@ -783,23 +802,23 @@
      "status": "okänt"
     },
     "interest_paid": {
-     "value": "vid bindningstidens slut",
+     "value": "Hela räntan betalas ut på slutförfallodagen",
      "quote": "Räntan på Fasträntekonto beräknas också utifrån att hela räntan betalas ut på slutförfallodagen.",
      "source": 2,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.91
+      "confidence": 0.66
      }
     },
     "guarantee_country": {
      "value": "SE",
-     "quote": "Våra konton omfattas av den statliga insättningsgarantin enligt beslut av Riksgälden.",
+     "quote": "Sparbanken Ekens inlåningskonton omfattas av den statliga insättningsgarantin.",
      "source": 5,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.55
+      "confidence": 0.46
      }
     },
     "guarantee_amount": {
@@ -813,10 +832,14 @@
      }
     },
     "rate_valid_from": {
-     "value": null,
-     "quote": null,
-     "source": null,
-     "status": "okänt"
+     "value": "2026-11-06",
+     "quote": "Fasträntekonto – aktuella räntor 2026-11-06",
+     "source": 2,
+     "status": "osäkert",
+     "jev": {
+      "verdict": "says_nothing",
+      "confidence": 0.24
+     }
     }
    },
    "rate_tiers": [],
@@ -838,8 +861,8 @@
      }
     },
     "rate_percent": {
-     "value": 2.51,
-     "quote": "2 år | 2,51 % | 2,52 %",
+     "value": 2.4,
+     "quote": "2 år | 2,40 %",
      "source": 2,
      "status": "belagt"
     },
@@ -855,7 +878,7 @@
     },
     "binding_months": {
      "value": 24,
-     "quote": "2 år | 2,51 % | 2,52 %",
+     "quote": "2 år | 2,40 %",
      "source": 2,
      "status": "belagt"
     },
@@ -876,23 +899,23 @@
      "status": "okänt"
     },
     "withdrawal_terms": {
-     "value": "Förtida uttag mot avgift baserad på skillnaden mot marknadsräntan; ränteskillnadsersättning vid uttag före slutförfallodagen.",
-     "quote": "Om du tar ut pengar innan bindningstiden är slut tillkommer en avgift.",
+     "value": "Uttag i förtid mot avgift baserad på skillnaden mot marknadsräntan.",
+     "quote": "Avgiften är baserad på skillnaden mellan den avtalade räntan och den rådande marknadsräntan",
      "source": 2,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.7
+      "confidence": 0.97
      }
     },
     "min_deposit_sek": {
      "value": 5000,
-     "quote": "Minsta insättning 5 000 kr",
+     "quote": "Minsta sparbelopp: 5 000 kr",
      "source": 2,
-     "status": "belagt",
+     "status": "osäkert",
      "jev": {
-      "verdict": "supports",
-      "confidence": 0.88
+      "verdict": "says_nothing",
+      "confidence": 0.14
      }
     },
     "max_deposit_sek": {
@@ -932,23 +955,23 @@
      "status": "okänt"
     },
     "interest_paid": {
-     "value": "vid bindningstidens slut",
+     "value": "Hela räntan betalas ut på slutförfallodagen",
      "quote": "Räntan på Fasträntekonto beräknas också utifrån att hela räntan betalas ut på slutförfallodagen.",
      "source": 2,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.91
+      "confidence": 0.86
      }
     },
     "guarantee_country": {
      "value": "SE",
-     "quote": "Våra konton omfattas av den statliga insättningsgarantin enligt beslut av Riksgälden.",
+     "quote": "Sparbanken Ekens inlåningskonton omfattas av den statliga insättningsgarantin.",
      "source": 5,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.49
+      "confidence": 0.33
      }
     },
     "guarantee_amount": {
@@ -962,10 +985,14 @@
      }
     },
     "rate_valid_from": {
-     "value": null,
-     "quote": null,
-     "source": null,
-     "status": "okänt"
+     "value": "2026-11-06",
+     "quote": "Fasträntekonto – aktuella räntor 2026-11-06",
+     "source": 2,
+     "status": "osäkert",
+     "jev": {
+      "verdict": "says_nothing",
+      "confidence": 0.38
+     }
     }
    },
    "rate_tiers": [],
@@ -987,8 +1014,8 @@
      }
     },
     "rate_percent": {
-     "value": 2.59,
-     "quote": "3 år | 2,59 % | 2,56 %",
+     "value": 2.47,
+     "quote": "3 år | 2,47 %",
      "source": 2,
      "status": "belagt"
     },
@@ -1004,7 +1031,7 @@
     },
     "binding_months": {
      "value": 36,
-     "quote": "3 år | 2,59 % | 2,56 %",
+     "quote": "3 år | 2,47 %",
      "source": 2,
      "status": "belagt"
     },
@@ -1025,23 +1052,23 @@
      "status": "okänt"
     },
     "withdrawal_terms": {
-     "value": "Förtida uttag mot avgift baserad på skillnaden mot marknadsräntan; ränteskillnadsersättning vid uttag före slutförfallodagen.",
-     "quote": "Om du tar ut pengar innan bindningstiden är slut tillkommer en avgift.",
+     "value": "Uttag i förtid mot avgift baserad på skillnaden mot marknadsräntan.",
+     "quote": "Avgiften är baserad på skillnaden mellan den avtalade räntan och den rådande marknadsräntan",
      "source": 2,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.64
+      "confidence": 0.97
      }
     },
     "min_deposit_sek": {
      "value": 5000,
-     "quote": "Minsta insättning 5 000 kr",
+     "quote": "Minsta sparbelopp: 5 000 kr",
      "source": 2,
-     "status": "belagt",
+     "status": "osäkert",
      "jev": {
-      "verdict": "supports",
-      "confidence": 0.88
+      "verdict": "says_nothing",
+      "confidence": 0.25
      }
     },
     "max_deposit_sek": {
@@ -1081,7 +1108,7 @@
      "status": "okänt"
     },
     "interest_paid": {
-     "value": "vid bindningstidens slut",
+     "value": "Hela räntan betalas ut på slutförfallodagen",
      "quote": "Räntan på Fasträntekonto beräknas också utifrån att hela räntan betalas ut på slutförfallodagen.",
      "source": 2,
      "status": "belagt",
@@ -1092,12 +1119,12 @@
     },
     "guarantee_country": {
      "value": "SE",
-     "quote": "Våra konton omfattas av den statliga insättningsgarantin enligt beslut av Riksgälden.",
+     "quote": "Sparbanken Ekens inlåningskonton omfattas av den statliga insättningsgarantin.",
      "source": 5,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.53
+      "confidence": 0.35
      }
     },
     "guarantee_amount": {
@@ -1111,10 +1138,14 @@
      }
     },
     "rate_valid_from": {
-     "value": null,
-     "quote": null,
-     "source": null,
-     "status": "okänt"
+     "value": "2026-11-06",
+     "quote": "Fasträntekonto – aktuella räntor 2026-11-06",
+     "source": 2,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.28
+     }
     }
    },
    "rate_tiers": [],
@@ -1136,8 +1167,8 @@
      }
     },
     "rate_percent": {
-     "value": 2.65,
-     "quote": "4 år | 2,65 % | 2,59 %",
+     "value": 2.52,
+     "quote": "4 år | 2,52 %",
      "source": 2,
      "status": "belagt"
     },
@@ -1153,7 +1184,7 @@
     },
     "binding_months": {
      "value": 48,
-     "quote": "4 år | 2,65 % | 2,59 %",
+     "quote": "4 år | 2,52 %",
      "source": 2,
      "status": "belagt"
     },
@@ -1174,23 +1205,23 @@
      "status": "okänt"
     },
     "withdrawal_terms": {
-     "value": "Förtida uttag mot avgift baserad på skillnaden mot marknadsräntan; ränteskillnadsersättning vid uttag före slutförfallodagen.",
-     "quote": "Om du tar ut pengar innan bindningstiden är slut tillkommer en avgift.",
+     "value": "Uttag i förtid mot avgift baserad på skillnaden mot marknadsräntan.",
+     "quote": "Avgiften är baserad på skillnaden mellan den avtalade räntan och den rådande marknadsräntan",
      "source": 2,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.64
+      "confidence": 0.96
      }
     },
     "min_deposit_sek": {
      "value": 5000,
-     "quote": "Minsta insättning 5 000 kr",
+     "quote": "Minsta sparbelopp: 5 000 kr",
      "source": 2,
-     "status": "belagt",
+     "status": "osäkert",
      "jev": {
-      "verdict": "supports",
-      "confidence": 0.83
+      "verdict": "says_nothing",
+      "confidence": 0.18
      }
     },
     "max_deposit_sek": {
@@ -1230,23 +1261,23 @@
      "status": "okänt"
     },
     "interest_paid": {
-     "value": "vid bindningstidens slut",
+     "value": "Hela räntan betalas ut på slutförfallodagen",
      "quote": "Räntan på Fasträntekonto beräknas också utifrån att hela räntan betalas ut på slutförfallodagen.",
      "source": 2,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.92
+      "confidence": 0.83
      }
     },
     "guarantee_country": {
      "value": "SE",
-     "quote": "Våra konton omfattas av den statliga insättningsgarantin enligt beslut av Riksgälden.",
+     "quote": "Sparbanken Ekens inlåningskonton omfattas av den statliga insättningsgarantin.",
      "source": 5,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.53
+      "confidence": 0.31
      }
     },
     "guarantee_amount": {
@@ -1260,10 +1291,14 @@
      }
     },
     "rate_valid_from": {
-     "value": null,
-     "quote": null,
-     "source": null,
-     "status": "okänt"
+     "value": "2026-11-06",
+     "quote": "Fasträntekonto – aktuella räntor 2026-11-06",
+     "source": 2,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.24
+     }
     }
    },
    "rate_tiers": [],
@@ -1285,8 +1320,8 @@
      }
     },
     "rate_percent": {
-     "value": 2.69,
-     "quote": "5 år | 2,69 % | 2,59 %",
+     "value": 2.55,
+     "quote": "5 år | 2,55 %",
      "source": 2,
      "status": "belagt"
     },
@@ -1296,13 +1331,13 @@
      "source": 2,
      "status": "osäkert",
      "jev": {
-      "verdict": "says_nothing",
-      "confidence": 0.4
+      "verdict": "contradicts",
+      "confidence": 0.25
      }
     },
     "binding_months": {
      "value": 60,
-     "quote": "5 år | 2,69 % | 2,59 %",
+     "quote": "5 år | 2,55 %",
      "source": 2,
      "status": "belagt"
     },
@@ -1323,23 +1358,23 @@
      "status": "okänt"
     },
     "withdrawal_terms": {
-     "value": "Förtida uttag mot avgift baserad på skillnaden mot marknadsräntan; ränteskillnadsersättning vid uttag före slutförfallodagen.",
-     "quote": "Om du tar ut pengar innan bindningstiden är slut tillkommer en avgift.",
+     "value": "Uttag i förtid mot avgift baserad på skillnaden mot marknadsräntan.",
+     "quote": "Avgiften är baserad på skillnaden mellan den avtalade räntan och den rådande marknadsräntan",
      "source": 2,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.61
+      "confidence": 0.94
      }
     },
     "min_deposit_sek": {
      "value": 5000,
-     "quote": "Minsta insättning 5 000 kr",
+     "quote": "Minsta sparbelopp: 5 000 kr",
      "source": 2,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.8
+      "confidence": 0.83
      }
     },
     "max_deposit_sek": {
@@ -1379,23 +1414,23 @@
      "status": "okänt"
     },
     "interest_paid": {
-     "value": "vid bindningstidens slut",
+     "value": "Hela räntan betalas ut på slutförfallodagen",
      "quote": "Räntan på Fasträntekonto beräknas också utifrån att hela räntan betalas ut på slutförfallodagen.",
      "source": 2,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.88
+      "confidence": 0.97
      }
     },
     "guarantee_country": {
      "value": "SE",
-     "quote": "Våra konton omfattas av den statliga insättningsgarantin enligt beslut av Riksgälden.",
+     "quote": "Sparbanken Ekens inlåningskonton omfattas av den statliga insättningsgarantin.",
      "source": 5,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.34
+      "confidence": 0.48
      }
     },
     "guarantee_amount": {
@@ -1409,10 +1444,14 @@
      }
     },
     "rate_valid_from": {
-     "value": null,
-     "quote": null,
-     "source": null,
-     "status": "okänt"
+     "value": "2026-11-06",
+     "quote": "Fasträntekonto – aktuella räntor 2026-11-06",
+     "source": 2,
+     "status": "osäkert",
+     "jev": {
+      "verdict": "says_nothing",
+      "confidence": 0.37
+     }
     }
    },
    "rate_tiers": [],
@@ -1424,12 +1463,12 @@
    "flags": [],
    "fields": {
     "product_type": {
-     "value": "annat",
+     "value": "rörligt sparkonto",
      "quote": "e-sparkonto",
      "source": 3,
      "status": "osäkert",
      "jev": {
-      "verdict": "contradicts",
+      "verdict": "says_nothing",
       "confidence": 0.62
      }
     },
@@ -1444,10 +1483,14 @@
      }
     },
     "rate_type": {
-     "value": null,
-     "quote": null,
-     "source": null,
-     "status": "okänt"
+     "value": "rörlig",
+     "quote": "Aktuell ränta",
+     "source": 3,
+     "status": "osäkert",
+     "jev": {
+      "verdict": "says_nothing",
+      "confidence": 0.61
+     }
     },
     "binding_months": {
      "value": 0,
@@ -1476,23 +1519,23 @@
      "status": "okänt"
     },
     "withdrawal_terms": {
-     "value": "Fria uttag. Kontot kan inte kopplas till bank- eller betalkort. Avslut kräver kontakt med bankkontor.",
-     "quote": "Du kan inte koppla bank- och betalkort till ditt e-sparkonto.",
+     "value": "Fria uttag. Hos bank avslutas kontot via bankkontor.",
+     "quote": "Du behöver kontakta ett bankkontor för att avsluta ett e-sparkonto.",
      "source": 3,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.82
+      "confidence": 0.97
      }
     },
     "min_deposit_sek": {
      "value": 0,
-     "quote": "Minsta insättning 0 kr",
-     "source": 0,
+     "quote": "Minsta insättning\n\n0 kr",
+     "source": 3,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.83
+      "confidence": 0.94
      }
     },
     "max_deposit_sek": {
@@ -1509,30 +1552,30 @@
     },
     "deposit_terms": {
      "value": null,
-     "quote": "Du kan enkelt skapa ett månadssparande till ditt konto.",
-     "source": 3,
-     "status": "stöds inte av källan",
-     "jev": {
-      "verdict": "says_nothing",
-      "confidence": 0.92
-     },
-     "claimed": "Månadssparande möjligt"
+     "quote": null,
+     "source": null,
+     "status": "okänt"
     },
     "eligibility": {
-     "value": "Öppnas i internetbanken eller appen med säkerhetsdosa eller Mobilt BankID; max tre e-sparkonton",
+     "value": "Öppnas i internetbanken eller appen med säkerhetsdosa eller Mobilt BankID; max tre e-sparkonton.",
      "quote": "Du behöver vara inloggad med säkerhetsdosa eller Mobilt BankID.",
      "source": 3,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.88
+      "confidence": 0.94
      }
     },
     "requires_other_products": {
      "value": null,
-     "quote": null,
-     "source": null,
-     "status": "okänt"
+     "quote": "Du kan inte koppla bank- och betalkort till ditt e-sparkonto.",
+     "source": 3,
+     "status": "stöds inte av källan",
+     "jev": {
+      "verdict": "says_nothing",
+      "confidence": 0.56
+     },
+     "claimed": false
     },
     "intro_rate": {
      "value": null,
@@ -1548,12 +1591,12 @@
     },
     "guarantee_country": {
      "value": "SE",
-     "quote": "Våra konton omfattas av den statliga insättningsgarantin enligt beslut av Riksgälden.",
+     "quote": "Sparbanken Ekens inlåningskonton omfattas av den statliga insättningsgarantin.",
      "source": 5,
-     "status": "belagt",
+     "status": "osäkert",
      "jev": {
-      "verdict": "supports",
-      "confidence": 0.37
+      "verdict": "says_nothing",
+      "confidence": 0.25
      }
     },
     "guarantee_amount": {
@@ -1578,6 +1621,632 @@
    "status": "verifierad"
   },
   {
+   "name": "Ekenkonto",
+   "flags": [],
+   "fields": {
+    "product_type": {
+     "value": "rörligt sparkonto",
+     "quote": "Ekenkontot är en bra sparform",
+     "source": 6,
+     "status": "osäkert",
+     "jev": {
+      "verdict": "contradicts",
+      "confidence": 0.38
+     }
+    },
+    "rate_percent": {
+     "value": 0.15,
+     "quote": "0,15%",
+     "source": 6,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.66
+     }
+    },
+    "rate_type": {
+     "value": null,
+     "quote": "Aktuell ränta",
+     "source": 6,
+     "status": "stöds inte av källan",
+     "jev": {
+      "verdict": "says_nothing",
+      "confidence": 0.86
+     },
+     "claimed": "rörlig"
+    },
+    "binding_months": {
+     "value": 0,
+     "quote": "Ingen, fria uttag.",
+     "source": 0,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.98
+     }
+    },
+    "withdrawals": {
+     "value": "fria",
+     "quote": "Ingen, fria uttag.",
+     "source": 0,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.98
+     }
+    },
+    "free_withdrawals_per_year": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "withdrawal_terms": {
+     "value": "Fria uttag, ingen bindningstid.",
+     "quote": "Ingen, fria uttag.",
+     "source": 0,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 1.0
+     }
+    },
+    "min_deposit_sek": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "max_deposit_sek": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "monthly_deposit_cap_sek": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "deposit_terms": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "eligibility": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "requires_other_products": {
+     "value": false,
+     "quote": "Inga produkter eller tjänster kan kopplas till kontot.",
+     "source": 0,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.62
+     }
+    },
+    "intro_rate": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "interest_paid": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "guarantee_country": {
+     "value": "SE",
+     "quote": "Sparbanken Ekens inlåningskonton omfattas av den statliga insättningsgarantin.",
+     "source": 5,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.42
+     }
+    },
+    "guarantee_amount": {
+     "value": "1 150 000 kr",
+     "quote": "Varje kontohavare har rätt till ersättning för sin sammanlagda kontobehållning i banken med ett belopp om högst 1 150 000 kr.",
+     "source": 5,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.89
+     }
+    },
+    "rate_valid_from": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    }
+   },
+   "rate_tiers": [],
+   "pending_rate": null,
+   "status": "verifierad"
+  },
+  {
+   "name": "Eken Pluskonto",
+   "flags": [],
+   "fields": {
+    "product_type": {
+     "value": "rörligt sparkonto",
+     "quote": "Eken Pluskonto",
+     "source": 0,
+     "status": "osäkert",
+     "jev": {
+      "verdict": "says_nothing",
+      "confidence": 0.58
+     }
+    },
+    "rate_percent": {
+     "value": 0.8,
+     "quote": "0,80 %",
+     "source": 0,
+     "status": "osäkert",
+     "jev": {
+      "verdict": "says_nothing",
+      "confidence": 0.3
+     }
+    },
+    "rate_type": {
+     "value": "rörlig",
+     "quote": "Aktuell ränta",
+     "source": 0,
+     "status": "osäkert",
+     "jev": {
+      "verdict": "says_nothing",
+      "confidence": 0.7
+     }
+    },
+    "binding_months": {
+     "value": 0,
+     "quote": "Ingen, fria uttag.",
+     "source": 0,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.82
+     }
+    },
+    "withdrawals": {
+     "value": "fria",
+     "quote": "Ingen, fria uttag.",
+     "source": 0,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.92
+     }
+    },
+    "free_withdrawals_per_year": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "withdrawal_terms": {
+     "value": "Fria uttag, ingen bindningstid.",
+     "quote": "Ingen, fria uttag.",
+     "source": 0,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.96
+     }
+    },
+    "min_deposit_sek": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "max_deposit_sek": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "monthly_deposit_cap_sek": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "deposit_terms": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "eligibility": {
+     "value": "Helkund i Sparbanken Eken; kontot öppnas endast efter genomförd rådgivning.",
+     "quote": "För dig som är helkund i Sparbanken Eken.",
+     "source": 0,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.96
+     }
+    },
+    "requires_other_products": {
+     "value": false,
+     "quote": "Inga produkter eller tjänster kan kopplas till kontot.",
+     "source": 0,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.2
+     }
+    },
+    "intro_rate": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "interest_paid": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "guarantee_country": {
+     "value": "SE",
+     "quote": "Sparbanken Ekens inlåningskonton omfattas av den statliga insättningsgarantin.",
+     "source": 5,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.44
+     }
+    },
+    "guarantee_amount": {
+     "value": "1 150 000 kr",
+     "quote": "Varje kontohavare har rätt till ersättning för sin sammanlagda kontobehållning i banken med ett belopp om högst 1 150 000 kr.",
+     "source": 5,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.72
+     }
+    },
+    "rate_valid_from": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    }
+   },
+   "rate_tiers": [],
+   "pending_rate": null,
+   "status": "verifierad"
+  },
+  {
+   "name": "Eken Plus Seniorkonto",
+   "flags": [],
+   "fields": {
+    "product_type": {
+     "value": "rörligt sparkonto",
+     "quote": "Eken Plus Seniorkonto",
+     "source": 0,
+     "status": "osäkert",
+     "jev": {
+      "verdict": "says_nothing",
+      "confidence": 0.56
+     }
+    },
+    "rate_percent": {
+     "value": 0.8,
+     "quote": "0,80 %",
+     "source": 0,
+     "status": "osäkert",
+     "jev": {
+      "verdict": "says_nothing",
+      "confidence": 0.37
+     }
+    },
+    "rate_type": {
+     "value": "rörlig",
+     "quote": "Aktuell ränta",
+     "source": 0,
+     "status": "osäkert",
+     "jev": {
+      "verdict": "says_nothing",
+      "confidence": 0.77
+     }
+    },
+    "binding_months": {
+     "value": 0,
+     "quote": "Ingen, fria uttag.",
+     "source": 0,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.91
+     }
+    },
+    "withdrawals": {
+     "value": "fria",
+     "quote": "Ingen, fria uttag.",
+     "source": 0,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.83
+     }
+    },
+    "free_withdrawals_per_year": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "withdrawal_terms": {
+     "value": "Fria uttag, ingen bindningstid.",
+     "quote": "Ingen, fria uttag.",
+     "source": 0,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.8
+     }
+    },
+    "min_deposit_sek": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "max_deposit_sek": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "monthly_deposit_cap_sek": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "deposit_terms": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "eligibility": {
+     "value": "Kund i Sparbanken Eken som är 60+; kontot öppnas endast efter genomförd rådgivning.",
+     "quote": "För dig som är kund i Sparbanken Eken och är 60+.",
+     "source": 0,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 1.0
+     }
+    },
+    "requires_other_products": {
+     "value": false,
+     "quote": "Inga produkter eller tjänster kan kopplas till kontot.",
+     "source": 0,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.83
+     }
+    },
+    "intro_rate": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "interest_paid": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "guarantee_country": {
+     "value": "SE",
+     "quote": "Sparbanken Ekens inlåningskonton omfattas av den statliga insättningsgarantin.",
+     "source": 5,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.38
+     }
+    },
+    "guarantee_amount": {
+     "value": "1 150 000 kr",
+     "quote": "Varje kontohavare har rätt till ersättning för sin sammanlagda kontobehållning i banken med ett belopp om högst 1 150 000 kr.",
+     "source": 5,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.61
+     }
+    },
+    "rate_valid_from": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    }
+   },
+   "rate_tiers": [],
+   "pending_rate": null,
+   "status": "verifierad"
+  },
+  {
+   "name": "Eken Plus Ung",
+   "flags": [],
+   "fields": {
+    "product_type": {
+     "value": null,
+     "quote": "Eken Plus Ung",
+     "source": 0,
+     "status": "stöds inte av källan",
+     "jev": {
+      "verdict": "says_nothing",
+      "confidence": 0.97
+     },
+     "claimed": "rörligt sparkonto"
+    },
+    "rate_percent": {
+     "value": 0.8,
+     "quote": "0,80 %",
+     "source": 0,
+     "status": "osäkert",
+     "jev": {
+      "verdict": "says_nothing",
+      "confidence": 0.4
+     }
+    },
+    "rate_type": {
+     "value": "rörlig",
+     "quote": "Aktuell ränta",
+     "source": 0,
+     "status": "osäkert",
+     "jev": {
+      "verdict": "says_nothing",
+      "confidence": 0.79
+     }
+    },
+    "binding_months": {
+     "value": 0,
+     "quote": "Ingen, fria uttag.",
+     "source": 0,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.37
+     }
+    },
+    "withdrawals": {
+     "value": "fria",
+     "quote": "Ingen, fria uttag.",
+     "source": 0,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.61
+     }
+    },
+    "free_withdrawals_per_year": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "withdrawal_terms": {
+     "value": "Fria uttag, ingen bindningstid.",
+     "quote": "Ingen, fria uttag.",
+     "source": 0,
+     "status": "osäkert",
+     "jev": {
+      "verdict": "says_nothing",
+      "confidence": 0.2
+     }
+    },
+    "min_deposit_sek": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "max_deposit_sek": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "monthly_deposit_cap_sek": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "deposit_terms": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "eligibility": {
+     "value": "18–29 år; kontot öppnas endast efter genomförd rådgivning.",
+     "quote": "Ett sparkonto för dig mellan 18-29 år.",
+     "source": 0,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 1.0
+     }
+    },
+    "requires_other_products": {
+     "value": false,
+     "quote": "Inga produkter eller tjänster kan kopplas till kontot.",
+     "source": 0,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.56
+     }
+    },
+    "intro_rate": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "interest_paid": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "guarantee_country": {
+     "value": "SE",
+     "quote": "Sparbanken Ekens inlåningskonton omfattas av den statliga insättningsgarantin.",
+     "source": 5,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.26
+     }
+    },
+    "guarantee_amount": {
+     "value": "1 150 000 kr",
+     "quote": "Varje kontohavare har rätt till ersättning för sin sammanlagda kontobehållning i banken med ett belopp om högst 1 150 000 kr.",
+     "source": 5,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.67
+     }
+    },
+    "rate_valid_from": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    }
+   },
+   "rate_tiers": [],
+   "pending_rate": null,
+   "status": "verifierad"
+  },
+  {
    "name": "Privatkonto",
    "flags": [],
    "fields": {
@@ -1588,25 +2257,30 @@
      "status": "stöds inte av källan",
      "jev": {
       "verdict": "says_nothing",
-      "confidence": 0.89
+      "confidence": 0.92
      },
      "claimed": "annat"
     },
     "rate_percent": {
      "value": 0.0,
-     "quote": "Privatkonto\n\nAktuell ränta\n\n0,00 %",
+     "quote": "0,00 %",
      "source": 0,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.38
+      "confidence": 0.16
      }
     },
     "rate_type": {
      "value": null,
-     "quote": null,
-     "source": null,
-     "status": "okänt"
+     "quote": "Aktuell ränta",
+     "source": 0,
+     "status": "stöds inte av källan",
+     "jev": {
+      "verdict": "says_nothing",
+      "confidence": 0.83
+     },
+     "claimed": "rörlig"
     },
     "binding_months": {
      "value": 0,
@@ -1635,10 +2309,14 @@
      "status": "okänt"
     },
     "withdrawal_terms": {
-     "value": null,
-     "quote": null,
-     "source": null,
-     "status": "okänt"
+     "value": "Fria uttag, ingen bindningstid.",
+     "quote": "Ingen, fria uttag.",
+     "source": 0,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.34
+     }
     },
     "min_deposit_sek": {
      "value": null,
@@ -1690,12 +2368,12 @@
     },
     "guarantee_country": {
      "value": "SE",
-     "quote": "Våra konton omfattas av den statliga insättningsgarantin enligt beslut av Riksgälden.",
+     "quote": "Sparbanken Ekens inlåningskonton omfattas av den statliga insättningsgarantin.",
      "source": 5,
-     "status": "belagt",
+     "status": "osäkert",
      "jev": {
-      "verdict": "supports",
-      "confidence": 0.46
+      "verdict": "says_nothing",
+      "confidence": 0.3
      }
     },
     "guarantee_amount": {
@@ -1735,19 +2413,24 @@
     },
     "rate_percent": {
      "value": 0.0,
-     "quote": "Servicekonto\n\nAktuell ränta\n\n0,00 %",
+     "quote": "0,00 %",
      "source": 0,
-     "status": "osäkert",
+     "status": "belagt",
      "jev": {
-      "verdict": "says_nothing",
-      "confidence": 0.1
+      "verdict": "supports",
+      "confidence": 0.18
      }
     },
     "rate_type": {
      "value": null,
-     "quote": null,
-     "source": null,
-     "status": "okänt"
+     "quote": "Aktuell ränta",
+     "source": 0,
+     "status": "stöds inte av källan",
+     "jev": {
+      "verdict": "says_nothing",
+      "confidence": 0.89
+     },
+     "claimed": "rörlig"
     },
     "binding_months": {
      "value": 0,
@@ -1776,10 +2459,14 @@
      "status": "okänt"
     },
     "withdrawal_terms": {
-     "value": null,
-     "quote": null,
-     "source": null,
-     "status": "okänt"
+     "value": "Fria uttag, ingen bindningstid.",
+     "quote": "Ingen, fria uttag.",
+     "source": 0,
+     "status": "osäkert",
+     "jev": {
+      "verdict": "says_nothing",
+      "confidence": 0.4
+     }
     },
     "min_deposit_sek": {
      "value": null,
@@ -1831,12 +2518,12 @@
     },
     "guarantee_country": {
      "value": "SE",
-     "quote": "Våra konton omfattas av den statliga insättningsgarantin enligt beslut av Riksgälden.",
+     "quote": "Sparbanken Ekens inlåningskonton omfattas av den statliga insättningsgarantin.",
      "source": 5,
-     "status": "belagt",
+     "status": "osäkert",
      "jev": {
-      "verdict": "supports",
-      "confidence": 0.4
+      "verdict": "says_nothing",
+      "confidence": 0.31
      }
     },
     "guarantee_amount": {
@@ -1871,24 +2558,29 @@
      "status": "osäkert",
      "jev": {
       "verdict": "says_nothing",
-      "confidence": 0.62
+      "confidence": 0.66
      }
     },
     "rate_percent": {
      "value": 0.0,
-     "quote": "Ungdomskonto\n\nAktuell ränta\n\n0,00 %",
+     "quote": "0,00 %",
      "source": 0,
-     "status": "belagt",
+     "status": "osäkert",
      "jev": {
-      "verdict": "supports",
-      "confidence": 0.88
+      "verdict": "says_nothing",
+      "confidence": 0.4
      }
     },
     "rate_type": {
      "value": null,
-     "quote": null,
-     "source": null,
-     "status": "okänt"
+     "quote": "Aktuell ränta",
+     "source": 0,
+     "status": "stöds inte av källan",
+     "jev": {
+      "verdict": "says_nothing",
+      "confidence": 0.94
+     },
+     "claimed": "rörlig"
     },
     "binding_months": {
      "value": 0,
@@ -1917,627 +2609,18 @@
      "status": "okänt"
     },
     "withdrawal_terms": {
-     "value": null,
-     "quote": null,
-     "source": null,
-     "status": "okänt"
-    },
-    "min_deposit_sek": {
-     "value": 0,
-     "quote": "Minsta insättning 0 kr",
-     "source": 0,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.96
-     }
-    },
-    "max_deposit_sek": {
-     "value": null,
-     "quote": null,
-     "source": null,
-     "status": "okänt"
-    },
-    "monthly_deposit_cap_sek": {
-     "value": null,
-     "quote": null,
-     "source": null,
-     "status": "okänt"
-    },
-    "deposit_terms": {
-     "value": null,
-     "quote": null,
-     "source": null,
-     "status": "okänt"
-    },
-    "eligibility": {
-     "value": null,
-     "quote": null,
-     "source": null,
-     "status": "okänt"
-    },
-    "requires_other_products": {
-     "value": null,
-     "quote": null,
-     "source": null,
-     "status": "okänt"
-    },
-    "intro_rate": {
-     "value": null,
-     "quote": null,
-     "source": null,
-     "status": "okänt"
-    },
-    "interest_paid": {
-     "value": null,
-     "quote": null,
-     "source": null,
-     "status": "okänt"
-    },
-    "guarantee_country": {
-     "value": "SE",
-     "quote": "Våra konton omfattas av den statliga insättningsgarantin enligt beslut av Riksgälden.",
-     "source": 5,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.5
-     }
-    },
-    "guarantee_amount": {
-     "value": "1 150 000 kr",
-     "quote": "Varje kontohavare har rätt till ersättning för sin sammanlagda kontobehållning i banken med ett belopp om högst 1 150 000 kr.",
-     "source": 5,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.8
-     }
-    },
-    "rate_valid_from": {
-     "value": null,
-     "quote": null,
-     "source": null,
-     "status": "okänt"
-    }
-   },
-   "rate_tiers": [],
-   "pending_rate": null,
-   "status": "verifierad"
-  },
-  {
-   "name": "Ekenkonto",
-   "flags": [],
-   "fields": {
-    "product_type": {
-     "value": "annat",
-     "quote": "Kontot är ett sparkonto.",
-     "source": 6,
-     "status": "osäkert",
-     "jev": {
-      "verdict": "contradicts",
-      "confidence": 0.42
-     }
-    },
-    "rate_percent": {
-     "value": 0.15,
-     "quote": "0,15%",
-     "source": 6,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.66
-     }
-    },
-    "rate_type": {
-     "value": null,
-     "quote": null,
-     "source": null,
-     "status": "okänt"
-    },
-    "binding_months": {
-     "value": 0,
+     "value": "Fria uttag, ingen bindningstid.",
      "quote": "Ingen, fria uttag.",
-     "source": 0,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.98
-     }
-    },
-    "withdrawals": {
-     "value": "fria",
-     "quote": "Ingen, fria uttag.",
-     "source": 0,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.98
-     }
-    },
-    "free_withdrawals_per_year": {
-     "value": null,
-     "quote": null,
-     "source": null,
-     "status": "okänt"
-    },
-    "withdrawal_terms": {
-     "value": null,
-     "quote": null,
-     "source": null,
-     "status": "okänt"
-    },
-    "min_deposit_sek": {
-     "value": null,
-     "quote": null,
-     "source": null,
-     "status": "okänt"
-    },
-    "max_deposit_sek": {
-     "value": null,
-     "quote": null,
-     "source": null,
-     "status": "okänt"
-    },
-    "monthly_deposit_cap_sek": {
-     "value": null,
-     "quote": null,
-     "source": null,
-     "status": "okänt"
-    },
-    "deposit_terms": {
-     "value": null,
-     "quote": null,
-     "source": null,
-     "status": "okänt"
-    },
-    "eligibility": {
-     "value": null,
-     "quote": null,
-     "source": null,
-     "status": "okänt"
-    },
-    "requires_other_products": {
-     "value": false,
-     "quote": "Inga produkter eller tjänster kan kopplas till kontot.",
-     "source": 0,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.62
-     }
-    },
-    "intro_rate": {
-     "value": null,
-     "quote": null,
-     "source": null,
-     "status": "okänt"
-    },
-    "interest_paid": {
-     "value": null,
-     "quote": null,
-     "source": null,
-     "status": "okänt"
-    },
-    "guarantee_country": {
-     "value": "SE",
-     "quote": "Våra konton omfattas av den statliga insättningsgarantin enligt beslut av Riksgälden.",
-     "source": 5,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.52
-     }
-    },
-    "guarantee_amount": {
-     "value": "1 150 000 kr",
-     "quote": "Varje kontohavare har rätt till ersättning för sin sammanlagda kontobehållning i banken med ett belopp om högst 1 150 000 kr.",
-     "source": 5,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.89
-     }
-    },
-    "rate_valid_from": {
-     "value": null,
-     "quote": null,
-     "source": null,
-     "status": "okänt"
-    }
-   },
-   "rate_tiers": [],
-   "pending_rate": null,
-   "status": "verifierad"
-  },
-  {
-   "name": "Eken Pluskonto",
-   "flags": [],
-   "fields": {
-    "product_type": {
-     "value": "annat",
-     "quote": "Eken Pluskonto",
      "source": 0,
      "status": "osäkert",
      "jev": {
       "verdict": "says_nothing",
-      "confidence": 0.35
+      "confidence": 0.33
      }
-    },
-    "rate_percent": {
-     "value": 0.8,
-     "quote": "Eken Pluskonto\n\nAktuell ränta\n\n0,80 %",
-     "source": 0,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.77
-     }
-    },
-    "rate_type": {
-     "value": null,
-     "quote": null,
-     "source": null,
-     "status": "okänt"
-    },
-    "binding_months": {
-     "value": 0,
-     "quote": "Ingen, fria uttag.",
-     "source": 0,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.82
-     }
-    },
-    "withdrawals": {
-     "value": "fria",
-     "quote": "Ingen, fria uttag.",
-     "source": 0,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.92
-     }
-    },
-    "free_withdrawals_per_year": {
-     "value": null,
-     "quote": null,
-     "source": null,
-     "status": "okänt"
-    },
-    "withdrawal_terms": {
-     "value": null,
-     "quote": null,
-     "source": null,
-     "status": "okänt"
     },
     "min_deposit_sek": {
-     "value": null,
-     "quote": null,
-     "source": null,
-     "status": "okänt"
-    },
-    "max_deposit_sek": {
-     "value": null,
-     "quote": null,
-     "source": null,
-     "status": "okänt"
-    },
-    "monthly_deposit_cap_sek": {
-     "value": null,
-     "quote": null,
-     "source": null,
-     "status": "okänt"
-    },
-    "deposit_terms": {
-     "value": null,
-     "quote": null,
-     "source": null,
-     "status": "okänt"
-    },
-    "eligibility": {
-     "value": "För helkunder i Sparbanken Eken; öppnas endast efter genomförd rådgivning",
-     "quote": "För dig som är helkund i Sparbanken Eken.",
-     "source": 0,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.8
-     }
-    },
-    "requires_other_products": {
-     "value": false,
-     "quote": "Inga produkter eller tjänster kan kopplas till kontot.",
-     "source": 0,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.2
-     }
-    },
-    "intro_rate": {
-     "value": null,
-     "quote": null,
-     "source": null,
-     "status": "okänt"
-    },
-    "interest_paid": {
-     "value": null,
-     "quote": null,
-     "source": null,
-     "status": "okänt"
-    },
-    "guarantee_country": {
-     "value": "SE",
-     "quote": "Våra konton omfattas av den statliga insättningsgarantin enligt beslut av Riksgälden.",
-     "source": 5,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.49
-     }
-    },
-    "guarantee_amount": {
-     "value": "1 150 000 kr",
-     "quote": "Varje kontohavare har rätt till ersättning för sin sammanlagda kontobehållning i banken med ett belopp om högst 1 150 000 kr.",
-     "source": 5,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.72
-     }
-    },
-    "rate_valid_from": {
-     "value": null,
-     "quote": null,
-     "source": null,
-     "status": "okänt"
-    }
-   },
-   "rate_tiers": [],
-   "pending_rate": null,
-   "status": "verifierad"
-  },
-  {
-   "name": "Eken Plus Seniorkonto",
-   "flags": [],
-   "fields": {
-    "product_type": {
-     "value": null,
-     "quote": "Eken Plus Seniorkonto",
-     "source": 0,
-     "status": "stöds inte av källan",
-     "jev": {
-      "verdict": "says_nothing",
-      "confidence": 0.82
-     },
-     "claimed": "annat"
-    },
-    "rate_percent": {
-     "value": 0.8,
-     "quote": "Eken Plus Seniorkonto\n\nAktuell ränta\n\n0,80 %",
-     "source": 0,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.7
-     }
-    },
-    "rate_type": {
-     "value": null,
-     "quote": null,
-     "source": null,
-     "status": "okänt"
-    },
-    "binding_months": {
      "value": 0,
-     "quote": "Ingen, fria uttag.",
-     "source": 0,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.91
-     }
-    },
-    "withdrawals": {
-     "value": "fria",
-     "quote": "Ingen, fria uttag.",
-     "source": 0,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.83
-     }
-    },
-    "free_withdrawals_per_year": {
-     "value": null,
-     "quote": null,
-     "source": null,
-     "status": "okänt"
-    },
-    "withdrawal_terms": {
-     "value": null,
-     "quote": null,
-     "source": null,
-     "status": "okänt"
-    },
-    "min_deposit_sek": {
-     "value": null,
-     "quote": null,
-     "source": null,
-     "status": "okänt"
-    },
-    "max_deposit_sek": {
-     "value": null,
-     "quote": null,
-     "source": null,
-     "status": "okänt"
-    },
-    "monthly_deposit_cap_sek": {
-     "value": null,
-     "quote": null,
-     "source": null,
-     "status": "okänt"
-    },
-    "deposit_terms": {
-     "value": null,
-     "quote": null,
-     "source": null,
-     "status": "okänt"
-    },
-    "eligibility": {
-     "value": "Kund i Sparbanken Eken som är 60+; öppnas endast efter genomförd rådgivning",
-     "quote": "För dig som är kund i Sparbanken Eken och är 60+.",
-     "source": 0,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.98
-     }
-    },
-    "requires_other_products": {
-     "value": false,
-     "quote": "Inga produkter eller tjänster kan kopplas till kontot.",
-     "source": 0,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.83
-     }
-    },
-    "intro_rate": {
-     "value": null,
-     "quote": null,
-     "source": null,
-     "status": "okänt"
-    },
-    "interest_paid": {
-     "value": null,
-     "quote": null,
-     "source": null,
-     "status": "okänt"
-    },
-    "guarantee_country": {
-     "value": "SE",
-     "quote": "Våra konton omfattas av den statliga insättningsgarantin enligt beslut av Riksgälden.",
-     "source": 5,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.43
-     }
-    },
-    "guarantee_amount": {
-     "value": "1 150 000 kr",
-     "quote": "Varje kontohavare har rätt till ersättning för sin sammanlagda kontobehållning i banken med ett belopp om högst 1 150 000 kr.",
-     "source": 5,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.61
-     }
-    },
-    "rate_valid_from": {
-     "value": null,
-     "quote": null,
-     "source": null,
-     "status": "okänt"
-    }
-   },
-   "rate_tiers": [],
-   "pending_rate": null,
-   "status": "verifierad"
-  },
-  {
-   "name": "Eken Plus Ung",
-   "flags": [],
-   "fields": {
-    "product_type": {
-     "value": "annat",
-     "quote": "Eken Plus Ung",
-     "source": 0,
-     "status": "osäkert",
-     "jev": {
-      "verdict": "says_nothing",
-      "confidence": 0.79
-     }
-    },
-    "rate_percent": {
-     "value": 0.8,
-     "quote": "Eken Plus Ung\n\nAktuell ränta\n\n0,80 %",
-     "source": 0,
-     "status": "osäkert",
-     "jev": {
-      "verdict": "says_nothing",
-      "confidence": 0.37
-     }
-    },
-    "rate_type": {
-     "value": null,
-     "quote": null,
-     "source": null,
-     "status": "okänt"
-    },
-    "binding_months": {
-     "value": 0,
-     "quote": "Ingen, fria uttag.",
-     "source": 0,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.37
-     }
-    },
-    "withdrawals": {
-     "value": "fria",
-     "quote": "Ingen, fria uttag.",
-     "source": 0,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.61
-     }
-    },
-    "free_withdrawals_per_year": {
-     "value": null,
-     "quote": null,
-     "source": null,
-     "status": "okänt"
-    },
-    "withdrawal_terms": {
-     "value": null,
-     "quote": null,
-     "source": null,
-     "status": "okänt"
-    },
-    "min_deposit_sek": {
-     "value": null,
-     "quote": null,
-     "source": null,
-     "status": "okänt"
-    },
-    "max_deposit_sek": {
-     "value": null,
-     "quote": null,
-     "source": null,
-     "status": "okänt"
-    },
-    "monthly_deposit_cap_sek": {
-     "value": null,
-     "quote": null,
-     "source": null,
-     "status": "okänt"
-    },
-    "deposit_terms": {
-     "value": null,
-     "quote": null,
-     "source": null,
-     "status": "okänt"
-    },
-    "eligibility": {
-     "value": "18–29 år; öppnas endast efter genomförd rådgivning",
-     "quote": "Ett sparkonto för dig mellan 18-29 år.",
+     "quote": "Minsta insättning\n\n0 kr",
      "source": 0,
      "status": "belagt",
      "jev": {
@@ -2545,15 +2628,35 @@
       "confidence": 0.97
      }
     },
+    "max_deposit_sek": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "monthly_deposit_cap_sek": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "deposit_terms": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "eligibility": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
     "requires_other_products": {
-     "value": false,
-     "quote": "Inga produkter eller tjänster kan kopplas till kontot.",
-     "source": 0,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.56
-     }
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
     },
     "intro_rate": {
      "value": null,
@@ -2569,12 +2672,12 @@
     },
     "guarantee_country": {
      "value": "SE",
-     "quote": "Våra konton omfattas av den statliga insättningsgarantin enligt beslut av Riksgälden.",
+     "quote": "Sparbanken Ekens inlåningskonton omfattas av den statliga insättningsgarantin.",
      "source": 5,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.43
+      "confidence": 0.25
      }
     },
     "guarantee_amount": {
@@ -2584,7 +2687,7 @@
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.67
+      "confidence": 0.8
      }
     },
     "rate_valid_from": {
@@ -2621,14 +2724,10 @@
      "status": "okänt"
     },
     "binding_months": {
-     "value": 0,
-     "quote": "Fria uttag",
-     "source": 1,
-     "status": "osäkert",
-     "jev": {
-      "verdict": "says_nothing",
-      "confidence": 0.43
-     }
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
     },
     "withdrawals": {
      "value": "fria",
@@ -2647,10 +2746,14 @@
      "status": "okänt"
     },
     "withdrawal_terms": {
-     "value": null,
-     "quote": null,
-     "source": null,
-     "status": "okänt"
+     "value": "Fria uttag; ingen ränta angiven i källan.",
+     "quote": "Högre ränta från 50 000 kr",
+     "source": 1,
+     "status": "osäkert",
+     "jev": {
+      "verdict": "says_nothing",
+      "confidence": 0.2
+     }
     },
     "min_deposit_sek": {
      "value": null,
@@ -2671,14 +2774,10 @@
      "status": "okänt"
     },
     "deposit_terms": {
-     "value": "Enkelt att månadsspara till kontot",
-     "quote": "Enkelt att månadsspara till kontot",
-     "source": 1,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.62
-     }
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
     },
     "eligibility": {
      "value": null,
@@ -2706,12 +2805,12 @@
     },
     "guarantee_country": {
      "value": "SE",
-     "quote": "Våra konton omfattas av den statliga insättningsgarantin enligt beslut av Riksgälden.",
+     "quote": "Sparbanken Ekens inlåningskonton omfattas av den statliga insättningsgarantin.",
      "source": 5,
      "status": "osäkert",
      "jev": {
       "verdict": "says_nothing",
-      "confidence": 0.3
+      "confidence": 0.58
      }
     },
     "guarantee_amount": {
@@ -2758,14 +2857,10 @@
      "status": "okänt"
     },
     "binding_months": {
-     "value": 0,
-     "quote": "Fria uttag",
-     "source": 1,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.28
-     }
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
     },
     "withdrawals": {
      "value": "fria",
@@ -2784,10 +2879,14 @@
      "status": "okänt"
     },
     "withdrawal_terms": {
-     "value": null,
-     "quote": null,
-     "source": null,
-     "status": "okänt"
+     "value": "Fria uttag; ingen ränta angiven i källan.",
+     "quote": "Fria uttag",
+     "source": 1,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.77
+     }
     },
     "min_deposit_sek": {
      "value": 50000,
@@ -2812,14 +2911,10 @@
      "status": "okänt"
     },
     "deposit_terms": {
-     "value": "Enkelt att månadsspara till kontot",
-     "quote": "Enkelt att månadsspara till kontot",
-     "source": 1,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.98
-     }
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
     },
     "eligibility": {
      "value": null,
@@ -2847,12 +2942,12 @@
     },
     "guarantee_country": {
      "value": "SE",
-     "quote": "Våra konton omfattas av den statliga insättningsgarantin enligt beslut av Riksgälden.",
+     "quote": "Sparbanken Ekens inlåningskonton omfattas av den statliga insättningsgarantin.",
      "source": 5,
-     "status": "belagt",
+     "status": "osäkert",
      "jev": {
-      "verdict": "supports",
-      "confidence": 0.31
+      "verdict": "says_nothing",
+      "confidence": 0.28
      }
     },
     "guarantee_amount": {
@@ -2877,7 +2972,7 @@
    "status": "ej verifierad"
   }
  ],
- "source_hash": "2b2ff525f4a7be2d",
- "changed_at": "2026-11-05T02:03:19+00:00",
+ "source_hash": "f01ca4fa483248c7",
+ "changed_at": "2026-11-07T02:06:24+00:00",
  "model": "claude-haiku-5-5"
 }

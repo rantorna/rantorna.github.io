@@ -7,7 +7,7 @@
   "kind": "nischbank",
   "legal_name": "Qred Bank AB"
  },
- "checked_at": "2026-11-05T01:31:36+00:00",
+ "checked_at": "2026-11-07T01:32:49+00:00",
  "discovered_at": "2026-10-26T01:24:32+00:00",
  "sources": [
   {
@@ -50,7 +50,7 @@
    "title": "What interest rates does Qred offer on its savings accounts? | Qred Bank",
    "kind": "html",
    "via": "http",
-   "chars": 3489
+   "chars": 3496
   },
   {
    "url": "https://www.qred.se/info/vad-ar-rantan-pa-qreds-sparkonto",
@@ -78,7 +78,7 @@
    "title": "Account Terms for Savings Account Flex and Sparkonto Fixed - | Qred Bank AB",
    "kind": "html",
    "via": "http",
-   "chars": 3273
+   "chars": 3280
   },
   {
    "url": "https://www.qred.se/villkor-foretagsprodukter",
@@ -88,8 +88,8 @@
    "chars": 3573
   }
  ],
- "status": "senaste tolkning misslyckades (Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', ')",
- "notes": "Räntorna är hämtade från tabellen \"Aktuella räntor för våra sparkonton\" på qred.se/sparkonto (source 0). Samma sida visar dock avvikande \"Just nu 2,40 %\" för Sparkonto Flex och \"Upp till 2,35 %\" för Sparkonto Fast; dessa motsägs av tabellen och har inte använts. Räntor kan variera över tid och visas enligt sidan. Ingen startdatum för räntorna anges. Flex-kontot saknar uttrycklig gräns för antal uttag, eftersom villkoren endast säger att uttag är avgiftsfria. Fast-produkterna har samma villkor och skiljer sig endast i bindningstid och ränta. Uppgifter om Sparkonto Flex: ingen fast gräns för antal insättningar angavs. Ingen intro-ränta, lägsta-behållning för räntan eller krav på andra produkter angavs i källorna.",
+ "status": "ok",
+ "notes": "Räntorna är hämtade från tabellen \"Aktuella räntor för våra sparkonton\" på sparkonto-sidan (källa 2). Samma sida innehåller äldre/motstridiga uppgifter: \"Just nu 2,40 %\" för Flex, \"Upp till 2,35 %\" för Fast och rubriken \"Upp till 3,05%\". Ingen av dem stöds av tabellen, så de har inte använts. Notera att 9 mån (2,00 %) är lägre än 3 och 6 mån i tabellen; det är så det står i källan. Räntorna visas i Mina sidor, som kräver inloggning, så de kan ha ändrats sedan sidan hämtades. Flex-kontot har ingen bindningstid, och uttag är avgiftsfria. Källorna anger inte antal fria uttag, inte om Flex kräver andra produkter, och inte om det finns introduktionsräntor, så dessa fält är null. Fast-konton överförs till Sparkonto Flex när bindningstiden löper ut. Insättningsgarantin gäller 1 150 000 kr enligt källorna (ett tilläggsbelopp på upp till 5 miljoner kr för vissa livshändelser nämns också).",
  "products": [
   {
    "name": "Sparkonto Flex",
@@ -102,17 +102,17 @@
      "status": "osäkert",
      "jev": {
       "verdict": "contradicts",
-      "confidence": 0.64
+      "confidence": 0.34
      }
     },
     "rate_percent": {
-     "value": 2.45,
-     "quote": "Rörlig 2,45 %",
+     "value": 2.6,
+     "quote": "Rörlig 2,60 %",
      "source": 2,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.7
+      "confidence": 0.25
      }
     },
     "rate_type": {
@@ -152,13 +152,13 @@
      "status": "okänt"
     },
     "withdrawal_terms": {
-     "value": "Uttag avgiftsfria; ingen bindningstid, kontot har ingen löptid",
+     "value": "Uttag är avgiftsfria. Kontot har ingen löptid och avslutas på begäran via Mina Sidor.",
      "quote": "Uttag från Sparkonto Flex är avgiftsfria.",
      "source": 1,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.8
+      "confidence": 0.96
      }
     },
     "min_deposit_sek": {
@@ -174,7 +174,7 @@
     "max_deposit_sek": {
      "value": null,
      "quote": "är begränsat till 1 100 000 kronor per Kontohavare",
-     "source": 10,
+     "source": 1,
      "status": "citat hittades inte",
      "claimed": 1100000
     },
@@ -185,23 +185,23 @@
      "status": "okänt"
     },
     "deposit_terms": {
-     "value": "Flera insättningar och uttag medges; fria insättningar",
-     "quote": "För Sparkonto Flex medges flera insättningar och uttag och kontot har ingen löptid.",
+     "value": "Flera insättningar tillåtna; insättning endast via bankgiro.",
+     "quote": "För Sparkonto Flex medges flera insättningar och uttag",
      "source": 1,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.97
+      "confidence": 0.34
      }
     },
     "eligibility": {
-     "value": "Myndig person med bostadsadress i Sverige och svenskt (mobilt) BankID",
+     "value": "Myndig, bostadsadress i Sverige och svenskt BankID eller mobilt BankID.",
      "quote": "krävs att personen är myndig, har en bostadsadress i Sverige samt har ett svenskt BankID eller mobilt BankID",
      "source": 1,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 1.0
+      "confidence": 0.94
      }
     },
     "requires_other_products": {
@@ -217,31 +217,31 @@
      "status": "okänt"
     },
     "interest_paid": {
-     "value": "Kapitaliseras årligen per 31 december eller när kontot avslutas",
-     "quote": "Ränta för medel placerade på Sparkonto Flex kapitaliseras årligen per 31 december eller vid den tidpunkt Sparkonto Flex avslutas",
-     "source": 0,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 1.0
-     }
-    },
-    "guarantee_country": {
-     "value": "SE",
-     "quote": "Sparkonto Fast och Sparkonto Flex omfattas av den svenska statliga insättningsgarantin efter beslut från Riksgälden.",
+     "value": "Kapitaliseras årligen per 31 december eller när kontot avslutas.",
+     "quote": "kapitaliseras årligen per den 31 december",
      "source": 1,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 1.0
+      "confidence": 0.83
+     }
+    },
+    "guarantee_country": {
+     "value": "SE",
+     "quote": "omfattas av den svenska statliga insättningsgarantin",
+     "source": 1,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.97
      }
     },
     "guarantee_amount": {
      "value": null,
      "quote": "Ersättningen uppgår till högst 1 150 000 svenska kronor.",
-     "source": 10,
+     "source": 1,
      "status": "citat hittades inte",
-     "claimed": "1 150 000 SEK"
+     "claimed": "1 150 000 kr"
     },
     "rate_valid_from": {
      "value": null,
@@ -269,8 +269,8 @@
      }
     },
     "rate_percent": {
-     "value": 2.85,
-     "quote": "3 mån 2,85 %",
+     "value": 3.0,
+     "quote": "3 mån 3,00 %",
      "source": 2,
      "status": "belagt"
     },
@@ -278,16 +278,16 @@
      "value": "fast",
      "quote": "Sparkonto med fast ränta för privatpersoner.",
      "source": 2,
-     "status": "osäkert",
+     "status": "belagt",
      "jev": {
-      "verdict": "says_nothing",
-      "confidence": 0.33
+      "verdict": "supports",
+      "confidence": 0.34
      }
     },
     "binding_months": {
      "value": 3,
-     "quote": "3 mån 2,85 %",
-     "source": 2,
+     "quote": "Du får själv välja om bindningstiden för ditt Sparkonto Fast ska vara 3, 6, 9, 12 eller 24 månader",
+     "source": 0,
      "status": "belagt"
     },
     "withdrawals": {
@@ -307,13 +307,13 @@
      "status": "okänt"
     },
     "withdrawal_terms": {
-     "value": "Förtida uttag mot avgift: 3 % av uttaget belopp",
+     "value": "Förtida uttag tillåtet mot avgift på 3 % av uttaget belopp. Efter bindningstiden överförs medel till Sparkonto Flex.",
      "quote": "Avgift vid förtida uttag 3 % av summan av det uttagna beloppet",
      "source": 0,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.95
+      "confidence": 0.85
      }
     },
     "min_deposit_sek": {
@@ -329,7 +329,7 @@
     "max_deposit_sek": {
      "value": null,
      "quote": "är begränsat till 1 100 000 kronor per Kontohavare",
-     "source": 10,
+     "source": 1,
      "status": "citat hittades inte",
      "claimed": 1100000
     },
@@ -340,23 +340,23 @@
      "status": "okänt"
     },
     "deposit_terms": {
-     "value": "Engångsinsättning; inga löpande insättningar",
+     "value": "Engångsinsättning; löpande insättningar ej tillåtna. Insättning endast via bankgiro.",
      "quote": "Löpande insättningar Nej",
      "source": 0,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.88
+      "confidence": 0.76
      }
     },
     "eligibility": {
-     "value": "Myndig person med bostadsadress i Sverige och svenskt (mobilt) BankID",
+     "value": "Myndig, bostadsadress i Sverige och svenskt BankID eller mobilt BankID.",
      "quote": "krävs att personen är myndig, har en bostadsadress i Sverige samt har ett svenskt BankID eller mobilt BankID",
      "source": 1,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.95
+      "confidence": 0.8
      }
     },
     "requires_other_products": {
@@ -372,7 +372,7 @@
      "status": "okänt"
     },
     "interest_paid": {
-     "value": "Kapitaliseras vid bindningstidens slut",
+     "value": "Kapitaliseras vid bindningstidens slut.",
      "quote": "Ränta för medel placerade på Sparkonto Fast kapitaliseras vid bindningstidens slut",
      "source": 0,
      "status": "belagt",
@@ -383,20 +383,20 @@
     },
     "guarantee_country": {
      "value": "SE",
-     "quote": "Sparkonto Fast och Sparkonto Flex omfattas av den svenska statliga insättningsgarantin efter beslut från Riksgälden.",
+     "quote": "omfattas av den svenska statliga insättningsgarantin",
      "source": 1,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 1.0
+      "confidence": 0.91
      }
     },
     "guarantee_amount": {
      "value": null,
      "quote": "Ersättningen uppgår till högst 1 150 000 svenska kronor.",
-     "source": 10,
+     "source": 1,
      "status": "citat hittades inte",
-     "claimed": "1 150 000 SEK"
+     "claimed": "1 150 000 kr"
     },
     "rate_valid_from": {
      "value": null,
@@ -424,8 +424,8 @@
      }
     },
     "rate_percent": {
-     "value": 3.0,
-     "quote": "6 mån 3,00 %",
+     "value": 3.1,
+     "quote": "6 mån 3,10 %",
      "source": 2,
      "status": "belagt"
     },
@@ -433,16 +433,16 @@
      "value": "fast",
      "quote": "Sparkonto med fast ränta för privatpersoner.",
      "source": 2,
-     "status": "osäkert",
+     "status": "belagt",
      "jev": {
-      "verdict": "says_nothing",
-      "confidence": 0.22
+      "verdict": "supports",
+      "confidence": 0.52
      }
     },
     "binding_months": {
      "value": 6,
-     "quote": "6 mån 3,00 %",
-     "source": 2,
+     "quote": "Du får själv välja om bindningstiden för ditt Sparkonto Fast ska vara 3, 6, 9, 12 eller 24 månader",
+     "source": 0,
      "status": "belagt"
     },
     "withdrawals": {
@@ -462,13 +462,13 @@
      "status": "okänt"
     },
     "withdrawal_terms": {
-     "value": "Förtida uttag mot avgift: 3 % av uttaget belopp",
+     "value": "Förtida uttag tillåtet mot avgift på 3 % av uttaget belopp. Efter bindningstiden överförs medel till Sparkonto Flex.",
      "quote": "Avgift vid förtida uttag 3 % av summan av det uttagna beloppet",
      "source": 0,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.95
+      "confidence": 0.79
      }
     },
     "min_deposit_sek": {
@@ -484,7 +484,7 @@
     "max_deposit_sek": {
      "value": null,
      "quote": "är begränsat till 1 100 000 kronor per Kontohavare",
-     "source": 10,
+     "source": 1,
      "status": "citat hittades inte",
      "claimed": 1100000
     },
@@ -495,23 +495,23 @@
      "status": "okänt"
     },
     "deposit_terms": {
-     "value": "Engångsinsättning; inga löpande insättningar",
+     "value": "Engångsinsättning; löpande insättningar ej tillåtna. Insättning endast via bankgiro.",
      "quote": "Löpande insättningar Nej",
      "source": 0,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.88
+      "confidence": 0.73
      }
     },
     "eligibility": {
-     "value": "Myndig person med bostadsadress i Sverige och svenskt (mobilt) BankID",
+     "value": "Myndig, bostadsadress i Sverige och svenskt BankID eller mobilt BankID.",
      "quote": "krävs att personen är myndig, har en bostadsadress i Sverige samt har ett svenskt BankID eller mobilt BankID",
      "source": 1,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.97
+      "confidence": 0.85
      }
     },
     "requires_other_products": {
@@ -527,31 +527,31 @@
      "status": "okänt"
     },
     "interest_paid": {
-     "value": "Kapitaliseras vid bindningstidens slut",
+     "value": "Kapitaliseras vid bindningstidens slut.",
      "quote": "Ränta för medel placerade på Sparkonto Fast kapitaliseras vid bindningstidens slut",
      "source": 0,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 1.0
+      "confidence": 0.97
      }
     },
     "guarantee_country": {
      "value": "SE",
-     "quote": "Sparkonto Fast och Sparkonto Flex omfattas av den svenska statliga insättningsgarantin efter beslut från Riksgälden.",
+     "quote": "omfattas av den svenska statliga insättningsgarantin",
      "source": 1,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 1.0
+      "confidence": 0.91
      }
     },
     "guarantee_amount": {
      "value": null,
      "quote": "Ersättningen uppgår till högst 1 150 000 svenska kronor.",
-     "source": 10,
+     "source": 1,
      "status": "citat hittades inte",
-     "claimed": "1 150 000 SEK"
+     "claimed": "1 150 000 kr"
     },
     "rate_valid_from": {
      "value": null,
@@ -588,16 +588,16 @@
      "value": "fast",
      "quote": "Sparkonto med fast ränta för privatpersoner.",
      "source": 2,
-     "status": "osäkert",
+     "status": "belagt",
      "jev": {
-      "verdict": "says_nothing",
-      "confidence": 0.22
+      "verdict": "supports",
+      "confidence": 0.43
      }
     },
     "binding_months": {
      "value": 9,
-     "quote": "9 mån 2,00 %",
-     "source": 2,
+     "quote": "Du får själv välja om bindningstiden för ditt Sparkonto Fast ska vara 3, 6, 9, 12 eller 24 månader",
+     "source": 0,
      "status": "belagt"
     },
     "withdrawals": {
@@ -617,13 +617,13 @@
      "status": "okänt"
     },
     "withdrawal_terms": {
-     "value": "Förtida uttag mot avgift: 3 % av uttaget belopp",
+     "value": "Förtida uttag tillåtet mot avgift på 3 % av uttaget belopp. Efter bindningstiden överförs medel till Sparkonto Flex.",
      "quote": "Avgift vid förtida uttag 3 % av summan av det uttagna beloppet",
      "source": 0,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.94
+      "confidence": 0.83
      }
     },
     "min_deposit_sek": {
@@ -639,7 +639,7 @@
     "max_deposit_sek": {
      "value": null,
      "quote": "är begränsat till 1 100 000 kronor per Kontohavare",
-     "source": 10,
+     "source": 1,
      "status": "citat hittades inte",
      "claimed": 1100000
     },
@@ -650,23 +650,23 @@
      "status": "okänt"
     },
     "deposit_terms": {
-     "value": "Engångsinsättning; inga löpande insättningar",
+     "value": "Engångsinsättning; löpande insättningar ej tillåtna. Insättning endast via bankgiro.",
      "quote": "Löpande insättningar Nej",
      "source": 0,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.89
+      "confidence": 0.73
      }
     },
     "eligibility": {
-     "value": "Myndig person med bostadsadress i Sverige och svenskt (mobilt) BankID",
+     "value": "Myndig, bostadsadress i Sverige och svenskt BankID eller mobilt BankID.",
      "quote": "krävs att personen är myndig, har en bostadsadress i Sverige samt har ett svenskt BankID eller mobilt BankID",
      "source": 1,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.97
+      "confidence": 0.86
      }
     },
     "requires_other_products": {
@@ -682,31 +682,31 @@
      "status": "okänt"
     },
     "interest_paid": {
-     "value": "Kapitaliseras vid bindningstidens slut",
+     "value": "Kapitaliseras vid bindningstidens slut.",
      "quote": "Ränta för medel placerade på Sparkonto Fast kapitaliseras vid bindningstidens slut",
      "source": 0,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 1.0
+      "confidence": 0.97
      }
     },
     "guarantee_country": {
      "value": "SE",
-     "quote": "Sparkonto Fast och Sparkonto Flex omfattas av den svenska statliga insättningsgarantin efter beslut från Riksgälden.",
+     "quote": "omfattas av den svenska statliga insättningsgarantin",
      "source": 1,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 1.0
+      "confidence": 0.92
      }
     },
     "guarantee_amount": {
      "value": null,
      "quote": "Ersättningen uppgår till högst 1 150 000 svenska kronor.",
-     "source": 10,
+     "source": 1,
      "status": "citat hittades inte",
-     "claimed": "1 150 000 SEK"
+     "claimed": "1 150 000 kr"
     },
     "rate_valid_from": {
      "value": null,
@@ -720,7 +720,7 @@
    "status": "verifierad"
   },
   {
-   "name": "Sparkonto Fast 1 år",
+   "name": "Sparkonto Fast 12 mån",
    "flags": [],
    "fields": {
     "product_type": {
@@ -730,12 +730,12 @@
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.83
+      "confidence": 0.5
      }
     },
     "rate_percent": {
-     "value": 3.05,
-     "quote": "1 år 3,05 %",
+     "value": 3.3,
+     "quote": "1 år 3,30 %",
      "source": 2,
      "status": "belagt"
     },
@@ -746,13 +746,13 @@
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 1.0
+      "confidence": 0.86
      }
     },
     "binding_months": {
      "value": 12,
-     "quote": "1 år 3,05 %",
-     "source": 2,
+     "quote": "Du får själv välja om bindningstiden för ditt Sparkonto Fast ska vara 3, 6, 9, 12 eller 24 månader",
+     "source": 0,
      "status": "belagt"
     },
     "withdrawals": {
@@ -762,7 +762,7 @@
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.95
+      "confidence": 0.86
      }
     },
     "free_withdrawals_per_year": {
@@ -772,13 +772,13 @@
      "status": "okänt"
     },
     "withdrawal_terms": {
-     "value": "Förtida uttag mot avgift: 3 % av uttaget belopp",
+     "value": "Förtida uttag tillåtet mot avgift på 3 % av uttaget belopp. Efter bindningstiden överförs medel till Sparkonto Flex.",
      "quote": "Avgift vid förtida uttag 3 % av summan av det uttagna beloppet",
      "source": 0,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.97
+      "confidence": 0.91
      }
     },
     "min_deposit_sek": {
@@ -788,13 +788,13 @@
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.76
+      "confidence": 0.7
      }
     },
     "max_deposit_sek": {
      "value": null,
      "quote": "är begränsat till 1 100 000 kronor per Kontohavare",
-     "source": 10,
+     "source": 1,
      "status": "citat hittades inte",
      "claimed": 1100000
     },
@@ -805,23 +805,23 @@
      "status": "okänt"
     },
     "deposit_terms": {
-     "value": "Engångsinsättning; inga löpande insättningar",
+     "value": "Engångsinsättning; löpande insättningar ej tillåtna. Insättning endast via bankgiro.",
      "quote": "Löpande insättningar Nej",
      "source": 0,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.92
+      "confidence": 0.8
      }
     },
     "eligibility": {
-     "value": "Myndig person med bostadsadress i Sverige och svenskt (mobilt) BankID",
+     "value": "Myndig, bostadsadress i Sverige och svenskt BankID eller mobilt BankID.",
      "quote": "krävs att personen är myndig, har en bostadsadress i Sverige samt har ett svenskt BankID eller mobilt BankID",
      "source": 1,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.97
+      "confidence": 0.86
      }
     },
     "requires_other_products": {
@@ -837,31 +837,31 @@
      "status": "okänt"
     },
     "interest_paid": {
-     "value": "Kapitaliseras vid bindningstidens slut",
+     "value": "Kapitaliseras vid bindningstidens slut.",
      "quote": "Ränta för medel placerade på Sparkonto Fast kapitaliseras vid bindningstidens slut",
      "source": 0,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 1.0
+      "confidence": 0.98
      }
     },
     "guarantee_country": {
      "value": "SE",
-     "quote": "Sparkonto Fast och Sparkonto Flex omfattas av den svenska statliga insättningsgarantin efter beslut från Riksgälden.",
+     "quote": "omfattas av den svenska statliga insättningsgarantin",
      "source": 1,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 1.0
+      "confidence": 0.91
      }
     },
     "guarantee_amount": {
      "value": null,
      "quote": "Ersättningen uppgår till högst 1 150 000 svenska kronor.",
-     "source": 10,
+     "source": 1,
      "status": "citat hittades inte",
-     "claimed": "1 150 000 SEK"
+     "claimed": "1 150 000 kr"
     },
     "rate_valid_from": {
      "value": null,
@@ -875,7 +875,7 @@
    "status": "verifierad"
   },
   {
-   "name": "Sparkonto Fast 2 år",
+   "name": "Sparkonto Fast 24 mån",
    "flags": [],
    "fields": {
     "product_type": {
@@ -885,7 +885,7 @@
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.77
+      "confidence": 0.34
      }
     },
     "rate_percent": {
@@ -901,13 +901,13 @@
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.98
+      "confidence": 0.52
      }
     },
     "binding_months": {
      "value": 24,
-     "quote": "2 år 1,80 %",
-     "source": 2,
+     "quote": "Du får själv välja om bindningstiden för ditt Sparkonto Fast ska vara 3, 6, 9, 12 eller 24 månader",
+     "source": 0,
      "status": "belagt"
     },
     "withdrawals": {
@@ -917,7 +917,7 @@
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.95
+      "confidence": 0.88
      }
     },
     "free_withdrawals_per_year": {
@@ -927,13 +927,13 @@
      "status": "okänt"
     },
     "withdrawal_terms": {
-     "value": "Förtida uttag mot avgift: 3 % av uttaget belopp",
+     "value": "Förtida uttag tillåtet mot avgift på 3 % av uttaget belopp. Efter bindningstiden överförs medel till Sparkonto Flex.",
      "quote": "Avgift vid förtida uttag 3 % av summan av det uttagna beloppet",
      "source": 0,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.98
+      "confidence": 0.88
      }
     },
     "min_deposit_sek": {
@@ -943,13 +943,13 @@
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.76
+      "confidence": 0.73
      }
     },
     "max_deposit_sek": {
      "value": null,
      "quote": "är begränsat till 1 100 000 kronor per Kontohavare",
-     "source": 10,
+     "source": 1,
      "status": "citat hittades inte",
      "claimed": 1100000
     },
@@ -960,23 +960,23 @@
      "status": "okänt"
     },
     "deposit_terms": {
-     "value": "Engångsinsättning; inga löpande insättningar",
+     "value": "Engångsinsättning; löpande insättningar ej tillåtna. Insättning endast via bankgiro.",
      "quote": "Löpande insättningar Nej",
      "source": 0,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.94
+      "confidence": 0.72
      }
     },
     "eligibility": {
-     "value": "Myndig person med bostadsadress i Sverige och svenskt (mobilt) BankID",
+     "value": "Myndig, bostadsadress i Sverige och svenskt BankID eller mobilt BankID.",
      "quote": "krävs att personen är myndig, har en bostadsadress i Sverige samt har ett svenskt BankID eller mobilt BankID",
      "source": 1,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.95
+      "confidence": 0.85
      }
     },
     "requires_other_products": {
@@ -992,31 +992,31 @@
      "status": "okänt"
     },
     "interest_paid": {
-     "value": "Kapitaliseras vid bindningstidens slut",
+     "value": "Kapitaliseras vid bindningstidens slut.",
      "quote": "Ränta för medel placerade på Sparkonto Fast kapitaliseras vid bindningstidens slut",
      "source": 0,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 1.0
+      "confidence": 0.98
      }
     },
     "guarantee_country": {
      "value": "SE",
-     "quote": "Sparkonto Fast och Sparkonto Flex omfattas av den svenska statliga insättningsgarantin efter beslut från Riksgälden.",
+     "quote": "omfattas av den svenska statliga insättningsgarantin",
      "source": 1,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 1.0
+      "confidence": 0.86
      }
     },
     "guarantee_amount": {
      "value": null,
      "quote": "Ersättningen uppgår till högst 1 150 000 svenska kronor.",
-     "source": 10,
+     "source": 1,
      "status": "citat hittades inte",
-     "claimed": "1 150 000 SEK"
+     "claimed": "1 150 000 kr"
     },
     "rate_valid_from": {
      "value": null,
@@ -1030,7 +1030,7 @@
    "status": "verifierad"
   }
  ],
- "source_hash": "a3e4186661a86667",
- "changed_at": "2026-10-20T00:22:21+00:00",
+ "source_hash": "2553ed10d77a8468",
+ "changed_at": "2026-11-07T01:32:49+00:00",
  "model": "claude-haiku-5-5"
 }
