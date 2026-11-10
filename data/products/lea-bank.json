@@ -2,34 +2,34 @@
  "bank": {
   "id": "lea-bank",
   "name": "Lea Bank",
-  "homepage": "https://leabank.se/",
+  "homepage": "https://leabank.se",
   "home_country": "SE",
   "kind": "nischbank",
   "legal_name": "Lea Bank AB"
  },
- "checked_at": "2026-11-07T01:57:44+00:00",
+ "checked_at": "2026-11-10T01:52:54+00:00",
  "discovered_at": "2026-10-25T05:23:52+00:00",
  "sources": [
   {
    "url": "https://leabank.se/kundservice/priser",
    "title": "Produkter och priser",
    "kind": "html",
-   "via": "browser",
-   "chars": 3746
+   "via": "http",
+   "chars": 3727
   },
   {
    "url": "https://leabank.se/spara",
    "title": "Spara | Bra ränta på sparandet | Lea Bank",
    "kind": "html",
-   "via": "browser",
-   "chars": 10255
+   "via": "http",
+   "chars": 10236
   },
   {
    "url": "https://leabank.se/spara/sparkonto-plus",
    "title": "Sparkonto Plus | Lea Bank",
    "kind": "html",
-   "via": "browser",
-   "chars": 10767
+   "via": "http",
+   "chars": 10748
   },
   {
    "url": "https://deposit.leabank.se/sparkontoplus",
@@ -42,8 +42,8 @@
    "url": "https://leabank.se/spara/sparkonto",
    "title": "Sparkonto | Lea Bank",
    "kind": "html",
-   "via": "browser",
-   "chars": 10053
+   "via": "http",
+   "chars": 10034
   },
   {
    "url": "https://deposit.leabank.se/sparkonto",
@@ -60,38 +60,37 @@
    "chars": 26189
   }
  ],
- "status": "senaste tolkning misslyckades (Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', ')",
- "notes": "Räntan för Sparkonto Plus anges som effektiv ränta (2,45 %) och i prislistan som 'Ränta på insättningar'; ingen nominell ränta anges separat. Inga minsta- eller högsta insättningsbelopp, antal fria uttag, datum för när räntan gäller eller uppgift om andra produkter krävs hittades i källorna. Källan till Sparkonto (index 2) anger att Sparkonto har 'Fria uttag', medan prislistan och startsidan inte anger något uttagstak. Sparkonto Plus-sidan anger 'Fria uttag, men utbetalning 31 dagar från begäran'.",
+ "status": "ok",
+ "notes": "Källorna anger ingen minimi- eller maxinsättning, inget antal fria uttag och ingen uttrycklig uppgift om att kontona kan öppnas utan andra produkter, så dessa fält är null. Bindningstid 0 för Sparkonto Plus är inte uttryckligen angiven utan bygger på allmän uppsägningsrätt i villkoren (punkt 18.2). Sparkonto Plus anges som 'sparkonto med uttagsbegränsning' eftersom utbetalning sker 31 dagar efter begäran; uttaget i sig är avgiftsfritt. Källorna säger att räntan kapitaliseras varje månad (villkor 6.5) och att den betalas ut varje kalendermånad (FAQ). Dessa stämmer med varandra i praktiken. Uppgiften om intro-ränta saknas. Sparkonto Plus räntan är 2,45 % och Sparkonto 2,35 %, enligt flera sidor. Räntan visas öppet utan inloggning.",
  "products": [
   {
    "name": "Sparkonto Plus",
    "flags": [],
    "fields": {
     "product_type": {
-     "value": null,
-     "quote": "Sparkonto Plus är ett sparkonto som passar dig som inte är beroende av att kunna ta ut pengar samma dag. I utbyte erbjuder vi dig vår bästa ränta, som för närvarande är 2,45 % eff. ränta.",
-     "source": 1,
-     "status": "stöds inte av källan",
+     "value": "sparkonto med uttagsbegränsning",
+     "quote": "Fria uttag, men utbetalning 31 dagar från begäran.",
+     "source": 2,
+     "status": "osäkert",
      "jev": {
       "verdict": "says_nothing",
-      "confidence": 0.85
-     },
-     "claimed": "rörligt sparkonto"
+      "confidence": 0.46
+     }
     },
     "rate_percent": {
      "value": 2.45,
-     "quote": "Ränta på insättningar | 2,45 %",
+     "quote": "Vår bästa ränta på 2,45 %.",
      "source": 2,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.94
+      "confidence": 0.31
      }
     },
     "rate_type": {
      "value": "rörlig",
      "quote": "Ja, sparkonto hos Lea Bank har rörlig ränta som justeras utifrån marknadssituationen.",
-     "source": 1,
+     "source": 2,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
@@ -100,22 +99,22 @@
     },
     "binding_months": {
      "value": 0,
-     "quote": "Sparkonto Plus är ett sparkonto som passar dig som inte är beroende av att kunna ta ut pengar samma dag.",
-     "source": 1,
+     "quote": "Kontohavaren kan när som helst säga upp Sparkonto till upphörande",
+     "source": 6,
      "status": "osäkert",
      "jev": {
       "verdict": "says_nothing",
-      "confidence": 0.67
+      "confidence": 0.34
      }
     },
     "withdrawals": {
-     "value": "begränsade",
-     "quote": "Fria uttag, men utbetalning 31 dagar från begäran. Inga avgifter.",
+     "value": "fria",
+     "quote": "Fria uttag, men utbetalning 31 dagar från begäran.",
      "source": 2,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.53
+      "confidence": 0.42
      }
     },
     "free_withdrawals_per_year": {
@@ -125,9 +124,9 @@
      "status": "okänt"
     },
     "withdrawal_terms": {
-     "value": "Utbetalning 31 dagar från begäran, avbrytbart. Omedelbar utbetalning ger 2 % uttagsavgift på uttaget belopp.",
+     "value": "Utbetalning 31 dagar efter begäran. Vid omedelbar utbetalning tas 2 % uttagsavgift. Inga fasta avgifter.",
      "quote": "Vid omedelbar utbetalning beräknas en uttagsavgift på 2% av uttaget belopp",
-     "source": 0,
+     "source": 2,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
@@ -153,23 +152,23 @@
      "status": "okänt"
     },
     "deposit_terms": {
-     "value": "Insättningar görs från ett svenskt bankkonto; inget insättningstak angivet i källorna.",
-     "quote": "ha ett svenskt bankkonto för insättning och uttag",
-     "source": 1,
+     "value": "Insättning till kontonummer som visas efter öppnande; ingen maxgräns angiven.",
+     "quote": "Efter att ditt sparkonto har öppnats, får du ett e-postmeddelande med information om var du loggar in på nätbanken och hittar ditt nyskapade kontonummer.",
+     "source": 2,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.37
+      "confidence": 0.43
      }
     },
     "eligibility": {
-     "value": "Myndig fysisk person med svenskt personnummer, folkbokförd i Sverige, med svenskt BankID och svenskt bankkonto. Endast privatpersoner.",
+     "value": "Myndig, minst 18 år, svenskt personnummer, folkbokförd i Sverige, svenskt bankkonto och BankID. Endast privatpersoner.",
      "quote": "För att öppna ett sparkonto måste du vara myndig, ha ett svenskt personnummer, vara folkbokförd i Sverige, ha ett svenskt bankkonto för insättning och uttag, och vara minst 18 år.",
-     "source": 1,
+     "source": 2,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.86
+      "confidence": 0.96
      }
     },
     "requires_other_products": {
@@ -185,8 +184,8 @@
      "status": "okänt"
     },
     "interest_paid": {
-     "value": "Månadsvis; räntan överförs till kontot varje månad",
-     "quote": "Den upplupna räntan betalas varje kalendermånad i början av följande månad eller den dag då sparkontot avslutas.",
+     "value": "månadsvis",
+     "quote": "Ränta som överförs till ditt konto varje månad.",
      "source": 2,
      "status": "belagt",
      "jev": {
@@ -197,7 +196,7 @@
     "guarantee_country": {
      "value": "SE",
      "quote": "Ditt sparande omfattas av den svenska statliga insättningsgarantin",
-     "source": 1,
+     "source": 2,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
@@ -205,13 +204,13 @@
      }
     },
     "guarantee_amount": {
-     "value": "SEK 1 150 000 per kundrelation",
+     "value": "1 150 000 kr",
      "quote": "Insättningar upp till SEK 1 150 000 per kundrelation täcks av insättningsgarantin.",
-     "source": 1,
+     "source": 2,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 1.0
+      "confidence": 0.82
      }
     },
     "rate_valid_from": {
@@ -231,22 +230,22 @@
    "fields": {
     "product_type": {
      "value": "rörligt sparkonto",
-     "quote": "Sparkonto är ett konto som passar dig som vill ha en säker och förutsägbar placering av sitt sparande till en bra ränta, utan tillhörande avgifter eller bindningstider.",
-     "source": 1,
+     "quote": "Ja, våra sparkonton har rörlig ränta som justeras utifrån marknadssituationen.",
+     "source": 4,
      "status": "osäkert",
      "jev": {
       "verdict": "says_nothing",
-      "confidence": 0.69
+      "confidence": 0.25
      }
     },
     "rate_percent": {
      "value": 2.35,
-     "quote": "Kontot erbjuder en effektiv ränta på 2,35 %.",
-     "source": 1,
-     "status": "osäkert",
+     "quote": "Få 2,35 % effektiv ränta. Fria uttag. Ingen bindningstid.",
+     "source": 4,
+     "status": "belagt",
      "jev": {
-      "verdict": "says_nothing",
-      "confidence": 0.37
+      "verdict": "supports",
+      "confidence": 0.4
      }
     },
     "rate_type": {
@@ -261,12 +260,12 @@
     },
     "binding_months": {
      "value": 0,
-     "quote": "Få 2,35 % effektiv ränta. Fria uttag. Ingen bindningstid. Inga avgifter.",
+     "quote": "utan tillhörande avgifter eller bindningstider",
      "source": 4,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.52
+      "confidence": 0.67
      }
     },
     "withdrawals": {
@@ -286,13 +285,13 @@
      "status": "okänt"
     },
     "withdrawal_terms": {
-     "value": "Inga uttagsgränser, bindningstid eller avgifter. Pengarna finns på mottagarkontot inom tre bankdagar.",
+     "value": "Uttag när som helst via Mina Sidor, utan avgift och utan bindningstid. Pengarna framme inom tre bankdagar.",
      "quote": "Pengarna finns på mottagarkontot inom tre bankdagar.",
-     "source": 1,
+     "source": 4,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.82
+      "confidence": 0.64
      }
     },
     "min_deposit_sek": {
@@ -314,7 +313,7 @@
      "status": "okänt"
     },
     "deposit_terms": {
-     "value": "Insättningar görs till bankgironummer med unikt OCR-nummer.",
+     "value": "Insättning till bankgironummer med unikt OCR-nummer; ingen maxgräns angiven.",
      "quote": "Insättningarna gör du till ett bankgironummer och ditt unika OCR-nummer.",
      "source": 4,
      "status": "belagt",
@@ -324,13 +323,13 @@
      }
     },
     "eligibility": {
-     "value": "Myndig fysisk person med svenskt personnummer, folkbokförd i Sverige, med svenskt BankID och svenskt bankkonto. Endast privatpersoner.",
+     "value": "Myndig, minst 18 år, svenskt personnummer, folkbokförd i Sverige, svenskt bankkonto och BankID. Endast privatpersoner.",
      "quote": "För att öppna ett sparkonto måste du vara myndig, ha ett svenskt personnummer, vara folkbokförd i Sverige, ha ett svenskt bankkonto för insättning och uttag, och vara minst 18 år.",
-     "source": 1,
+     "source": 4,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.89
+      "confidence": 0.96
      }
     },
     "requires_other_products": {
@@ -346,29 +345,29 @@
      "status": "okänt"
     },
     "interest_paid": {
-     "value": "Månadsvis; räntan överförs till kontot varje månad",
-     "quote": "Den upplupna räntan betalas varje kalendermånad i början av följande månad eller den dag då sparkontot avslutas.",
-     "source": 2,
+     "value": "månadsvis",
+     "quote": "Räntan sätts in på ditt konto varje månad.",
+     "source": 4,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 1.0
+      "confidence": 0.98
      }
     },
     "guarantee_country": {
      "value": "SE",
-     "quote": "Ditt sparande omfattas av den svenska statliga insättningsgarantin",
-     "source": 1,
+     "quote": "Våra sparkonton omfattas av den statliga insättningsgarantin enligt beslut av Riksgälden.",
+     "source": 4,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.92
+      "confidence": 0.76
      }
     },
     "guarantee_amount": {
-     "value": "SEK 1 150 000 per kundrelation",
+     "value": "1 150 000 kr",
      "quote": "Insättningar upp till SEK 1 150 000 per kundrelation täcks av insättningsgarantin.",
-     "source": 1,
+     "source": 4,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
@@ -388,6 +387,6 @@
   }
  ],
  "source_hash": "62ff6b3e7612a708",
- "changed_at": "2026-10-20T00:57:19+00:00",
+ "changed_at": "2026-11-10T01:52:54+00:00",
  "model": "claude-haiku-5-5"
 }

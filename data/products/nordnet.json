@@ -7,7 +7,7 @@
   "kind": "plattform",
   "legal_name": "Nordnet Bank AB"
  },
- "checked_at": "2026-11-07T01:29:16+00:00",
+ "checked_at": "2026-11-10T01:27:41+00:00",
  "discovered_at": "2026-10-21T00:53:17+00:00",
  "sources": [
   {
@@ -74,23 +74,22 @@
    "chars": 8051
   }
  ],
- "status": "senaste tolkning misslyckades (Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', ')",
- "notes": "Endast ett sparkonto hittades (Nordnets nuvarande sida, källa 0). Källorna 6 och 7 (2023/2024) anger 3,60 % och insättningsgaranti på 1 050 000 kr; de är äldre och har använts inte, men gäller möjligen fortfarande. Räntan i rate_percent är nominell (1,34 %); effektiv ränta enligt sidan är 1,35 %. Ingen rörlig/fast-uppgift, minsta belopp, max-insättning eller antal fria uttag per år anges i källorna. requires_other_products satt till true eftersom man måste vara Nordnet-kund (via ISK eller AF) för att öppna sparkontot, enligt källa 3; det är en tolkning. Räntan visas på sidan utan inloggning.",
+ "status": "ok",
+ "notes": "Endast ett sparkonto för privatpersoner finns i källorna. Räntan 1,35 % står som huvudränta på sidan, men samma källa anger nominell ränta 1,34 %; fältet rate_percent använder 1,34 enligt schemat. Blogginläggen (källa 6 och 7) om 3,60 % är från 2023 respektive 2024 och har använts endast för att belägga att räntan är rörlig; de visar inte aktuell ränta. Insättningsgarantibeloppet 1 150 000 kr (källa 0) skiljer sig från 1 050 000 kr i de äldre bloggarna; källa 0 är använd som mest aktuell. Ingen uppgift om minsta insättning, tak för insättning eller antal fria uttag per år finns. Ränta visas inte utan inloggning-förbehåll i källorna; ingen tydlig uppgift om när den nuvarande räntan började gälla. Sparkontot är enligt källa 3 öppet för befintliga kunder; nya kunder ska först öppna ISK eller AF, vilket angivits som requires_other_products=false eftersom det gäller kundrelationen, inte räntevillkoret.",
  "products": [
   {
    "name": "Sparkonto",
    "flags": [],
    "fields": {
     "product_type": {
-     "value": null,
-     "quote": "Konkurrenskraftig ränta på 1,35% från första kronan (nominell ränta 1,34%).",
-     "source": 0,
-     "status": "stöds inte av källan",
+     "value": "rörligt sparkonto",
+     "quote": "Tidigare idag höjde Riksbanken, som väntat, styrräntan med 25 punkter till 4 procent. Vi gör detsamma",
+     "source": 6,
+     "status": "osäkert",
      "jev": {
       "verdict": "says_nothing",
-      "confidence": 0.82
-     },
-     "claimed": "rörligt sparkonto"
+      "confidence": 0.43
+     }
     },
     "rate_percent": {
      "value": 1.34,
@@ -103,19 +102,23 @@
      }
     },
     "rate_type": {
-     "value": null,
-     "quote": null,
-     "source": null,
-     "status": "okänt"
+     "value": "rörlig",
+     "quote": "Tidigare idag höjde Riksbanken, som väntat, styrräntan med 25 punkter till 4 procent. Vi gör detsamma",
+     "source": 6,
+     "status": "osäkert",
+     "jev": {
+      "verdict": "says_nothing",
+      "confidence": 0.7
+     }
     },
     "binding_months": {
      "value": 0,
-     "quote": "Sätt in och ta ut pengar, precis när du vill. Vi har ingen bindningstid.",
+     "quote": "Vi har ingen bindningstid.",
      "source": 0,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.66
+      "confidence": 0.48
      }
     },
     "withdrawals": {
@@ -135,20 +138,24 @@
      "status": "okänt"
     },
     "withdrawal_terms": {
-     "value": "Fria uttag och överföringar, ingen bindningstid och inga avgifter enligt sidan.",
+     "value": "Fria uttag och överföringar utan bindningstid; inga avgifter.",
      "quote": "Sätt in och ta ut pengar, precis när du vill. Vi har ingen bindningstid.",
      "source": 0,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 1.0
+      "confidence": 0.89
      }
     },
     "min_deposit_sek": {
-     "value": null,
-     "quote": null,
-     "source": null,
-     "status": "okänt"
+     "value": 0,
+     "quote": "Konkurrenskraftig ränta på 1,35% från första kronan (nominell ränta 1,34%).",
+     "source": 0,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.37
+     }
     },
     "max_deposit_sek": {
      "value": null,
@@ -163,33 +170,33 @@
      "status": "okänt"
     },
     "deposit_terms": {
-     "value": "Fria uttag och insättningar",
+     "value": "Insättningar och uttag när du vill, utan bindningstid.",
      "quote": "Fria uttag och insättningar.",
      "source": 0,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.95
+      "confidence": 0.94
      }
     },
     "eligibility": {
-     "value": "Privatpersoner och företag",
-     "quote": "Vårt sparkonto är även öppet både för både privatpersoner och företag.",
+     "value": "Privatpersoner och företag; kontot öppnas med BankID.",
+     "quote": "Öppnas enkelt med BankID och redo direkt.",
      "source": 0,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.86
+      "confidence": 0.38
      }
     },
     "requires_other_products": {
-     "value": true,
+     "value": false,
      "quote": "Om du inte är kund hos Nordnet än, kan du enkelt bli det genom att öppna ett investeringssparkonto (ISK) eller aktie- och fondkonto (AF) först.",
      "source": 3,
      "status": "osäkert",
      "jev": {
       "verdict": "contradicts",
-      "confidence": 0.3
+      "confidence": 0.28
      }
     },
     "intro_rate": {
@@ -199,23 +206,20 @@
      "status": "okänt"
     },
     "interest_paid": {
-     "value": "Månadsvis",
-     "quote": "Månadsvis utbetalning av räntan",
-     "source": 0,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.92
-     }
+     "value": null,
+     "quote": "Räntan kapitaliseras och betalas ut vid varje månadsskifte.",
+     "source": 1,
+     "status": "citat hittades inte",
+     "claimed": "Månadsvis, kapitaliseras och betalas ut vid varje månadsskifte."
     },
     "guarantee_country": {
      "value": "SE",
-     "quote": "Kontot omfattas av den statliga insättningsgarantin enligt beslut av",
+     "quote": "Kontot omfattas av den statliga insättningsgarantin enligt beslut av Riksgälden",
      "source": 0,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.4
+      "confidence": 0.31
      }
     },
     "guarantee_amount": {
@@ -241,6 +245,6 @@
   }
  ],
  "source_hash": "288f1d3e687dd6dc",
- "changed_at": "2026-10-20T00:54:06+00:00",
+ "changed_at": "2026-11-10T01:27:41+00:00",
  "model": "claude-haiku-5-5"
 }

@@ -7,7 +7,7 @@
   "kind": "storbank",
   "legal_name": "Nordea Bank Abp, filial i Sverige"
  },
- "checked_at": "2026-11-07T03:55:16+00:00",
+ "checked_at": "2026-11-10T03:27:13+00:00",
  "discovered_at": "2026-10-20T02:55:09+00:00",
  "sources": [
   {
@@ -43,62 +43,65 @@
    "title": "Allmänna villkor för vår webbplats nordea.se | Nordea",
    "kind": "html",
    "via": "http",
-   "chars": 20601
+   "chars": 20596
   }
  ],
  "status": "ok",
- "notes": "Sparkonto Företag visas med 0,00 % ränta på sidan. Ingen minimi- eller maximiinsättning anges. Räntornas ikraftträdandedatum anges inte (sidan är bara \"Senast uppdaterad 2026-10-03\"). Fasträntekontots villkor (PDF) bär datumet 2026-02-01 och nämner inga räntor. Det står inget om att man behöver ha Sparkonto Företag för att få räntan, bara att fasträntekontot kopplas till ett befintligt Nordea-konto. Skogskonton och liknande specialkonton är utelämnade.",
+ "notes": "Sparkonto Företag anges med 0,00 % i räntetabellen, men texten säger att kontot har rörlig ränta; räntan för 100 000 kr är därför 0 i denna källa. Fasträntekontots räntor (1,85 / 1,85 / 2,15 / 2,50 %) gäller enligt tabellen i källa 0. \"Just nu\"-formuleringen är markerad som intro_rate men är inte uttryckligen ett tidsbegränsat erbjudande. Min- och maxbelopp, antal fria uttag och datum för när räntan gäller saknas i källorna. Insättningsgarantin är finsk (kompletterad av svensk upp till 1 150 000 kr). Skatt (30 % preliminärskatt) gäller endast enskilda firmor enligt källa 0 och är inte tagen med som fält. Fasträntekontots ränteskillnadsersättning för konsument med 3 mån är begränsad; för företag gäller villkoret inte.",
  "products": [
   {
-   "name": "Fasträntekonto 3 mån",
+   "name": "Sparkonto Företag",
    "flags": [],
    "fields": {
     "product_type": {
-     "value": "fasträntekonto",
-     "quote": "Riskfri investering med en fast ränta",
+     "value": "rörligt sparkonto",
+     "quote": "Sparkonto Företag har rörlig ränta.",
      "source": 0,
      "status": "osäkert",
      "jev": {
       "verdict": "says_nothing",
-      "confidence": 0.61
+      "confidence": 0.43
      }
     },
     "rate_percent": {
-     "value": 1.6,
-     "quote": "1,60 % 1,85 % 2,15 % 2,50 %",
+     "value": 0.0,
+     "quote": "Sparkonto Företag | 0,00 %",
      "source": 0,
      "status": "osäkert",
      "jev": {
       "verdict": "contradicts",
-      "confidence": 0.58
+      "confidence": 0.26
      }
     },
     "rate_type": {
-     "value": "fast",
-     "quote": "Riskfri investering med en fast ränta",
+     "value": "rörlig",
+     "quote": "Rörlig ränta som justeras med marknadsräntan",
      "source": 0,
      "status": "osäkert",
      "jev": {
-      "verdict": "says_nothing",
-      "confidence": 0.67
+      "verdict": "contradicts",
+      "confidence": 0.43
      }
     },
     "binding_months": {
-     "value": 3,
-     "quote": "Välj själv om du vill binda pengarna i tre månader, sex månader, eller ett eller två år.",
+     "value": 0,
+     "quote": "Ingen bindningstid",
      "source": 0,
-     "status": "belagt"
-    },
-    "withdrawals": {
-     "value": null,
-     "quote": "Ja, du kan alltid avsluta placeringen i förtid och med vår 3 månaders är du alltid garanterad att få ut hela det insatta beloppet, även om du tar ut pengarna i förtid.",
-     "source": 0,
-     "status": "motsägs av källan",
+     "status": "osäkert",
      "jev": {
       "verdict": "contradicts",
-      "confidence": 0.94
-     },
-     "claimed": "mot avgift"
+      "confidence": 0.62
+     }
+    },
+    "withdrawals": {
+     "value": "fria",
+     "quote": "Pengarna finns tillgängliga utan uttagsavgifter",
+     "source": 0,
+     "status": "osäkert",
+     "jev": {
+      "verdict": "contradicts",
+      "confidence": 0.4
+     }
     },
     "free_withdrawals_per_year": {
      "value": null,
@@ -107,13 +110,13 @@
      "status": "okänt"
     },
     "withdrawal_terms": {
-     "value": "Förtida uttag möjligt mot ränteskillnadsersättning (minst 300 kr); för 3 mån garanteras hela insatsen tillbaka.",
-     "quote": "Ja, du kan alltid avsluta placeringen i förtid och med vår 3 månaders är du alltid garanterad att få ut hela det insatta beloppet, även om du tar ut pengarna i förtid.",
+     "value": "Fria uttag utan uttagsavgifter och ingen bindningstid.",
+     "quote": "Pengarna finns tillgängliga utan uttagsavgifter",
      "source": 0,
-     "status": "osäkert",
+     "status": "belagt",
      "jev": {
-      "verdict": "contradicts",
-      "confidence": 0.72
+      "verdict": "supports",
+      "confidence": 0.25
      }
     },
     "min_deposit_sek": {
@@ -135,23 +138,177 @@
      "status": "okänt"
     },
     "deposit_terms": {
-     "value": "Engångsinsättning; ingen påfyllning på befintligt konto, men fler fasträntekonton kan öppnas.",
+     "value": "Insättningar och uttag när du vill",
+     "quote": "Sätt in och ta ut pengar när du vill. Ingen bindningstid",
+     "source": 0,
+     "status": "osäkert",
+     "jev": {
+      "verdict": "contradicts",
+      "confidence": 0.38
+     }
+    },
+    "eligibility": {
+     "value": "Företagskund hos Nordea",
+     "quote": "Bli företagskund för att öppna sparkonton",
+     "source": 0,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.28
+     }
+    },
+    "requires_other_products": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "intro_rate": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "interest_paid": {
+     "value": "Efter årets utgång eller när kontot avslutas",
+     "quote": "Räntan beräknas dag för dag på räntegrundande saldo och tillförs kontot efter årets utgång eller då kontot avslutas.",
+     "source": 0,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.35
+     }
+    },
+    "guarantee_country": {
+     "value": "FI",
+     "quote": "Kontot omfattas av den finska insättningsgarantin.",
+     "source": 1,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.74
+     }
+    },
+    "guarantee_amount": {
+     "value": "100 000 euro (minst 1 150 000 kr)",
+     "quote": "motsvarar högst 100 000 euro eller, för det fall motvärdet av 100 000 euro i kronor är mindre än 1 150 000 kronor, 1 150 000 kronor.",
+     "source": 1,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.34
+     }
+    },
+    "rate_valid_from": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    }
+   },
+   "rate_tiers": [],
+   "pending_rate": null,
+   "status": "verifierad"
+  },
+  {
+   "name": "Fasträntekonto 3 mån",
+   "flags": [],
+   "fields": {
+    "product_type": {
+     "value": "fasträntekonto",
+     "quote": "Fasträntekonto passar dig som kan binda dina sparpengar under en viss period.",
+     "source": 1,
+     "status": "osäkert",
+     "jev": {
+      "verdict": "says_nothing",
+      "confidence": 0.16
+     }
+    },
+    "rate_percent": {
+     "value": 1.85,
+     "quote": "Fasträntekonto , bindningstid 3 månader 6 månader 1 år 2 år | RÄNTA 1,85 % 1,85 % 2,15 % 2,50 %",
+     "source": 0,
+     "status": "belagt"
+    },
+    "rate_type": {
+     "value": "fast",
+     "quote": "Räntan på placerat belopp utgår med fast räntesats.",
+     "source": 1,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.37
+     }
+    },
+    "binding_months": {
+     "value": 3,
+     "quote": "Fasträntekonto , bindningstid 3 månader 6 månader 1 år 2 år",
+     "source": 0,
+     "status": "belagt"
+    },
+    "withdrawals": {
+     "value": null,
+     "quote": "Ja, du kan alltid avsluta placeringen i förtid och med vår 3 månaders är du alltid garanterad att få ut hela det insatta beloppet, även om du tar ut pengarna i förtid.",
+     "source": 0,
+     "status": "motsägs av källan",
+     "jev": {
+      "verdict": "contradicts",
+      "confidence": 0.92
+     },
+     "claimed": "mot avgift"
+    },
+    "free_withdrawals_per_year": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "withdrawal_terms": {
+     "value": "Förtida avslut kan ge ränteskillnadsersättning; för konsument garanterat insatt belopp vid 3 mån.",
+     "quote": "Du är med andra ord garanterad att hela det insatta beloppet återbetalas om du begären förtidsinlösen på ett Fasträntekonto med 3-månaders bindningstid.",
+     "source": 1,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.52
+     }
+    },
+    "min_deposit_sek": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "max_deposit_sek": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "monthly_deposit_cap_sek": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "deposit_terms": {
+     "value": "Engångsinsättning; ingen påfyllning på befintligt fasträntekonto, men nya kan öppnas",
      "quote": "Nej, man kan inte sätta in pengar på en redan existerande Fasträntekonto.",
      "source": 1,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.2
+      "confidence": 0.85
      }
     },
     "eligibility": {
-     "value": "Kräver företagskund med befintligt konto i Nordea att koppla kontot till.",
-     "quote": "Du behöver ha ett befintligt konto hos oss eller öppna ett nytt konto att koppla fasträntekontot till",
+     "value": "Företagskund; kopplas till ett befintligt konto hos Nordea",
+     "quote": "Bli företagskund för att öppna sparkonton",
      "source": 0,
      "status": "osäkert",
      "jev": {
       "verdict": "contradicts",
-      "confidence": 0.34
+      "confidence": 0.53
      }
     },
     "requires_other_products": {
@@ -161,23 +318,27 @@
      "status": "osäkert",
      "jev": {
       "verdict": "contradicts",
-      "confidence": 0.64
+      "confidence": 0.76
      }
     },
     "intro_rate": {
-     "value": null,
-     "quote": null,
-     "source": null,
-     "status": "okänt"
+     "value": true,
+     "quote": "Just nu får du upp till 2,50 % ränta på vårt fasträntekonto.",
+     "source": 0,
+     "status": "osäkert",
+     "jev": {
+      "verdict": "contradicts",
+      "confidence": 0.58
+     }
     },
     "interest_paid": {
-     "value": "Hela räntan betalas ut vid bindningstidens slut.",
+     "value": "Vid bindningstidens slut",
      "quote": "Hela räntan betalas ut den dagen bindningstiden tar slut.",
      "source": 0,
-     "status": "belagt",
+     "status": "osäkert",
      "jev": {
-      "verdict": "supports",
-      "confidence": 0.34
+      "verdict": "contradicts",
+      "confidence": 0.79
      }
     },
     "guarantee_country": {
@@ -191,13 +352,13 @@
      }
     },
     "guarantee_amount": {
-     "value": "100 000 euro (lägst 1 150 000 kr)",
-     "quote": "ett belopp som motsvarar högst 100 000 euro eller, för det fall motvärdet av 100 000 euro i kronor är mindre än 1 150 000 kronor, 1 150 000 kronor.",
+     "value": "100 000 euro (minst 1 150 000 kr)",
+     "quote": "motsvarar högst 100 000 euro eller, för det fall motvärdet av 100 000 euro i kronor är mindre än 1 150 000 kronor, 1 150 000 kronor.",
      "source": 1,
-     "status": "osäkert",
+     "status": "belagt",
      "jev": {
-      "verdict": "contradicts",
-      "confidence": 0.23
+      "verdict": "supports",
+      "confidence": 0.44
      }
     },
     "rate_valid_from": {
@@ -217,49 +378,46 @@
    "fields": {
     "product_type": {
      "value": "fasträntekonto",
-     "quote": "Riskfri investering med en fast ränta",
-     "source": 0,
+     "quote": "Fasträntekonto passar dig som kan binda dina sparpengar under en viss period.",
+     "source": 1,
      "status": "osäkert",
      "jev": {
       "verdict": "says_nothing",
-      "confidence": 0.56
+      "confidence": 0.07
      }
     },
     "rate_percent": {
      "value": 1.85,
-     "quote": "1,60 % 1,85 % 2,15 % 2,50 %",
+     "quote": "Fasträntekonto , bindningstid 3 månader 6 månader 1 år 2 år | RÄNTA 1,85 % 1,85 % 2,15 % 2,50 %",
      "source": 0,
-     "status": "osäkert",
-     "jev": {
-      "verdict": "contradicts",
-      "confidence": 0.58
-     }
+     "status": "belagt"
     },
     "rate_type": {
      "value": "fast",
-     "quote": "Riskfri investering med en fast ränta",
-     "source": 0,
-     "status": "osäkert",
+     "quote": "Räntan på placerat belopp utgår med fast räntesats.",
+     "source": 1,
+     "status": "belagt",
      "jev": {
-      "verdict": "says_nothing",
-      "confidence": 0.58
+      "verdict": "supports",
+      "confidence": 0.3
      }
     },
     "binding_months": {
      "value": 6,
-     "quote": "Välj själv om du vill binda pengarna i tre månader, sex månader, eller ett eller två år.",
+     "quote": "Fasträntekonto , bindningstid 3 månader 6 månader 1 år 2 år",
      "source": 0,
      "status": "belagt"
     },
     "withdrawals": {
-     "value": "mot avgift",
+     "value": null,
      "quote": "För andra bindningstider tillkommer en avgift om du vill ta ut pengarna i förtid. Kostnaden bestäms den dag då avslutet sker, och är minst på 300 kronor.",
      "source": 0,
-     "status": "osäkert",
+     "status": "motsägs av källan",
      "jev": {
       "verdict": "contradicts",
-      "confidence": 0.37
-     }
+      "confidence": 0.8
+     },
+     "claimed": "mot avgift"
     },
     "free_withdrawals_per_year": {
      "value": null,
@@ -268,13 +426,13 @@
      "status": "okänt"
     },
     "withdrawal_terms": {
-     "value": "Förtida uttag möjligt mot avgift (ränteskillnadsersättning), minst 300 kr.",
-     "quote": "För andra bindningstider tillkommer en avgift om du vill ta ut pengarna i förtid. Kostnaden bestäms den dag då avslutet sker, och är minst på 300 kronor.",
-     "source": 0,
+     "value": "Förtida uttag mot avgift, minst 300 kr (ränteskillnadsersättning).",
+     "quote": "Avgiften är f.n. (2023-04-01) minst 300 kronor (SEK).",
+     "source": 1,
      "status": "osäkert",
      "jev": {
       "verdict": "contradicts",
-      "confidence": 0.76
+      "confidence": 0.73
      }
     },
     "min_deposit_sek": {
@@ -296,23 +454,23 @@
      "status": "okänt"
     },
     "deposit_terms": {
-     "value": "Engångsinsättning; ingen påfyllning på befintligt konto, men fler fasträntekonton kan öppnas.",
+     "value": "Engångsinsättning; ingen påfyllning på befintligt fasträntekonto, men nya kan öppnas",
      "quote": "Nej, man kan inte sätta in pengar på en redan existerande Fasträntekonto.",
      "source": 1,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.19
+      "confidence": 0.77
      }
     },
     "eligibility": {
-     "value": "Kräver företagskund med befintligt konto i Nordea att koppla kontot till.",
-     "quote": "Du behöver ha ett befintligt konto hos oss eller öppna ett nytt konto att koppla fasträntekontot till",
+     "value": "Företagskund; kopplas till ett befintligt konto hos Nordea",
+     "quote": "Bli företagskund för att öppna sparkonton",
      "source": 0,
      "status": "osäkert",
      "jev": {
       "verdict": "contradicts",
-      "confidence": 0.3
+      "confidence": 0.64
      }
     },
     "requires_other_products": {
@@ -322,24 +480,29 @@
      "status": "osäkert",
      "jev": {
       "verdict": "contradicts",
-      "confidence": 0.69
+      "confidence": 0.76
      }
     },
     "intro_rate": {
-     "value": null,
-     "quote": null,
-     "source": null,
-     "status": "okänt"
+     "value": true,
+     "quote": "Just nu får du upp till 2,50 % ränta på vårt fasträntekonto.",
+     "source": 0,
+     "status": "osäkert",
+     "jev": {
+      "verdict": "contradicts",
+      "confidence": 0.73
+     }
     },
     "interest_paid": {
-     "value": "Hela räntan betalas ut vid bindningstidens slut.",
+     "value": null,
      "quote": "Hela räntan betalas ut den dagen bindningstiden tar slut.",
      "source": 0,
-     "status": "belagt",
+     "status": "motsägs av källan",
      "jev": {
-      "verdict": "supports",
-      "confidence": 0.4
-     }
+      "verdict": "contradicts",
+      "confidence": 0.8
+     },
+     "claimed": "Vid bindningstidens slut"
     },
     "guarantee_country": {
      "value": "FI",
@@ -352,13 +515,13 @@
      }
     },
     "guarantee_amount": {
-     "value": "100 000 euro (lägst 1 150 000 kr)",
-     "quote": "ett belopp som motsvarar högst 100 000 euro eller, för det fall motvärdet av 100 000 euro i kronor är mindre än 1 150 000 kronor, 1 150 000 kronor.",
+     "value": "100 000 euro (minst 1 150 000 kr)",
+     "quote": "motsvarar högst 100 000 euro eller, för det fall motvärdet av 100 000 euro i kronor är mindre än 1 150 000 kronor, 1 150 000 kronor.",
      "source": 1,
-     "status": "osäkert",
+     "status": "belagt",
      "jev": {
-      "verdict": "contradicts",
-      "confidence": 0.23
+      "verdict": "supports",
+      "confidence": 0.34
      }
     },
     "rate_valid_from": {
@@ -370,7 +533,7 @@
    },
    "rate_tiers": [],
    "pending_rate": null,
-   "status": "verifierad"
+   "status": "delvis verifierad"
   },
   {
    "name": "Fasträntekonto 1 år",
@@ -378,49 +541,46 @@
    "fields": {
     "product_type": {
      "value": "fasträntekonto",
-     "quote": "Riskfri investering med en fast ränta",
-     "source": 0,
-     "status": "osäkert",
+     "quote": "Fasträntekonto passar dig som kan binda dina sparpengar under en viss period.",
+     "source": 1,
+     "status": "belagt",
      "jev": {
-      "verdict": "says_nothing",
-      "confidence": 0.52
+      "verdict": "supports",
+      "confidence": 0.04
      }
     },
     "rate_percent": {
      "value": 2.15,
-     "quote": "1,60 % 1,85 % 2,15 % 2,50 %",
+     "quote": "Fasträntekonto , bindningstid 3 månader 6 månader 1 år 2 år | RÄNTA 1,85 % 1,85 % 2,15 % 2,50 %",
      "source": 0,
-     "status": "osäkert",
-     "jev": {
-      "verdict": "contradicts",
-      "confidence": 0.62
-     }
+     "status": "belagt"
     },
     "rate_type": {
      "value": "fast",
-     "quote": "Riskfri investering med en fast ränta",
-     "source": 0,
-     "status": "osäkert",
+     "quote": "Räntan på placerat belopp utgår med fast räntesats.",
+     "source": 1,
+     "status": "belagt",
      "jev": {
-      "verdict": "says_nothing",
-      "confidence": 0.61
+      "verdict": "supports",
+      "confidence": 0.31
      }
     },
     "binding_months": {
      "value": 12,
-     "quote": "Välj själv om du vill binda pengarna i tre månader, sex månader, eller ett eller två år.",
+     "quote": "Fasträntekonto , bindningstid 3 månader 6 månader 1 år 2 år",
      "source": 0,
      "status": "belagt"
     },
     "withdrawals": {
-     "value": "mot avgift",
+     "value": null,
      "quote": "För andra bindningstider tillkommer en avgift om du vill ta ut pengarna i förtid. Kostnaden bestäms den dag då avslutet sker, och är minst på 300 kronor.",
      "source": 0,
-     "status": "osäkert",
+     "status": "motsägs av källan",
      "jev": {
       "verdict": "contradicts",
-      "confidence": 0.27
-     }
+      "confidence": 0.83
+     },
+     "claimed": "mot avgift"
     },
     "free_withdrawals_per_year": {
      "value": null,
@@ -429,13 +589,13 @@
      "status": "okänt"
     },
     "withdrawal_terms": {
-     "value": "Förtida uttag möjligt mot avgift (ränteskillnadsersättning), minst 300 kr.",
-     "quote": "För andra bindningstider tillkommer en avgift om du vill ta ut pengarna i förtid. Kostnaden bestäms den dag då avslutet sker, och är minst på 300 kronor.",
-     "source": 0,
+     "value": "Förtida uttag mot avgift, minst 300 kr (ränteskillnadsersättning).",
+     "quote": "Avgiften är f.n. (2023-04-01) minst 300 kronor (SEK).",
+     "source": 1,
      "status": "osäkert",
      "jev": {
       "verdict": "contradicts",
-      "confidence": 0.76
+      "confidence": 0.66
      }
     },
     "min_deposit_sek": {
@@ -457,23 +617,23 @@
      "status": "okänt"
     },
     "deposit_terms": {
-     "value": "Engångsinsättning; ingen påfyllning på befintligt konto, men fler fasträntekonton kan öppnas.",
+     "value": "Engångsinsättning; ingen påfyllning på befintligt fasträntekonto, men nya kan öppnas",
      "quote": "Nej, man kan inte sätta in pengar på en redan existerande Fasträntekonto.",
      "source": 1,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.21
+      "confidence": 0.82
      }
     },
     "eligibility": {
-     "value": "Kräver företagskund med befintligt konto i Nordea att koppla kontot till.",
-     "quote": "Du behöver ha ett befintligt konto hos oss eller öppna ett nytt konto att koppla fasträntekontot till",
+     "value": "Företagskund; kopplas till ett befintligt konto hos Nordea",
+     "quote": "Bli företagskund för att öppna sparkonton",
      "source": 0,
      "status": "osäkert",
      "jev": {
       "verdict": "contradicts",
-      "confidence": 0.38
+      "confidence": 0.58
      }
     },
     "requires_other_products": {
@@ -483,24 +643,29 @@
      "status": "osäkert",
      "jev": {
       "verdict": "contradicts",
-      "confidence": 0.72
+      "confidence": 0.74
      }
     },
     "intro_rate": {
-     "value": null,
-     "quote": null,
-     "source": null,
-     "status": "okänt"
+     "value": true,
+     "quote": "Just nu får du upp till 2,50 % ränta på vårt fasträntekonto.",
+     "source": 0,
+     "status": "osäkert",
+     "jev": {
+      "verdict": "contradicts",
+      "confidence": 0.67
+     }
     },
     "interest_paid": {
-     "value": "Hela räntan betalas ut vid bindningstidens slut.",
+     "value": null,
      "quote": "Hela räntan betalas ut den dagen bindningstiden tar slut.",
      "source": 0,
-     "status": "belagt",
+     "status": "motsägs av källan",
      "jev": {
-      "verdict": "supports",
-      "confidence": 0.45
-     }
+      "verdict": "contradicts",
+      "confidence": 0.8
+     },
+     "claimed": "Vid bindningstidens slut"
     },
     "guarantee_country": {
      "value": "FI",
@@ -513,13 +678,13 @@
      }
     },
     "guarantee_amount": {
-     "value": "100 000 euro (lägst 1 150 000 kr)",
-     "quote": "ett belopp som motsvarar högst 100 000 euro eller, för det fall motvärdet av 100 000 euro i kronor är mindre än 1 150 000 kronor, 1 150 000 kronor.",
+     "value": "100 000 euro (minst 1 150 000 kr)",
+     "quote": "motsvarar högst 100 000 euro eller, för det fall motvärdet av 100 000 euro i kronor är mindre än 1 150 000 kronor, 1 150 000 kronor.",
      "source": 1,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.23
+      "confidence": 0.31
      }
     },
     "rate_valid_from": {
@@ -531,7 +696,7 @@
    },
    "rate_tiers": [],
    "pending_rate": null,
-   "status": "verifierad"
+   "status": "delvis verifierad"
   },
   {
    "name": "Fasträntekonto 2 år",
@@ -539,37 +704,33 @@
    "fields": {
     "product_type": {
      "value": "fasträntekonto",
-     "quote": "Riskfri investering med en fast ränta",
-     "source": 0,
+     "quote": "Fasträntekonto passar dig som kan binda dina sparpengar under en viss period.",
+     "source": 1,
      "status": "osäkert",
      "jev": {
-      "verdict": "says_nothing",
-      "confidence": 0.56
+      "verdict": "contradicts",
+      "confidence": 0.04
      }
     },
     "rate_percent": {
      "value": 2.5,
-     "quote": "1,60 % 1,85 % 2,15 % 2,50 %",
+     "quote": "Fasträntekonto , bindningstid 3 månader 6 månader 1 år 2 år | RÄNTA 1,85 % 1,85 % 2,15 % 2,50 %",
      "source": 0,
-     "status": "osäkert",
-     "jev": {
-      "verdict": "contradicts",
-      "confidence": 0.61
-     }
+     "status": "belagt"
     },
     "rate_type": {
      "value": "fast",
-     "quote": "Riskfri investering med en fast ränta",
-     "source": 0,
-     "status": "osäkert",
+     "quote": "Räntan på placerat belopp utgår med fast räntesats.",
+     "source": 1,
+     "status": "belagt",
      "jev": {
-      "verdict": "says_nothing",
-      "confidence": 0.55
+      "verdict": "supports",
+      "confidence": 0.31
      }
     },
     "binding_months": {
      "value": 24,
-     "quote": "Välj själv om du vill binda pengarna i tre månader, sex månader, eller ett eller två år.",
+     "quote": "Fasträntekonto , bindningstid 3 månader 6 månader 1 år 2 år",
      "source": 0,
      "status": "belagt"
     },
@@ -580,7 +741,7 @@
      "status": "osäkert",
      "jev": {
       "verdict": "contradicts",
-      "confidence": 0.43
+      "confidence": 0.7
      }
     },
     "free_withdrawals_per_year": {
@@ -590,13 +751,13 @@
      "status": "okänt"
     },
     "withdrawal_terms": {
-     "value": "Förtida uttag möjligt mot avgift (ränteskillnadsersättning), minst 300 kr.",
-     "quote": "För andra bindningstider tillkommer en avgift om du vill ta ut pengarna i förtid. Kostnaden bestäms den dag då avslutet sker, och är minst på 300 kronor.",
-     "source": 0,
+     "value": "Förtida uttag mot avgift, minst 300 kr (ränteskillnadsersättning).",
+     "quote": "Avgiften är f.n. (2023-04-01) minst 300 kronor (SEK).",
+     "source": 1,
      "status": "osäkert",
      "jev": {
       "verdict": "contradicts",
-      "confidence": 0.76
+      "confidence": 0.64
      }
     },
     "min_deposit_sek": {
@@ -618,23 +779,23 @@
      "status": "okänt"
     },
     "deposit_terms": {
-     "value": "Engångsinsättning; ingen påfyllning på befintligt konto, men fler fasträntekonton kan öppnas.",
+     "value": "Engångsinsättning; ingen påfyllning på befintligt fasträntekonto, men nya kan öppnas",
      "quote": "Nej, man kan inte sätta in pengar på en redan existerande Fasträntekonto.",
      "source": 1,
-     "status": "osäkert",
+     "status": "belagt",
      "jev": {
-      "verdict": "contradicts",
-      "confidence": 0.11
+      "verdict": "supports",
+      "confidence": 0.83
      }
     },
     "eligibility": {
-     "value": "Kräver företagskund med befintligt konto i Nordea att koppla kontot till.",
-     "quote": "Du behöver ha ett befintligt konto hos oss eller öppna ett nytt konto att koppla fasträntekontot till",
+     "value": "Företagskund; kopplas till ett befintligt konto hos Nordea",
+     "quote": "Bli företagskund för att öppna sparkonton",
      "source": 0,
      "status": "osäkert",
      "jev": {
       "verdict": "contradicts",
-      "confidence": 0.3
+      "confidence": 0.52
      }
     },
     "requires_other_products": {
@@ -644,24 +805,29 @@
      "status": "osäkert",
      "jev": {
       "verdict": "contradicts",
-      "confidence": 0.69
+      "confidence": 0.73
      }
     },
     "intro_rate": {
-     "value": null,
-     "quote": null,
-     "source": null,
-     "status": "okänt"
+     "value": true,
+     "quote": "Just nu får du upp till 2,50 % ränta på vårt fasträntekonto.",
+     "source": 0,
+     "status": "osäkert",
+     "jev": {
+      "verdict": "contradicts",
+      "confidence": 0.73
+     }
     },
     "interest_paid": {
-     "value": "Hela räntan betalas ut vid bindningstidens slut.",
+     "value": null,
      "quote": "Hela räntan betalas ut den dagen bindningstiden tar slut.",
      "source": 0,
-     "status": "belagt",
+     "status": "motsägs av källan",
      "jev": {
-      "verdict": "supports",
-      "confidence": 0.38
-     }
+      "verdict": "contradicts",
+      "confidence": 0.83
+     },
+     "claimed": "Vid bindningstidens slut"
     },
     "guarantee_country": {
      "value": "FI",
@@ -674,174 +840,13 @@
      }
     },
     "guarantee_amount": {
-     "value": "100 000 euro (lägst 1 150 000 kr)",
-     "quote": "ett belopp som motsvarar högst 100 000 euro eller, för det fall motvärdet av 100 000 euro i kronor är mindre än 1 150 000 kronor, 1 150 000 kronor.",
+     "value": "100 000 euro (minst 1 150 000 kr)",
+     "quote": "motsvarar högst 100 000 euro eller, för det fall motvärdet av 100 000 euro i kronor är mindre än 1 150 000 kronor, 1 150 000 kronor.",
      "source": 1,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.28
-     }
-    },
-    "rate_valid_from": {
-     "value": null,
-     "quote": null,
-     "source": null,
-     "status": "okänt"
-    }
-   },
-   "rate_tiers": [],
-   "pending_rate": null,
-   "status": "verifierad"
-  },
-  {
-   "name": "Sparkonto Företag",
-   "flags": [],
-   "fields": {
-    "product_type": {
-     "value": "rörligt sparkonto",
-     "quote": "Sätt in och ta ut pengar när du vill. Ingen bindningstid",
-     "source": 0,
-     "status": "osäkert",
-     "jev": {
-      "verdict": "contradicts",
-      "confidence": 0.73
-     }
-    },
-    "rate_percent": {
-     "value": 0,
-     "quote": "| RÄNTA | 0,00 % |",
-     "source": 0,
-     "status": "osäkert",
-     "jev": {
-      "verdict": "contradicts",
-      "confidence": 0.13
-     }
-    },
-    "rate_type": {
-     "value": "rörlig",
-     "quote": "Rörlig ränta som justeras med marknadsräntan",
-     "source": 0,
-     "status": "osäkert",
-     "jev": {
-      "verdict": "contradicts",
-      "confidence": 0.25
-     }
-    },
-    "binding_months": {
-     "value": 0,
-     "quote": "Sätt in och ta ut pengar när du vill. Ingen bindningstid",
-     "source": 0,
-     "status": "osäkert",
-     "jev": {
-      "verdict": "contradicts",
-      "confidence": 0.34
-     }
-    },
-    "withdrawals": {
-     "value": "fria",
-     "quote": "Pengarna finns tillgängliga utan uttagsavgifter",
-     "source": 0,
-     "status": "osäkert",
-     "jev": {
-      "verdict": "contradicts",
-      "confidence": 0.25
-     }
-    },
-    "free_withdrawals_per_year": {
-     "value": null,
-     "quote": null,
-     "source": null,
-     "status": "okänt"
-    },
-    "withdrawal_terms": {
-     "value": "Fria uttag när som helst, inga uttagsavgifter, ingen bindningstid.",
-     "quote": "Sätt in och ta ut pengar när du vill. Ingen bindningstid",
-     "source": 0,
-     "status": "osäkert",
-     "jev": {
-      "verdict": "contradicts",
-      "confidence": 0.25
-     }
-    },
-    "min_deposit_sek": {
-     "value": null,
-     "quote": null,
-     "source": null,
-     "status": "okänt"
-    },
-    "max_deposit_sek": {
-     "value": null,
-     "quote": null,
-     "source": null,
-     "status": "okänt"
-    },
-    "monthly_deposit_cap_sek": {
-     "value": null,
-     "quote": null,
-     "source": null,
-     "status": "okänt"
-    },
-    "deposit_terms": {
-     "value": "Insättning när som helst, inget tak angivet.",
-     "quote": "Sätt in och ta ut pengar när du vill. Ingen bindningstid",
-     "source": 0,
-     "status": "osäkert",
-     "jev": {
-      "verdict": "says_nothing",
-      "confidence": 0.31
-     }
-    },
-    "eligibility": {
-     "value": "Kräver att företaget är företagskund hos Nordea.",
-     "quote": "Bli företagskund för att öppna sparkonton",
-     "source": 0,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.59
-     }
-    },
-    "requires_other_products": {
-     "value": null,
-     "quote": null,
-     "source": null,
-     "status": "okänt"
-    },
-    "intro_rate": {
-     "value": null,
-     "quote": null,
-     "source": null,
-     "status": "okänt"
-    },
-    "interest_paid": {
-     "value": "Räntan beräknas dagligen och tillförs kontot efter årets utgång eller när kontot avslutas.",
-     "quote": "Räntan beräknas dag för dag på räntegrundande saldo och tillförs kontot efter årets utgång eller då kontot avslutas.",
-     "source": 0,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.55
-     }
-    },
-    "guarantee_country": {
-     "value": "FI",
-     "quote": "Nordeas Sparkonto Företag omfattas av den finska insättningsgarantin.",
-     "source": 0,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.14
-     }
-    },
-    "guarantee_amount": {
-     "value": "100 000 euro (svensk garanti fyller upp till 1 150 000 kr)",
-     "quote": "Varje kontohavare har rätt till ersättning för sin sammanlagda kontobehållning i banken med ett belopp som motsvarar högst 100 000 euro.",
-     "source": 0,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.66
+      "confidence": 0.5
      }
     },
     "rate_valid_from": {
@@ -856,7 +861,7 @@
    "status": "verifierad"
   }
  ],
- "source_hash": "d21298af6e0aceea",
- "changed_at": "2026-10-13T22:19:23+00:00",
- "model": "claude-sonnet-5-5"
+ "source_hash": "30bed1eecddd28c5",
+ "changed_at": "2026-11-10T03:27:13+00:00",
+ "model": "claude-haiku-5-5"
 }

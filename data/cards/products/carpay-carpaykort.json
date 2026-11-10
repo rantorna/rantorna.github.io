@@ -7,7 +7,7 @@
   "kind": "nischbank",
   "legal_name": "Ziklo Bank AB (publ)"
  },
- "checked_at": "2026-11-07T05:10:16+00:00",
+ "checked_at": "2026-11-10T04:28:21+00:00",
  "discovered_at": "2026-10-24T04:27:40+00:00",
  "sources": [
   {
@@ -71,7 +71,7 @@
    "title": "Hur fungerar räntefria köp? - CarPay",
    "kind": "html",
    "via": "browser",
-   "chars": 6695
+   "chars": 5934
   },
   {
    "url": "https://www.carpay.se/fa-hjalp/kan-jag-anvanda-mitt-kort-utomlands/",
@@ -116,21 +116,21 @@
    "chars": 13800
   }
  ],
- "status": "senaste tolkning misslyckades (Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', ')",
- "notes": "Endast ett kort (CarPaykort/Volvokort Visa privat) hittades. Ränta: 19,56 % för revolverande kredit, 21,96 % för delbetalning av enskilt köp (rate_max). Delbetalningsavgift 25 kr (utgår endast vid delbetalning av hela krediten) och pappersaviavgift 35 kr finns i källan men har inget eget fält; pappersaviavgift gäller endast vid postal avisering. Månadsavgift saknas. Representativt exempel: 25 000 kr, effektiv ränta 23,13 %. Kreditbelopp: 3 000–100 000 kr. Årsavgift: 0 kr. Ålderskrav anges inte i källorna.",
+ "status": "ok",
+ "notes": "Volvokort och CarPaykort har samma villkor (samma kontovillkor, Visa-kopplade) och redovisas som en produkt; Volvokort väljs vid ansökan i stället för CarPaykort. Avgifter enligt källor: delbetalningsavgift 25 kr (utgår bara vid delbetalning av hela skulden), pappersaviavgift 35 kr, påminnelseavgift 60 kr, övertrasseringsavgift 100 kr. Ränta vid delbetalning av enskilt köp: 21,96 % (källa 1). Effektiv ränta för enskilt köp: 23,48 % (12 mån). Kontantuttag max 8 000 kr/dag och 12 000 kr/vecka. Månadsavgift för kortet saknas i källorna (ej angiven). Ålderskrav saknas i källorna. Inkomstkrav saknas.",
  "products": [
   {
-   "name": "CarPaykort (Volvokort Visa privat)",
+   "name": "CarPaykort",
    "flags": [],
    "fields": {
     "card_type": {
      "value": "kreditkort",
      "quote": "När du ansöker om CarPay får du ett kreditkort.",
      "source": 3,
-     "status": "belagt",
+     "status": "osäkert",
      "jev": {
-      "verdict": "supports",
-      "confidence": 0.45
+      "verdict": "says_nothing",
+      "confidence": 0.28
      }
     },
     "network": {
@@ -140,17 +140,17 @@
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.89
+      "confidence": 0.97
      }
     },
     "annual_fee_sek": {
      "value": 0,
-     "quote": "Årsavgift: 0 kr",
-     "source": 1,
+     "quote": "Till skillnad från många andra kreditkort är CarPaykortet helt avgiftsfritt. Du har ingen årsavgift",
+     "source": 3,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.97
+      "confidence": 0.98
      }
     },
     "monthly_fee_sek": {
@@ -160,14 +160,11 @@
      "status": "okänt"
     },
     "invoice_fee_sek": {
-     "value": 0,
-     "quote": "När avisering om månadsbetalning sker genom e-faktura tillkommer ingen aviavgif.",
+     "value": null,
+     "quote": "När avisering om månadsbetalning sker genom e-faktura tillkommer ingen aviavgift.",
      "source": 2,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.92
-     }
+     "status": "citat hittades inte",
+     "claimed": 0
     },
     "rate_percent": {
      "value": 19.56,
@@ -176,27 +173,23 @@
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.91
+      "confidence": 0.85
      }
     },
     "rate_max_percent": {
-     "value": 21.96,
-     "quote": "Aktuell årsräntesats för närvarande: 21,96%",
-     "source": 1,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.73
-     }
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
     },
     "interest_free_days": {
      "value": 60,
-     "quote": "upp till 60 dagars kostnadsfri kredit",
+     "quote": "När du betalar med CarPay får du alltid upp till 60 dagars kostnadsfri kredit på dina köp.",
      "source": 3,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.59
+      "confidence": 0.43
      }
     },
     "credit_limit_max_sek": {
@@ -206,57 +199,57 @@
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.83
+      "confidence": 0.82
      }
     },
     "currency_fee_percent": {
      "value": 1.65,
-     "quote": "vårt valutaväxlingspåslag på 1,65 % läggs till",
-     "source": 6,
+     "quote": "jämte et valutaväxlingspåslag på f.n. 1,65% (dec 2023)",
+     "source": 2,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 1.0
+      "confidence": 0.91
      }
     },
     "atm_fee_percent": {
      "value": 2,
-     "quote": "tillkommer det en uttagsavgift på 2 % av uttaget beloppet och som lägst 40 kronor",
+     "quote": "tillkommer det en uttagsavgift på 2 % av uttaget beloppet och som lägst 40 kronor.",
      "source": 7,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 1.0
+      "confidence": 0.97
      }
     },
     "atm_fee_min_sek": {
      "value": 40,
-     "quote": "tillkommer det en uttagsavgift på 2 % av uttaget beloppet och som lägst 40 kronor",
+     "quote": "tillkommer det en uttagsavgift på 2 % av uttaget beloppet och som lägst 40 kronor.",
      "source": 7,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 1.0
+      "confidence": 0.94
      }
     },
     "example_credit_sek": {
      "value": 25000,
-     "quote": "25 000 kr 23,13% 75 000 kr 21,98%",
+     "quote": "25 000 kr 23,13%",
      "source": 1,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.59
+      "confidence": 0.77
      }
     },
     "example_effective_rate_percent": {
      "value": 23.13,
-     "quote": "25 000 kr 23,13% 75 000 kr 21,98%",
+     "quote": "25 000 kr 23,13%",
      "source": 1,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.83
+      "confidence": 0.76
      }
     },
     "min_age": {
@@ -282,13 +275,13 @@
      }
     },
     "bonus": {
-     "value": "Bonus på alla köp, som kan användas för laddning, tankning, tvätt, kollektivtrafik och tåg",
-     "quote": "Alla köp du gör med CarPay ger bonus",
+     "value": "Bonus på alla köp (undantag bl.a. bilköp i Volvohandeln, kontantutag, pengaöverföringar)",
+     "quote": "Alla köp du gör med CarPay ger bonus – mat, kläder, streamingtjänster… ",
      "source": 0,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 1.0
+      "confidence": 0.38
      }
     },
     "requires_other_products": {
@@ -298,11 +291,14 @@
      "status": "okänt"
     },
     "requirements": {
-     "value": null,
-     "quote": "Kontohavaren måste vara folkbokförd i Sverige för at beviljas kort.",
-     "source": 9,
-     "status": "citat hittades inte",
-     "claimed": "Måste vara folkbokförd i Sverige; kreditupplysning vid ansökan"
+     "value": "Folkbokförd i Sverige för att beviljas kort; kreditupplysning inhämtas.",
+     "quote": "Kontohavare måste vara folkbokförd i Sverige för at beviljas kort.",
+     "source": 2,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.43
+     }
     }
    },
    "rate_tiers": [],
@@ -310,7 +306,7 @@
    "status": "verifierad"
   }
  ],
- "source_hash": "105d6163a02afca2",
- "changed_at": "2026-10-18T11:15:04+00:00",
+ "source_hash": "0ab38627d58ca1da",
+ "changed_at": "2026-11-10T04:28:21+00:00",
  "model": "claude-haiku-5-5"
 }
