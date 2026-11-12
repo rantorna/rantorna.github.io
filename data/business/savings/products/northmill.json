@@ -7,7 +7,7 @@
   "kind": "nischbank",
   "legal_name": "Northmill Bank AB"
  },
- "checked_at": "2026-11-07T04:14:03+00:00",
+ "checked_at": "2026-11-12T03:28:20+00:00",
  "discovered_at": "2026-10-21T03:24:29+00:00",
  "sources": [
   {
@@ -81,51 +81,51 @@
    "chars": 19680
   }
  ],
- "status": "senaste tolkning misslyckades (Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', ')",
- "notes": "Endast rörligt sparkonto för företag hittades som företagsprodukt. Fasträntekontona (2,85–3,15 %) beskrivs på privatsidor och produktvillkoren för företag gäller bara rörlig ränta utan bindningstid, så de är utelämnade. Ingen datering av räntan anges. Villkorsversion 2024-06-01.",
+ "status": "ok",
+ "notes": "Källorna för fasträntekontona (dokument 1) är Northmills privatsida; det finns ingen företagsspecifik sida eller produktvillkor för fasträntekonto för företag. Räntorna och bindningstiderna är tagna från den sidan och har inlemmats här eftersom de allmänna villkoren (dok 6) uttryckligen gäller juridiska personer. Verifiera att dessa räntor gäller för företag. Uttagsregler vid förtida uttag för fasträntekonto saknas i källorna (produktvillkor för fasträntekonto företag finns inte). Dokument 7 anger att en extra avgift på 4 995 kr tas ut vid fysiskt besök på kontoret. Max 5 000 000 kr avser räntebärande tillgodohavande enligt produktvillkoren. Ränta för rörligt sparkonto är 2 % enligt företagssidan; produktvillkoren säger endast att räntan är rörlig och hänvisar till webbplatsen.",
  "products": [
   {
-   "name": "Sparkonto för företag",
+   "name": "Rörligt sparkonto företag",
    "flags": [],
    "fields": {
     "product_type": {
      "value": "rörligt sparkonto",
-     "quote": "Sparkonto för företag",
+     "quote": "Sparkonto för ditt företag med 2 % ränta & fria uttag",
      "source": 0,
      "status": "osäkert",
      "jev": {
       "verdict": "contradicts",
-      "confidence": 0.45
+      "confidence": 0.79
      }
     },
     "rate_percent": {
-     "value": 2,
+     "value": 2.0,
      "quote": "2 % i rörlig ränta",
      "source": 0,
      "status": "osäkert",
      "jev": {
       "verdict": "contradicts",
-      "confidence": 0.52
+      "confidence": 0.67
      }
     },
     "rate_type": {
      "value": "rörlig",
-     "quote": "2 % i rörlig ränta",
+     "quote": "Rörlig ränta",
      "source": 0,
-     "status": "belagt",
+     "status": "osäkert",
      "jev": {
-      "verdict": "supports",
-      "confidence": 0.35
+      "verdict": "contradicts",
+      "confidence": 0.38
      }
     },
     "binding_months": {
      "value": null,
      "quote": "med rörlig ränta utan bindningstid",
-     "source": 6,
+     "source": 7,
      "status": "motsägs av källan",
      "jev": {
       "verdict": "contradicts",
-      "confidence": 0.88
+      "confidence": 0.86
      },
      "claimed": 0
     },
@@ -136,7 +136,7 @@
      "status": "osäkert",
      "jev": {
       "verdict": "contradicts",
-      "confidence": 0.28
+      "confidence": 0.53
      }
     },
     "free_withdrawals_per_year": {
@@ -146,23 +146,23 @@
      "status": "okänt"
     },
     "withdrawal_terms": {
-     "value": "Obegränsat antal uttag utan avgift; utbetalning normalt 1–3 bankdagar efter begäran.",
-     "quote": "Antal uttag per år Obegränsat",
+     "value": "Obegränsat antal uttag, inga avgifter för uttag. Uppsägning av rörligt sparkonto med två månaders uppsägningstid från banken.",
+     "quote": "Avgifter uttag Nej",
      "source": 7,
      "status": "osäkert",
      "jev": {
       "verdict": "contradicts",
-      "confidence": 0.23
+      "confidence": 0.37
      }
     },
     "min_deposit_sek": {
      "value": 1,
      "quote": "Lägsta insättningsbelopp 1 krona",
      "source": 7,
-     "status": "belagt",
+     "status": "osäkert",
      "jev": {
-      "verdict": "supports",
-      "confidence": 0.31
+      "verdict": "contradicts",
+      "confidence": 0.37
      }
     },
     "max_deposit_sek": {
@@ -172,7 +172,7 @@
      "status": "osäkert",
      "jev": {
       "verdict": "contradicts",
-      "confidence": 0.09
+      "confidence": 0.19
      }
     },
     "monthly_deposit_cap_sek": {
@@ -182,30 +182,35 @@
      "status": "okänt"
     },
     "deposit_terms": {
-     "value": "Obegränsat antal insättningar per år, ingen avgift för insättning.",
+     "value": "Obegränsat antal insättningar per år, inga avgifter för insättningar.",
      "quote": "Antal insättningar per år Obegränsat",
      "source": 7,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.61
+      "confidence": 0.38
      }
     },
     "eligibility": {
-     "value": "Företag kan öppna kontot; ansökan online med svenskt Bank-ID, företrädare måste styrka behörighet.",
-     "quote": "Om sökanden vill öppna sparkonto för någon annans räkning, t ex för ett omyndigt barns eller för en juridisk persons räkning, måste sökanden även kunna styrka sin behörighet att företräda den för vars räkning ansökan görs.",
+     "value": "Fysisk eller juridisk person som konsument eller näringsidkare; online-ansökan kräver svenskt BankID.",
+     "quote": "gäller för sparkonton som en fysisk eller juridisk person, i egenskap av konsument eller näringsidkare",
      "source": 6,
      "status": "osäkert",
      "jev": {
-      "verdict": "contradicts",
-      "confidence": 0.38
+      "verdict": "says_nothing",
+      "confidence": 0.13
      }
     },
     "requires_other_products": {
      "value": null,
-     "quote": null,
-     "source": null,
-     "status": "okänt"
+     "quote": "Dessa produktvillkor gäller för sparkonton i Northmill Bank AB",
+     "source": 7,
+     "status": "motsägs av källan",
+     "jev": {
+      "verdict": "contradicts",
+      "confidence": 0.72
+     },
+     "claimed": false
     },
     "intro_rate": {
      "value": null,
@@ -214,23 +219,23 @@
      "status": "okänt"
     },
     "interest_paid": {
-     "value": "Kapitaliseras 31 december varje år och vid avslut av kontot.",
+     "value": "Vid årsskiftet (31 december) och vid avslutande av sparkontot.",
      "quote": "Upplupen ränta kapitaliseras den 31 december varje år och vid avslutande av sparkontot.",
      "source": 7,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.76
+      "confidence": 0.44
      }
     },
     "guarantee_country": {
      "value": "SE",
-     "quote": "Sparkonton i Northmill omfattas av statlig insättningsgaranti enligt beslut av Riksgälden.",
+     "quote": "Samtliga typer av sparkonton i Northmill omfattas av statlig insättningsgaranti",
      "source": 6,
      "status": "osäkert",
      "jev": {
       "verdict": "says_nothing",
-      "confidence": 0.31
+      "confidence": 0.43
      }
     },
     "guarantee_amount": {
@@ -240,7 +245,621 @@
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.92
+      "confidence": 0.66
+     }
+    },
+    "rate_valid_from": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    }
+   },
+   "rate_tiers": [],
+   "pending_rate": null,
+   "status": "delvis verifierad"
+  },
+  {
+   "name": "Fasträntekonto 3 mån",
+   "flags": [],
+   "fields": {
+    "product_type": {
+     "value": "fasträntekonto",
+     "quote": "3 månader med fast årsränta",
+     "source": 1,
+     "status": "osäkert",
+     "jev": {
+      "verdict": "says_nothing",
+      "confidence": 0.19
+     }
+    },
+    "rate_percent": {
+     "value": 2.85,
+     "quote": "3 månader med fast årsränta\n2,85 %",
+     "source": 1,
+     "status": "belagt"
+    },
+    "rate_type": {
+     "value": "fast",
+     "quote": "3 månader med fast årsränta",
+     "source": 1,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.77
+     }
+    },
+    "binding_months": {
+     "value": 3,
+     "quote": "3 månader med fast årsränta\n2,85 %",
+     "source": 1,
+     "status": "belagt"
+    },
+    "withdrawals": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "free_withdrawals_per_year": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "withdrawal_terms": {
+     "value": "Inga uttags-, insättnings-, uppläggnings- eller årsavgifter. Förtida uttag enligt produktvillkor som saknas i källan.",
+     "quote": "Ansök digitalt och slipp uttags-, insättnings-, uppläggnings- och årsavgift.",
+     "source": 1,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.25
+     }
+    },
+    "min_deposit_sek": {
+     "value": 5000,
+     "quote": "Gör en insättning på minst 5 000 kr för att öppna fasträntekonto.",
+     "source": 1,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.55
+     }
+    },
+    "max_deposit_sek": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "monthly_deposit_cap_sek": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "deposit_terms": {
+     "value": "Insättning endast genom överföring från ett rörligt sparkonto hos Northmill.",
+     "quote": "Insättningar på sparkonton med fast ränta under en bindningstid kan endast göras genom överföring från ett av kunden hos Northmill innehaft sparkonto med rörlig ränta utan bindningstid.",
+     "source": 6,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.89
+     }
+    },
+    "eligibility": {
+     "value": "Krävs ett rörligt sparkonto hos Northmill; ansökan för juridisk person.",
+     "quote": "För att öppna ett sparkonto med fast ränta under en bindningstid krävs att kunden innehar ett sparkonto med rörlig ränta utan bindningstid hos Northmill.",
+     "source": 6,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.73
+     }
+    },
+    "requires_other_products": {
+     "value": true,
+     "quote": "För att öppna ett sparkonto med fast ränta under en bindningstid krävs att kunden innehar ett sparkonto med rörlig ränta utan bindningstid hos Northmill.",
+     "source": 6,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.34
+     }
+    },
+    "intro_rate": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "interest_paid": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "guarantee_country": {
+     "value": "SE",
+     "quote": "Statlig insättningsgaranti",
+     "source": 1,
+     "status": "osäkert",
+     "jev": {
+      "verdict": "says_nothing",
+      "confidence": 0.73
+     }
+    },
+    "guarantee_amount": {
+     "value": "1 050 000 kr",
+     "quote": "Garantin ersätter högst 1 050 000 kronor av det tillgodohavande som kunden har",
+     "source": 6,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.76
+     }
+    },
+    "rate_valid_from": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    }
+   },
+   "rate_tiers": [],
+   "pending_rate": null,
+   "status": "delvis verifierad"
+  },
+  {
+   "name": "Fasträntekonto 6 mån",
+   "flags": [],
+   "fields": {
+    "product_type": {
+     "value": "fasträntekonto",
+     "quote": "6 månader med fast årsränta",
+     "source": 1,
+     "status": "osäkert",
+     "jev": {
+      "verdict": "contradicts",
+      "confidence": 0.33
+     }
+    },
+    "rate_percent": {
+     "value": 3.0,
+     "quote": "6 månader med fast årsränta\n3,00 %",
+     "source": 1,
+     "status": "belagt"
+    },
+    "rate_type": {
+     "value": "fast",
+     "quote": "6 månader med fast årsränta",
+     "source": 1,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.33
+     }
+    },
+    "binding_months": {
+     "value": 6,
+     "quote": "6 månader med fast årsränta\n3,00 %",
+     "source": 1,
+     "status": "belagt"
+    },
+    "withdrawals": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "free_withdrawals_per_year": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "withdrawal_terms": {
+     "value": "Inga uttags-, insättnings-, uppläggnings- eller årsavgifter. Förtida uttag enligt produktvillkor som saknas i källan.",
+     "quote": "Ansök digitalt och slipp uttags-, insättnings-, uppläggnings- och årsavgift.",
+     "source": 1,
+     "status": "osäkert",
+     "jev": {
+      "verdict": "says_nothing",
+      "confidence": 0.28
+     }
+    },
+    "min_deposit_sek": {
+     "value": 5000,
+     "quote": "Gör en insättning på minst 5 000 kr för att öppna fasträntekonto.",
+     "source": 1,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.58
+     }
+    },
+    "max_deposit_sek": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "monthly_deposit_cap_sek": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "deposit_terms": {
+     "value": "Insättning endast genom överföring från ett rörligt sparkonto hos Northmill.",
+     "quote": "Insättningar på sparkonton med fast ränta under en bindningstid kan endast göras genom överföring från ett av kunden hos Northmill innehaft sparkonto med rörlig ränta utan bindningstid.",
+     "source": 6,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.94
+     }
+    },
+    "eligibility": {
+     "value": "Krävs ett rörligt sparkonto hos Northmill; ansökan för juridisk person.",
+     "quote": "För att öppna ett sparkonto med fast ränta under en bindningstid krävs att kunden innehar ett sparkonto med rörlig ränta utan bindningstid hos Northmill.",
+     "source": 6,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.77
+     }
+    },
+    "requires_other_products": {
+     "value": true,
+     "quote": "För att öppna ett sparkonto med fast ränta under en bindningstid krävs att kunden innehar ett sparkonto med rörlig ränta utan bindningstid hos Northmill.",
+     "source": 6,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.37
+     }
+    },
+    "intro_rate": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "interest_paid": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "guarantee_country": {
+     "value": "SE",
+     "quote": "Statlig insättningsgaranti",
+     "source": 1,
+     "status": "osäkert",
+     "jev": {
+      "verdict": "says_nothing",
+      "confidence": 0.77
+     }
+    },
+    "guarantee_amount": {
+     "value": "1 050 000 kr",
+     "quote": "Garantin ersätter högst 1 050 000 kronor av det tillgodohavande som kunden har",
+     "source": 6,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.8
+     }
+    },
+    "rate_valid_from": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    }
+   },
+   "rate_tiers": [],
+   "pending_rate": null,
+   "status": "delvis verifierad"
+  },
+  {
+   "name": "Fasträntekonto 12 mån",
+   "flags": [],
+   "fields": {
+    "product_type": {
+     "value": "fasträntekonto",
+     "quote": "12 månader med fast årsränta",
+     "source": 1,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.94
+     }
+    },
+    "rate_percent": {
+     "value": 3.1,
+     "quote": "12 månader med fast årsränta\n3,10 %",
+     "source": 1,
+     "status": "belagt"
+    },
+    "rate_type": {
+     "value": "fast",
+     "quote": "12 månader med fast årsränta",
+     "source": 1,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.96
+     }
+    },
+    "binding_months": {
+     "value": 12,
+     "quote": "12 månader med fast årsränta\n3,10 %",
+     "source": 1,
+     "status": "belagt"
+    },
+    "withdrawals": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "free_withdrawals_per_year": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "withdrawal_terms": {
+     "value": "Inga uttags-, insättnings-, uppläggnings- eller årsavgifter. Förtida uttag enligt produktvillkor som saknas i källan.",
+     "quote": "Ansök digitalt och slipp uttags-, insättnings-, uppläggnings- och årsavgift.",
+     "source": 1,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.25
+     }
+    },
+    "min_deposit_sek": {
+     "value": 5000,
+     "quote": "Gör en insättning på minst 5 000 kr för att öppna fasträntekonto.",
+     "source": 1,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.73
+     }
+    },
+    "max_deposit_sek": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "monthly_deposit_cap_sek": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "deposit_terms": {
+     "value": "Insättning endast genom överföring från ett rörligt sparkonto hos Northmill.",
+     "quote": "Insättningar på sparkonton med fast ränta under en bindningstid kan endast göras genom överföring från ett av kunden hos Northmill innehaft sparkonto med rörlig ränta utan bindningstid.",
+     "source": 6,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.91
+     }
+    },
+    "eligibility": {
+     "value": "Krävs ett rörligt sparkonto hos Northmill; ansökan för juridisk person.",
+     "quote": "För att öppna ett sparkonto med fast ränta under en bindningstid krävs att kunden innehar ett sparkonto med rörlig ränta utan bindningstid hos Northmill.",
+     "source": 6,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.79
+     }
+    },
+    "requires_other_products": {
+     "value": true,
+     "quote": "För att öppna ett sparkonto med fast ränta under en bindningstid krävs att kunden innehar ett sparkonto med rörlig ränta utan bindningstid hos Northmill.",
+     "source": 6,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.3
+     }
+    },
+    "intro_rate": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "interest_paid": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "guarantee_country": {
+     "value": null,
+     "quote": "Statlig insättningsgaranti",
+     "source": 1,
+     "status": "stöds inte av källan",
+     "jev": {
+      "verdict": "says_nothing",
+      "confidence": 0.86
+     },
+     "claimed": "SE"
+    },
+    "guarantee_amount": {
+     "value": "1 050 000 kr",
+     "quote": "Garantin ersätter högst 1 050 000 kronor av det tillgodohavande som kunden har",
+     "source": 6,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.85
+     }
+    },
+    "rate_valid_from": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    }
+   },
+   "rate_tiers": [],
+   "pending_rate": null,
+   "status": "delvis verifierad"
+  },
+  {
+   "name": "Fasträntekonto 24 mån",
+   "flags": [],
+   "fields": {
+    "product_type": {
+     "value": "fasträntekonto",
+     "quote": "24 månader med fast årsränta",
+     "source": 1,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.77
+     }
+    },
+    "rate_percent": {
+     "value": 3.15,
+     "quote": "24 månader med fast årsränta\n3,15 %",
+     "source": 1,
+     "status": "belagt"
+    },
+    "rate_type": {
+     "value": "fast",
+     "quote": "24 månader med fast årsränta",
+     "source": 1,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.96
+     }
+    },
+    "binding_months": {
+     "value": 24,
+     "quote": "24 månader med fast årsränta\n3,15 %",
+     "source": 1,
+     "status": "belagt"
+    },
+    "withdrawals": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "free_withdrawals_per_year": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "withdrawal_terms": {
+     "value": "Inga uttags-, insättnings-, uppläggnings- eller årsavgifter. Förtida uttag enligt produktvillkor som saknas i källan.",
+     "quote": "Ansök digitalt och slipp uttags-, insättnings-, uppläggnings- och årsavgift.",
+     "source": 1,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.25
+     }
+    },
+    "min_deposit_sek": {
+     "value": 5000,
+     "quote": "Gör en insättning på minst 5 000 kr för att öppna fasträntekonto.",
+     "source": 1,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.79
+     }
+    },
+    "max_deposit_sek": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "monthly_deposit_cap_sek": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "deposit_terms": {
+     "value": "Insättning endast genom överföring från ett rörligt sparkonto hos Northmill.",
+     "quote": "Insättningar på sparkonton med fast ränta under en bindningstid kan endast göras genom överföring från ett av kunden hos Northmill innehaft sparkonto med rörlig ränta utan bindningstid.",
+     "source": 6,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.91
+     }
+    },
+    "eligibility": {
+     "value": "Krävs ett rörligt sparkonto hos Northmill; ansökan för juridisk person.",
+     "quote": "För att öppna ett sparkonto med fast ränta under en bindningstid krävs att kunden innehar ett sparkonto med rörlig ränta utan bindningstid hos Northmill.",
+     "source": 6,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.76
+     }
+    },
+    "requires_other_products": {
+     "value": true,
+     "quote": "För att öppna ett sparkonto med fast ränta under en bindningstid krävs att kunden innehar ett sparkonto med rörlig ränta utan bindningstid hos Northmill.",
+     "source": 6,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.43
+     }
+    },
+    "intro_rate": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "interest_paid": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "guarantee_country": {
+     "value": null,
+     "quote": "Statlig insättningsgaranti",
+     "source": 1,
+     "status": "stöds inte av källan",
+     "jev": {
+      "verdict": "says_nothing",
+      "confidence": 0.86
+     },
+     "claimed": "SE"
+    },
+    "guarantee_amount": {
+     "value": "1 050 000 kr",
+     "quote": "Garantin ersätter högst 1 050 000 kronor av det tillgodohavande som kunden har",
+     "source": 6,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.73
      }
     },
     "rate_valid_from": {
@@ -256,6 +875,6 @@
   }
  ],
  "source_hash": "fa78d5e0f542ea65",
- "changed_at": "2026-10-13T22:28:40+00:00",
- "model": "claude-sonnet-5-5"
+ "changed_at": "2026-11-12T03:28:20+00:00",
+ "model": "claude-haiku-5-5"
 }

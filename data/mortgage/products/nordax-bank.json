@@ -7,7 +7,7 @@
   "kind": "nischbank",
   "legal_name": "NOBA Bank Group AB (publ)"
  },
- "checked_at": "2026-11-10T03:06:45+00:00",
+ "checked_at": "2026-11-12T03:06:14+00:00",
  "discovered_at": "2026-10-20T02:12:23+00:00",
  "sources": [
   {
@@ -15,14 +15,14 @@
    "title": "Bolån | Nordax Bank",
    "kind": "html",
    "via": "http",
-   "chars": 19745
+   "chars": 19514
   },
   {
    "url": "https://www.nordax.se/lana/bolan/genomsnittsrantor",
    "title": "Genomsnittsräntor | Nordax Bank",
    "kind": "html",
    "via": "http",
-   "chars": 5556
+   "chars": 5194
   },
   {
    "url": "https://www.nordax.se/fragor-och-svar/erbjuder-nordax-bank-bundna-rantor-for-mitt-bolan",
@@ -43,21 +43,21 @@
    "title": "Allmän information om bolån | Nordax Bank",
    "kind": "html",
    "via": "http",
-   "chars": 12161
+   "chars": 11799
   },
   {
    "url": "https://www.nordax.se/fragor-och-svar/vilken-bolaneranta-far-jag",
    "title": "Vilken bolåneränta får jag? | Nordax Bank",
    "kind": "html",
    "via": "http",
-   "chars": 1996
+   "chars": 1650
   },
   {
    "url": "https://www.nordax.se/lana/bolan/gront-bolan",
    "title": "Grönt bolån | Nordax Bank",
    "kind": "html",
    "via": "http",
-   "chars": 6287
+   "chars": 6005
   },
   {
    "url": "https://www.nordax.se/fragor-och-svar/hur-lange-galler-ranterabatten-for-gront-bolan",
@@ -68,15 +68,25 @@
   }
  ],
  "status": "ok",
- "notes": "Nordax använder inga listräntor; räntan är individuell (spann 4,65 %–7,89 % över alla bindningstider, ej per bindningstid), så rate_percent är null. Snittränta finns bara för 3 mån (2026-09: 4,93 %); tabellen är tom för 36 och 60 mån den månaden (senast 60 mån: 2024-12). Basräntor i tabellen är referensräntor, inte kundräntor. Representativt exempel (5,55 % nominell, 5,77 % effektiv) gäller ej en specifik bindningstid och är inte använt.",
+ "notes": "Nordax listräntor publiceras inte per bindningstid; sidan anger bara ett spann 4,65–7,89 % för bolåneräntor (gäller ej som listränta per produkt), därför rate_percent är null. Snitträntan för 3 mån avser 2026-09. Snitträntan för 3 år (36 mån) är senast redovisad för 2023-09 och för 5 år (60 mån) för 2024-12; kolumnerna saknar nyare värden i källan, så dessa är gamla. Effektiv ränta (5,77 %) gäller ett representativt exempel med nominell ränta 5,55 % och anges inte per bindningstid, därför null. Bolåneräntan sätts individuellt. Grönt bolån-rabatten (0,25 %) gäller även de ovan angivna snitträntorna endast om kunden uppfyller kriterierna; snitträntorna är inte uppdelade efter detta.",
  "products": [
   {
    "name": "3 mån",
    "flags": [],
    "fields": {
+    "loan_category": {
+     "value": "vanligt bolån",
+     "quote": "Hos oss kan du som fyllt 18 år, är folkbokförd och betalar skatt i Sverige",
+     "source": 0,
+     "status": "osäkert",
+     "jev": {
+      "verdict": "says_nothing",
+      "confidence": 0.6
+     }
+    },
     "binding_months": {
      "value": 3,
-     "quote": "Hos oss har du möjlighet att välja rörlig ränta (3 mån) eller bunden ränta på 3 eller 5 år.",
+     "quote": "Rörlig ränta: 3 mån - räntan ändras var tredje månad beroende på förändringarna på räntemarknaden och Riksbankens styrränta.",
      "source": 0,
      "status": "belagt"
     },
@@ -119,23 +129,23 @@
      "status": "okänt"
     },
     "ltv_pricing": {
-     "value": "Räntan sätts individuellt och påverkas av belåningsgrad, inkomst och andra lån.",
+     "value": "Räntan bestäms individuellt; påverkas bland annat av hur stor andel av bostadens marknadsvärde som belånas, inkomst och andra lån.",
      "quote": "Räntan bestäms individuellt och påverkas bland annat av hur stor andel av bostadens marknadsvärde som belånas, din inkomst och om du har andra lån.",
      "source": 0,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.97
+      "confidence": 0.96
      }
     },
     "discounts": {
-     "value": "Grönt bolån: 0,25 % ränterabatt för energiklass A eller B.",
-     "quote": "Då har du möjlighet ansöka om Nordax bolån med 0,25% Grönt bolån-rabatt.",
-     "source": 0,
+     "value": "Grönt bolån: 0,25 % ränterabatt för bostad med energiklass A (eller B för deklarationer utfärdade före 1 oktober 2026).",
+     "quote": "0,25 % ränterabatt på bolåneräntan.",
+     "source": 6,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.77
+      "confidence": 0.64
      }
     },
     "requires_other_products": {
@@ -159,13 +169,13 @@
      }
     },
     "eligibility": {
-     "value": "Över 18 år, folkbokförd och skattskyldig i Sverige; bostadsrätt, fastighet eller tomträtt som säkerhet.",
-     "quote": "Säkerhet för bolånet kan vara en bostadsrätt, fastighet eller tomträtt.",
+     "value": "Fyllt 18 år, folkbokförd och betalar skatt i Sverige; bostaden värd minst 200 000 kr; säkerhet i bostadsrätt, fastighet eller tomträtt.",
+     "quote": "Hos oss kan du som fyllt 18 år, är folkbokförd och betalar skatt i Sverige",
      "source": 0,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.95
+      "confidence": 0.91
      }
     }
    },
@@ -177,9 +187,19 @@
    "name": "3 år",
    "flags": [],
    "fields": {
+    "loan_category": {
+     "value": "vanligt bolån",
+     "quote": "Hos oss kan du som fyllt 18 år, är folkbokförd och betalar skatt i Sverige",
+     "source": 0,
+     "status": "osäkert",
+     "jev": {
+      "verdict": "says_nothing",
+      "confidence": 0.62
+     }
+    },
     "binding_months": {
      "value": 36,
-     "quote": "Hos oss har du möjlighet att välja rörlig ränta (3 mån) eller bunden ränta på 3 eller 5 år.",
+     "quote": "Bunden ränta: 3 år eller 5 år - räntan är fast under den valda perioden.",
      "source": 0,
      "status": "belagt"
     },
@@ -190,16 +210,24 @@
      "status": "okänt"
     },
     "avg_rate_percent": {
-     "value": null,
-     "quote": null,
-     "source": null,
-     "status": "okänt"
+     "value": 6.15,
+     "quote": "| 2023-09 | 6,89% | 6,15% | |",
+     "source": 1,
+     "status": "osäkert",
+     "jev": {
+      "verdict": "contradicts",
+      "confidence": 0.7
+     }
     },
     "avg_rate_month": {
-     "value": null,
-     "quote": null,
-     "source": null,
-     "status": "okänt"
+     "value": "2023-09",
+     "quote": "| 2023-09 | 6,89% | 6,15% | |",
+     "source": 1,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.52
+     }
     },
     "effective_rate_percent": {
      "value": null,
@@ -214,23 +242,23 @@
      "status": "okänt"
     },
     "ltv_pricing": {
-     "value": "Räntan sätts individuellt och påverkas av belåningsgrad, inkomst och andra lån.",
+     "value": "Räntan bestäms individuellt; påverkas bland annat av hur stor andel av bostadens marknadsvärde som belånas, inkomst och andra lån.",
      "quote": "Räntan bestäms individuellt och påverkas bland annat av hur stor andel av bostadens marknadsvärde som belånas, din inkomst och om du har andra lån.",
      "source": 0,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.98
+      "confidence": 0.92
      }
     },
     "discounts": {
-     "value": "Grönt bolån: 0,25 % ränterabatt för energiklass A eller B.",
-     "quote": "Då har du möjlighet ansöka om Nordax bolån med 0,25% Grönt bolån-rabatt.",
-     "source": 0,
+     "value": "Grönt bolån: 0,25 % ränterabatt för bostad med energiklass A (eller B för deklarationer utfärdade före 1 oktober 2026).",
+     "quote": "0,25 % ränterabatt på bolåneräntan.",
+     "source": 6,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.95
+      "confidence": 0.74
      }
     },
     "requires_other_products": {
@@ -254,13 +282,13 @@
      }
     },
     "eligibility": {
-     "value": "Över 18 år, folkbokförd och skattskyldig i Sverige; bostadsrätt, fastighet eller tomträtt som säkerhet.",
-     "quote": "Säkerhet för bolånet kan vara en bostadsrätt, fastighet eller tomträtt.",
+     "value": "Fyllt 18 år, folkbokförd och betalar skatt i Sverige; bostaden värd minst 200 000 kr; säkerhet i bostadsrätt, fastighet eller tomträtt.",
+     "quote": "Hos oss kan du som fyllt 18 år, är folkbokförd och betalar skatt i Sverige",
      "source": 0,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.79
+      "confidence": 0.92
      }
     }
    },
@@ -272,9 +300,19 @@
    "name": "5 år",
    "flags": [],
    "fields": {
+    "loan_category": {
+     "value": "vanligt bolån",
+     "quote": "Hos oss kan du som fyllt 18 år, är folkbokförd och betalar skatt i Sverige",
+     "source": 0,
+     "status": "osäkert",
+     "jev": {
+      "verdict": "says_nothing",
+      "confidence": 0.67
+     }
+    },
     "binding_months": {
      "value": 60,
-     "quote": "Hos oss har du möjlighet att välja rörlig ränta (3 mån) eller bunden ränta på 3 eller 5 år.",
+     "quote": "Bunden ränta: 3 år eller 5 år - räntan är fast under den valda perioden.",
      "source": 0,
      "status": "belagt"
     },
@@ -285,16 +323,24 @@
      "status": "okänt"
     },
     "avg_rate_percent": {
-     "value": null,
-     "quote": null,
-     "source": null,
-     "status": "okänt"
+     "value": 6.04,
+     "quote": "| 2024-12 | 6,05% | | 6,04% |",
+     "source": 1,
+     "status": "osäkert",
+     "jev": {
+      "verdict": "contradicts",
+      "confidence": 0.31
+     }
     },
     "avg_rate_month": {
-     "value": null,
-     "quote": null,
-     "source": null,
-     "status": "okänt"
+     "value": "2024-12",
+     "quote": "| 2024-12 | 6,05% | | 6,04% |",
+     "source": 1,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.11
+     }
     },
     "effective_rate_percent": {
      "value": null,
@@ -309,23 +355,23 @@
      "status": "okänt"
     },
     "ltv_pricing": {
-     "value": "Räntan sätts individuellt och påverkas av belåningsgrad, inkomst och andra lån.",
+     "value": "Räntan bestäms individuellt; påverkas bland annat av hur stor andel av bostadens marknadsvärde som belånas, inkomst och andra lån.",
      "quote": "Räntan bestäms individuellt och påverkas bland annat av hur stor andel av bostadens marknadsvärde som belånas, din inkomst och om du har andra lån.",
      "source": 0,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 1.0
+      "confidence": 0.91
      }
     },
     "discounts": {
-     "value": "Grönt bolån: 0,25 % ränterabatt för energiklass A eller B.",
-     "quote": "Då har du möjlighet ansöka om Nordax bolån med 0,25% Grönt bolån-rabatt.",
-     "source": 0,
+     "value": "Grönt bolån: 0,25 % ränterabatt för bostad med energiklass A (eller B för deklarationer utfärdade före 1 oktober 2026).",
+     "quote": "0,25 % ränterabatt på bolåneräntan.",
+     "source": 6,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.95
+      "confidence": 0.77
      }
     },
     "requires_other_products": {
@@ -349,13 +395,13 @@
      }
     },
     "eligibility": {
-     "value": "Över 18 år, folkbokförd och skattskyldig i Sverige; bostadsrätt, fastighet eller tomträtt som säkerhet.",
-     "quote": "Säkerhet för bolånet kan vara en bostadsrätt, fastighet eller tomträtt.",
+     "value": "Fyllt 18 år, folkbokförd och betalar skatt i Sverige; bostaden värd minst 200 000 kr; säkerhet i bostadsrätt, fastighet eller tomträtt.",
+     "quote": "Hos oss kan du som fyllt 18 år, är folkbokförd och betalar skatt i Sverige",
      "source": 0,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.85
+      "confidence": 0.91
      }
     }
    },
@@ -364,7 +410,7 @@
    "status": "ej verifierad"
   }
  ],
- "source_hash": "05db0f640c0294b7",
- "changed_at": "2026-10-12T19:43:41+00:00",
- "model": "claude-sonnet-5-5"
+ "source_hash": "6a45eb050738d435",
+ "changed_at": "2026-11-12T03:06:14+00:00",
+ "model": "claude-haiku-5-5"
 }
