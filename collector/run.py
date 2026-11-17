@@ -206,6 +206,8 @@ def process(bank: dict, discover_only: bool, force: bool, log, rediscover: bool 
             log(f"  ! tolkning misslyckades: {e}")
         if usable(rec) < usable(previous):
             log("  behåller förra tolkningen")
+            if failed_before:
+                previous["status"] = "ok"   # tolkningen lyckades nu – den gamla felstatusen gäller inte längre
             if old_raw:
                 raw_path.write_text(old_raw)   # den sparade tolkningen ska höra ihop med den som visas
             previous |= {"checked_at": record["checked_at"], "discovered_at": record["discovered_at"], "source_hash": h}
@@ -385,9 +387,13 @@ def load_dotenv():
 
 
 def last_checked(bank_id: str) -> str:
+    """Sorteringsnyckel: banker vars förra tolkning misslyckades först, sedan längst sedan kontrollerade."""
     f = segments.cur().products / f"{bank_id}.json"
     try:
-        return json.loads(f.read_text()).get("checked_at") or ""
+        d = json.loads(f.read_text())
+        if (d.get("status") or "").startswith("senaste tolkning misslyckades"):
+            return ""
+        return d.get("checked_at") or ""
     except (OSError, json.JSONDecodeError):
         return ""
 
@@ -408,7 +414,7 @@ def main():
     segments.use(args.segment)
     segments.cur().products.mkdir(parents=True, exist_ok=True)
     banks = [b for b in load_banks() if not args.bank or b["id"] in args.bank]
-    # Längst sedan kontrollerade först, så att en natt som inte hinner klart inte drabbar samma banker igen.
+    # Misslyckade och längst sedan kontrollerade först, så att en natt som inte hinner klart inte drabbar samma banker igen.
     banks.sort(key=lambda b: last_checked(b["id"]))
     deadline = float(os.environ.get("RANTORNA_DEADLINE") or 0)
     if args.budget:
