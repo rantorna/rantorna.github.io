@@ -7,15 +7,15 @@
   "kind": "storbank",
   "legal_name": "SBAB Bank AB (publ)"
  },
- "checked_at": "2026-11-17T02:37:04+00:00",
+ "checked_at": "2026-11-17T19:40:49+00:00",
  "discovered_at": "2026-10-22T03:01:10+00:00",
  "sources": [
   {
    "url": "https://www.sbab.se/1/foretag/sparkonton.html",
    "title": "Sparkonto och placeringskonto för företag - SBAB",
    "kind": "html",
-   "via": "http",
-   "chars": 4318
+   "via": "browser",
+   "chars": 8004
   },
   {
    "url": "https://www.sbab.se/1/foretag/sparrantor.html",
@@ -43,7 +43,7 @@
    "title": "Allma%CC%88nna%20villkor%20fo%CC%88r%20SBAB-konto%20&%20Placeringskonto%20juridisk%20person%20250303_v3%20260609.pdf",
    "kind": "pdf",
    "via": "http",
-   "chars": 35590
+   "chars": 35549
   },
   {
    "url": "https://www.sbab.se/1/foretag/sparkonton/foreningar/placeringskonto.html",
@@ -74,8 +74,8 @@
    "chars": 1732
   }
  ],
- "status": "senaste tolkning misslyckades (Error code: 401 - {'type': 'error', 'error': {'type': 'authentication_error', 'm)",
- "notes": "Källorna anger att räntorna är \"aktuell ränta per dagens datum\" utan startdatum; rate_valid_from är därför tomt. SBAB-kontots \"Senast ändrad 2026-11-11\" står bara i tabellen och ej som ikraftträdande datum. SBAB-kontot är räntebärande upp till 200 Mkr; på överskjutande belopp 0 % (ej modellerat som tier). Avgift på 1,5 % per år gäller för juridiska personer som är finansiella kunder, som ingen ränta får. Placeringskontot kan endast förlängas automatiskt för 3-månaders bindning. Ränteuppgifter för föreningar (dok. 5) visas som \"Laddar räntor\" och togs från dok. 2 (företag). Ingen uppgift om minsta insättning för SBAB-konto; krav på ett SBAB-konto först gäller placeringskonto. Historiska räntor ingår ej.",
+ "status": "ok",
+ "notes": "Räntor för placeringskontot anges som \"aktuell ränta per dagens datum\" utan tydligt datum. Sidan för föreningar (källa 5) visar bara \"Laddar räntor\", därför används räntorna från källorna 1 och 2. SBAB-kontots tabell anger \"Senast ändrad 2026-11-11\", men det är inte ett bevisat startdatum för räntan, så rate_valid_from lämnas tomt. Ingen minsta insättning finns angiven för SBAB-kontot. Kontot är räntebärande upp till 200 Mkr; över det gäller 0 % i ränta. Finansiella kunder har annan prissättning (1,5 % avgift, ingen ränta) och ingår inte som produktvariant. Insättningsgarantibeloppet (1 150 000 kr) gäller per företag och institut enligt källa 4.",
  "products": [
   {
    "name": "SBAB-konto",
@@ -83,32 +83,32 @@
    "fields": {
     "product_type": {
      "value": "rörligt sparkonto",
-     "quote": "SBAB-konto är ett inlåningskonto med rörlig ränta avsett för juridiska personers sparändamål.",
-     "source": 4,
+     "quote": "SBAB-kontot är ett inlåningskonto med rörlig ränta avsett för juridiska personer.",
+     "source": 3,
      "status": "osäkert",
      "jev": {
       "verdict": "contradicts",
-      "confidence": 0.48
+      "confidence": 0.52
      }
     },
     "rate_percent": {
      "value": 1.5,
-     "quote": "| Upp till 25 miljoner | 1,50 % | + 0,25 % | 2026-11-11 |",
-     "source": 1,
+     "quote": "Upp till 25 miljoner | 1,50 %",
+     "source": 3,
      "status": "osäkert",
      "jev": {
       "verdict": "contradicts",
-      "confidence": 0.73
+      "confidence": 0.74
      }
     },
     "rate_type": {
      "value": "rörlig",
      "quote": "SBAB-kontot är ett inlåningskonto med rörlig ränta avsett för juridiska personer.",
-     "source": 1,
+     "source": 3,
      "status": "osäkert",
      "jev": {
-      "verdict": "says_nothing",
-      "confidence": 0.37
+      "verdict": "contradicts",
+      "confidence": 0.42
      }
     },
     "binding_months": {
@@ -117,8 +117,8 @@
      "source": 3,
      "status": "osäkert",
      "jev": {
-      "verdict": "says_nothing",
-      "confidence": 0.1
+      "verdict": "contradicts",
+      "confidence": 0.16
      }
     },
     "withdrawals": {
@@ -128,7 +128,7 @@
      "status": "osäkert",
      "jev": {
       "verdict": "contradicts",
-      "confidence": 0.13
+      "confidence": 0.49
      }
     },
     "free_withdrawals_per_year": {
@@ -138,13 +138,13 @@
      "status": "okänt"
     },
     "withdrawal_terms": {
-     "value": "Fria uttag utan avgift och utan bindningstid. Kontot kan sägas upp med omedelbar verkan.",
-     "quote": "Kontohavaren har rätt att säga upp Konto med omedelbar verkan.",
-     "source": 4,
-     "status": "belagt",
+     "value": "Fria uttag, inga avgifter eller bindningstid. Uppsägning med omedelbar verkan.",
+     "quote": "Fria uttag, inga avgifter eller bindningstid",
+     "source": 3,
+     "status": "osäkert",
      "jev": {
-      "verdict": "supports",
-      "confidence": 0.28
+      "verdict": "contradicts",
+      "confidence": 0.52
      }
     },
     "min_deposit_sek": {
@@ -155,7 +155,7 @@
     },
     "max_deposit_sek": {
      "value": null,
-     "quote": "Här kan ni placera upp till 200 miljoner med fria uttag - utan avgifter eller bindningstid.",
+     "quote": "SBAB-kontot är räntebärande upp till 200 Mkr. På överskjutande belopp har kontot 0% i ränta.",
      "source": 3,
      "status": "talet finns inte i citatet",
      "claimed": 200000000
@@ -167,23 +167,23 @@
      "status": "okänt"
     },
     "deposit_terms": {
-     "value": "Insättningar är avgiftsfria; räntan är räntebärande upp till 200 miljoner kronor",
+     "value": "Insättning avgiftsfri; räntebärande upp till 200 Mkr",
      "quote": "Insättning på SBAB-konto | 0 kr",
      "source": 3,
      "status": "osäkert",
      "jev": {
       "verdict": "contradicts",
-      "confidence": 0.28
+      "confidence": 0.62
      }
     },
     "eligibility": {
-     "value": "Juridisk person med svenskt organisationsnummer (aktiebolag, kommanditbolag, handelsbolag, föreningar, bostadsrättsföreningar m.fl.); enskilda firmor kan inte öppna",
-     "quote": "Digital sparkontoansökan är möjligt för aktiebolag, kommanditbolag, handelsbolag, ekonomiska-och ideella föreningar, bostadsrättsföreningar och samfälligheter med svenskt organisationsnummer.",
+     "value": "Juridisk person (aktiebolag, kommanditbolag, handelsbolag, förening m.fl. med svenskt organisationsnummer); enskild firma kan inte öppna",
+     "quote": "Kontohavaren måste vara en juridisk person, dock ej en bank, ett kreditmarknadsföretag, ett värdepappersbolag",
      "source": 3,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.55
+      "confidence": 0.77
      }
     },
     "requires_other_products": {
@@ -199,13 +199,13 @@
      "status": "okänt"
     },
     "interest_paid": {
-     "value": "Läggs till kapitalet vid årets slut och när kontot avslutas",
-     "quote": "Upplupen ränta på SBAB-konto läggs till kapitalet vid utgången av varje kalenderår och när Konto avslutas.",
-     "source": 4,
-     "status": "belagt",
+     "value": "Årsvis, bokförs 31/12",
+     "quote": "Vi sätter in räntan på kontot den 31/12. Vi drar inte någon skatt.",
+     "source": 3,
+     "status": "osäkert",
      "jev": {
-      "verdict": "supports",
-      "confidence": 0.37
+      "verdict": "contradicts",
+      "confidence": 0.35
      }
     },
     "guarantee_country": {
@@ -219,13 +219,13 @@
      }
     },
     "guarantee_amount": {
-     "value": "1 150 000 kronor",
-     "quote": "med ett belopp om högst 1 150 000 kronor",
+     "value": "1 150 000 kr",
+     "quote": "garanteras varje kund ersättning för sin sammanlagda behållning i SBAB på konton som omfattas av insättningsgarantin med ett belopp om högst 1 150 000 kronor.",
      "source": 4,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.62
+      "confidence": 0.3
      }
     },
     "rate_valid_from": {
@@ -240,24 +240,24 @@
      "min_sek": 0,
      "max_sek": 25000000,
      "rate_percent": 1.5,
-     "quote": "| Upp till 25 miljoner | 1,50 % | + 0,25 % | 2026-11-11 |",
-     "source": 1,
+     "quote": "Upp till 25 miljoner | 1,50 %",
+     "source": 3,
      "status": "belagt"
     },
     {
      "min_sek": 25000000,
      "max_sek": 50000000,
      "rate_percent": 2.0,
-     "quote": "| 25 - 50 miljoner | 2,00 % | + 0,25 % | 2026-11-11 |",
-     "source": 1,
+     "quote": "25 - 50 miljoner | 2,00 %",
+     "source": 3,
      "status": "belagt"
     },
     {
      "min_sek": 50000000,
      "max_sek": 200000000,
      "rate_percent": 2.0,
-     "quote": "| 50 - 200 miljoner | 2,00 % | + 0,25 % | 2026-11-11 |",
-     "source": 1,
+     "quote": "50 - 200 miljoner | 2,00 %",
+     "source": 3,
      "status": "belagt"
     }
    ],
@@ -270,14 +270,14 @@
    "fields": {
     "product_type": {
      "value": null,
-     "quote": "Placeringskonto är ett inlåningskonto avsett för juridiska personers sparändamål och som löper med fast ränta under en tidsbestämd bindningstid",
+     "quote": "Placeringskonto är ett inlåningskonto med bunden ränta",
      "source": 4,
      "status": "citat hittades inte",
      "claimed": "fasträntekonto"
     },
     "rate_percent": {
      "value": 2.25,
-     "quote": "| 3 mån | 2,25 % | 2027-02-12 |",
+     "quote": "3 mån | 2,25 % | 2027-02-17",
      "source": 2,
      "status": "belagt"
     },
@@ -288,23 +288,23 @@
      "status": "osäkert",
      "jev": {
       "verdict": "contradicts",
-      "confidence": 0.16
+      "confidence": 0.28
      }
     },
     "binding_months": {
      "value": 3,
-     "quote": "| 3 mån | 2,25 % | 2027-02-12 |",
+     "quote": "3 mån | 2,25 % | 2027-02-17",
      "source": 2,
      "status": "belagt"
     },
     "withdrawals": {
      "value": "mot avgift",
-     "quote": "Avsluta placering på Placeringskonto i förtid | 5 000 kr + RSE* |",
+     "quote": "Avsluta placering på Placeringskonto i förtid | 5 000 kr + RSE*",
      "source": 2,
-     "status": "belagt",
+     "status": "osäkert",
      "jev": {
-      "verdict": "supports",
-      "confidence": 0.3
+      "verdict": "contradicts",
+      "confidence": 0.22
      }
     },
     "free_withdrawals_per_year": {
@@ -314,13 +314,13 @@
      "status": "okänt"
     },
     "withdrawal_terms": {
-     "value": "Låst under bindningstiden; förtida avslut kostar 5 000 kr + ränteskillnadsersättning (RSE).",
+     "value": "Under bindningstiden endast förtida avslut: 5 000 kr + ränteskillnadsersättning (RSE).",
      "quote": "Avsluta placering på Placeringskonto i förtid | 5 000 kr + RSE*",
      "source": 2,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.26
+      "confidence": 0.28
      }
     },
     "min_deposit_sek": {
@@ -335,12 +335,12 @@
     },
     "max_deposit_sek": {
      "value": 50000000,
-     "quote": "största möjliga placering är 50 000 000 kronor per konto och dag",
+     "quote": "största möjliga placering är 50 000 000 kronor per konto och dag.",
      "source": 2,
      "status": "osäkert",
      "jev": {
-      "verdict": "contradicts",
-      "confidence": 0.19
+      "verdict": "says_nothing",
+      "confidence": 0.14
      }
     },
     "monthly_deposit_cap_sek": {
@@ -360,13 +360,13 @@
      }
     },
     "eligibility": {
-     "value": "Juridisk person; måste ha ett SBAB-konto sedan tidigare",
-     "quote": "För att öppna ett placeringskonto behöver ni först ha ett SBAB-konto hos oss.",
+     "value": "Endast juridiska personer; kontot kräver ett befintligt SBAB-konto",
+     "quote": "Kontot kan endast öppnas av juridiska personer, dock ej en bank",
      "source": 2,
-     "status": "osäkert",
+     "status": "belagt",
      "jev": {
-      "verdict": "contradicts",
-      "confidence": 0.43
+      "verdict": "supports",
+      "confidence": 0.86
      }
     },
     "requires_other_products": {
@@ -386,13 +386,13 @@
      "status": "okänt"
     },
     "interest_paid": {
-     "value": "Vid bindningstidens slut (en gång)",
+     "value": "Vid bindningstidens slut",
      "quote": "Räntan på er placering betalas ut en gång oavsett vilken bindningstid ni valde på kontot från början.",
      "source": 2,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.26
+      "confidence": 0.24
      }
     },
     "guarantee_country": {
@@ -406,13 +406,13 @@
      }
     },
     "guarantee_amount": {
-     "value": "1 150 000 kronor",
-     "quote": "med ett belopp om högst 1 150 000 kronor",
+     "value": "1 150 000 kr",
+     "quote": "garanteras varje kund ersättning för sin sammanlagda behållning i SBAB på konton som omfattas av insättningsgarantin med ett belopp om högst 1 150 000 kronor.",
      "source": 4,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.56
+      "confidence": 0.22
      }
     },
     "rate_valid_from": {
@@ -432,14 +432,14 @@
    "fields": {
     "product_type": {
      "value": null,
-     "quote": "Placeringskonto är ett inlåningskonto avsett för juridiska personers sparändamål och som löper med fast ränta under en tidsbestämd bindningstid",
+     "quote": "Placeringskonto är ett inlåningskonto med bunden ränta",
      "source": 4,
      "status": "citat hittades inte",
      "claimed": "fasträntekonto"
     },
     "rate_percent": {
      "value": 2.35,
-     "quote": "| 6 mån | 2,35 % | 2027-05-12 |",
+     "quote": "6 mån | 2,35 % | 2027-05-17",
      "source": 2,
      "status": "belagt"
     },
@@ -455,18 +455,18 @@
     },
     "binding_months": {
      "value": 6,
-     "quote": "| 6 mån | 2,35 % | 2027-05-12 |",
+     "quote": "6 mån | 2,35 % | 2027-05-17",
      "source": 2,
      "status": "belagt"
     },
     "withdrawals": {
      "value": "mot avgift",
-     "quote": "Avsluta placering på Placeringskonto i förtid | 5 000 kr + RSE* |",
+     "quote": "Avsluta placering på Placeringskonto i förtid | 5 000 kr + RSE*",
      "source": 2,
-     "status": "belagt",
+     "status": "osäkert",
      "jev": {
-      "verdict": "supports",
-      "confidence": 0.35
+      "verdict": "contradicts",
+      "confidence": 0.3
      }
     },
     "free_withdrawals_per_year": {
@@ -476,12 +476,12 @@
      "status": "okänt"
     },
     "withdrawal_terms": {
-     "value": "Låst under bindningstiden; förtida avslut kostar 5 000 kr + ränteskillnadsersättning (RSE).",
+     "value": "Under bindningstiden endast förtida avslut: 5 000 kr + ränteskillnadsersättning (RSE).",
      "quote": "Avsluta placering på Placeringskonto i förtid | 5 000 kr + RSE*",
      "source": 2,
-     "status": "belagt",
+     "status": "osäkert",
      "jev": {
-      "verdict": "supports",
+      "verdict": "contradicts",
       "confidence": 0.22
      }
     },
@@ -492,17 +492,17 @@
      "status": "osäkert",
      "jev": {
       "verdict": "contradicts",
-      "confidence": 0.48
+      "confidence": 0.5
      }
     },
     "max_deposit_sek": {
      "value": 50000000,
-     "quote": "största möjliga placering är 50 000 000 kronor per konto och dag",
+     "quote": "största möjliga placering är 50 000 000 kronor per konto och dag.",
      "source": 2,
      "status": "osäkert",
      "jev": {
       "verdict": "contradicts",
-      "confidence": 0.2
+      "confidence": 0.22
      }
     },
     "monthly_deposit_cap_sek": {
@@ -522,13 +522,13 @@
      }
     },
     "eligibility": {
-     "value": "Juridisk person; måste ha ett SBAB-konto sedan tidigare",
-     "quote": "För att öppna ett placeringskonto behöver ni först ha ett SBAB-konto hos oss.",
+     "value": "Endast juridiska personer; kontot kräver ett befintligt SBAB-konto",
+     "quote": "Kontot kan endast öppnas av juridiska personer, dock ej en bank",
      "source": 2,
-     "status": "osäkert",
+     "status": "belagt",
      "jev": {
-      "verdict": "contradicts",
-      "confidence": 0.37
+      "verdict": "supports",
+      "confidence": 0.86
      }
     },
     "requires_other_products": {
@@ -538,7 +538,7 @@
      "status": "osäkert",
      "jev": {
       "verdict": "contradicts",
-      "confidence": 0.53
+      "confidence": 0.64
      }
     },
     "intro_rate": {
@@ -548,13 +548,13 @@
      "status": "okänt"
     },
     "interest_paid": {
-     "value": "Vid bindningstidens slut (en gång)",
+     "value": "Vid bindningstidens slut",
      "quote": "Räntan på er placering betalas ut en gång oavsett vilken bindningstid ni valde på kontot från början.",
      "source": 2,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.2
+      "confidence": 0.3
      }
     },
     "guarantee_country": {
@@ -568,13 +568,13 @@
      }
     },
     "guarantee_amount": {
-     "value": "1 150 000 kronor",
-     "quote": "med ett belopp om högst 1 150 000 kronor",
+     "value": "1 150 000 kr",
+     "quote": "garanteras varje kund ersättning för sin sammanlagda behållning i SBAB på konton som omfattas av insättningsgarantin med ett belopp om högst 1 150 000 kronor.",
      "source": 4,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.53
+      "confidence": 0.2
      }
     },
     "rate_valid_from": {
@@ -594,14 +594,14 @@
    "fields": {
     "product_type": {
      "value": null,
-     "quote": "Placeringskonto är ett inlåningskonto avsett för juridiska personers sparändamål och som löper med fast ränta under en tidsbestämd bindningstid",
+     "quote": "Placeringskonto är ett inlåningskonto med bunden ränta",
      "source": 4,
      "status": "citat hittades inte",
      "claimed": "fasträntekonto"
     },
     "rate_percent": {
-     "value": 2.79,
-     "quote": "| 1 år | 2,79 % | 2027-11-12 |",
+     "value": 2.82,
+     "quote": "1 år | 2,82 % | 2027-11-17",
      "source": 2,
      "status": "belagt"
     },
@@ -612,23 +612,23 @@
      "status": "osäkert",
      "jev": {
       "verdict": "contradicts",
-      "confidence": 0.19
+      "confidence": 0.28
      }
     },
     "binding_months": {
      "value": 12,
-     "quote": "| 1 år | 2,79 % | 2027-11-12 |",
+     "quote": "1 år | 2,82 % | 2027-11-17",
      "source": 2,
      "status": "belagt"
     },
     "withdrawals": {
      "value": "mot avgift",
-     "quote": "Avsluta placering på Placeringskonto i förtid | 5 000 kr + RSE* |",
+     "quote": "Avsluta placering på Placeringskonto i förtid | 5 000 kr + RSE*",
      "source": 2,
-     "status": "belagt",
+     "status": "osäkert",
      "jev": {
-      "verdict": "supports",
-      "confidence": 0.24
+      "verdict": "contradicts",
+      "confidence": 0.26
      }
     },
     "free_withdrawals_per_year": {
@@ -638,13 +638,13 @@
      "status": "okänt"
     },
     "withdrawal_terms": {
-     "value": "Låst under bindningstiden; förtida avslut kostar 5 000 kr + ränteskillnadsersättning (RSE).",
+     "value": "Under bindningstiden endast förtida avslut: 5 000 kr + ränteskillnadsersättning (RSE).",
      "quote": "Avsluta placering på Placeringskonto i förtid | 5 000 kr + RSE*",
      "source": 2,
-     "status": "osäkert",
+     "status": "belagt",
      "jev": {
-      "verdict": "contradicts",
-      "confidence": 0.26
+      "verdict": "supports",
+      "confidence": 0.22
      }
     },
     "min_deposit_sek": {
@@ -654,17 +654,17 @@
      "status": "osäkert",
      "jev": {
       "verdict": "contradicts",
-      "confidence": 0.42
+      "confidence": 0.53
      }
     },
     "max_deposit_sek": {
      "value": 50000000,
-     "quote": "största möjliga placering är 50 000 000 kronor per konto och dag",
+     "quote": "största möjliga placering är 50 000 000 kronor per konto och dag.",
      "source": 2,
      "status": "osäkert",
      "jev": {
       "verdict": "contradicts",
-      "confidence": 0.28
+      "confidence": 0.18
      }
     },
     "monthly_deposit_cap_sek": {
@@ -684,13 +684,13 @@
      }
     },
     "eligibility": {
-     "value": "Juridisk person; måste ha ett SBAB-konto sedan tidigare",
-     "quote": "För att öppna ett placeringskonto behöver ni först ha ett SBAB-konto hos oss.",
+     "value": "Endast juridiska personer; kontot kräver ett befintligt SBAB-konto",
+     "quote": "Kontot kan endast öppnas av juridiska personer, dock ej en bank",
      "source": 2,
-     "status": "osäkert",
+     "status": "belagt",
      "jev": {
-      "verdict": "contradicts",
-      "confidence": 0.33
+      "verdict": "supports",
+      "confidence": 0.86
      }
     },
     "requires_other_products": {
@@ -700,7 +700,7 @@
      "status": "osäkert",
      "jev": {
       "verdict": "contradicts",
-      "confidence": 0.62
+      "confidence": 0.61
      }
     },
     "intro_rate": {
@@ -710,13 +710,13 @@
      "status": "okänt"
     },
     "interest_paid": {
-     "value": "Vid bindningstidens slut (en gång)",
+     "value": "Vid bindningstidens slut",
      "quote": "Räntan på er placering betalas ut en gång oavsett vilken bindningstid ni valde på kontot från början.",
      "source": 2,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.22
+      "confidence": 0.28
      }
     },
     "guarantee_country": {
@@ -730,13 +730,13 @@
      }
     },
     "guarantee_amount": {
-     "value": "1 150 000 kronor",
-     "quote": "med ett belopp om högst 1 150 000 kronor",
+     "value": "1 150 000 kr",
+     "quote": "garanteras varje kund ersättning för sin sammanlagda behållning i SBAB på konton som omfattas av insättningsgarantin med ett belopp om högst 1 150 000 kronor.",
      "source": 4,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.6
+      "confidence": 0.22
      }
     },
     "rate_valid_from": {
@@ -756,14 +756,14 @@
    "fields": {
     "product_type": {
      "value": null,
-     "quote": "Placeringskonto är ett inlåningskonto avsett för juridiska personers sparändamål och som löper med fast ränta under en tidsbestämd bindningstid",
+     "quote": "Placeringskonto är ett inlåningskonto med bunden ränta",
      "source": 4,
      "status": "citat hittades inte",
      "claimed": "fasträntekonto"
     },
     "rate_percent": {
-     "value": 3.04,
-     "quote": "| 2 år | 3,04 % | 2028-11-10 |",
+     "value": 3.1,
+     "quote": "2 år | 3,10 % | 2028-11-17",
      "source": 2,
      "status": "belagt"
     },
@@ -774,23 +774,23 @@
      "status": "osäkert",
      "jev": {
       "verdict": "contradicts",
-      "confidence": 0.16
+      "confidence": 0.24
      }
     },
     "binding_months": {
      "value": 24,
-     "quote": "| 2 år | 3,04 % | 2028-11-10 |",
+     "quote": "2 år | 3,10 % | 2028-11-17",
      "source": 2,
      "status": "belagt"
     },
     "withdrawals": {
      "value": "mot avgift",
-     "quote": "Avsluta placering på Placeringskonto i förtid | 5 000 kr + RSE* |",
+     "quote": "Avsluta placering på Placeringskonto i förtid | 5 000 kr + RSE*",
      "source": 2,
-     "status": "belagt",
+     "status": "osäkert",
      "jev": {
-      "verdict": "supports",
-      "confidence": 0.43
+      "verdict": "contradicts",
+      "confidence": 0.13
      }
     },
     "free_withdrawals_per_year": {
@@ -800,13 +800,13 @@
      "status": "okänt"
     },
     "withdrawal_terms": {
-     "value": "Låst under bindningstiden; förtida avslut kostar 5 000 kr + ränteskillnadsersättning (RSE).",
+     "value": "Under bindningstiden endast förtida avslut: 5 000 kr + ränteskillnadsersättning (RSE).",
      "quote": "Avsluta placering på Placeringskonto i förtid | 5 000 kr + RSE*",
      "source": 2,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.25
+      "confidence": 0.24
      }
     },
     "min_deposit_sek": {
@@ -816,17 +816,17 @@
      "status": "osäkert",
      "jev": {
       "verdict": "contradicts",
-      "confidence": 0.49
+      "confidence": 0.5
      }
     },
     "max_deposit_sek": {
      "value": 50000000,
-     "quote": "största möjliga placering är 50 000 000 kronor per konto och dag",
+     "quote": "största möjliga placering är 50 000 000 kronor per konto och dag.",
      "source": 2,
      "status": "osäkert",
      "jev": {
       "verdict": "contradicts",
-      "confidence": 0.24
+      "confidence": 0.19
      }
     },
     "monthly_deposit_cap_sek": {
@@ -846,13 +846,13 @@
      }
     },
     "eligibility": {
-     "value": "Juridisk person; måste ha ett SBAB-konto sedan tidigare",
-     "quote": "För att öppna ett placeringskonto behöver ni först ha ett SBAB-konto hos oss.",
+     "value": "Endast juridiska personer; kontot kräver ett befintligt SBAB-konto",
+     "quote": "Kontot kan endast öppnas av juridiska personer, dock ej en bank",
      "source": 2,
-     "status": "osäkert",
+     "status": "belagt",
      "jev": {
-      "verdict": "contradicts",
-      "confidence": 0.42
+      "verdict": "supports",
+      "confidence": 0.83
      }
     },
     "requires_other_products": {
@@ -862,7 +862,7 @@
      "status": "osäkert",
      "jev": {
       "verdict": "contradicts",
-      "confidence": 0.61
+      "confidence": 0.53
      }
     },
     "intro_rate": {
@@ -872,13 +872,13 @@
      "status": "okänt"
     },
     "interest_paid": {
-     "value": "Vid bindningstidens slut (en gång)",
+     "value": "Vid bindningstidens slut",
      "quote": "Räntan på er placering betalas ut en gång oavsett vilken bindningstid ni valde på kontot från början.",
      "source": 2,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.28
+      "confidence": 0.22
      }
     },
     "guarantee_country": {
@@ -892,13 +892,13 @@
      }
     },
     "guarantee_amount": {
-     "value": "1 150 000 kronor",
-     "quote": "med ett belopp om högst 1 150 000 kronor",
+     "value": "1 150 000 kr",
+     "quote": "garanteras varje kund ersättning för sin sammanlagda behållning i SBAB på konton som omfattas av insättningsgarantin med ett belopp om högst 1 150 000 kronor.",
      "source": 4,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.61
+      "confidence": 0.11
      }
     },
     "rate_valid_from": {
@@ -918,14 +918,14 @@
    "fields": {
     "product_type": {
      "value": null,
-     "quote": "Placeringskonto är ett inlåningskonto avsett för juridiska personers sparändamål och som löper med fast ränta under en tidsbestämd bindningstid",
+     "quote": "Placeringskonto är ett inlåningskonto med bunden ränta",
      "source": 4,
      "status": "citat hittades inte",
      "claimed": "fasträntekonto"
     },
     "rate_percent": {
-     "value": 3.15,
-     "quote": "| 3 år | 3,15 % | 2029-11-12 |",
+     "value": 3.22,
+     "quote": "3 år | 3,22 % | 2029-11-16",
      "source": 2,
      "status": "belagt"
     },
@@ -936,23 +936,23 @@
      "status": "osäkert",
      "jev": {
       "verdict": "contradicts",
-      "confidence": 0.24
+      "confidence": 0.2
      }
     },
     "binding_months": {
      "value": 36,
-     "quote": "| 3 år | 3,15 % | 2029-11-12 |",
+     "quote": "3 år | 3,22 % | 2029-11-16",
      "source": 2,
      "status": "belagt"
     },
     "withdrawals": {
      "value": "mot avgift",
-     "quote": "Avsluta placering på Placeringskonto i förtid | 5 000 kr + RSE* |",
+     "quote": "Avsluta placering på Placeringskonto i förtid | 5 000 kr + RSE*",
      "source": 2,
-     "status": "belagt",
+     "status": "osäkert",
      "jev": {
-      "verdict": "supports",
-      "confidence": 0.44
+      "verdict": "contradicts",
+      "confidence": 0.24
      }
     },
     "free_withdrawals_per_year": {
@@ -962,13 +962,13 @@
      "status": "okänt"
     },
     "withdrawal_terms": {
-     "value": "Låst under bindningstiden; förtida avslut kostar 5 000 kr + ränteskillnadsersättning (RSE).",
+     "value": "Under bindningstiden endast förtida avslut: 5 000 kr + ränteskillnadsersättning (RSE).",
      "quote": "Avsluta placering på Placeringskonto i förtid | 5 000 kr + RSE*",
      "source": 2,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.19
+      "confidence": 0.31
      }
     },
     "min_deposit_sek": {
@@ -983,12 +983,12 @@
     },
     "max_deposit_sek": {
      "value": 50000000,
-     "quote": "största möjliga placering är 50 000 000 kronor per konto och dag",
+     "quote": "största möjliga placering är 50 000 000 kronor per konto och dag.",
      "source": 2,
      "status": "osäkert",
      "jev": {
-      "verdict": "contradicts",
-      "confidence": 0.2
+      "verdict": "says_nothing",
+      "confidence": 0.11
      }
     },
     "monthly_deposit_cap_sek": {
@@ -1008,13 +1008,13 @@
      }
     },
     "eligibility": {
-     "value": "Juridisk person; måste ha ett SBAB-konto sedan tidigare",
-     "quote": "För att öppna ett placeringskonto behöver ni först ha ett SBAB-konto hos oss.",
+     "value": "Endast juridiska personer; kontot kräver ett befintligt SBAB-konto",
+     "quote": "Kontot kan endast öppnas av juridiska personer, dock ej en bank",
      "source": 2,
-     "status": "osäkert",
+     "status": "belagt",
      "jev": {
-      "verdict": "contradicts",
-      "confidence": 0.42
+      "verdict": "supports",
+      "confidence": 0.86
      }
     },
     "requires_other_products": {
@@ -1024,7 +1024,7 @@
      "status": "osäkert",
      "jev": {
       "verdict": "contradicts",
-      "confidence": 0.62
+      "confidence": 0.53
      }
     },
     "intro_rate": {
@@ -1034,13 +1034,13 @@
      "status": "okänt"
     },
     "interest_paid": {
-     "value": "Vid bindningstidens slut (en gång)",
+     "value": "Vid bindningstidens slut",
      "quote": "Räntan på er placering betalas ut en gång oavsett vilken bindningstid ni valde på kontot från början.",
      "source": 2,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.22
+      "confidence": 0.28
      }
     },
     "guarantee_country": {
@@ -1054,13 +1054,13 @@
      }
     },
     "guarantee_amount": {
-     "value": "1 150 000 kronor",
-     "quote": "med ett belopp om högst 1 150 000 kronor",
+     "value": "1 150 000 kr",
+     "quote": "garanteras varje kund ersättning för sin sammanlagda behållning i SBAB på konton som omfattas av insättningsgarantin med ett belopp om högst 1 150 000 kronor.",
      "source": 4,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.52
+      "confidence": 0.18
      }
     },
     "rate_valid_from": {
@@ -1080,14 +1080,14 @@
    "fields": {
     "product_type": {
      "value": null,
-     "quote": "Placeringskonto är ett inlåningskonto avsett för juridiska personers sparändamål och som löper med fast ränta under en tidsbestämd bindningstid",
+     "quote": "Placeringskonto är ett inlåningskonto med bunden ränta",
      "source": 4,
      "status": "citat hittades inte",
      "claimed": "fasträntekonto"
     },
     "rate_percent": {
-     "value": 3.23,
-     "quote": "| 4 år | 3,23 % | 2030-11-12 |",
+     "value": 3.31,
+     "quote": "4 år | 3,31 % | 2030-11-15",
      "source": 2,
      "status": "belagt"
     },
@@ -1098,23 +1098,23 @@
      "status": "osäkert",
      "jev": {
       "verdict": "contradicts",
-      "confidence": 0.2
+      "confidence": 0.24
      }
     },
     "binding_months": {
      "value": 48,
-     "quote": "| 4 år | 3,23 % | 2030-11-12 |",
+     "quote": "4 år | 3,31 % | 2030-11-15",
      "source": 2,
      "status": "belagt"
     },
     "withdrawals": {
      "value": "mot avgift",
-     "quote": "Avsluta placering på Placeringskonto i förtid | 5 000 kr + RSE* |",
+     "quote": "Avsluta placering på Placeringskonto i förtid | 5 000 kr + RSE*",
      "source": 2,
-     "status": "belagt",
+     "status": "osäkert",
      "jev": {
-      "verdict": "supports",
-      "confidence": 0.28
+      "verdict": "contradicts",
+      "confidence": 0.31
      }
     },
     "free_withdrawals_per_year": {
@@ -1124,13 +1124,13 @@
      "status": "okänt"
     },
     "withdrawal_terms": {
-     "value": "Låst under bindningstiden; förtida avslut kostar 5 000 kr + ränteskillnadsersättning (RSE).",
+     "value": "Under bindningstiden endast förtida avslut: 5 000 kr + ränteskillnadsersättning (RSE).",
      "quote": "Avsluta placering på Placeringskonto i förtid | 5 000 kr + RSE*",
      "source": 2,
-     "status": "osäkert",
+     "status": "belagt",
      "jev": {
-      "verdict": "contradicts",
-      "confidence": 0.19
+      "verdict": "supports",
+      "confidence": 0.31
      }
     },
     "min_deposit_sek": {
@@ -1140,17 +1140,17 @@
      "status": "osäkert",
      "jev": {
       "verdict": "contradicts",
-      "confidence": 0.43
+      "confidence": 0.53
      }
     },
     "max_deposit_sek": {
      "value": 50000000,
-     "quote": "största möjliga placering är 50 000 000 kronor per konto och dag",
+     "quote": "största möjliga placering är 50 000 000 kronor per konto och dag.",
      "source": 2,
      "status": "osäkert",
      "jev": {
-      "verdict": "contradicts",
-      "confidence": 0.22
+      "verdict": "says_nothing",
+      "confidence": 0.16
      }
     },
     "monthly_deposit_cap_sek": {
@@ -1170,13 +1170,13 @@
      }
     },
     "eligibility": {
-     "value": "Juridisk person; måste ha ett SBAB-konto sedan tidigare",
-     "quote": "För att öppna ett placeringskonto behöver ni först ha ett SBAB-konto hos oss.",
+     "value": "Endast juridiska personer; kontot kräver ett befintligt SBAB-konto",
+     "quote": "Kontot kan endast öppnas av juridiska personer, dock ej en bank",
      "source": 2,
-     "status": "osäkert",
+     "status": "belagt",
      "jev": {
-      "verdict": "contradicts",
-      "confidence": 0.37
+      "verdict": "supports",
+      "confidence": 0.85
      }
     },
     "requires_other_products": {
@@ -1186,7 +1186,7 @@
      "status": "osäkert",
      "jev": {
       "verdict": "contradicts",
-      "confidence": 0.66
+      "confidence": 0.61
      }
     },
     "intro_rate": {
@@ -1196,13 +1196,13 @@
      "status": "okänt"
     },
     "interest_paid": {
-     "value": "Vid bindningstidens slut (en gång)",
+     "value": "Vid bindningstidens slut",
      "quote": "Räntan på er placering betalas ut en gång oavsett vilken bindningstid ni valde på kontot från början.",
      "source": 2,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.19
+      "confidence": 0.28
      }
     },
     "guarantee_country": {
@@ -1216,13 +1216,13 @@
      }
     },
     "guarantee_amount": {
-     "value": "1 150 000 kronor",
-     "quote": "med ett belopp om högst 1 150 000 kronor",
+     "value": "1 150 000 kr",
+     "quote": "garanteras varje kund ersättning för sin sammanlagda behållning i SBAB på konton som omfattas av insättningsgarantin med ett belopp om högst 1 150 000 kronor.",
      "source": 4,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.49
+      "confidence": 0.31
      }
     },
     "rate_valid_from": {
@@ -1242,14 +1242,14 @@
    "fields": {
     "product_type": {
      "value": null,
-     "quote": "Placeringskonto är ett inlåningskonto avsett för juridiska personers sparändamål och som löper med fast ränta under en tidsbestämd bindningstid",
+     "quote": "Placeringskonto är ett inlåningskonto med bunden ränta",
      "source": 4,
      "status": "citat hittades inte",
      "claimed": "fasträntekonto"
     },
     "rate_percent": {
-     "value": 3.31,
-     "quote": "| 5 år | 3,31 % | 2031-11-12 |",
+     "value": 3.39,
+     "quote": "5 år | 3,39 % | 2031-11-17",
      "source": 2,
      "status": "belagt"
     },
@@ -1260,23 +1260,23 @@
      "status": "osäkert",
      "jev": {
       "verdict": "contradicts",
-      "confidence": 0.16
+      "confidence": 0.2
      }
     },
     "binding_months": {
      "value": 60,
-     "quote": "| 5 år | 3,31 % | 2031-11-12 |",
+     "quote": "5 år | 3,39 % | 2031-11-17",
      "source": 2,
      "status": "belagt"
     },
     "withdrawals": {
      "value": "mot avgift",
-     "quote": "Avsluta placering på Placeringskonto i förtid | 5 000 kr + RSE* |",
+     "quote": "Avsluta placering på Placeringskonto i förtid | 5 000 kr + RSE*",
      "source": 2,
-     "status": "belagt",
+     "status": "osäkert",
      "jev": {
-      "verdict": "supports",
-      "confidence": 0.22
+      "verdict": "contradicts",
+      "confidence": 0.28
      }
     },
     "free_withdrawals_per_year": {
@@ -1286,13 +1286,13 @@
      "status": "okänt"
     },
     "withdrawal_terms": {
-     "value": "Låst under bindningstiden; förtida avslut kostar 5 000 kr + ränteskillnadsersättning (RSE).",
+     "value": "Under bindningstiden endast förtida avslut: 5 000 kr + ränteskillnadsersättning (RSE).",
      "quote": "Avsluta placering på Placeringskonto i förtid | 5 000 kr + RSE*",
      "source": 2,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.2
+      "confidence": 0.35
      }
     },
     "min_deposit_sek": {
@@ -1302,17 +1302,17 @@
      "status": "osäkert",
      "jev": {
       "verdict": "contradicts",
-      "confidence": 0.49
+      "confidence": 0.5
      }
     },
     "max_deposit_sek": {
      "value": 50000000,
-     "quote": "största möjliga placering är 50 000 000 kronor per konto och dag",
+     "quote": "största möjliga placering är 50 000 000 kronor per konto och dag.",
      "source": 2,
      "status": "osäkert",
      "jev": {
       "verdict": "contradicts",
-      "confidence": 0.2
+      "confidence": 0.22
      }
     },
     "monthly_deposit_cap_sek": {
@@ -1332,13 +1332,13 @@
      }
     },
     "eligibility": {
-     "value": "Juridisk person; måste ha ett SBAB-konto sedan tidigare",
-     "quote": "För att öppna ett placeringskonto behöver ni först ha ett SBAB-konto hos oss.",
+     "value": "Endast juridiska personer; kontot kräver ett befintligt SBAB-konto",
+     "quote": "Kontot kan endast öppnas av juridiska personer, dock ej en bank",
      "source": 2,
-     "status": "osäkert",
+     "status": "belagt",
      "jev": {
-      "verdict": "contradicts",
-      "confidence": 0.52
+      "verdict": "supports",
+      "confidence": 0.88
      }
     },
     "requires_other_products": {
@@ -1348,7 +1348,7 @@
      "status": "osäkert",
      "jev": {
       "verdict": "contradicts",
-      "confidence": 0.6
+      "confidence": 0.62
      }
     },
     "intro_rate": {
@@ -1358,13 +1358,13 @@
      "status": "okänt"
     },
     "interest_paid": {
-     "value": "Vid bindningstidens slut (en gång)",
+     "value": "Vid bindningstidens slut",
      "quote": "Räntan på er placering betalas ut en gång oavsett vilken bindningstid ni valde på kontot från början.",
      "source": 2,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.25
+      "confidence": 0.31
      }
     },
     "guarantee_country": {
@@ -1378,13 +1378,13 @@
      }
     },
     "guarantee_amount": {
-     "value": "1 150 000 kronor",
-     "quote": "med ett belopp om högst 1 150 000 kronor",
+     "value": "1 150 000 kr",
+     "quote": "garanteras varje kund ersättning för sin sammanlagda behållning i SBAB på konton som omfattas av insättningsgarantin med ett belopp om högst 1 150 000 kronor.",
      "source": 4,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.6
+      "confidence": 0.19
      }
     },
     "rate_valid_from": {
@@ -1399,7 +1399,7 @@
    "status": "verifierad"
   }
  ],
- "source_hash": "767f50cb37c20f97",
- "changed_at": "2026-11-12T03:30:46+00:00",
+ "source_hash": "128ac904e886d691",
+ "changed_at": "2026-11-17T19:40:49+00:00",
  "model": "claude-haiku-5-5"
 }

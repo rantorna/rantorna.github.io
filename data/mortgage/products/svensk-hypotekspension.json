@@ -7,9 +7,16 @@
   "kind": "nischbank",
   "legal_name": "Svensk Hypotekspension AB"
  },
- "checked_at": "2026-11-14T03:04:32+00:00",
- "discovered_at": "2026-10-20T02:11:32+00:00",
+ "checked_at": "2026-11-17T19:12:24+00:00",
+ "discovered_at": "2026-11-17T19:12:24+00:00",
  "sources": [
+  {
+   "url": "https://www.hypotekspension.se/sa-fungerar-det/sa-mycket-kan-du-lana/",
+   "title": "Så mycket kan du låna | Så fungerar det | Svensk Hypotekspension",
+   "kind": "html",
+   "via": "browser",
+   "chars": 9221
+  },
   {
    "url": "https://www.hypotekspension.se",
    "title": "Startsidan  | Svensk Hypotekspension",
@@ -46,13 +53,6 @@
    "chars": 10125
   },
   {
-   "url": "https://www.hypotekspension.se/",
-   "title": "Startsidan  | Svensk Hypotekspension",
-   "kind": "html",
-   "via": "http",
-   "chars": 4615
-  },
-  {
    "url": "https://www.hypotekspension.se/sa-fungerar-det/",
    "title": "Så fungerar det | Svensk Hypotekspension",
    "kind": "html",
@@ -60,53 +60,48 @@
    "chars": 695
   },
   {
+   "url": "https://www.hypotekspension.se/",
+   "title": "Startsidan  | Svensk Hypotekspension",
+   "kind": "html",
+   "via": "http",
+   "chars": 4615
+  },
+  {
    "url": "https://www.hypotekspension.se/sa-fungerar-det/sa-mycket-kan-du-lana/",
    "title": "Så mycket kan du låna | Så fungerar det | Svensk Hypotekspension",
    "kind": "html",
    "via": "browser",
    "chars": 9221
-  },
-  {
-   "url": "https://www.hypotekspension.se/sa-fungerar-det/ranta-och-villkor/[/",
-   "title": "Så fungerar det | Svensk Hypotekspension",
-   "kind": "html",
-   "via": "http",
-   "chars": 695
   }
  ],
  "status": "ok",
- "notes": "Svensk Hypotekspension erbjuder ett seniorlån (ingen amortering, räntan läggs till skulden), inte ett vanligt bolån, och har bara en rörlig ränta med justering var tredje månad, så en produkt med binding_months 3 har angetts. Snitträntan (avg_rate_percent) saknas i källorna och är satt till null. Listräntan 6,10 % gäller enligt sidan \"Ränta och villkor\" utan angivet startdatum. Effektiv ränta 6,35 % avser representativt exempel (700 000 kr, 10 år). Max belåningsgrad 50 % gäller vid 84 års ålder och är åldersberoende. Ingen belåningsgradsprissättning angavs.",
+ "notes": "Endast en produkt finns: Hypotekspension, ett speciallån för pensionärer med rörlig ränta som justeras var tredje månad (Stibor 90 dagar). Inga räntor per bindningstid eller belåningsgrad redovisas. Ingen snittränta (faktisk utlåningsränta per månad) publiceras på webbplatsen, så avg_rate_percent och avg_rate_month är null. Den effektiva räntan 6,35 % avser ett representativt exempel (700 000 kr, 10 år). Max belåningsgrad 50 % avser låneutrymmet för äldsta åldrar, som är en procentandel av bostadens marknadsvärde beroende på ålder. Lånet är amorteringsfritt och räntan läggs till skulden kvartalsvis. Lånebelopp: 100 000 kr till 9 000 000 kr.",
  "products": [
   {
-   "name": "Hypotekspension (rörlig, justeras var tredje månad)",
+   "name": "Rörlig (3 mån)",
    "flags": [],
    "fields": {
     "loan_category": {
      "value": "seniorlån",
      "quote": "Speciallånet för pensionärer som äger sin bostad.",
-     "source": 0,
+     "source": 1,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.8
+      "confidence": 0.83
      }
     },
     "binding_months": {
-     "value": null,
-     "quote": "Räntan för Hypotekspension justeras var tredje månad efter förändringar i refensräntan",
-     "source": 1,
-     "status": "talet finns inte i citatet",
-     "claimed": 3
+     "value": 3,
+     "quote": "Aktuell räntesats är 6,10%. Räntan för Hypotekspension justeras var tredje månad efter förändringar i refensräntan / Stibor 90 dagar",
+     "source": 2,
+     "status": "belagt"
     },
     "rate_percent": {
      "value": 6.1,
-     "quote": "Aktuell räntesats är 6,10%.",
-     "source": 1,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.73
-     }
+     "quote": "Aktuell räntesats är 6,10%. Räntan för Hypotekspension justeras var tredje månad efter förändringar i refensräntan / Stibor 90 dagar",
+     "source": 2,
+     "status": "belagt"
     },
     "avg_rate_percent": {
      "value": null,
@@ -122,12 +117,12 @@
     },
     "effective_rate_percent": {
      "value": 6.35,
-     "quote": "räntan 6,35%. Detta förutsätter att inga avbetalningar görs under löptiden.",
-     "source": 1,
+     "quote": "blir den effektiva räntan 6,35%",
+     "source": 2,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 1.0
+      "confidence": 0.56
      }
     },
     "rate_valid_from": {
@@ -143,13 +138,13 @@
      "status": "okänt"
     },
     "discounts": {
-     "value": "Grön ränterabatt 0,25 procentenheter för bostad med energiklass A eller B, eller vid vissa energiinvesteringar",
+     "value": "Grön ränterabatt 0,25 procentenheter om bostaden har energiklass A eller B, eller vid vissa energiinvesteringar",
      "quote": "Bor du i en byggnad med Energiklassning A och B är du kvalificerad för en ränterabatt på 0,25 procentenheter på din Hypotekspension.",
-     "source": 3,
+     "source": 4,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 1.0
+      "confidence": 0.86
      }
     },
     "requires_other_products": {
@@ -162,30 +157,30 @@
     "max_ltv_percent": {
      "value": 50,
      "quote": "Procentandelen ökar gradvis från 25%, vid 60 års ålder upp till 50% vid 84 års ålder.",
-     "source": 7,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 1.0
-     }
-    },
-    "eligibility": {
-     "value": "Pensionärer över 60 år som äger sin bostad",
-     "quote": "Är du över 60 år och äger din bostad?",
      "source": 0,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 1.0
+      "confidence": 0.68
+     }
+    },
+    "eligibility": {
+     "value": "Ägare av bostad, 60 år eller äldre",
+     "quote": "Är du över 60 år och äger din bostad?",
+     "source": 1,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.74
      }
     }
    },
    "rate_tiers": [],
    "pending_rate": null,
-   "status": "delvis verifierad"
+   "status": "verifierad"
   }
  ],
- "source_hash": "402038eead9b9420",
- "changed_at": "2026-10-20T02:11:32+00:00",
+ "source_hash": "12fc3aa008f588b3",
+ "changed_at": "2026-11-17T19:12:24+00:00",
  "model": "claude-haiku-5-5"
 }

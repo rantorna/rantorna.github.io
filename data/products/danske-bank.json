@@ -7,7 +7,7 @@
   "kind": "utlandsk_bank",
   "legal_name": "Danske Bank A/S"
  },
- "checked_at": "2026-11-17T01:28:34+00:00",
+ "checked_at": "2026-11-17T17:45:42+00:00",
  "discovered_at": "2026-10-26T01:18:29+00:00",
  "sources": [
   {
@@ -95,26 +95,27 @@
    "chars": 149015
   }
  ],
- "status": "senaste tolkning misslyckades (Error code: 401 - {'type': 'error', 'error': {'type': 'authentication_error', 'm)",
- "notes": "Sparkonto Barn utelämnat eftersom det är ett barnkonto. ISK/depåer och konton för särskilda ändamål är utelämnade. Sparkonto XL har en variant för fackmedlem i TCO/Saco (0,35 %) som tagits med som egen produkt; medlemskapet är inte ett betalpaket, så requires_other_products är satt till false för den varianten. Sparkonto XL-villkoren (källa 11) är från villkorsboken fr o m 1 mars 2025; sidan anger även en version gällande fr o m 2026-12-07 utan innehållsutdrag. Räntorna för Sparkonto XL, Sparkonto Barn och HSB Bosparkonto anges \"f.n.\" och kan ändras. För HSB Bosparkonto finns inga uppgifter om insättningsregler, uttag eller utbetalning av ränta i källorna. Fasträntekonto-raderna är nominell årsränta (räntesats årsbasis); effektiv ränta har inte använts. Insättningsgarantin: danska Garantiformuen med svenskt tillägg upp till 1 150 000 kr; garantibeloppet angivet i euro som i källan.",
+ "status": "ok",
+ "notes": "Sparkonto Barn är utelämnat eftersom barnkonton ska hoppas över. Sparkonto XL: 0,30 % är standardräntan; 0,50 % för fackmedlemmar (TCO/Saco) är tagen som egen variant, utan betalpaket. Dokumenten anger inte tydligt om fackmedlemsräntan kräver något annat. Sparkonto-räntan: trappan i källan är “> 100 000 kr” och liknande, så gränsen 100 000 kr är ungefärlig. Räntan 0,15 % gäller för 100 000 kr. Sparkonto XL kräver enligt villkorsboken (2025) även Danske konto eller Danske Exklusiv för att öppnas; detta är inte tagit med som krav för räntan. Villkorsboken hänvisar till “Villkorsbok Privat (gällande fr o m 2026-12-07)” men dess räntebelopp är inte angivna. Aktuella räntor för HSB Bosparkonto finns bara i översiktssidan, utan villkor, så övriga fält är tomma. Fasträntekonto: fast ränta på webbsidan; räntan för 100 000 kr anges inte separat.",
  "products": [
   {
    "name": "Fasträntekonto 3 mån",
    "flags": [],
    "fields": {
     "product_type": {
-     "value": "fasträntekonto",
+     "value": null,
      "quote": "För dig som vill placera pengar under en viss tid med förutbestämd ränta",
      "source": 3,
-     "status": "osäkert",
+     "status": "stöds inte av källan",
      "jev": {
       "verdict": "says_nothing",
-      "confidence": 0.74
-     }
+      "confidence": 0.8
+     },
+     "claimed": "fasträntekonto"
     },
     "rate_percent": {
      "value": 2.0,
-     "quote": "3 månader | 2,00 % | 2,02 %",
+     "quote": "| 3 månader | 2,00 % | 2,02 % |",
      "source": 3,
      "status": "belagt"
     },
@@ -125,13 +126,13 @@
      "status": "stöds inte av källan",
      "jev": {
       "verdict": "says_nothing",
-      "confidence": 0.91
+      "confidence": 0.89
      },
      "claimed": "fast"
     },
     "binding_months": {
      "value": 3,
-     "quote": "3 månader | 2,00 % | 2,02 %",
+     "quote": "| 3 månader | 2,00 % | 2,02 % |",
      "source": 3,
      "status": "belagt"
     },
@@ -152,7 +153,7 @@
      "status": "okänt"
     },
     "withdrawal_terms": {
-     "value": "Uttag i förtid mot avgift: 1–5 % av uttaget kapital beroende på kvarvarande löptid, minst 1 000 kr.",
+     "value": "Uttag i förtid mot avgift: 1–5 % av uttaget beroende på kvarvarande löptid, minst 1 000 kr",
      "quote": "Avgift vid förtidsinlösen av fastränteplacering tas ut på följande vis:",
      "source": 3,
      "status": "belagt",
@@ -188,13 +189,13 @@
      "status": "okänt"
     },
     "deposit_terms": {
-     "value": "Engångsinsättning vid öppnandet, minst 10 000 kr",
-     "quote": "Storleken på sparbeloppet bestämmer du när kontot öppnas och hela beloppet sätts in.",
-     "source": 3,
+     "value": "Engångsinsättning vid öppning, från annat konto i banken",
+     "quote": "Inbetalning till kontot kan endast ske genom överföring från annat konto i Banken och endast i samband med öppnande av kontot.",
+     "source": 11,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.89
+      "confidence": 0.76
      }
     },
     "eligibility": {
@@ -216,23 +217,23 @@
      "status": "okänt"
     },
     "interest_paid": {
-     "value": "vid bindningstidens slut (förfallodagen)",
+     "value": "Vid bindningstidens slut (förfallodagen)",
      "quote": "Räntan betalas ut på förfallodagen.",
      "source": 3,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.98
+      "confidence": 1.0
      }
     },
     "guarantee_country": {
      "value": "DK",
-     "quote": "Bankens konton omfattas av den danska insättningsgarantin (Garantiformuen)",
+     "quote": "Bankens konton omfattas av den danska insättningsgarantin (Garantiformuen) med ett kompletterande skydd från den svenska statliga insättningsgarantin.",
      "source": 3,
      "status": "osäkert",
      "jev": {
-      "verdict": "contradicts",
-      "confidence": 0.1
+      "verdict": "says_nothing",
+      "confidence": 0.14
      }
     },
     "guarantee_amount": {
@@ -261,18 +262,19 @@
    "flags": [],
    "fields": {
     "product_type": {
-     "value": "fasträntekonto",
+     "value": null,
      "quote": "För dig som vill placera pengar under en viss tid med förutbestämd ränta",
      "source": 3,
-     "status": "osäkert",
+     "status": "stöds inte av källan",
      "jev": {
       "verdict": "says_nothing",
-      "confidence": 0.72
-     }
+      "confidence": 0.8
+     },
+     "claimed": "fasträntekonto"
     },
     "rate_percent": {
      "value": 2.2,
-     "quote": "6 månader | 2,20 % | 2,21 %",
+     "quote": "| 6 månader | 2,20 % | 2,21 % |",
      "source": 3,
      "status": "belagt"
     },
@@ -283,13 +285,13 @@
      "status": "stöds inte av källan",
      "jev": {
       "verdict": "says_nothing",
-      "confidence": 0.88
+      "confidence": 0.92
      },
      "claimed": "fast"
     },
     "binding_months": {
      "value": 6,
-     "quote": "6 månader | 2,20 % | 2,21 %",
+     "quote": "| 6 månader | 2,20 % | 2,21 % |",
      "source": 3,
      "status": "belagt"
     },
@@ -310,13 +312,13 @@
      "status": "okänt"
     },
     "withdrawal_terms": {
-     "value": "Uttag i förtid mot avgift: 1–5 % av uttaget kapital beroende på kvarvarande löptid, minst 1 000 kr.",
+     "value": "Uttag i förtid mot avgift: 1–5 % av uttaget beroende på kvarvarande löptid, minst 1 000 kr",
      "quote": "Avgift vid förtidsinlösen av fastränteplacering tas ut på följande vis:",
      "source": 3,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.92
+      "confidence": 0.89
      }
     },
     "min_deposit_sek": {
@@ -346,13 +348,13 @@
      "status": "okänt"
     },
     "deposit_terms": {
-     "value": "Engångsinsättning vid öppnandet, minst 10 000 kr",
-     "quote": "Storleken på sparbeloppet bestämmer du när kontot öppnas och hela beloppet sätts in.",
-     "source": 3,
+     "value": "Engångsinsättning vid öppning, från annat konto i banken",
+     "quote": "Inbetalning till kontot kan endast ske genom överföring från annat konto i Banken och endast i samband med öppnande av kontot.",
+     "source": 11,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.96
+      "confidence": 0.72
      }
     },
     "eligibility": {
@@ -374,23 +376,23 @@
      "status": "okänt"
     },
     "interest_paid": {
-     "value": "vid bindningstidens slut (förfallodagen)",
+     "value": "Vid bindningstidens slut (förfallodagen)",
      "quote": "Räntan betalas ut på förfallodagen.",
      "source": 3,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.98
+      "confidence": 1.0
      }
     },
     "guarantee_country": {
      "value": "DK",
-     "quote": "Bankens konton omfattas av den danska insättningsgarantin (Garantiformuen)",
+     "quote": "Bankens konton omfattas av den danska insättningsgarantin (Garantiformuen) med ett kompletterande skydd från den svenska statliga insättningsgarantin.",
      "source": 3,
      "status": "osäkert",
      "jev": {
       "verdict": "says_nothing",
-      "confidence": 0.13
+      "confidence": 0.1
      }
     },
     "guarantee_amount": {
@@ -419,18 +421,19 @@
    "flags": [],
    "fields": {
     "product_type": {
-     "value": "fasträntekonto",
+     "value": null,
      "quote": "För dig som vill placera pengar under en viss tid med förutbestämd ränta",
      "source": 3,
-     "status": "osäkert",
+     "status": "stöds inte av källan",
      "jev": {
       "verdict": "says_nothing",
-      "confidence": 0.7
-     }
+      "confidence": 0.8
+     },
+     "claimed": "fasträntekonto"
     },
     "rate_percent": {
      "value": 2.55,
-     "quote": "1 år | 2,55 % | 2,55 %",
+     "quote": "| 1 år | 2,55 % | 2,55 % |",
      "source": 3,
      "status": "belagt"
     },
@@ -447,7 +450,7 @@
     },
     "binding_months": {
      "value": 12,
-     "quote": "1 år | 2,55 % | 2,55 %",
+     "quote": "| 1 år | 2,55 % | 2,55 % |",
      "source": 3,
      "status": "belagt"
     },
@@ -468,13 +471,13 @@
      "status": "okänt"
     },
     "withdrawal_terms": {
-     "value": "Uttag i förtid mot avgift: 1–5 % av uttaget kapital beroende på kvarvarande löptid, minst 1 000 kr.",
+     "value": "Uttag i förtid mot avgift: 1–5 % av uttaget beroende på kvarvarande löptid, minst 1 000 kr",
      "quote": "Avgift vid förtidsinlösen av fastränteplacering tas ut på följande vis:",
      "source": 3,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.97
+      "confidence": 0.94
      }
     },
     "min_deposit_sek": {
@@ -504,13 +507,13 @@
      "status": "okänt"
     },
     "deposit_terms": {
-     "value": "Engångsinsättning vid öppnandet, minst 10 000 kr",
-     "quote": "Storleken på sparbeloppet bestämmer du när kontot öppnas och hela beloppet sätts in.",
-     "source": 3,
+     "value": "Engångsinsättning vid öppning, från annat konto i banken",
+     "quote": "Inbetalning till kontot kan endast ske genom överföring från annat konto i Banken och endast i samband med öppnande av kontot.",
+     "source": 11,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.94
+      "confidence": 0.72
      }
     },
     "eligibility": {
@@ -532,7 +535,7 @@
      "status": "okänt"
     },
     "interest_paid": {
-     "value": "vid bindningstidens slut (förfallodagen)",
+     "value": "Vid bindningstidens slut (förfallodagen)",
      "quote": "Räntan betalas ut på förfallodagen.",
      "source": 3,
      "status": "belagt",
@@ -543,12 +546,12 @@
     },
     "guarantee_country": {
      "value": "DK",
-     "quote": "Bankens konton omfattas av den danska insättningsgarantin (Garantiformuen)",
+     "quote": "Bankens konton omfattas av den danska insättningsgarantin (Garantiformuen) med ett kompletterande skydd från den svenska statliga insättningsgarantin.",
      "source": 3,
      "status": "osäkert",
      "jev": {
-      "verdict": "contradicts",
-      "confidence": 0.16
+      "verdict": "says_nothing",
+      "confidence": 0.1
      }
     },
     "guarantee_amount": {
@@ -583,12 +586,12 @@
      "status": "osäkert",
      "jev": {
       "verdict": "says_nothing",
-      "confidence": 0.72
+      "confidence": 0.79
      }
     },
     "rate_percent": {
      "value": 2.9,
-     "quote": "2 år | 2,90 % | 2,86 %",
+     "quote": "| 2 år | 2,90 % | 2,86 % |",
      "source": 3,
      "status": "belagt"
     },
@@ -599,13 +602,13 @@
      "status": "stöds inte av källan",
      "jev": {
       "verdict": "says_nothing",
-      "confidence": 0.85
+      "confidence": 0.89
      },
      "claimed": "fast"
     },
     "binding_months": {
      "value": 24,
-     "quote": "2 år | 2,90 % | 2,86 %",
+     "quote": "| 2 år | 2,90 % | 2,86 % |",
      "source": 3,
      "status": "belagt"
     },
@@ -626,13 +629,13 @@
      "status": "okänt"
     },
     "withdrawal_terms": {
-     "value": "Uttag i förtid mot avgift: 1–5 % av uttaget kapital beroende på kvarvarande löptid, minst 1 000 kr.",
+     "value": "Uttag i förtid mot avgift: 1–5 % av uttaget beroende på kvarvarande löptid, minst 1 000 kr",
      "quote": "Avgift vid förtidsinlösen av fastränteplacering tas ut på följande vis:",
      "source": 3,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.96
+      "confidence": 0.94
      }
     },
     "min_deposit_sek": {
@@ -662,13 +665,13 @@
      "status": "okänt"
     },
     "deposit_terms": {
-     "value": "Engångsinsättning vid öppnandet, minst 10 000 kr",
-     "quote": "Storleken på sparbeloppet bestämmer du när kontot öppnas och hela beloppet sätts in.",
-     "source": 3,
+     "value": "Engångsinsättning vid öppning, från annat konto i banken",
+     "quote": "Inbetalning till kontot kan endast ske genom överföring från annat konto i Banken och endast i samband med öppnande av kontot.",
+     "source": 11,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.91
+      "confidence": 0.73
      }
     },
     "eligibility": {
@@ -690,7 +693,7 @@
      "status": "okänt"
     },
     "interest_paid": {
-     "value": "vid bindningstidens slut (förfallodagen)",
+     "value": "Vid bindningstidens slut (förfallodagen)",
      "quote": "Räntan betalas ut på förfallodagen.",
      "source": 3,
      "status": "belagt",
@@ -701,12 +704,12 @@
     },
     "guarantee_country": {
      "value": "DK",
-     "quote": "Bankens konton omfattas av den danska insättningsgarantin (Garantiformuen)",
+     "quote": "Bankens konton omfattas av den danska insättningsgarantin (Garantiformuen) med ett kompletterande skydd från den svenska statliga insättningsgarantin.",
      "source": 3,
      "status": "osäkert",
      "jev": {
-      "verdict": "contradicts",
-      "confidence": 0.13
+      "verdict": "says_nothing",
+      "confidence": 0.14
      }
     },
     "guarantee_amount": {
@@ -735,18 +738,19 @@
    "flags": [],
    "fields": {
     "product_type": {
-     "value": "fasträntekonto",
+     "value": null,
      "quote": "För dig som vill placera pengar under en viss tid med förutbestämd ränta",
      "source": 3,
-     "status": "osäkert",
+     "status": "stöds inte av källan",
      "jev": {
       "verdict": "says_nothing",
-      "confidence": 0.74
-     }
+      "confidence": 0.86
+     },
+     "claimed": "fasträntekonto"
     },
     "rate_percent": {
      "value": 3.0,
-     "quote": "3 år | 3,00 % | 2,91 %",
+     "quote": "| 3 år | 3,00 % | 2,91 % |",
      "source": 3,
      "status": "belagt"
     },
@@ -757,13 +761,13 @@
      "status": "stöds inte av källan",
      "jev": {
       "verdict": "says_nothing",
-      "confidence": 0.88
+      "confidence": 0.91
      },
      "claimed": "fast"
     },
     "binding_months": {
      "value": 36,
-     "quote": "3 år | 3,00 % | 2,91 %",
+     "quote": "| 3 år | 3,00 % | 2,91 % |",
      "source": 3,
      "status": "belagt"
     },
@@ -784,13 +788,13 @@
      "status": "okänt"
     },
     "withdrawal_terms": {
-     "value": "Uttag i förtid mot avgift: 1–5 % av uttaget kapital beroende på kvarvarande löptid, minst 1 000 kr.",
+     "value": "Uttag i förtid mot avgift: 1–5 % av uttaget beroende på kvarvarande löptid, minst 1 000 kr",
      "quote": "Avgift vid förtidsinlösen av fastränteplacering tas ut på följande vis:",
      "source": 3,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.97
+      "confidence": 0.92
      }
     },
     "min_deposit_sek": {
@@ -820,13 +824,13 @@
      "status": "okänt"
     },
     "deposit_terms": {
-     "value": "Engångsinsättning vid öppnandet, minst 10 000 kr",
-     "quote": "Storleken på sparbeloppet bestämmer du när kontot öppnas och hela beloppet sätts in.",
-     "source": 3,
+     "value": "Engångsinsättning vid öppning, från annat konto i banken",
+     "quote": "Inbetalning till kontot kan endast ske genom överföring från annat konto i Banken och endast i samband med öppnande av kontot.",
+     "source": 11,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.94
+      "confidence": 0.77
      }
     },
     "eligibility": {
@@ -848,7 +852,7 @@
      "status": "okänt"
     },
     "interest_paid": {
-     "value": "vid bindningstidens slut (förfallodagen)",
+     "value": "Vid bindningstidens slut (förfallodagen)",
      "quote": "Räntan betalas ut på förfallodagen.",
      "source": 3,
      "status": "belagt",
@@ -859,12 +863,12 @@
     },
     "guarantee_country": {
      "value": "DK",
-     "quote": "Bankens konton omfattas av den danska insättningsgarantin (Garantiformuen)",
+     "quote": "Bankens konton omfattas av den danska insättningsgarantin (Garantiformuen) med ett kompletterande skydd från den svenska statliga insättningsgarantin.",
      "source": 3,
      "status": "osäkert",
      "jev": {
       "verdict": "contradicts",
-      "confidence": 0.11
+      "confidence": 0.07
      }
     },
     "guarantee_amount": {
@@ -893,18 +897,19 @@
    "flags": [],
    "fields": {
     "product_type": {
-     "value": "fasträntekonto",
+     "value": null,
      "quote": "För dig som vill placera pengar under en viss tid med förutbestämd ränta",
      "source": 3,
-     "status": "osäkert",
+     "status": "stöds inte av källan",
      "jev": {
       "verdict": "says_nothing",
-      "confidence": 0.79
-     }
+      "confidence": 0.82
+     },
+     "claimed": "fasträntekonto"
     },
     "rate_percent": {
      "value": 3.2,
-     "quote": "5 år | 3,20 % | 3,01 %",
+     "quote": "| 5 år | 3,20 % | 3,01 % |",
      "source": 3,
      "status": "belagt"
     },
@@ -915,13 +920,13 @@
      "status": "stöds inte av källan",
      "jev": {
       "verdict": "says_nothing",
-      "confidence": 0.89
+      "confidence": 0.94
      },
      "claimed": "fast"
     },
     "binding_months": {
      "value": 60,
-     "quote": "5 år | 3,20 % | 3,01 %",
+     "quote": "| 5 år | 3,20 % | 3,01 % |",
      "source": 3,
      "status": "belagt"
     },
@@ -942,7 +947,7 @@
      "status": "okänt"
     },
     "withdrawal_terms": {
-     "value": "Uttag i förtid mot avgift: 1–5 % av uttaget kapital beroende på kvarvarande löptid, minst 1 000 kr.",
+     "value": "Uttag i förtid mot avgift: 1–5 % av uttaget beroende på kvarvarande löptid, minst 1 000 kr",
      "quote": "Avgift vid förtidsinlösen av fastränteplacering tas ut på följande vis:",
      "source": 3,
      "status": "belagt",
@@ -978,13 +983,13 @@
      "status": "okänt"
     },
     "deposit_terms": {
-     "value": "Engångsinsättning vid öppnandet, minst 10 000 kr",
-     "quote": "Storleken på sparbeloppet bestämmer du när kontot öppnas och hela beloppet sätts in.",
-     "source": 3,
+     "value": "Engångsinsättning vid öppning, från annat konto i banken",
+     "quote": "Inbetalning till kontot kan endast ske genom överföring från annat konto i Banken och endast i samband med öppnande av kontot.",
+     "source": 11,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.91
+      "confidence": 0.68
      }
     },
     "eligibility": {
@@ -1006,7 +1011,7 @@
      "status": "okänt"
     },
     "interest_paid": {
-     "value": "vid bindningstidens slut (förfallodagen)",
+     "value": "Vid bindningstidens slut (förfallodagen)",
      "quote": "Räntan betalas ut på förfallodagen.",
      "source": 3,
      "status": "belagt",
@@ -1017,12 +1022,12 @@
     },
     "guarantee_country": {
      "value": "DK",
-     "quote": "Bankens konton omfattas av den danska insättningsgarantin (Garantiformuen)",
+     "quote": "Bankens konton omfattas av den danska insättningsgarantin (Garantiformuen) med ett kompletterande skydd från den svenska statliga insättningsgarantin.",
      "source": 3,
      "status": "osäkert",
      "jev": {
-      "verdict": "contradicts",
-      "confidence": 0.06
+      "verdict": "says_nothing",
+      "confidence": 0.16
      }
     },
     "guarantee_amount": {
@@ -1052,22 +1057,22 @@
    "fields": {
     "product_type": {
      "value": "rörligt sparkonto",
-     "quote": "Räntan på sparkontot är rörlig och följer det allmänna ränteläget.",
+     "quote": "Sparkonto för dig som vill ha full flexibilitet – gör insättningar och uttag när och hur ofta du vill.",
      "source": 1,
      "status": "osäkert",
      "jev": {
       "verdict": "says_nothing",
-      "confidence": 0.06
+      "confidence": 0.67
      }
     },
     "rate_percent": {
-     "value": 0.05,
-     "quote": "> 0 kr | 0,05 %",
+     "value": 0.15,
+     "quote": "> 0 kr | 0,15 %",
      "source": 1,
      "status": "osäkert",
      "jev": {
       "verdict": "contradicts",
-      "confidence": 0.26
+      "confidence": 0.09
      }
     },
     "rate_type": {
@@ -1107,21 +1112,24 @@
      "status": "okänt"
     },
     "withdrawal_terms": {
-     "value": "Obegränsat antal uttag utan avgift; ingen bindningstid.",
-     "quote": "Obegränsat antal uttag.",
+     "value": "Obegränsat antal uttag, inga avgifter. Ränta från första kronan enligt saldotrappa",
+     "quote": "Obegränsat antal uttag. Aktuell ränta är beroende på saldot på kontot och gäller från första kronan.",
      "source": 1,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.55
+      "confidence": 0.91
      }
     },
     "min_deposit_sek": {
-     "value": null,
-     "quote": "Inga begränsningar för insättning och uttag",
+     "value": 0,
+     "quote": "> 0 kr | 0,15 %",
      "source": 1,
-     "status": "talet finns inte i citatet",
-     "claimed": 0
+     "status": "osäkert",
+     "jev": {
+      "verdict": "says_nothing",
+      "confidence": 0.34
+     }
     },
     "max_deposit_sek": {
      "value": null,
@@ -1136,13 +1144,13 @@
      "status": "okänt"
     },
     "deposit_terms": {
-     "value": "Insättningar och uttag när som helst, inga begränsningar",
+     "value": "Inga begränsningar för insättning och uttag",
      "quote": "Inga begränsningar för insättning och uttag",
      "source": 1,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.94
+      "confidence": 1.0
      }
     },
     "eligibility": {
@@ -1164,23 +1172,23 @@
      "status": "okänt"
     },
     "interest_paid": {
-     "value": "årsvis, 31 december",
+     "value": "Årsvis, 31 december",
      "quote": "Du får ränta på ditt saldo utbetalt en gång om året, den 31 december.",
      "source": 1,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.92
+      "confidence": 0.96
      }
     },
     "guarantee_country": {
      "value": "DK",
-     "quote": "Bankens konton omfattas av den danska insättningsgarantin (Garantiformuen)",
+     "quote": "Bankens konton omfattas av den danska insättningsgarantin (Garantiformuen) med ett kompletterande skydd från den svenska statliga insättningsgarantin.",
      "source": 1,
      "status": "osäkert",
      "jev": {
       "verdict": "contradicts",
-      "confidence": 0.62
+      "confidence": 0.18
      }
     },
     "guarantee_amount": {
@@ -1204,40 +1212,40 @@
     {
      "min_sek": 0,
      "max_sek": 100000,
-     "rate_percent": 0.05,
-     "quote": "> 0 kr | 0,05 %",
+     "rate_percent": 0.15,
+     "quote": "> 0 kr | 0,15 %",
      "source": 1,
      "status": "belagt"
     },
     {
      "min_sek": 100000,
      "max_sek": 250000,
-     "rate_percent": 0.1,
-     "quote": "> 100 000 kr | 0,10 %",
+     "rate_percent": 0.2,
+     "quote": "> 100 000 kr | 0,20 %",
      "source": 1,
      "status": "belagt"
     },
     {
      "min_sek": 250000,
      "max_sek": 500000,
-     "rate_percent": 0.15,
-     "quote": "> 250 000 kr | 0,15 %",
+     "rate_percent": 0.5,
+     "quote": "> 250 000 kr | 0,50 %",
      "source": 1,
      "status": "belagt"
     },
     {
      "min_sek": 500000,
      "max_sek": 1000000,
-     "rate_percent": 0.6,
-     "quote": "> 500 000 kr | 0,60 %",
+     "rate_percent": 0.85,
+     "quote": "> 500 000 kr | 0,85 %",
      "source": 1,
      "status": "belagt"
     },
     {
      "min_sek": 1000000,
      "max_sek": null,
-     "rate_percent": 1.3,
-     "quote": "> 1 000 000 kr | 1,30 %",
+     "rate_percent": 1.45,
+     "quote": "> 1 000 000 kr | 1,45 %",
      "source": 1,
      "status": "belagt"
     }
@@ -1251,32 +1259,32 @@
    "fields": {
     "product_type": {
      "value": "rörligt sparkonto",
-     "quote": "Med Sparkonto XL kan du spara långsiktigt till en rörlig ränta och samtidigt ha dina pengar tillgängliga när du behöver dem.",
+     "quote": "Räntan på sparkontot är rörlig och pengarna finns alltid tillgängliga.",
      "source": 2,
      "status": "osäkert",
      "jev": {
       "verdict": "says_nothing",
-      "confidence": 0.74
+      "confidence": 0.24
      }
     },
     "rate_percent": {
-     "value": 0.15,
-     "quote": "Rörlig ränta f.n 0,15 %",
+     "value": 0.3,
+     "quote": "Rörlig ränta f.n 0,30 %, räntan kan ändras om till exempel marknadsräntorna stiger eller sjunker.",
      "source": 2,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.38
+      "confidence": 0.7
      }
     },
     "rate_type": {
      "value": "rörlig",
-     "quote": "Rörlig ränta f.n 0,15 %",
+     "quote": "Rörlig ränta f.n 0,30 %, räntan kan ändras om till exempel marknadsräntorna stiger eller sjunker.",
      "source": 2,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.79
+      "confidence": 0.77
      }
     },
     "binding_months": {
@@ -1306,13 +1314,13 @@
      "status": "okänt"
     },
     "withdrawal_terms": {
-     "value": "Obegränsat antal uttag, men lägre ränta (f.n 0,0 %) på hela saldot den kalendermånad uttaget görs.",
+     "value": "Obegränsat antal uttag; lägre ränta (f.n 0,0 %) på hela saldot den månad uttag görs",
      "quote": "Du har obegränsat antal uttag från kontot, dock får du en lägre ränta (f.n 0,0 %) på hela saldot den kalendermånad som uttaget görs.",
      "source": 2,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.92
+      "confidence": 0.94
      }
     },
     "min_deposit_sek": {
@@ -1322,14 +1330,10 @@
      "status": "okänt"
     },
     "max_deposit_sek": {
-     "value": 100000000,
-     "quote": "För på kontot innestående belopp över 100 000 000 kronor erhålls ingen ränta.",
-     "source": 11,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.5
-     }
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
     },
     "monthly_deposit_cap_sek": {
      "value": null,
@@ -1338,7 +1342,7 @@
      "status": "okänt"
     },
     "deposit_terms": {
-     "value": "Insättning när som helst via Hembanken eller andra banker; ej vid bankkontor",
+     "value": "Insättning när som helst via Hembanken; ej vid bankens kontor",
      "quote": "Överföring av pengar till Sparkonto XL kan göras när som helst via Hembanken och även via andra banker.",
      "source": 11,
      "status": "belagt",
@@ -1358,14 +1362,10 @@
      }
     },
     "requires_other_products": {
-     "value": true,
-     "quote": "För att öppna Sparkonto XL måste Kunden ha Hembanken och ett Danske konto eller Danske Exklusiv.",
-     "source": 11,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.46
-     }
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
     },
     "intro_rate": {
      "value": null,
@@ -1374,29 +1374,29 @@
      "status": "okänt"
     },
     "interest_paid": {
-     "value": "årsvis",
-     "quote": "Utbetalning av årets ränta kan göras till ditt privatkonto om du uppgett detta i förväg.",
-     "source": 2,
+     "value": "Vid räntekapitalisering",
+     "quote": "Räntan, med avdrag för preliminär skatt, överförs till det valda kontot i samband med räntekapitaliseringen.",
+     "source": 11,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.44
+      "confidence": 0.8
      }
     },
     "guarantee_country": {
      "value": "DK",
-     "quote": "Bankens konton omfattas av den danska insättningsgarantin (Garantiformuen)",
-     "source": 0,
-     "status": "osäkert",
+     "quote": "Bankens konton omfattas av den danska insättningsgarantin (Garantiformuen) med ett kompletterande skydd från den svenska statliga insättningsgarantin.",
+     "source": 2,
+     "status": "belagt",
      "jev": {
-      "verdict": "contradicts",
-      "confidence": 0.19
+      "verdict": "supports",
+      "confidence": 0.31
      }
     },
     "guarantee_amount": {
      "value": "100 000 euro",
      "quote": "Insättningsgarantin innebär att du har rätt till ersättning upp till 100 000 euro.",
-     "source": 0,
+     "source": 2,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
@@ -1415,37 +1415,37 @@
    "status": "verifierad"
   },
   {
-   "name": "Sparkonto XL – förmånsränta för fackmedlem i TCO/Saco",
+   "name": "Sparkonto XL – fackmedlem TCO/Saco",
    "flags": [],
    "fields": {
     "product_type": {
      "value": "rörligt sparkonto",
-     "quote": "Med Sparkonto XL kan du spara långsiktigt till en rörlig ränta och samtidigt ha dina pengar tillgängliga när du behöver dem.",
+     "quote": "Räntan på sparkontot är rörlig och pengarna finns alltid tillgängliga.",
      "source": 2,
      "status": "osäkert",
      "jev": {
       "verdict": "says_nothing",
-      "confidence": 0.43
+      "confidence": 0.48
      }
     },
     "rate_percent": {
-     "value": 0.35,
-     "quote": "Förmånlig ränta för dig som fackmedlem i vissa förbund f.n 0,35 %",
+     "value": 0.5,
+     "quote": "Förmånlig ränta för dig som fackmedlem i vissa förbund f.n 0,50 %",
      "source": 2,
      "status": "osäkert",
      "jev": {
       "verdict": "contradicts",
-      "confidence": 0.7
+      "confidence": 0.55
      }
     },
     "rate_type": {
      "value": "rörlig",
-     "quote": "Rörlig ränta f.n 0,15 %",
+     "quote": "Rörlig ränta f.n 0,30 %, räntan kan ändras om till exempel marknadsräntorna stiger eller sjunker.",
      "source": 2,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.28
+      "confidence": 0.66
      }
     },
     "binding_months": {
@@ -1455,7 +1455,7 @@
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.94
+      "confidence": 0.97
      }
     },
     "withdrawals": {
@@ -1465,7 +1465,7 @@
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.79
+      "confidence": 0.82
      }
     },
     "free_withdrawals_per_year": {
@@ -1475,7 +1475,7 @@
      "status": "okänt"
     },
     "withdrawal_terms": {
-     "value": "Obegränsat antal uttag, men lägre ränta (f.n 0,0 %) på hela saldot den kalendermånad uttaget görs.",
+     "value": "Obegränsat antal uttag; lägre ränta (f.n 0,0 %) på hela saldot den månad uttag görs",
      "quote": "Du har obegränsat antal uttag från kontot, dock får du en lägre ränta (f.n 0,0 %) på hela saldot den kalendermånad som uttaget görs.",
      "source": 2,
      "status": "belagt",
@@ -1491,14 +1491,10 @@
      "status": "okänt"
     },
     "max_deposit_sek": {
-     "value": 100000000,
-     "quote": "För på kontot innestående belopp över 100 000 000 kronor erhålls ingen ränta.",
-     "source": 11,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.62
-     }
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
     },
     "monthly_deposit_cap_sek": {
      "value": null,
@@ -1507,35 +1503,30 @@
      "status": "okänt"
     },
     "deposit_terms": {
-     "value": "Insättning när som helst via Hembanken eller andra banker; ej vid bankkontor",
+     "value": "Insättning när som helst via Hembanken; ej vid bankens kontor",
      "quote": "Överföring av pengar till Sparkonto XL kan göras när som helst via Hembanken och även via andra banker.",
      "source": 11,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 1.0
+      "confidence": 0.98
      }
     },
     "eligibility": {
-     "value": "Fackmedlem inom TCO eller Saco",
-     "quote": "Dessutom erbjuder vi förmånlig ränta för dig som fackmedlem inom TCO & Saco",
-     "source": 0,
-     "status": "belagt",
+     "value": "Över 18 år, ansluten till Hembanken, fackmedlem i vissa förbund (TCO/Saco)",
+     "quote": "Förmånlig ränta för dig som fackmedlem i vissa förbund f.n 0,50 %",
+     "source": 2,
+     "status": "osäkert",
      "jev": {
-      "verdict": "supports",
-      "confidence": 0.3
+      "verdict": "says_nothing",
+      "confidence": 0.62
      }
     },
     "requires_other_products": {
      "value": null,
-     "quote": "Förmånlig ränta för dig som fackmedlem i vissa förbund f.n 0,35 %",
-     "source": 2,
-     "status": "stöds inte av källan",
-     "jev": {
-      "verdict": "says_nothing",
-      "confidence": 0.56
-     },
-     "claimed": false
+     "quote": null,
+     "source": null,
+     "status": "okänt"
     },
     "intro_rate": {
      "value": null,
@@ -1544,33 +1535,33 @@
      "status": "okänt"
     },
     "interest_paid": {
-     "value": "årsvis",
-     "quote": "Utbetalning av årets ränta kan göras till ditt privatkonto om du uppgett detta i förväg.",
-     "source": 2,
+     "value": "Vid räntekapitalisering",
+     "quote": "Räntan, med avdrag för preliminär skatt, överförs till det valda kontot i samband med räntekapitaliseringen.",
+     "source": 11,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.25
+      "confidence": 0.73
      }
     },
     "guarantee_country": {
      "value": "DK",
-     "quote": "Bankens konton omfattas av den danska insättningsgarantin (Garantiformuen)",
-     "source": 0,
-     "status": "osäkert",
+     "quote": "Bankens konton omfattas av den danska insättningsgarantin (Garantiformuen) med ett kompletterande skydd från den svenska statliga insättningsgarantin.",
+     "source": 2,
+     "status": "belagt",
      "jev": {
-      "verdict": "contradicts",
-      "confidence": 0.14
+      "verdict": "supports",
+      "confidence": 0.35
      }
     },
     "guarantee_amount": {
      "value": "100 000 euro",
      "quote": "Insättningsgarantin innebär att du har rätt till ersättning upp till 100 000 euro.",
-     "source": 0,
+     "source": 2,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.35
+      "confidence": 0.82
      }
     },
     "rate_valid_from": {
@@ -1595,27 +1586,27 @@
      "status": "osäkert",
      "jev": {
       "verdict": "contradicts",
-      "confidence": 0.44
+      "confidence": 0.33
      }
     },
     "rate_percent": {
-     "value": 0.25,
-     "quote": "Rörlig ränta f.n 0,25 %",
+     "value": 0.4,
+     "quote": "Rörlig ränta f.n 0,40 %",
      "source": 0,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.92
+      "confidence": 0.64
      }
     },
     "rate_type": {
      "value": "rörlig",
-     "quote": "Rörlig ränta f.n 0,25 %",
+     "quote": "Rörlig ränta f.n 0,40 %",
      "source": 0,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.85
+      "confidence": 0.86
      }
     },
     "binding_months": {
@@ -1696,19 +1687,23 @@
     },
     "guarantee_country": {
      "value": "DK",
-     "quote": "Dina pengar på HSB Bosparkonto, HSB Depå, HSB Investeringssparkonto, HSB Fasträntekonto, Lönekonto och Sparkonto XL skyddas enligt den danska insättningsgarantin",
-     "source": 7,
-     "status": "belagt",
+     "quote": "Bankens konton omfattas av den danska insättningsgarantin (Garantiformuen) med ett kompletterande skydd från den svenska statliga insättningsgarantin.",
+     "source": 0,
+     "status": "osäkert",
      "jev": {
-      "verdict": "supports",
-      "confidence": 0.26
+      "verdict": "contradicts",
+      "confidence": 0.35
      }
     },
     "guarantee_amount": {
-     "value": null,
-     "quote": null,
-     "source": null,
-     "status": "okänt"
+     "value": "100 000 euro",
+     "quote": "Insättningsgarantin innebär att du har rätt till ersättning upp till 100 000 euro.",
+     "source": 0,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.3
+     }
     },
     "rate_valid_from": {
      "value": null,
@@ -1727,34 +1722,33 @@
    "fields": {
     "product_type": {
      "value": "fasträntekonto",
-     "quote": "HSB Fasträntekonto erbjuder dig möjlighet att spara med förmånliga villkor.",
+     "quote": "HSB Fasträntekonto erbjuder stabilitet med en fast ränta",
      "source": 7,
      "status": "osäkert",
      "jev": {
       "verdict": "says_nothing",
-      "confidence": 0.16
+      "confidence": 0.24
      }
     },
     "rate_percent": {
      "value": 2.55,
-     "quote": "1 år | 2,55 % | 2,55 %",
+     "quote": "| 1 år | 2,55 % | 2,55 % |",
      "source": 7,
      "status": "belagt"
     },
     "rate_type": {
-     "value": null,
+     "value": "fast",
      "quote": "HSB Fasträntekonto erbjuder stabilitet med en fast ränta",
      "source": 7,
-     "status": "stöds inte av källan",
+     "status": "osäkert",
      "jev": {
       "verdict": "says_nothing",
-      "confidence": 0.85
-     },
-     "claimed": "fast"
+      "confidence": 0.43
+     }
     },
     "binding_months": {
      "value": 12,
-     "quote": "1 år | 2,55 % | 2,55 %",
+     "quote": "| 1 år | 2,55 % | 2,55 % |",
      "source": 7,
      "status": "belagt"
     },
@@ -1775,13 +1769,13 @@
      "status": "okänt"
     },
     "withdrawal_terms": {
-     "value": "Uttag före förfallodagen mot avgift; ränta för förtidsuttag betalas på förfallodagen.",
-     "quote": "Hela eller delar av beloppet kan tas ut före förfallodagen mot en avgift",
-     "source": 7,
+     "value": "Uttag i förtid mot avgift; ränta för uttaget belopp betalas på förfallodagen",
+     "quote": "Hela eller delar av beloppet kan tas ut före förfallodagen mot en avgift.",
+     "source": 3,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 1.0
+      "confidence": 0.61
      }
     },
     "min_deposit_sek": {
@@ -1807,13 +1801,13 @@
      "status": "okänt"
     },
     "deposit_terms": {
-     "value": "Minst 5 000 kr från HSB Bosparkonto; inga ytterligare insättningar under bindningstiden",
-     "quote": "under bindningstiden är det inte möjligt att göra ytterligare insättningar till HSB Fasträntekonto.",
+     "value": "Minst 5 000 kr, hela beloppet sätts in från HSB Bosparkonto; inga ytterligare insättningar under bindningstiden",
+     "quote": "Under bindningstiden kan inga ytterligare insättningar göras.",
      "source": 7,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 1.0
+      "confidence": 0.96
      }
     },
     "eligibility": {
@@ -1833,7 +1827,7 @@
      "status": "osäkert",
      "jev": {
       "verdict": "says_nothing",
-      "confidence": 0.22
+      "confidence": 0.55
      }
     },
     "intro_rate": {
@@ -1843,23 +1837,23 @@
      "status": "okänt"
     },
     "interest_paid": {
-     "value": "på förfallodagen",
+     "value": "Vid bindningstidens slut (förfallodagen)",
      "quote": "Räntan utbetalas på förfallodagen",
      "source": 7,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.98
+      "confidence": 0.97
      }
     },
     "guarantee_country": {
      "value": "DK",
-     "quote": "Dina pengar på HSB Bosparkonto, HSB Depå, HSB Investeringssparkonto, HSB Fasträntekonto, Lönekonto och Sparkonto XL skyddas enligt den danska insättningsgarantin",
+     "quote": "Dina pengar på HSB Bosparkonto, HSB Depå, HSB Investeringssparkonto, HSB Fasträntekonto och Sparkonto XL skyddas enligt den danska insättningsgarantin som kallas Garantiformuen",
      "source": 7,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.58
+      "confidence": 0.37
      }
     },
     "guarantee_amount": {
@@ -1889,17 +1883,17 @@
    "fields": {
     "product_type": {
      "value": "fasträntekonto",
-     "quote": "HSB Fasträntekonto erbjuder dig möjlighet att spara med förmånliga villkor.",
+     "quote": "HSB Fasträntekonto erbjuder stabilitet med en fast ränta",
      "source": 7,
-     "status": "belagt",
+     "status": "osäkert",
      "jev": {
-      "verdict": "supports",
-      "confidence": 0.26
+      "verdict": "says_nothing",
+      "confidence": 0.31
      }
     },
     "rate_percent": {
      "value": 3.1,
-     "quote": "3 år | 3,10 % | 3,01 %",
+     "quote": "| 3 år | 3,10 % | 3,01 % |",
      "source": 7,
      "status": "belagt"
     },
@@ -1910,12 +1904,12 @@
      "status": "osäkert",
      "jev": {
       "verdict": "says_nothing",
-      "confidence": 0.73
+      "confidence": 0.33
      }
     },
     "binding_months": {
      "value": 36,
-     "quote": "3 år | 3,10 % | 3,01 %",
+     "quote": "| 3 år | 3,10 % | 3,01 % |",
      "source": 7,
      "status": "belagt"
     },
@@ -1936,13 +1930,13 @@
      "status": "okänt"
     },
     "withdrawal_terms": {
-     "value": "Uttag före förfallodagen mot avgift; ränta för förtidsuttag betalas på förfallodagen.",
-     "quote": "Hela eller delar av beloppet kan tas ut före förfallodagen mot en avgift",
-     "source": 7,
+     "value": "Uttag i förtid mot avgift; ränta för uttaget belopp betalas på förfallodagen",
+     "quote": "Hela eller delar av beloppet kan tas ut före förfallodagen mot en avgift.",
+     "source": 3,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 1.0
+      "confidence": 0.58
      }
     },
     "min_deposit_sek": {
@@ -1968,13 +1962,13 @@
      "status": "okänt"
     },
     "deposit_terms": {
-     "value": "Minst 5 000 kr från HSB Bosparkonto; inga ytterligare insättningar under bindningstiden",
-     "quote": "under bindningstiden är det inte möjligt att göra ytterligare insättningar till HSB Fasträntekonto.",
+     "value": "Minst 5 000 kr, hela beloppet sätts in från HSB Bosparkonto; inga ytterligare insättningar under bindningstiden",
+     "quote": "Under bindningstiden kan inga ytterligare insättningar göras.",
      "source": 7,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 1.0
+      "confidence": 0.96
      }
     },
     "eligibility": {
@@ -1994,7 +1988,7 @@
      "status": "osäkert",
      "jev": {
       "verdict": "says_nothing",
-      "confidence": 0.2
+      "confidence": 0.43
      }
     },
     "intro_rate": {
@@ -2004,7 +1998,7 @@
      "status": "okänt"
     },
     "interest_paid": {
-     "value": "på förfallodagen",
+     "value": "Vid bindningstidens slut (förfallodagen)",
      "quote": "Räntan utbetalas på förfallodagen",
      "source": 7,
      "status": "belagt",
@@ -2015,12 +2009,12 @@
     },
     "guarantee_country": {
      "value": "DK",
-     "quote": "Dina pengar på HSB Bosparkonto, HSB Depå, HSB Investeringssparkonto, HSB Fasträntekonto, Lönekonto och Sparkonto XL skyddas enligt den danska insättningsgarantin",
+     "quote": "Dina pengar på HSB Bosparkonto, HSB Depå, HSB Investeringssparkonto, HSB Fasträntekonto och Sparkonto XL skyddas enligt den danska insättningsgarantin som kallas Garantiformuen",
      "source": 7,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.5
+      "confidence": 0.43
      }
     },
     "guarantee_amount": {
@@ -2045,7 +2039,7 @@
    "status": "verifierad"
   }
  ],
- "source_hash": "8df9d9d4037d28de",
- "changed_at": "2026-11-14T01:34:17+00:00",
+ "source_hash": "0bf086d47f80dc31",
+ "changed_at": "2026-11-17T17:45:42+00:00",
  "model": "claude-haiku-5-5"
 }

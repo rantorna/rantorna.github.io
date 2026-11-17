@@ -7,7 +7,7 @@
   "kind": "sparbank",
   "legal_name": "Ivetofta Sparbank i Bromölla"
  },
- "checked_at": "2026-11-17T02:40:43+00:00",
+ "checked_at": "2026-11-17T19:45:47+00:00",
  "discovered_at": "2026-10-22T02:52:03+00:00",
  "sources": [
   {
@@ -60,8 +60,8 @@
    "chars": 4969
   }
  ],
- "status": "senaste tolkning misslyckades (Error code: 401 - {'type': 'error', 'error': {'type': 'authentication_error', 'm)",
- "notes": "Fasträntekonto: räntan visas inte på sidorna (hänvisas till rådgivare), så ingen ränta eller bindningstid per löptid kan anges; produkten är en samlad post för 3 mån–5 år. Sparkonto Företag 0,10 % finns bara i räntetabellen på sidan Aktuella räntor; det finns ingen produktbeskrivning, så övriga villkor saknas. Placeringskonto Företag: ingen uttryckligt angiven högsta insättning eller minsta belopp, och ingen utbetalningsfrekvens för räntan. Exkluderade: Skogskonto (särskilt ändamålskonto, 1,60 % i tabellen), Företagskonto (transaktionskonto, 0,00 % i tabellen men med osäkra nivåer 0,30 %), och Aktie- och Fondkonto (ingen ränta, depå).",
+ "status": "ok",
+ "notes": "Källorna saknar specifika räntor per bindningstid för Fasträntekonto (\"Kontakta er rådgivare för uppgifter om aktuella räntor\"), så den finns som en produkt utan ränta. Sparkonto Företag nämns endast i räntetabellen (0,10 %) utan villkor. Räntetabellen på sidan 'Aktuella räntor företag' har även rader för Företagskonto med trappnivåer (0,30 %) som otydligt saknar kontoprodukt; de har tolkats som del av Företagskonto (transaktionskonto) och ingår inte. Skogskonto och Aktie- och Fondkonto (ingen ränta) är utelämnade. Placeringskontots insättningsgaranti-land (SE) har inferats från 'statliga insättningsgarantin' i källa 5 och är inte uttryckligen angett för kontot. Min. insättning för Placeringskonto Företag och ränteutbetalningsfrekvens anges inte.",
  "products": [
   {
    "name": "Placeringskonto Företag",
@@ -69,22 +69,22 @@
    "fields": {
     "product_type": {
      "value": "rörligt sparkonto",
-     "quote": "Räntan beräknas dag för dag.",
+     "quote": "Räntan beräknas dag för dag. Vid generella ränteändringar på grund av ändrade marknadsräntor följer räntan förändringarna på våra övriga inlåningskonton.",
      "source": 1,
      "status": "osäkert",
      "jev": {
       "verdict": "contradicts",
-      "confidence": 0.7
+      "confidence": 0.64
      }
     },
     "rate_percent": {
-     "value": 0.0,
-     "quote": "Ränta\n\n0,00 %",
+     "value": 0.25,
+     "quote": "Ränta\n\n0,25 %",
      "source": 3,
      "status": "osäkert",
      "jev": {
       "verdict": "contradicts",
-      "confidence": 0.49
+      "confidence": 0.72
      }
     },
     "rate_type": {
@@ -94,7 +94,7 @@
      "status": "osäkert",
      "jev": {
       "verdict": "says_nothing",
-      "confidence": 0.41
+      "confidence": 0.3
      }
     },
     "binding_months": {
@@ -104,17 +104,17 @@
      "status": "osäkert",
      "jev": {
       "verdict": "says_nothing",
-      "confidence": 0.45
+      "confidence": 0.19
      }
     },
     "withdrawals": {
      "value": "fria",
-     "quote": "Det finns inga in- och uttagsbegränsningar",
+     "quote": "Transaktioner till och från kontot är kostnadsfria, omfattas av insättningsgarantin",
      "source": 1,
      "status": "osäkert",
      "jev": {
       "verdict": "contradicts",
-      "confidence": 0.25
+      "confidence": 0.31
      }
     },
     "free_withdrawals_per_year": {
@@ -125,12 +125,12 @@
     },
     "withdrawal_terms": {
      "value": "Inga in- och uttagsbegränsningar; transaktioner till och från kontot är kostnadsfria.",
-     "quote": "Transaktioner till och från kontot är kostnadsfria, omfattas av insättningsgarantin",
+     "quote": "Det finns inga in- och uttagsbegränsningar",
      "source": 1,
-     "status": "osäkert",
+     "status": "belagt",
      "jev": {
-      "verdict": "says_nothing",
-      "confidence": 0.48
+      "verdict": "supports",
+      "confidence": 0.26
      }
     },
     "min_deposit_sek": {
@@ -152,13 +152,13 @@
      "status": "okänt"
     },
     "deposit_terms": {
-     "value": "Insättningar, överföringar och uttag sköts i internetbanken; automatiska överföringar till kontot är möjliga.",
+     "value": "Insättningar, överföringar och uttag sköts via internetbanken; automatiska överföringar till kontot är möjliga.",
      "quote": "Du kan ha automatiska överföringar till kontot",
      "source": 1,
      "status": "osäkert",
      "jev": {
       "verdict": "contradicts",
-      "confidence": 0.28
+      "confidence": 0.31
      }
     },
     "eligibility": {
@@ -168,7 +168,7 @@
      "status": "osäkert",
      "jev": {
       "verdict": "contradicts",
-      "confidence": 0.37
+      "confidence": 0.14
      }
     },
     "requires_other_products": {
@@ -178,7 +178,7 @@
      "status": "osäkert",
      "jev": {
       "verdict": "contradicts",
-      "confidence": 0.58
+      "confidence": 0.6
      }
     },
     "intro_rate": {
@@ -188,23 +188,19 @@
      "status": "okänt"
     },
     "interest_paid": {
-     "value": "Räntan beräknas dag för dag; utbetalningsfrekvens anges inte.",
-     "quote": "Räntan beräknas dag för dag.",
-     "source": 1,
-     "status": "osäkert",
-     "jev": {
-      "verdict": "contradicts",
-      "confidence": 0.11
-     }
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
     },
     "guarantee_country": {
      "value": "SE",
-     "quote": "Kontot omfattas av\ninsättningsgarantin",
-     "source": 1,
+     "quote": "Pengar som finns på kontot skyddas av den statliga insättningsgarantin.",
+     "source": 5,
      "status": "osäkert",
      "jev": {
-      "verdict": "says_nothing",
-      "confidence": 0.69
+      "verdict": "contradicts",
+      "confidence": 0.37
      }
     },
     "guarantee_amount": {
@@ -225,17 +221,17 @@
    "status": "verifierad"
   },
   {
-   "name": "Fasträntekonto för företag (bindningstid 3 mån–5 år; ränta anges ej)",
+   "name": "Fasträntekonto",
    "flags": [],
    "fields": {
     "product_type": {
      "value": "fasträntekonto",
-     "quote": "Med ett Fasträntekonto väljer ni att binda pengarna från tre månader upp till fem år.",
-     "source": 2,
+     "quote": "Fasträntekonto passar dig som vill spara med låg risk. Du kan välja på att binda pengarna från tre månader upp till fem år.",
+     "source": 0,
      "status": "osäkert",
      "jev": {
       "verdict": "contradicts",
-      "confidence": 0.19
+      "confidence": 0.58
      }
     },
     "rate_percent": {
@@ -251,7 +247,7 @@
      "status": "osäkert",
      "jev": {
       "verdict": "says_nothing",
-      "confidence": 0.28
+      "confidence": 0.18
      }
     },
     "binding_months": {
@@ -262,12 +258,12 @@
     },
     "withdrawals": {
      "value": "mot avgift",
-     "quote": "Om pengarna tas ut innan slutförfallodagen utgår en ränteskillnadsersättning som beräknas på den marknadsränta som gäller på avslutsdagen",
+     "quote": "Om pengarna tas ut innan slutförfallodagen utgår en ränteskillnadsersättning som beräknas på den marknadsränta som gäller på avslutsdagen, fram till slutförfallodagen.",
      "source": 2,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.82
+      "confidence": 0.72
      }
     },
     "free_withdrawals_per_year": {
@@ -277,13 +273,13 @@
      "status": "okänt"
     },
     "withdrawal_terms": {
-     "value": "Uttag före slutförfallodagen ger ränteskillnadsersättning enligt marknadsränta på avslutsdagen.",
+     "value": "Uttag före slutförfallodagen medför ränteskillnadsersättning.",
      "quote": "Om pengarna tas ut innan slutförfallodagen utgår en ränteskillnadsersättning",
      "source": 2,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.94
+      "confidence": 1.0
      }
     },
     "min_deposit_sek": {
@@ -293,7 +289,7 @@
      "status": "motsägs av källan",
      "jev": {
       "verdict": "contradicts",
-      "confidence": 0.85
+      "confidence": 0.91
      },
      "claimed": 50000
     },
@@ -310,23 +306,23 @@
      "status": "okänt"
     },
     "deposit_terms": {
-     "value": "Automatiska överföringar till kontot är inte tillåtna.",
+     "value": "Engångsinsättning; automatiska överföringar till kontot är inte möjliga.",
      "quote": "Det går inte att ha automatiska överföringar till Fasträntekontot.",
      "source": 2,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.92
+      "confidence": 0.38
      }
     },
     "eligibility": {
-     "value": "Öppnas efter kontakt med banken.",
+     "value": "Juridisk person (företag/förening); kontakt med banken krävs för att öppna.",
      "quote": "Kontakta oss för att öppna fasträntekonto",
      "source": 2,
      "status": "osäkert",
      "jev": {
       "verdict": "says_nothing",
-      "confidence": 0.14
+      "confidence": 0.28
      }
     },
     "requires_other_products": {
@@ -350,11 +346,11 @@
     "guarantee_country": {
      "value": null,
      "quote": "Omfattas av insättningsgarantin",
-     "source": 0,
+     "source": 2,
      "status": "stöds inte av källan",
      "jev": {
       "verdict": "says_nothing",
-      "confidence": 0.91
+      "confidence": 0.85
      },
      "claimed": "SE"
     },
@@ -474,14 +470,10 @@
      "status": "okänt"
     },
     "guarantee_country": {
-     "value": "SE",
-     "quote": "Våra sparkonton omfattas av",
-     "source": 0,
-     "status": "osäkert",
-     "jev": {
-      "verdict": "says_nothing",
-      "confidence": 0.31
-     }
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
     },
     "guarantee_amount": {
      "value": null,
@@ -501,7 +493,7 @@
    "status": "delvis verifierad"
   }
  ],
- "source_hash": "344a3a544f57882e",
- "changed_at": "2026-10-21T03:03:30+00:00",
+ "source_hash": "03484cc1ac7cd772",
+ "changed_at": "2026-11-17T19:45:47+00:00",
  "model": "claude-haiku-5-5"
 }

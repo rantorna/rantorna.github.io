@@ -7,9 +7,16 @@
   "kind": "storbank",
   "legal_name": "Skandinaviska Enskilda Banken AB (publ)"
  },
- "checked_at": "2026-11-14T04:52:56+00:00",
- "discovered_at": "2026-10-19T20:08:48+00:00",
+ "checked_at": "2026-11-17T21:02:48+00:00",
+ "discovered_at": "2026-11-17T21:02:48+00:00",
  "sources": [
+  {
+   "url": "https://seb.se/privat/spara-och-investera/villkor-och-avgifter/fondkostnader",
+   "title": "Total fondavgift – vad ingår i kostnaden? | SEB",
+   "kind": "html",
+   "via": "http",
+   "chars": 7416
+  },
   {
    "url": "https://seb.se/privat/spara-och-investera/villkor-och-avgifter/courtage",
    "title": "Courtage – handla aktier från 1 krona | SEB",
@@ -25,18 +32,11 @@
    "chars": 14372
   },
   {
-   "url": "https://seb.se/privat/spara-och-investera/aktier-och-vardepapper/lar-dig-mer-om-aktier/vad-kostar-det-att-handla-med-aktier",
-   "title": "Vad kostar det att handla med aktier? | SEB",
-   "kind": "html",
-   "via": "http",
-   "chars": 6225
-  },
-  {
    "url": "https://seb.se/privat/tjanster/aktuella-priser",
    "title": "Aktuella priser för privatpersoner | SEB",
    "kind": "html",
    "via": "http",
-   "chars": 47570
+   "chars": 47568
   },
   {
    "url": "https://seb.se/privat/betalningar-konton-och-kort/konton/valutakonto",
@@ -60,25 +60,18 @@
    "chars": 5129
   },
   {
-   "url": "https://seb.se/foretag/valutahantering-och-internationell-handel/valutahantering/automatisk-valutavaxling",
-   "title": "Automatisk valutaväxling på företagets konton | SEB",
-   "kind": "html",
-   "via": "http",
-   "chars": 5116
-  },
-  {
-   "url": "https://seb.se/privat/spara-och-investera/villkor-och-avgifter/fondkostnader",
-   "title": "Total fondavgift – vad ingår i kostnaden? | SEB",
-   "kind": "html",
-   "via": "http",
-   "chars": 7416
-  },
-  {
    "url": "https://seb.se/privat/spara-och-investera/villkor-och-avgifter/kostnadsredovisning",
    "title": "Information om din kostnadsredovisning | SEB",
    "kind": "html",
    "via": "http",
    "chars": 11994
+  },
+  {
+   "url": "https://seb.se/foretag/valutahantering-och-internationell-handel/valutahantering/automatisk-valutavaxling",
+   "title": "Automatisk valutaväxling på företagets konton | SEB",
+   "kind": "html",
+   "via": "http",
+   "chars": 5116
   },
   {
    "url": "https://seb.se/privat/spara-och-investera/villkor-och-avgifter/uppdaterade-villkor-spara",
@@ -96,30 +89,30 @@
   }
  ],
  "status": "ok",
- "notes": "Courtaget 0,09 % och minimicourtage 10 kr gäller handel via internetbanken och appen; via kontor/telefon är courtaget 0,50 % med lägsta 350 kr (källa 5, villkor och avgifter). Om kunden kan ha valutakonto i ISK/depå framgår inte av källorna: SEB:s valutakonto (källa 4) är ett separat konto med 1 500 kr i uppläggningsavgift, men dess koppling till ISK/depå saknas i underlaget. Fondväxlingen (källa 8) gäller köp av fonder i utländsk valuta. Tillkommande skatter och administrativa avgifter varierar per land.",
+ "notes": "Valutakonto finns hos SEB (uppläggningsavgift 1 500 kr, därefter 0 kr/år), men källorna säger inte att det kan användas för att slippa växla vid aktie- eller fondköp i ISK/depå, därför är currency_account satt till null. Courtage för utländska aktier i internetbanken/appen är 0,09 %; kontor/telefon är dyrare (0,50 %, minst 350 kr) men det nämns inte här. Ytterligare avgifter och skatter kan tillkomma i vissa länder.",
  "products": [
   {
-   "name": "Handel med utländska aktier (ISK/depå, internetbank och app)",
+   "name": "Handel med utländska aktier (privatpersoner, via app och internetbank)",
    "flags": [],
    "fields": {
     "fx_fee_percent": {
      "value": 0.25,
-     "quote": "Vid handel med utländska värdepapper tillkommer en valutaväxlingsavgift på 0,25 procent samt vissa administrativa avgifter och skatter.",
-     "source": 0,
+     "quote": "Hos oss betalar du 0,25 procent av den valutakurs som gäller när affären går igenom.",
+     "source": 1,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 1.0
+      "confidence": 0.97
      }
     },
     "fx_fee_terms": {
-     "value": "0,25 % av den valutakurs som gäller när affären går igenom; växlingskursen på noten inkluderar avgiften. Ingen rabatt för större belopp angiven.",
-     "quote": "Hos oss betalar du 0,25 procent av den valutakurs som gäller när affären går igenom.",
-     "source": 0,
+     "value": "Påslag på valutakursen med 0,25 % vid varje affär i utländsk valuta; den visade växlingskursen är preliminär tills affären gått igenom.",
+     "quote": "Observera att den växlings­kurs du ser när du lägger din order är preliminär. Den slutgiltiga växlings­kursen, efter påslag eller avdrag för växlings­avgift, ser du på din nota först efter att din affär har gått igenom.",
+     "source": 2,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 1.0
+      "confidence": 0.44
      }
     },
     "currency_account": {
@@ -131,31 +124,28 @@
     "us_courtage_min_sek": {
      "value": 10,
      "quote": "Lägsta courtage är 1 krona per affär i Norden och 10 kronor per affär i övriga Europa, USA och Kanada.",
-     "source": 0,
+     "source": 1,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.95
+      "confidence": 0.94
      }
     },
     "us_courtage_percent": {
-     "value": 0.09,
-     "quote": "När du handlar med aktier utanför Sverige betalar du ett courtage på 0,09 procent av orderbeloppet.",
-     "source": 0,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.97
-     }
+     "value": null,
+     "quote": "När du handlar aktier utanför Sverige betalar du ett courtage på 0,09 procent av orderbeloppet.",
+     "source": 1,
+     "status": "citat hittades inte",
+     "claimed": 0.09
     },
     "fund_fx_note": {
-     "value": "Vid köp av fond i annan valuta än SEK tillkommer valutaväxlingsavgift på 0,25 %, som ingår i växlingskursen och inte i den totala fondavgiften.",
-     "quote": "Om du köper en fond som handlas i en annan valuta än svenska kronor tillkommer dock en valuta­växlings­avgift på 0,25 procent.",
-     "source": 8,
-     "status": "belagt",
+     "value": "Vid köp av fond i annan valuta än svenska kronor tillkommer en valutaväxlingsavgift på 0,25 procent, som ingår i växelkursen.",
+     "quote": "Om du köper en fond som handlas i en annan valuta än svenska kronor tillkommer dock en valuta­växlings­avgift på 0,25 procent. Valuta­växlings­avgiften ingår i växel­kursen.",
+     "source": 0,
+     "status": "osäkert",
      "jev": {
-      "verdict": "supports",
-      "confidence": 0.58
+      "verdict": "contradicts",
+      "confidence": 0.11
      }
     }
    },
@@ -164,7 +154,7 @@
    "status": "verifierad"
   }
  ],
- "source_hash": "e0e008ff400810f9",
- "changed_at": "2026-10-19T20:08:48+00:00",
+ "source_hash": "a1c3981fcd5b800b",
+ "changed_at": "2026-11-17T21:02:48+00:00",
  "model": "claude-haiku-5-5"
 }

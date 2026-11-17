@@ -7,7 +7,7 @@
   "kind": "nischbank",
   "legal_name": "Norion Bank AB"
  },
- "checked_at": "2026-11-17T01:14:27+00:00",
+ "checked_at": "2026-11-17T17:27:26+00:00",
  "discovered_at": "2026-10-26T01:50:44+00:00",
  "sources": [
   {
@@ -22,7 +22,7 @@
    "title": "Aktuella sparräntor – Få bästa räntan på ditt sparande",
    "kind": "html",
    "via": "http",
-   "chars": 13020
+   "chars": 13084
   },
   {
    "url": "https://www.collector.se/spara-pengar/rorlig-ranta/",
@@ -74,8 +74,8 @@
    "chars": 2704
   }
  ],
- "status": "senaste tolkning misslyckades (Error code: 401 - {'type': 'error', 'error': {'type': 'authentication_error', 'm)",
- "notes": "Sparkonto Extra: sidan anger 3,95 % men den senaste räntetabellen (26-04-03) visar 2,35 %; använd 2,35 %. Sparkonto Flex: produktsidan anger minsta insättning 500 kr, medan den allmänna rörlig-sidan säger att det inte finns något lägsta belopp; använd 500 kr. Mer: ingen räntedatum angavs; min-insättning 0 bygger på den allmänna rörlig-sidan. Räntetabellen har en kolumn \"Rörligt\" som inte motsvarar någon separat produkt på sidorna och har utelämnats. Ränteutbetalning för Max och Extra: årsvis enligt allmän FAQ; Mer anges som månatlig. Fasträntekonton 5 år nämns i villkoren men saknar räntor och sida och är därför inte med. Uttagsbegränsning för Max (31 dagars fördröjning) har klassats som begränsade. Ingen ålders- eller folkbokföringsregel angavs i källorna.",
+ "status": "ok",
+ "notes": "Räntor för rörliga konton och fasträntekonton är hämtade från 'Aktuella sparräntor' (källa 1) och produktsidorna. Konflikter: (1) Sparkonto Extra anges på sin produktsida (källa 5) till 3,95 % rörlig ränta och minst 250 000 kr, men räntetabellen i källa 1 (senaste raden 26-10-21) anger 2,35 %; sidan verkar äldre (copyright 2023), så 2,35 % används. (2) Sparkonto Flex har lägsta insättning 500 kr enligt källa 6, medan den generella rörlig-ränta-sidan (källa 2) säger att det inte finns något lägsta belopp; källa 6 används. Sparkonto Max har 500 kr enligt källa 3. (3) Räntetabellen i källa 1 innehåller även 'Sparkonto Rörligt' (2,35 % per 26-10-21), som inte finns i den aktuella produktlistan och därför utelämnats. Ränteutbetalning för Sparkonto Extra är inte uttryckligen angiven; värdet 'årsvis' bygger på villkorsfrasen om 'övriga sparkonton med rörlig ränta' (källa 2). Datumet för rate_valid_from är hämtat från den senaste raden i räntehistoriken. Ingen uppgift om vem som får öppna konton utöver att de öppnas med BankID; källorna nämner inte någon uttrycklig ålders- eller folkbokföringsregel, så det fälts har lämnats tomt där inget stöd finns.",
  "products": [
   {
    "name": "Sparkonto Flex",
@@ -83,12 +83,12 @@
    "fields": {
     "product_type": {
      "value": "rörligt sparkonto",
-     "quote": "Sparkonto Flex är ett sparkonto utan bindningstid, med fria uttag och månatlig ränteutbetalning.",
-     "source": 2,
+     "quote": "Sparkonto Flex är för dig som vill ha full frihet utan bindningstid och samtidigt se ditt sparande växa löpande.",
+     "source": 6,
      "status": "osäkert",
      "jev": {
       "verdict": "says_nothing",
-      "confidence": 0.35
+      "confidence": 0.72
      }
     },
     "rate_percent": {
@@ -103,32 +103,32 @@
     },
     "rate_type": {
      "value": "rörlig",
-     "quote": "Den rörliga sparräntan varierar över tid.",
-     "source": 2,
-     "status": "osäkert",
+     "quote": "Ett sparkonto med rörlig ränta är ett konto där räntan kan förändras över tid.",
+     "source": 6,
+     "status": "belagt",
      "jev": {
-      "verdict": "contradicts",
-      "confidence": 0.41
+      "verdict": "supports",
+      "confidence": 0.7
      }
     },
     "binding_months": {
      "value": 0,
-     "quote": "Sparkonto Flex är ett sparkonto utan bindningstid",
-     "source": 2,
+     "quote": "Sparkonto Flex är för dig som vill ha full frihet utan bindningstid",
+     "source": 6,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 1.0
+      "confidence": 0.76
      }
     },
     "withdrawals": {
      "value": "fria",
-     "quote": "Ja. Du har fri tillgång till dina pengar utan avgifter eller begränsningar.",
-     "source": 2,
+     "quote": "Ja, uttag är fria.",
+     "source": 6,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.94
+      "confidence": 1.0
      }
     },
     "free_withdrawals_per_year": {
@@ -138,13 +138,13 @@
      "status": "okänt"
     },
     "withdrawal_terms": {
-     "value": "Fria uttag och insättningar utan avgift, ingen bindningstid.",
-     "quote": "Ja. Du har fri tillgång till dina pengar utan avgifter eller begränsningar.",
+     "value": "Fria uttag utan avgifter eller begränsningar. Ingen bindningstid.",
+     "quote": "Du har fri tillgång till dina pengar utan avgifter eller begränsningar.",
      "source": 2,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.86
+      "confidence": 0.97
      }
     },
     "min_deposit_sek": {
@@ -158,14 +158,11 @@
      }
     },
     "max_deposit_sek": {
-     "value": 10000000,
-     "quote": "Du kan sätta in upp till 10 000 000 kr.",
-     "source": 2,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.86
-     }
+     "value": null,
+     "quote": "Högst möjliga insättning är 10 miljoner kronor",
+     "source": 6,
+     "status": "talet finns inte i citatet",
+     "claimed": 10000000
     },
     "monthly_deposit_cap_sek": {
      "value": null,
@@ -174,35 +171,30 @@
      "status": "okänt"
     },
     "deposit_terms": {
-     "value": "Fria insättningar; högst 10 miljoner kr",
-     "quote": "Högst möjliga insättning är 10 miljoner kronor",
-     "source": 3,
+     "value": "Fria insättningar och uttag",
+     "quote": "Fria insättningar och uttag",
+     "source": 2,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.74
+      "confidence": 1.0
      }
     },
     "eligibility": {
-     "value": "Öppnas med BankID",
+     "value": "Privatpersoner; ansökan med BankID",
      "quote": "Du ansöker smidigt med hjälp av BankID.",
-     "source": 4,
+     "source": 6,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.85
+      "confidence": 0.58
      }
     },
     "requires_other_products": {
      "value": null,
-     "quote": "Alla våra sparkonton är kostnadsfria.",
-     "source": 3,
-     "status": "stöds inte av källan",
-     "jev": {
-      "verdict": "says_nothing",
-      "confidence": 0.88
-     },
-     "claimed": false
+     "quote": null,
+     "source": null,
+     "status": "okänt"
     },
     "intro_rate": {
      "value": null,
@@ -211,43 +203,43 @@
      "status": "okänt"
     },
     "interest_paid": {
-     "value": "Månatligt (kapitaliseras varje månad)",
-     "quote": "Räntan betalas ut månadsvis på Sparkonto Flex",
+     "value": "månadsvis (sista dagen i varje kalendermånad)",
+     "quote": "På Sparkonto Flex betalas ränta ut den sista i varje kalendermånad",
      "source": 2,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.97
+      "confidence": 1.0
      }
     },
     "guarantee_country": {
      "value": "SE",
-     "quote": "Sparkonton hos Norion Bank (Collector) omfattas av den statliga insättningsgarantin enligt beslut av Riksgälden.",
-     "source": 2,
+     "quote": "Staten garanterar kundernas insättningar i banker, kreditmarknadsbolag och värdepappers-bolag.",
+     "source": 0,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.37
+      "confidence": 0.62
      }
     },
     "guarantee_amount": {
-     "value": "1 150 000 kr",
-     "quote": "Upp till 1 150 000 kronor per person.",
-     "source": 2,
+     "value": "1 150 000 SEK",
+     "quote": "Insättningsgarantin gäller upp till motsvarande 1 150 000 SEK per kund och institut.",
+     "source": 0,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.98
+      "confidence": 0.83
      }
     },
     "rate_valid_from": {
-     "value": "2026-04-03",
-     "quote": "| 26-04-03 | 2,35 % | 2,35 % | 2,35 % | 2,45 % |",
+     "value": "2026-10-21",
+     "quote": "| 26-10-21 | 2,15 % | 2,35 % | 2,35 % | 2,35 % | 2,45 % |",
      "source": 1,
      "status": "osäkert",
      "jev": {
       "verdict": "contradicts",
-      "confidence": 0.59
+      "confidence": 0.49
      }
     }
    },
@@ -266,7 +258,7 @@
      "status": "osäkert",
      "jev": {
       "verdict": "says_nothing",
-      "confidence": 0.35
+      "confidence": 0.53
      }
     },
     "rate_percent": {
@@ -281,32 +273,32 @@
     },
     "rate_type": {
      "value": "rörlig",
-     "quote": "Räntan på Sparkonto max är rörlig och kan ändras i takt med marknadsförhållanden.",
+     "quote": "Rörlig ränta innebär att du inte har någon bindningstid på dina sparpengar och räntan kan förändras över tid.",
      "source": 3,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.91
+      "confidence": 0.26
      }
     },
     "binding_months": {
      "value": 0,
-     "quote": "Vad menas med rörlig ränta? Rörlig ränta innebär att du inte har någon bindningstid på dina sparpengar",
+     "quote": "Hög rörlig ränta utan bindningstid",
      "source": 3,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.95
+      "confidence": 0.76
      }
     },
     "withdrawals": {
-     "value": "begränsade",
-     "quote": "Om du vill ta ut pengar, begär ett uttag och pengarna är tillgängliga efter 31 dagar.",
+     "value": "fria",
+     "quote": "Men varje uttag har en fördröjning på 31 dagar.",
      "source": 3,
-     "status": "belagt",
+     "status": "osäkert",
      "jev": {
-      "verdict": "supports",
-      "confidence": 0.43
+      "verdict": "contradicts",
+      "confidence": 0.49
      }
     },
     "free_withdrawals_per_year": {
@@ -316,13 +308,13 @@
      "status": "okänt"
     },
     "withdrawal_terms": {
-     "value": "Uttag fria men med 31 dagars fördröjning innan de registreras. Inga avgifter.",
+     "value": "Fria uttag, men varje uttag har 31 dagars fördröjning innan det registreras.",
      "quote": "Om du vill ta ut pengar, begär ett uttag och pengarna är tillgängliga efter 31 dagar.",
      "source": 3,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.94
+      "confidence": 0.96
      }
     },
     "min_deposit_sek": {
@@ -349,35 +341,30 @@
      "status": "okänt"
     },
     "deposit_terms": {
-     "value": "Insättningar när som helst; högst 10 miljoner kr",
-     "quote": "Högst möjliga insättning är 10 miljoner kronor",
+     "value": "Ränta från första kronan",
+     "quote": "Ränta från första kronan",
      "source": 3,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.72
+      "confidence": 0.82
      }
     },
     "eligibility": {
-     "value": "Öppnas med BankID",
-     "quote": "Du ansöker smidigt med hjälp av BankID på bara några minuter.",
-     "source": 2,
+     "value": "Privatpersoner; ansökan med BankID",
+     "quote": "Du ansöker smidigt med hjälp av BankID",
+     "source": 3,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.77
+      "confidence": 0.35
      }
     },
     "requires_other_products": {
      "value": null,
-     "quote": "Vad kostar sparkonto max? Ingenting. Alla våra sparkonton är kostnadsfria.",
-     "source": 3,
-     "status": "stöds inte av källan",
-     "jev": {
-      "verdict": "says_nothing",
-      "confidence": 0.58
-     },
-     "claimed": false
+     "quote": null,
+     "source": null,
+     "status": "okänt"
     },
     "intro_rate": {
      "value": null,
@@ -386,43 +373,43 @@
      "status": "okänt"
     },
     "interest_paid": {
-     "value": "Årsvis per 31 december",
-     "quote": "övriga sparkonton med rörlig ränta betalas ut årligen vid årsskiftet den 31 december.",
+     "value": "årsvis (31 december)",
+     "quote": "övriga sparkonton med rörlig ränta betalas ut årligen vid årsskiftet den 31 december",
      "source": 2,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.98
+      "confidence": 0.94
      }
     },
     "guarantee_country": {
      "value": "SE",
-     "quote": "Sparkonton hos Norion Bank (Collector) omfattas av den statliga insättningsgarantin enligt beslut av Riksgälden.",
-     "source": 2,
+     "quote": "Staten garanterar kundernas insättningar i banker, kreditmarknadsbolag och värdepappers-bolag.",
+     "source": 0,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.8
+      "confidence": 0.64
      }
     },
     "guarantee_amount": {
-     "value": "1 150 000 kr",
-     "quote": "Skyddet gäller upp till 1 150 000 kronor per person.",
-     "source": 2,
+     "value": "1 150 000 SEK",
+     "quote": "Insättningsgarantin gäller upp till motsvarande 1 150 000 SEK per kund och institut.",
+     "source": 0,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 1.0
+      "confidence": 0.82
      }
     },
     "rate_valid_from": {
-     "value": "2026-04-03",
-     "quote": "| 26-04-03 | 2,35 % | 2,35 % | 2,35 % | 2,45 % |",
+     "value": "2026-10-21",
+     "quote": "| 26-10-21 | 2,15 % | 2,35 % | 2,35 % | 2,35 % | 2,45 % |",
      "source": 1,
      "status": "osäkert",
      "jev": {
       "verdict": "contradicts",
-      "confidence": 0.73
+      "confidence": 0.55
      }
     }
    },
@@ -436,52 +423,52 @@
    "fields": {
     "product_type": {
      "value": "rörligt sparkonto",
-     "quote": "Sparkonto Mer Ränta: 2,15 % Upp till 15 miljoner insättning",
-     "source": 2,
-     "status": "belagt",
+     "quote": "Sparkonto mer är ett flexibelt sparkonto för dig som vill spara ett större belopp utan att binda pengarna.",
+     "source": 4,
+     "status": "osäkert",
      "jev": {
-      "verdict": "supports",
-      "confidence": 0.4
+      "verdict": "says_nothing",
+      "confidence": 0.66
      }
     },
     "rate_percent": {
      "value": 2.15,
-     "quote": "Ränta: 2,15 %",
-     "source": 2,
+     "quote": "Aktuell ränta: 2,15 %",
+     "source": 4,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.88
+      "confidence": 0.96
      }
     },
     "rate_type": {
      "value": "rörlig",
-     "quote": "Alla våra rörliga sparkonton är utan bindningstid",
-     "source": 2,
+     "quote": "Ett sparkonto med rörlig ränta är ett konto där räntan kan förändras över tid.",
+     "source": 4,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.92
+      "confidence": 0.83
      }
     },
     "binding_months": {
      "value": 0,
-     "quote": "Alla våra rörliga sparkonton är utan bindningstid",
+     "quote": "Ingen bindningstid",
      "source": 2,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.86
+      "confidence": 0.46
      }
     },
     "withdrawals": {
      "value": "fria",
-     "quote": "Fria insättningar och uttag",
-     "source": 2,
+     "quote": "Ja, uttag är fria.",
+     "source": 4,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.94
+      "confidence": 0.98
      }
     },
     "free_withdrawals_per_year": {
@@ -491,13 +478,13 @@
      "status": "okänt"
     },
     "withdrawal_terms": {
-     "value": "Fria insättningar och uttag, inga avgifter, ingen bindningstid.",
-     "quote": "Fria insättningar och uttag",
-     "source": 2,
+     "value": "Fria uttag och insättningar, inga avgifter, ingen bindningstid.",
+     "quote": "Kontot har fria insättningar och uttag och inga avgifter.",
+     "source": 4,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.85
+      "confidence": 0.94
      }
     },
     "min_deposit_sek": {
@@ -527,35 +514,30 @@
      "status": "okänt"
     },
     "deposit_terms": {
-     "value": "Insättningar upp till 15 miljoner kr",
-     "quote": "Upp till 15 miljoner insättning",
-     "source": 2,
+     "value": "Fria uttag, insättningar och ingen bindningstid",
+     "quote": "Fria uttag, insättningar & ingen bindningstid",
+     "source": 4,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.76
+      "confidence": 0.91
      }
     },
     "eligibility": {
-     "value": "Öppnas med BankID",
-     "quote": "Du ansöker smidigt med hjälp av BankID på bara några minuter.",
-     "source": 2,
+     "value": "Privatpersoner och företag; ansökan med BankID",
+     "quote": "Sparkonto mer erbjuds både till privatpersoner och företag.",
+     "source": 4,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.72
+      "confidence": 0.89
      }
     },
     "requires_other_products": {
      "value": null,
-     "quote": "Nej alla våra sparkonton är avgiftsfria.",
-     "source": 2,
-     "status": "stöds inte av källan",
-     "jev": {
-      "verdict": "says_nothing",
-      "confidence": 0.77
-     },
-     "claimed": false
+     "quote": null,
+     "source": null,
+     "status": "okänt"
     },
     "intro_rate": {
      "value": null,
@@ -564,9 +546,9 @@
      "status": "okänt"
     },
     "interest_paid": {
-     "value": "Månatligt",
-     "quote": "Månatlig ränteutbetalning",
-     "source": 2,
+     "value": "månadsvis",
+     "quote": "Ränta betalas ut varje månad",
+     "source": 4,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
@@ -575,29 +557,33 @@
     },
     "guarantee_country": {
      "value": "SE",
-     "quote": "Alla våra sparkonton skyddas av den statliga insättningsgarantin",
-     "source": 2,
-     "status": "osäkert",
-     "jev": {
-      "verdict": "says_nothing",
-      "confidence": 0.64
-     }
-    },
-    "guarantee_amount": {
-     "value": "1 150 000 kr",
-     "quote": "Skyddet gäller upp till 1 150 000 kronor per person.",
-     "source": 2,
+     "quote": "Staten garanterar kundernas insättningar i banker, kreditmarknadsbolag och värdepappers-bolag.",
+     "source": 0,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.95
+      "confidence": 0.62
+     }
+    },
+    "guarantee_amount": {
+     "value": "1 150 000 SEK",
+     "quote": "Insättningsgarantin gäller upp till motsvarande 1 150 000 SEK per kund och institut.",
+     "source": 0,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.86
      }
     },
     "rate_valid_from": {
-     "value": null,
-     "quote": null,
-     "source": null,
-     "status": "okänt"
+     "value": "2026-10-21",
+     "quote": "| 26-10-21 | 2,15 % | 2,35 % | 2,35 % | 2,35 % | 2,45 % |",
+     "source": 1,
+     "status": "osäkert",
+     "jev": {
+      "verdict": "contradicts",
+      "confidence": 0.67
+     }
     }
    },
    "rate_tiers": [],
@@ -620,12 +606,12 @@
     },
     "rate_percent": {
      "value": 2.35,
-     "quote": "| 26-04-03 | 2,35 % | 2,35 % | 2,35 % | 2,45 % |",
+     "quote": "| 26-10-21 | 2,15 % | 2,35 % | 2,35 % | 2,35 % | 2,45 % |",
      "source": 1,
      "status": "osäkert",
      "jev": {
       "verdict": "contradicts",
-      "confidence": 0.3
+      "confidence": 0.22
      }
     },
     "rate_type": {
@@ -642,8 +628,7 @@
      "value": null,
      "quote": null,
      "source": null,
-     "status": "saknar belägg",
-     "claimed": 0
+     "status": "okänt"
     },
     "withdrawals": {
      "value": "begränsade",
@@ -666,13 +651,13 @@
      }
     },
     "withdrawal_terms": {
-     "value": "Två fria uttag per år; fler uttag ej fria enligt sidan.",
+     "value": "Två fria uttag per år.",
      "quote": "Två fria uttag per år",
      "source": 5,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.52
+      "confidence": 0.97
      }
     },
     "min_deposit_sek": {
@@ -702,7 +687,7 @@
      "status": "okänt"
     },
     "deposit_terms": {
-     "value": "Minsta sparbelopp 250 000 kr",
+     "value": "Minsta sparbelopp 250 000 kronor",
      "quote": "Minsta sparbelopp 250 000 kronor",
      "source": 5,
      "status": "belagt",
@@ -712,25 +697,20 @@
      }
     },
     "eligibility": {
-     "value": "Öppnas med BankID",
-     "quote": "Med hjälp av BankID kan du öppna ett Sparkonto Extra på några minuter.",
+     "value": "Ansökan med BankID",
+     "quote": "Ansökan sker smidigt med hjälp av BankID.",
      "source": 5,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.94
+      "confidence": 0.89
      }
     },
     "requires_other_products": {
      "value": null,
-     "quote": "Inga avgifter",
-     "source": 2,
-     "status": "stöds inte av källan",
-     "jev": {
-      "verdict": "says_nothing",
-      "confidence": 0.73
-     },
-     "claimed": false
+     "quote": null,
+     "source": null,
+     "status": "okänt"
     },
     "intro_rate": {
      "value": null,
@@ -739,43 +719,43 @@
      "status": "okänt"
     },
     "interest_paid": {
-     "value": "Årsvis per 31 december",
-     "quote": "övriga sparkonton med rörlig ränta betalas ut årligen vid årsskiftet den 31 december.",
+     "value": "årsvis (31 december)",
+     "quote": "övriga sparkonton med rörlig ränta betalas ut årligen vid årsskiftet den 31 december",
      "source": 2,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.89
+      "confidence": 0.83
      }
     },
     "guarantee_country": {
      "value": "SE",
-     "quote": "Alla våra sparkonton skyddas av den statliga insättningsgarantin.",
-     "source": 4,
-     "status": "osäkert",
-     "jev": {
-      "verdict": "says_nothing",
-      "confidence": 0.62
-     }
-    },
-    "guarantee_amount": {
-     "value": "1 150 000 kr",
-     "quote": "Skyddet gäller upp till 1 150 000 kronor per person.",
-     "source": 2,
+     "quote": "Staten garanterar kundernas insättningar i banker, kreditmarknadsbolag och värdepappers-bolag.",
+     "source": 0,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 1.0
+      "confidence": 0.58
+     }
+    },
+    "guarantee_amount": {
+     "value": "1 150 000 SEK",
+     "quote": "Insättningsgarantin gäller upp till motsvarande 1 150 000 SEK per kund och institut.",
+     "source": 0,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.8
      }
     },
     "rate_valid_from": {
-     "value": "2026-04-03",
-     "quote": "| 26-04-03 | 2,35 % | 2,35 % | 2,35 % | 2,45 % |",
+     "value": "2026-10-21",
+     "quote": "| 26-10-21 | 2,15 % | 2,35 % | 2,35 % | 2,35 % | 2,45 % |",
      "source": 1,
      "status": "osäkert",
      "jev": {
       "verdict": "contradicts",
-      "confidence": 0.41
+      "confidence": 0.14
      }
     }
    },
@@ -784,240 +764,48 @@
    "status": "delvis verifierad"
   },
   {
-   "name": "3-månaders sparkonto (fasträntekonto 3 mån)",
+   "name": "3-månaders sparkonto (fasträntekonto)",
    "flags": [],
    "fields": {
     "product_type": {
      "value": "fasträntekonto",
-     "quote": "Med Collector 3-mån sparkonto binder du dina pengar i 3 månader till en fast ränta helt utan avgifter.",
+     "quote": "Ett fasträntekonto är ett sparkonto där du binder dina pengar under en bestämd tid för att få en fast ränta.",
      "source": 7,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.85
+      "confidence": 0.4
      }
     },
     "rate_percent": {
-     "value": 2.5,
-     "quote": "| 3 månader | 2,50 % |",
+     "value": 2.7,
+     "quote": "| 3 månader | 2,70 % |",
      "source": 1,
-     "status": "belagt"
+     "status": "osäkert",
+     "jev": {
+      "verdict": "says_nothing",
+      "confidence": 0.01
+     }
     },
     "rate_type": {
      "value": "fast",
-     "quote": "Med Collector 3-mån sparkonto binder du dina pengar i 3 månader till en fast ränta",
+     "quote": "Ett fasträntekonto är ett sparkonto där du binder dina pengar under en bestämd tid för att få en fast ränta.",
      "source": 7,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.88
+      "confidence": 0.62
      }
     },
     "binding_months": {
      "value": 3,
-     "quote": "Med Collector 3-mån sparkonto binder du dina pengar i 3 månader",
-     "source": 7,
+     "quote": "| 3 månader | 2,70 % |",
+     "source": 1,
      "status": "belagt"
     },
     "withdrawals": {
      "value": "mot avgift",
-     "quote": "Uttag under bindningstid nollställer räntan för hela saldot.",
-     "source": 7,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.74
-     }
-    },
-    "free_withdrawals_per_year": {
-     "value": null,
-     "quote": null,
-     "source": null,
-     "status": "okänt"
-    },
-    "withdrawal_terms": {
-     "value": "Uttag under bindningstid nollställer räntan för hela saldot.",
-     "quote": "Uttag under bindningstid nollställer räntan för hela saldot.",
-     "source": 7,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.98
-     }
-    },
-    "min_deposit_sek": {
-     "value": 10000,
-     "quote": "Engångsinsättning, där lägsta insättning är 10 000 kr.",
-     "source": 7,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.8
-     }
-    },
-    "max_deposit_sek": {
-     "value": 10000000,
-     "quote": "Det sammanlagda belopp, exklusive kapitaliserad ränta, som Kontohavaren har på sparkonton hos Collector får ej överstiga 10 000 000 kronor",
-     "source": 0,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.83
-     }
-    },
-    "monthly_deposit_cap_sek": {
-     "value": null,
-     "quote": null,
-     "source": null,
-     "status": "okänt"
-    },
-    "deposit_terms": {
-     "value": "Engångsinsättning, lägst 10 000 kr",
-     "quote": "Engångsinsättning, där lägsta insättning är 10 000 kr.",
-     "source": 7,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.98
-     }
-    },
-    "eligibility": {
-     "value": "Öppnas med BankID",
-     "quote": "Du kan enkelt öppna ett fasträntekonto här på collector.se med BankID",
-     "source": 7,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.85
-     }
-    },
-    "requires_other_products": {
-     "value": null,
-     "quote": "Nej, alla Collectors sparkonton är helt avgiftsfria.",
-     "source": 7,
-     "status": "stöds inte av källan",
-     "jev": {
-      "verdict": "says_nothing",
-      "confidence": 0.55
-     },
-     "claimed": false
-    },
-    "intro_rate": {
-     "value": null,
-     "quote": null,
-     "source": null,
-     "status": "okänt"
-    },
-    "interest_paid": {
-     "value": "Vid bindningstidens slut",
-     "quote": "Räntan på Collectors bunda sparkonton kapitaliseras vid bindningstidens slut.",
-     "source": 0,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.98
-     }
-    },
-    "guarantee_country": {
-     "value": "SE",
-     "quote": "Alla våra sparkonton skyddas av den statliga insättningsgarantin.",
-     "source": 4,
-     "status": "osäkert",
-     "jev": {
-      "verdict": "says_nothing",
-      "confidence": 0.69
-     }
-    },
-    "guarantee_amount": {
-     "value": "1 150 000 kr",
-     "quote": "upp till 1 150 000 kronor per person",
-     "source": 2,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.98
-     }
-    },
-    "rate_valid_from": {
-     "value": "2026-04-15",
-     "quote": "| 26-04-15 | 2,50 % | 2,55 % |",
-     "source": 1,
-     "status": "osäkert",
-     "jev": {
-      "verdict": "says_nothing",
-      "confidence": 0.34
-     }
-    }
-   },
-   "rate_tiers": [],
-   "pending_rate": null,
-   "status": "verifierad"
-  },
-  {
-   "name": "6-månaders sparkonto (fasträntekonto 6 mån)",
-   "flags": [],
-   "fields": {
-    "product_type": {
-     "value": "fasträntekonto",
-     "quote": "Collector 6-mån sparkonto för dig som vill ha stabilitet i ditt sparande. Bundet i 6 månader",
-     "source": 7,
-     "status": "osäkert",
-     "jev": {
-      "verdict": "says_nothing",
-      "confidence": 0.59
-     }
-    },
-    "rate_percent": {
-     "value": 2.55,
-     "quote": "| 6 månader | 2,55 % |",
-     "source": 1,
-     "status": "belagt"
-    },
-    "rate_type": {
-     "value": "fast",
-     "quote": "Bundet i 6 månader, engångsinsättning till en fast ränta helt utan avgifter.",
-     "source": 7,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.23
-     }
-    },
-    "binding_months": {
-     "value": 6,
-     "quote": "Bundet i 6 månader, engångsinsättning till en fast ränta helt utan avgifter.",
-     "source": 7,
-     "status": "belagt"
-    },
-    "withdrawals": {
-     "value": "mot avgift",
-     "quote": "Uttag under bindningstid nollställer räntan för hela saldot.",
-     "source": 7,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.31
-     }
-    },
-    "free_withdrawals_per_year": {
-     "value": null,
-     "quote": null,
-     "source": null,
-     "status": "okänt"
-    },
-    "withdrawal_terms": {
-     "value": "Uttag under bindningstid nollställer räntan för hela saldot.",
-     "quote": "Uttag under bindningstid nollställer räntan för hela saldot.",
-     "source": 7,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.92
-     }
-    },
-    "min_deposit_sek": {
-     "value": 10000,
-     "quote": "Lägsta insättning är 10 000 kr.",
+     "quote": "Utbetalning av pengar före bindningstidens slut innebär att du förlorar den upplupna räntan på kontot",
      "source": 7,
      "status": "belagt",
      "jev": {
@@ -1025,6 +813,32 @@
       "confidence": 0.64
      }
     },
+    "free_withdrawals_per_year": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "withdrawal_terms": {
+     "value": "Uttag under bindningstid nollställer räntan för hela saldot.",
+     "quote": "Uttag under bindningstid nollställer räntan för hela saldot.",
+     "source": 7,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 1.0
+     }
+    },
+    "min_deposit_sek": {
+     "value": 10000,
+     "quote": "För alla Collectors fasträntekonton är lägsta insättning 10 000 kr.",
+     "source": 7,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.86
+     }
+    },
     "max_deposit_sek": {
      "value": 10000000,
      "quote": "Det sammanlagda belopp, exklusive kapitaliserad ränta, som Kontohavaren har på sparkonton hos Collector får ej överstiga 10 000 000 kronor",
@@ -1032,7 +846,7 @@
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.83
+      "confidence": 0.61
      }
     },
     "monthly_deposit_cap_sek": {
@@ -1042,35 +856,30 @@
      "status": "okänt"
     },
     "deposit_terms": {
-     "value": "Engångsinsättning, lägst 10 000 kr",
-     "quote": "engångsinsättning till en fast ränta helt utan avgifter. Lägsta insättning är 10 000 kr.",
+     "value": "Engångsinsättning",
+     "quote": "Engångsinsättning, där lägsta insättning är 10 000 kr.",
      "source": 7,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.92
+      "confidence": 1.0
      }
     },
     "eligibility": {
-     "value": "Öppnas med BankID",
+     "value": "Öppnas med BankID på collector.se",
      "quote": "Du kan enkelt öppna ett fasträntekonto här på collector.se med BankID",
      "source": 7,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.85
+      "confidence": 0.83
      }
     },
     "requires_other_products": {
      "value": null,
-     "quote": "Nej, alla Collectors sparkonton är helt avgiftsfria.",
-     "source": 7,
-     "status": "stöds inte av källan",
-     "jev": {
-      "verdict": "says_nothing",
-      "confidence": 0.66
-     },
-     "claimed": false
+     "quote": null,
+     "source": null,
+     "status": "okänt"
     },
     "intro_rate": {
      "value": null,
@@ -1079,7 +888,7 @@
      "status": "okänt"
     },
     "interest_paid": {
-     "value": "Vid bindningstidens slut",
+     "value": "vid bindningstidens slut",
      "quote": "Räntan på Collectors bunda sparkonton kapitaliseras vid bindningstidens slut.",
      "source": 0,
      "status": "belagt",
@@ -1090,32 +899,32 @@
     },
     "guarantee_country": {
      "value": "SE",
-     "quote": "Alla våra sparkonton skyddas av den statliga insättningsgarantin.",
-     "source": 4,
-     "status": "osäkert",
-     "jev": {
-      "verdict": "says_nothing",
-      "confidence": 0.7
-     }
-    },
-    "guarantee_amount": {
-     "value": "1 150 000 kr",
-     "quote": "upp till 1 150 000 kronor per person",
-     "source": 2,
+     "quote": "Staten garanterar kundernas insättningar i banker, kreditmarknadsbolag och värdepappers-bolag.",
+     "source": 0,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.98
+      "confidence": 0.58
+     }
+    },
+    "guarantee_amount": {
+     "value": "1 150 000 SEK",
+     "quote": "Insättningsgarantin gäller upp till motsvarande 1 150 000 SEK per kund och institut.",
+     "source": 0,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.92
      }
     },
     "rate_valid_from": {
-     "value": "2026-04-15",
-     "quote": "| 26-04-15 | 2,50 % | 2,55 % |",
+     "value": "2026-11-13",
+     "quote": "| 26-11-13 | 2,70 % | 2,75 % |",
      "source": 1,
      "status": "osäkert",
      "jev": {
-      "verdict": "says_nothing",
-      "confidence": 0.41
+      "verdict": "contradicts",
+      "confidence": 0.46
      }
     }
    },
@@ -1124,49 +933,53 @@
    "status": "verifierad"
   },
   {
-   "name": "1-årigt sparkonto (fasträntekonto 1 år)",
+   "name": "6-månaders sparkonto (fasträntekonto)",
    "flags": [],
    "fields": {
     "product_type": {
      "value": "fasträntekonto",
-     "quote": "För dig som vill spara på lite längre sikt har vi Collector 1-årligt sparkonto.",
+     "quote": "Ett fasträntekonto är ett sparkonto där du binder dina pengar under en bestämd tid för att få en fast ränta.",
      "source": 7,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.62
+      "confidence": 0.55
      }
     },
     "rate_percent": {
-     "value": 2.65,
-     "quote": "| 1 år | 2,65 % |",
+     "value": 2.75,
+     "quote": "| 6 månader | 2,75 % |",
      "source": 1,
-     "status": "belagt"
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.1
+     }
     },
     "rate_type": {
      "value": "fast",
-     "quote": "Engångsinsättning på minst 10 000 kronor, till en fast ränta helt utan avgifter.",
+     "quote": "Ett fasträntekonto är ett sparkonto där du binder dina pengar under en bestämd tid för att få en fast ränta.",
      "source": 7,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.97
+      "confidence": 0.74
      }
     },
     "binding_months": {
-     "value": 12,
-     "quote": "Engångsinsättning på minst 10 000 kronor, till en fast ränta helt utan avgifter.",
-     "source": 7,
+     "value": 6,
+     "quote": "| 6 månader | 2,75 % |",
+     "source": 1,
      "status": "belagt"
     },
     "withdrawals": {
      "value": "mot avgift",
-     "quote": "Uttag under bindningstid nollställer räntan för hela saldot.",
+     "quote": "Utbetalning av pengar före bindningstidens slut innebär att du förlorar den upplupna räntan på kontot",
      "source": 7,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.59
+      "confidence": 0.61
      }
     },
     "free_withdrawals_per_year": {
@@ -1182,17 +995,17 @@
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.94
+      "confidence": 1.0
      }
     },
     "min_deposit_sek": {
      "value": 10000,
-     "quote": "Engångsinsättning på minst 10 000 kronor",
+     "quote": "För alla Collectors fasträntekonton är lägsta insättning 10 000 kr.",
      "source": 7,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.97
+      "confidence": 0.89
      }
     },
     "max_deposit_sek": {
@@ -1202,7 +1015,7 @@
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.92
+      "confidence": 0.64
      }
     },
     "monthly_deposit_cap_sek": {
@@ -1212,18 +1025,151 @@
      "status": "okänt"
     },
     "deposit_terms": {
-     "value": "Engångsinsättning, lägst 10 000 kr",
-     "quote": "Engångsinsättning på minst 10 000 kronor",
+     "value": "Engångsinsättning",
+     "quote": "Bundet i 6 månader, engångsinsättning till en fast ränta helt utan avgifter.",
      "source": 7,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.98
+      "confidence": 1.0
      }
     },
     "eligibility": {
-     "value": "Öppnas med BankID",
+     "value": "Öppnas med BankID på collector.se",
      "quote": "Du kan enkelt öppna ett fasträntekonto här på collector.se med BankID",
+     "source": 7,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.83
+     }
+    },
+    "requires_other_products": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "intro_rate": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "interest_paid": {
+     "value": "vid bindningstidens slut",
+     "quote": "Räntan på Collectors bunda sparkonton kapitaliseras vid bindningstidens slut.",
+     "source": 0,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.97
+     }
+    },
+    "guarantee_country": {
+     "value": "SE",
+     "quote": "Staten garanterar kundernas insättningar i banker, kreditmarknadsbolag och värdepappers-bolag.",
+     "source": 0,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.62
+     }
+    },
+    "guarantee_amount": {
+     "value": "1 150 000 SEK",
+     "quote": "Insättningsgarantin gäller upp till motsvarande 1 150 000 SEK per kund och institut.",
+     "source": 0,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.88
+     }
+    },
+    "rate_valid_from": {
+     "value": "2026-11-13",
+     "quote": "| 26-11-13 | 2,70 % | 2,75 % |",
+     "source": 1,
+     "status": "osäkert",
+     "jev": {
+      "verdict": "contradicts",
+      "confidence": 0.49
+     }
+    }
+   },
+   "rate_tiers": [],
+   "pending_rate": null,
+   "status": "verifierad"
+  },
+  {
+   "name": "1-årigt sparkonto (fasträntekonto)",
+   "flags": [],
+   "fields": {
+    "product_type": {
+     "value": "fasträntekonto",
+     "quote": "Ett fasträntekonto är ett sparkonto där du binder dina pengar under en bestämd tid för att få en fast ränta.",
+     "source": 7,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.37
+     }
+    },
+    "rate_percent": {
+     "value": 2.75,
+     "quote": "| 1 år | 2,75 % |",
+     "source": 1,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.42
+     }
+    },
+    "rate_type": {
+     "value": "fast",
+     "quote": "Ett fasträntekonto är ett sparkonto där du binder dina pengar under en bestämd tid för att få en fast ränta.",
+     "source": 7,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.7
+     }
+    },
+    "binding_months": {
+     "value": 12,
+     "quote": "| 1 år | 2,75 % |",
+     "source": 1,
+     "status": "belagt"
+    },
+    "withdrawals": {
+     "value": "mot avgift",
+     "quote": "Utbetalning av pengar före bindningstidens slut innebär att du förlorar den upplupna räntan på kontot",
+     "source": 7,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.64
+     }
+    },
+    "free_withdrawals_per_year": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "withdrawal_terms": {
+     "value": "Uttag under bindningstid nollställer räntan för hela saldot.",
+     "quote": "Uttag under bindningstid nollställer räntan för hela saldot.",
+     "source": 7,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 1.0
+     }
+    },
+    "min_deposit_sek": {
+     "value": 10000,
+     "quote": "För alla Collectors fasträntekonton är lägsta insättning 10 000 kr.",
      "source": 7,
      "status": "belagt",
      "jev": {
@@ -1231,140 +1177,6 @@
       "confidence": 0.88
      }
     },
-    "requires_other_products": {
-     "value": null,
-     "quote": "Nej, alla Collectors sparkonton är helt avgiftsfria.",
-     "source": 7,
-     "status": "stöds inte av källan",
-     "jev": {
-      "verdict": "says_nothing",
-      "confidence": 0.62
-     },
-     "claimed": false
-    },
-    "intro_rate": {
-     "value": null,
-     "quote": null,
-     "source": null,
-     "status": "okänt"
-    },
-    "interest_paid": {
-     "value": "Vid bindningstidens slut",
-     "quote": "Räntan på Collectors bunda sparkonton kapitaliseras vid bindningstidens slut.",
-     "source": 0,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.98
-     }
-    },
-    "guarantee_country": {
-     "value": "SE",
-     "quote": "Alla våra sparkonton skyddas av den statliga insättningsgarantin.",
-     "source": 4,
-     "status": "osäkert",
-     "jev": {
-      "verdict": "says_nothing",
-      "confidence": 0.59
-     }
-    },
-    "guarantee_amount": {
-     "value": "1 150 000 kr",
-     "quote": "upp till 1 150 000 kronor per person",
-     "source": 2,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 1.0
-     }
-    },
-    "rate_valid_from": {
-     "value": "2026-01-21",
-     "quote": "| 26-01-21 | 2,65 % | 2,70 % |",
-     "source": 1,
-     "status": "osäkert",
-     "jev": {
-      "verdict": "says_nothing",
-      "confidence": 0.41
-     }
-    }
-   },
-   "rate_tiers": [],
-   "pending_rate": null,
-   "status": "verifierad"
-  },
-  {
-   "name": "2-årigt sparkonto (fasträntekonto 2 år)",
-   "flags": [],
-   "fields": {
-    "product_type": {
-     "value": "fasträntekonto",
-     "quote": "Collector 2-årigt sparkonto är för dig som vill spara på längre sikt till bra ränta helt utan avgifter.",
-     "source": 7,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.92
-     }
-    },
-    "rate_percent": {
-     "value": 2.7,
-     "quote": "| 2 år | 2,70 % |",
-     "source": 1,
-     "status": "belagt"
-    },
-    "rate_type": {
-     "value": "fast",
-     "quote": "Engångsinsättning med lägsta belopp om 10 000 kr till fast ränta.",
-     "source": 7,
-     "status": "osäkert",
-     "jev": {
-      "verdict": "says_nothing",
-      "confidence": 0.3
-     }
-    },
-    "binding_months": {
-     "value": 24,
-     "quote": "Collector 2-årigt sparkonto är för dig som vill spara på längre sikt till bra ränta helt utan avgifter.",
-     "source": 7,
-     "status": "belagt"
-    },
-    "withdrawals": {
-     "value": "mot avgift",
-     "quote": "Uttag under bindningstid nollställer räntan för hela saldot.",
-     "source": 7,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.51
-     }
-    },
-    "free_withdrawals_per_year": {
-     "value": null,
-     "quote": null,
-     "source": null,
-     "status": "okänt"
-    },
-    "withdrawal_terms": {
-     "value": "Uttag under bindningstid nollställer räntan för hela saldot.",
-     "quote": "Uttag under bindningstid nollställer räntan för hela saldot.",
-     "source": 7,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.62
-     }
-    },
-    "min_deposit_sek": {
-     "value": 10000,
-     "quote": "Engångsinsättning med lägsta belopp om 10 000 kr till fast ränta.",
-     "source": 7,
-     "status": "osäkert",
-     "jev": {
-      "verdict": "contradicts",
-      "confidence": 0.28
-     }
-    },
     "max_deposit_sek": {
      "value": 10000000,
      "quote": "Det sammanlagda belopp, exklusive kapitaliserad ränta, som Kontohavaren har på sparkonton hos Collector får ej överstiga 10 000 000 kronor",
@@ -1372,306 +1184,268 @@
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.82
-     }
-    },
-    "monthly_deposit_cap_sek": {
-     "value": null,
-     "quote": null,
-     "source": null,
-     "status": "okänt"
-    },
-    "deposit_terms": {
-     "value": "Engångsinsättning, lägst 10 000 kr",
-     "quote": "Engångsinsättning med lägsta belopp om 10 000 kr till fast ränta.",
-     "source": 7,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.97
-     }
-    },
-    "eligibility": {
-     "value": "Öppnas med BankID",
-     "quote": "Du kan enkelt öppna ett fasträntekonto här på collector.se med BankID",
-     "source": 7,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.86
-     }
-    },
-    "requires_other_products": {
-     "value": null,
-     "quote": "Nej, alla Collectors sparkonton är helt avgiftsfria.",
-     "source": 7,
-     "status": "stöds inte av källan",
-     "jev": {
-      "verdict": "says_nothing",
-      "confidence": 0.45
-     },
-     "claimed": false
-    },
-    "intro_rate": {
-     "value": null,
-     "quote": null,
-     "source": null,
-     "status": "okänt"
-    },
-    "interest_paid": {
-     "value": "Vid bindningstidens slut",
-     "quote": "Räntan på Collectors bunda sparkonton kapitaliseras vid bindningstidens slut.",
-     "source": 0,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 1.0
-     }
-    },
-    "guarantee_country": {
-     "value": "SE",
-     "quote": "Alla våra sparkonton skyddas av den statliga insättningsgarantin.",
-     "source": 4,
-     "status": "osäkert",
-     "jev": {
-      "verdict": "says_nothing",
-      "confidence": 0.59
-     }
-    },
-    "guarantee_amount": {
-     "value": "1 150 000 kr",
-     "quote": "upp till 1 150 000 kronor per person",
-     "source": 2,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.98
-     }
-    },
-    "rate_valid_from": {
-     "value": "2026-01-21",
-     "quote": "| 26-01-21 | 2,65 % | 2,70 % |",
-     "source": 1,
-     "status": "osäkert",
-     "jev": {
-      "verdict": "says_nothing",
-      "confidence": 0.34
-     }
-    }
-   },
-   "rate_tiers": [],
-   "pending_rate": null,
-   "status": "verifierad"
-  },
-  {
-   "name": "3-årigt sparkonto (fasträntekonto 3 år)",
-   "flags": [],
-   "fields": {
-    "product_type": {
-     "value": "fasträntekonto",
-     "quote": "Med Collector 3-årigt sparkonto får du en stabil och trygg avkastning över tid.",
-     "source": 7,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.56
-     }
-    },
-    "rate_percent": {
-     "value": 2.75,
-     "quote": "| 3 år | 2,75 % |",
-     "source": 1,
-     "status": "belagt"
-    },
-    "rate_type": {
-     "value": "fast",
-     "quote": "Engångsinsättning från 10 000 kr, med garanterad ränta under hela perioden.",
-     "source": 7,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.28
-     }
-    },
-    "binding_months": {
-     "value": 36,
-     "quote": "Med Collector 3-årigt sparkonto får du en stabil och trygg avkastning över tid.",
-     "source": 7,
-     "status": "belagt"
-    },
-    "withdrawals": {
-     "value": "mot avgift",
-     "quote": "Uttag under bindningstid nollställer räntan för hela saldot.",
-     "source": 7,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.35
-     }
-    },
-    "free_withdrawals_per_year": {
-     "value": null,
-     "quote": null,
-     "source": null,
-     "status": "okänt"
-    },
-    "withdrawal_terms": {
-     "value": "Uttag under bindningstid nollställer räntan för hela saldot.",
-     "quote": "Uttag under bindningstid nollställer räntan för hela saldot.",
-     "source": 7,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.3
-     }
-    },
-    "min_deposit_sek": {
-     "value": 10000,
-     "quote": "Engångsinsättning från 10 000 kr, med garanterad ränta under hela perioden.",
-     "source": 7,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.86
-     }
-    },
-    "max_deposit_sek": {
-     "value": 10000000,
-     "quote": "Det sammanlagda belopp, exklusive kapitaliserad ränta, som Kontohavaren har på sparkonton hos Collector får ej överstiga 10 000 000 kronor",
-     "source": 0,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.85
-     }
-    },
-    "monthly_deposit_cap_sek": {
-     "value": null,
-     "quote": null,
-     "source": null,
-     "status": "okänt"
-    },
-    "deposit_terms": {
-     "value": "Engångsinsättning, lägst 10 000 kr",
-     "quote": "Engångsinsättning från 10 000 kr, med garanterad ränta under hela perioden.",
-     "source": 7,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.98
-     }
-    },
-    "eligibility": {
-     "value": "Öppnas med BankID",
-     "quote": "Du kan enkelt öppna ett fasträntekonto här på collector.se med BankID",
-     "source": 7,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.85
-     }
-    },
-    "requires_other_products": {
-     "value": null,
-     "quote": "Nej, alla Collectors sparkonton är helt avgiftsfria.",
-     "source": 7,
-     "status": "stöds inte av källan",
-     "jev": {
-      "verdict": "says_nothing",
-      "confidence": 0.52
-     },
-     "claimed": false
-    },
-    "intro_rate": {
-     "value": null,
-     "quote": null,
-     "source": null,
-     "status": "okänt"
-    },
-    "interest_paid": {
-     "value": "Vid bindningstidens slut",
-     "quote": "Räntan på Collectors bunda sparkonton kapitaliseras vid bindningstidens slut.",
-     "source": 0,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 1.0
-     }
-    },
-    "guarantee_country": {
-     "value": "SE",
-     "quote": "Alla våra sparkonton skyddas av den statliga insättningsgarantin.",
-     "source": 4,
-     "status": "osäkert",
-     "jev": {
-      "verdict": "says_nothing",
       "confidence": 0.72
      }
     },
-    "guarantee_amount": {
-     "value": "1 150 000 kr",
-     "quote": "upp till 1 150 000 kronor per person",
-     "source": 2,
+    "monthly_deposit_cap_sek": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "deposit_terms": {
+     "value": "Engångsinsättning",
+     "quote": "Engångsinsättning på minst 10 000 kronor, till en fast ränta helt utan avgifter.",
+     "source": 7,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 1.0
+     }
+    },
+    "eligibility": {
+     "value": "Öppnas med BankID på collector.se",
+     "quote": "Du kan enkelt öppna ett fasträntekonto här på collector.se med BankID",
+     "source": 7,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.89
+     }
+    },
+    "requires_other_products": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "intro_rate": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "interest_paid": {
+     "value": "vid bindningstidens slut",
+     "quote": "Räntan på Collectors bunda sparkonton kapitaliseras vid bindningstidens slut.",
+     "source": 0,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
       "confidence": 0.98
      }
     },
-    "rate_valid_from": {
-     "value": "2025-10-27",
-     "quote": "| 25-10-27 | 2,75 % | 2,80 % |",
-     "source": 1,
+    "guarantee_country": {
+     "value": "SE",
+     "quote": "Staten garanterar kundernas insättningar i banker, kreditmarknadsbolag och värdepappers-bolag.",
+     "source": 0,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.58
+      "confidence": 0.62
      }
-    }
-   },
-   "rate_tiers": [],
-   "pending_rate": null,
-   "status": "verifierad"
-  },
-  {
-   "name": "4-årigt sparkonto (fasträntekonto 4 år)",
-   "flags": [],
-   "fields": {
-    "product_type": {
-     "value": "fasträntekonto",
-     "quote": "Collector 4-årigt sparkonto är för dig som vill ha långsiktig trygghet och en förmånlig fast ränta utan avgifter.",
-     "source": 7,
+    },
+    "guarantee_amount": {
+     "value": "1 150 000 SEK",
+     "quote": "Insättningsgarantin gäller upp till motsvarande 1 150 000 SEK per kund och institut.",
+     "source": 0,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
       "confidence": 0.91
      }
     },
-    "rate_percent": {
-     "value": 2.8,
-     "quote": "| 4 år | 2,80 % |",
+    "rate_valid_from": {
+     "value": "2026-11-13",
+     "quote": "| 26-11-13 | 2,75 % | 2,70 % |",
      "source": 1,
-     "status": "belagt"
-    },
-    "rate_type": {
-     "value": "fast",
-     "quote": "Engångsinsättning från 10 000 kr till fast ränta.",
+     "status": "osäkert",
+     "jev": {
+      "verdict": "contradicts",
+      "confidence": 0.44
+     }
+    }
+   },
+   "rate_tiers": [],
+   "pending_rate": null,
+   "status": "verifierad"
+  },
+  {
+   "name": "2-årigt sparkonto (fasträntekonto)",
+   "flags": [],
+   "fields": {
+    "product_type": {
+     "value": "fasträntekonto",
+     "quote": "Ett fasträntekonto är ett sparkonto där du binder dina pengar under en bestämd tid för att få en fast ränta.",
      "source": 7,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.79
+      "confidence": 0.43
+     }
+    },
+    "rate_percent": {
+     "value": 2.7,
+     "quote": "| 2 år | 2,70 % |",
+     "source": 1,
+     "status": "osäkert",
+     "jev": {
+      "verdict": "says_nothing",
+      "confidence": 0.13
+     }
+    },
+    "rate_type": {
+     "value": "fast",
+     "quote": "Ett fasträntekonto är ett sparkonto där du binder dina pengar under en bestämd tid för att få en fast ränta.",
+     "source": 7,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.76
      }
     },
     "binding_months": {
-     "value": 48,
-     "quote": "Genom att binda ditt sparande i fyra år kan du maximera avkastningen",
-     "source": 7,
+     "value": 24,
+     "quote": "| 2 år | 2,70 % |",
+     "source": 1,
      "status": "belagt"
     },
     "withdrawals": {
      "value": "mot avgift",
+     "quote": "Utbetalning av pengar före bindningstidens slut innebär att du förlorar den upplupna räntan på kontot",
+     "source": 7,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.61
+     }
+    },
+    "free_withdrawals_per_year": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "withdrawal_terms": {
+     "value": "Uttag under bindningstid nollställer räntan för hela saldot.",
      "quote": "Uttag under bindningstid nollställer räntan för hela saldot.",
+     "source": 7,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.58
+     }
+    },
+    "min_deposit_sek": {
+     "value": 10000,
+     "quote": "För alla Collectors fasträntekonton är lägsta insättning 10 000 kr.",
+     "source": 7,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.77
+     }
+    },
+    "max_deposit_sek": {
+     "value": 10000000,
+     "quote": "Det sammanlagda belopp, exklusive kapitaliserad ränta, som Kontohavaren har på sparkonton hos Collector får ej överstiga 10 000 000 kronor",
+     "source": 0,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.7
+     }
+    },
+    "monthly_deposit_cap_sek": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "deposit_terms": {
+     "value": "Engångsinsättning",
+     "quote": "Engångsinsättning med lägsta belopp om 10 000 kr till fast ränta.",
+     "source": 7,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.98
+     }
+    },
+    "eligibility": {
+     "value": "Öppnas med BankID på collector.se",
+     "quote": "Du kan enkelt öppna ett fasträntekonto här på collector.se med BankID",
+     "source": 7,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.77
+     }
+    },
+    "requires_other_products": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "intro_rate": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "interest_paid": {
+     "value": "vid bindningstidens slut",
+     "quote": "Räntan på Collectors bunda sparkonton kapitaliseras vid bindningstidens slut.",
+     "source": 0,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.98
+     }
+    },
+    "guarantee_country": {
+     "value": "SE",
+     "quote": "Staten garanterar kundernas insättningar i banker, kreditmarknadsbolag och värdepappers-bolag.",
+     "source": 0,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.56
+     }
+    },
+    "guarantee_amount": {
+     "value": "1 150 000 SEK",
+     "quote": "Insättningsgarantin gäller upp till motsvarande 1 150 000 SEK per kund och institut.",
+     "source": 0,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.88
+     }
+    },
+    "rate_valid_from": {
+     "value": "2026-11-13",
+     "quote": "| 26-11-13 | 2,75 % | 2,70 % |",
+     "source": 1,
+     "status": "osäkert",
+     "jev": {
+      "verdict": "contradicts",
+      "confidence": 0.43
+     }
+    }
+   },
+   "rate_tiers": [],
+   "pending_rate": null,
+   "status": "verifierad"
+  },
+  {
+   "name": "3-årigt sparkonto (fasträntekonto)",
+   "flags": [],
+   "fields": {
+    "product_type": {
+     "value": "fasträntekonto",
+     "quote": "Ett fasträntekonto är ett sparkonto där du binder dina pengar under en bestämd tid för att få en fast ränta.",
      "source": 7,
      "status": "belagt",
      "jev": {
@@ -1679,6 +1453,42 @@
       "confidence": 0.33
      }
     },
+    "rate_percent": {
+     "value": 2.75,
+     "quote": "| 3 år | 2,75 % |",
+     "source": 1,
+     "status": "osäkert",
+     "jev": {
+      "verdict": "contradicts",
+      "confidence": 0.22
+     }
+    },
+    "rate_type": {
+     "value": "fast",
+     "quote": "Ett fasträntekonto är ett sparkonto där du binder dina pengar under en bestämd tid för att få en fast ränta.",
+     "source": 7,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.73
+     }
+    },
+    "binding_months": {
+     "value": 36,
+     "quote": "| 3 år | 2,75 % |",
+     "source": 1,
+     "status": "belagt"
+    },
+    "withdrawals": {
+     "value": "mot avgift",
+     "quote": "Utbetalning av pengar före bindningstidens slut innebär att du förlorar den upplupna räntan på kontot",
+     "source": 7,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.48
+     }
+    },
     "free_withdrawals_per_year": {
      "value": null,
      "quote": null,
@@ -1689,20 +1499,20 @@
      "value": "Uttag under bindningstid nollställer räntan för hela saldot.",
      "quote": "Uttag under bindningstid nollställer räntan för hela saldot.",
      "source": 7,
-     "status": "osäkert",
+     "status": "belagt",
      "jev": {
-      "verdict": "says_nothing",
-      "confidence": 0.28
+      "verdict": "supports",
+      "confidence": 0.4
      }
     },
     "min_deposit_sek": {
      "value": 10000,
-     "quote": "Engångsinsättning från 10 000 kr till fast ränta.",
+     "quote": "För alla Collectors fasträntekonton är lägsta insättning 10 000 kr.",
      "source": 7,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.95
+      "confidence": 0.83
      }
     },
     "max_deposit_sek": {
@@ -1712,7 +1522,7 @@
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.88
+      "confidence": 0.66
      }
     },
     "monthly_deposit_cap_sek": {
@@ -1722,8 +1532,8 @@
      "status": "okänt"
     },
     "deposit_terms": {
-     "value": "Engångsinsättning, lägst 10 000 kr",
-     "quote": "Engångsinsättning från 10 000 kr till fast ränta.",
+     "value": "Engångsinsättning",
+     "quote": "Engångsinsättning från 10 000 kr, med garanterad ränta under hela perioden.",
      "source": 7,
      "status": "belagt",
      "jev": {
@@ -1732,7 +1542,7 @@
      }
     },
     "eligibility": {
-     "value": "Öppnas med BankID",
+     "value": "Öppnas med BankID på collector.se",
      "quote": "Du kan enkelt öppna ett fasträntekonto här på collector.se med BankID",
      "source": 7,
      "status": "belagt",
@@ -1743,14 +1553,9 @@
     },
     "requires_other_products": {
      "value": null,
-     "quote": "Nej, alla Collectors sparkonton är helt avgiftsfria.",
-     "source": 7,
-     "status": "stöds inte av källan",
-     "jev": {
-      "verdict": "says_nothing",
-      "confidence": 0.51
-     },
-     "claimed": false
+     "quote": null,
+     "source": null,
+     "status": "okänt"
     },
     "intro_rate": {
      "value": null,
@@ -1759,33 +1564,33 @@
      "status": "okänt"
     },
     "interest_paid": {
-     "value": "Vid bindningstidens slut",
+     "value": "vid bindningstidens slut",
      "quote": "Räntan på Collectors bunda sparkonton kapitaliseras vid bindningstidens slut.",
      "source": 0,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 1.0
+      "confidence": 0.98
      }
     },
     "guarantee_country": {
      "value": "SE",
-     "quote": "Alla våra sparkonton skyddas av den statliga insättningsgarantin.",
-     "source": 4,
-     "status": "osäkert",
-     "jev": {
-      "verdict": "says_nothing",
-      "confidence": 0.67
-     }
-    },
-    "guarantee_amount": {
-     "value": "1 150 000 kr",
-     "quote": "upp till 1 150 000 kronor per person",
-     "source": 2,
+     "quote": "Staten garanterar kundernas insättningar i banker, kreditmarknadsbolag och värdepappers-bolag.",
+     "source": 0,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 1.0
+      "confidence": 0.56
+     }
+    },
+    "guarantee_amount": {
+     "value": "1 150 000 SEK",
+     "quote": "Insättningsgarantin gäller upp till motsvarande 1 150 000 SEK per kund och institut.",
+     "source": 0,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.89
      }
     },
     "rate_valid_from": {
@@ -1795,7 +1600,176 @@
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.38
+      "confidence": 0.66
+     }
+    }
+   },
+   "rate_tiers": [],
+   "pending_rate": null,
+   "status": "verifierad"
+  },
+  {
+   "name": "4-årigt sparkonto (fasträntekonto)",
+   "flags": [],
+   "fields": {
+    "product_type": {
+     "value": "fasträntekonto",
+     "quote": "Ett fasträntekonto är ett sparkonto där du binder dina pengar under en bestämd tid för att få en fast ränta.",
+     "source": 7,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.43
+     }
+    },
+    "rate_percent": {
+     "value": 2.8,
+     "quote": "| 4 år | 2,80 % |",
+     "source": 1,
+     "status": "osäkert",
+     "jev": {
+      "verdict": "says_nothing",
+      "confidence": 0.68
+     }
+    },
+    "rate_type": {
+     "value": "fast",
+     "quote": "Ett fasträntekonto är ett sparkonto där du binder dina pengar under en bestämd tid för att få en fast ränta.",
+     "source": 7,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.85
+     }
+    },
+    "binding_months": {
+     "value": 48,
+     "quote": "| 4 år | 2,80 % |",
+     "source": 1,
+     "status": "belagt"
+    },
+    "withdrawals": {
+     "value": "mot avgift",
+     "quote": "Utbetalning av pengar före bindningstidens slut innebär att du förlorar den upplupna räntan på kontot",
+     "source": 7,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.55
+     }
+    },
+    "free_withdrawals_per_year": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "withdrawal_terms": {
+     "value": "Uttag under bindningstid nollställer räntan för hela saldot.",
+     "quote": "Uttag under bindningstid nollställer räntan för hela saldot.",
+     "source": 7,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.42
+     }
+    },
+    "min_deposit_sek": {
+     "value": 10000,
+     "quote": "För alla Collectors fasträntekonton är lägsta insättning 10 000 kr.",
+     "source": 7,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.88
+     }
+    },
+    "max_deposit_sek": {
+     "value": 10000000,
+     "quote": "Det sammanlagda belopp, exklusive kapitaliserad ränta, som Kontohavaren har på sparkonton hos Collector får ej överstiga 10 000 000 kronor",
+     "source": 0,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.76
+     }
+    },
+    "monthly_deposit_cap_sek": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "deposit_terms": {
+     "value": "Engångsinsättning",
+     "quote": "Collector 4-årigt sparkonto är för dig som vill ha långsiktig trygghet och en förmånlig fast ränta utan avgifter.",
+     "source": 7,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.98
+     }
+    },
+    "eligibility": {
+     "value": "Öppnas med BankID på collector.se",
+     "quote": "Du kan enkelt öppna ett fasträntekonto här på collector.se med BankID",
+     "source": 7,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.8
+     }
+    },
+    "requires_other_products": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "intro_rate": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "interest_paid": {
+     "value": "vid bindningstidens slut",
+     "quote": "Räntan på Collectors bunda sparkonton kapitaliseras vid bindningstidens slut.",
+     "source": 0,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.98
+     }
+    },
+    "guarantee_country": {
+     "value": "SE",
+     "quote": "Staten garanterar kundernas insättningar i banker, kreditmarknadsbolag och värdepappers-bolag.",
+     "source": 0,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.64
+     }
+    },
+    "guarantee_amount": {
+     "value": "1 150 000 SEK",
+     "quote": "Insättningsgarantin gäller upp till motsvarande 1 150 000 SEK per kund och institut.",
+     "source": 0,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.88
+     }
+    },
+    "rate_valid_from": {
+     "value": "2025-10-27",
+     "quote": "| 25-10-27 | 2,75 % | 2,80 % |",
+     "source": 1,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.52
      }
     }
    },
@@ -1804,7 +1778,7 @@
    "status": "verifierad"
   }
  ],
- "source_hash": "7dc73d48fc0d193a",
- "changed_at": "2026-10-22T00:50:41+00:00",
+ "source_hash": "cb6b4496b7081b54",
+ "changed_at": "2026-11-17T17:27:26+00:00",
  "model": "claude-haiku-5-5"
 }

@@ -1,15 +1,15 @@
 {
  "model": "claude-haiku-5-5",
- "at": "2026-10-19T19:58:14+00:00",
+ "at": "2026-11-17T20:50:24+00:00",
  "extraction": {
   "products": [
    {
-    "name": "Europabetalning (euro till konto inom EU/EES, internetbank)",
+    "name": "Europabetalning (euro till konto inom EU/EES eller Schweiz)",
     "fields": {
      "provider_type": {
       "value": "bank",
-      "quote": "Swedbank och sparbankerna",
-      "source": 3
+      "quote": "Swedbankbetalning – Betalning till mottagare inom Swedbank.",
+      "source": 0
      },
      "payment_type": {
       "value": "SEPA-betalning",
@@ -18,8 +18,8 @@
      },
      "fee_fixed_sek": {
       "value": 0,
-      "quote": "| Europabetalning (SEK el euro) | 200 kr | 0 kr |",
-      "source": 5
+      "quote": "Avgift per överföring internetbanken\n\nBetalning till land inom EU/EES eller till Schweiz i euro eller svenska kronor.\n\n0 kr/st",
+      "source": 0
      },
      "fee_percent": {
       "value": null,
@@ -42,9 +42,9 @@
       "source": null
      },
      "express_fee_sek": {
-      "value": null,
-      "quote": null,
-      "source": null
+      "value": 350,
+      "quote": "Europabetalning Urgent\n\nAvgift per överföring internetbanken\n\nBetalning till land inom EU/EES eller till Schweiz i euro om betalningen brådskar.\n\n350 kr/st",
+      "source": 0
      },
      "max_amount_sek": {
       "value": null,
@@ -52,7 +52,7 @@
       "source": null
      },
      "delivery_time": {
-      "value": "nästa bankdag",
+      "value": "nästa bankdag (mottagarbanken)",
       "quote": "Betalningar i EUR når mottagarbanken dagen efter betalningsdagen.",
       "source": 0
      },
@@ -62,7 +62,7 @@
       "source": null
      },
      "requirements": {
-      "value": "Internetbank; återkommande betalningar till utlandet kräver att tjänsten aktiveras efter kontakt med banken",
+      "value": "Internetbank eller app; återkommande betalningar kräver att banken aktiverar tjänsten",
       "quote": "Om du har behov av att göra återkommande betalningar till utlandet i internetbanken behöver du först kontakta oss för att aktivera den möjligheten.",
       "source": 0
      }
@@ -70,12 +70,12 @@
     "rate_tiers": []
    },
    {
-    "name": "Internationell betalning (övriga valutor/länder, internetbank)",
+    "name": "Internationell betalning (övriga valutor och länder)",
     "fields": {
      "provider_type": {
       "value": "bank",
-      "quote": "Swedbank och sparbankerna",
-      "source": 3
+      "quote": "Swedbankbetalning – Betalning till mottagare inom Swedbank.",
+      "source": 0
      },
      "payment_type": {
       "value": "utlandsbetalning",
@@ -84,8 +84,8 @@
      },
      "fee_fixed_sek": {
       "value": 50,
-      "quote": "| Internationell betalning | 250 kr | 50 kr |",
-      "source": 5
+      "quote": "Avgift per överföring internetbanken\n\nBetalning till land utanför EU/EES oavsett valuta. Samt betalning till land inom EU/EES eller Schweiz i andra valutor än euro och svenska kronor.\n\n50 kr/st",
+      "source": 0
      },
      "fee_percent": {
       "value": null,
@@ -108,9 +108,9 @@
       "source": null
      },
      "express_fee_sek": {
-      "value": null,
-      "quote": null,
-      "source": null
+      "value": 350,
+      "quote": "Internationell betalning Urgent\n\nAvgift per överföring internetbanken\n\nBetalning till land utanför EU/EES oavsett valuta. Samt betalning till land inom EU/EES eller Schweiz i andra valutor än euro om betalningen brådskar.\n\n350 kr/st",
+      "source": 0
      },
      "max_amount_sek": {
       "value": null,
@@ -123,12 +123,12 @@
       "source": 0
      },
      "recipient_charges": {
-      "value": "Avsändaren betalar tillägg för mottagande bankens kostnad, lägst 100 kr",
+      "value": "Tillägg för mottagande bankens kostnad tillkommer, lägst 100 kr/st",
       "quote": "Tillägg för mottagandes banks kostnad: Faktiskt kostnad eller generellt kostnad dock lägst 100 kr/st.",
       "source": 0
      },
      "requirements": {
-      "value": "Internetbank; återkommande betalningar till utlandet kräver att tjänsten aktiveras efter kontakt med banken",
+      "value": "Internetbank eller app; återkommande betalningar kräver att banken aktiverar tjänsten",
       "quote": "Om du har behov av att göra återkommande betalningar till utlandet i internetbanken behöver du först kontakta oss för att aktivera den möjligheten.",
       "source": 0
      }
@@ -136,6 +136,6 @@
     "rate_tiers": []
    }
   ],
-  "notes": "Påslag på växelkursen anges inte; sidan med valutakurser säger endast att kurserna är indikativa, så fx_markup_percent är null. Ingen betaltjänst-överföring för utlandsbetalningar finns i underlaget (Expressbetalning avser betalning till företag i realtid), så den produkten är utelämnad. Brådskande varianter finns: Europabetalning Urgent kostar 350 kr i internetbanken och Internationell betalning Urgent också 350 kr, men de är inte tagna som egna produkter. Kontorsbetalningar (200 kr respektive 250 kr) är utelämnade. Dagsgräns för överföringar är 50 000 kr som standard, men den gäller alla överföringar och inte per betalning, så max_amount_sek är null."
+  "notes": "Priser för privatkunder i internetbanken/appen (dokument 0). Kontorsavgifter (Europabetalning 200 kr, Internationell betalning 250 kr, Urgent 550 kr) är utelämnade enligt reglerna. Express-avgiften som angetts är Urgent-varianten i internetbanken (350 kr) och bygger på att Urgent motsvarar expressbetalning. Ingen betaltjänst-produkt (typ Wise) finns i underlaget. Valutapåslag anges inte i underlaget (indikativa kurser utan påslagsprocent). Ingen beloppsgräns per betalning anges; standardgränsen är 50 000 kr per dag. Mottagarens bank får normalt pengarna bankdagen efter för EUR inom EU/EES."
  }
 }

@@ -7,7 +7,7 @@
   "kind": "sparbank",
   "legal_name": "Ölands Bank AB"
  },
- "checked_at": "2026-11-14T01:24:15+00:00",
+ "checked_at": "2026-11-17T17:18:04+00:00",
  "discovered_at": "2026-10-19T00:42:33+00:00",
  "sources": [
   {
@@ -64,25 +64,21 @@
    "title": "Ölandskonto Sund | Spar | Säkert sparande | Ölands Bank",
    "kind": "html",
    "via": "http",
-   "chars": 7989
+   "chars": 7991
   }
  ],
  "status": "ok",
- "notes": "Ölandskonto Fast: räntan och bindningstiderna (3 mån–5 år) visas inte i källorna utan krävs inloggning/tabell; inga specifika bindningsprodukter kan därför särskiljas. Ungdomskonto: endast ränta (0,50 %) finns i källorna, övriga villkor saknas. Privatkonto (0 %) utelämnat eftersom det är ett transaktionskonto. Skogskonto och ISK utelämnade enligt reglerna. Nyckelkund-krav för Plus och Månad anges som eligibility; det är inte tydligt om det är en annan produkt, därför requires_other_products lämnat tomt. Motsägelse: insättningsgarantins belopp anges som 1 150 000 kr på insättningsgarantisidan men 1 050 000 kr på produktsidorna för Bas, Plus och Sund; använt 1 150 000 kr (dedikerad sida). Ölandskonto Månad: sidan 'sparkonton' säger ränta från första kronan, men räntesidan anger att ränta inte räknas över 100 000 kr; använt räntesidans uppgifter. Ölandskonto Sund finns på produktsidan men inte i räntetabellen; räntan 0,50 % hämtad från produktsidan. Räntor för Ölandskonto Månad gäller för saldo upp till 100 000 kr. Inga uppgifter om utbetalning av ränta, intro-räntor eller giltighetsdatum fanns i källorna.",
+ "notes": "Källorna motsäger varandra på flera punkter: (1) e-sparkonto anges till 0,00 % i räntesidan (doc 0) men 0,25 % på produktsidan (doc 2); produktsidan används. (2) Insättningsgarantins belopp anges till 1 050 000 kr på produktsidorna för Bas, Plus och Sund (doc 5–7) men 1 150 000 kr på den allmänna garantisidan (doc 4); doc 4 används. (3) Ölandskonto Fast: räntetabellen finns inte i källorna, så ingen ränta eller specifik bindningstid kan anges; endast intervallet 3 månader till 5 år. (4) Ungdomskonto finns endast i räntetabellen (doc 0) utan villkor. Privatkonto (0 %) har utelämnats eftersom det inte beskrivs som sparkonto och saknar villkor. (5) Ölandskonto Plus och Månad kräver Nyckelkund, men det är inte tydligt om det är en annan produkt, så requires_other_products är satt till null. Ingen rörlig/fast-angivelse, produkttyp eller utbetalningsfrekvens finns för de flesta rörliga konton. Skogskonto, ISK och fasträntekonto-sidan (404) har exkluderats.",
  "products": [
   {
    "name": "Ölandskonto Bas",
    "flags": [],
    "fields": {
     "product_type": {
-     "value": "rörligt sparkonto",
-     "quote": "Aktuell ränta",
-     "source": 5,
-     "status": "osäkert",
-     "jev": {
-      "verdict": "says_nothing",
-      "confidence": 0.31
-     }
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
     },
     "rate_percent": {
      "value": 0.0,
@@ -95,20 +91,20 @@
      }
     },
     "rate_type": {
-     "value": "rörlig",
-     "quote": "Aktuell ränta",
-     "source": 5,
-     "status": "osäkert",
-     "jev": {
-      "verdict": "says_nothing",
-      "confidence": 0.66
-     }
-    },
-    "binding_months": {
      "value": null,
      "quote": null,
      "source": null,
      "status": "okänt"
+    },
+    "binding_months": {
+     "value": 0,
+     "quote": "Pengarna finns alltid tillgängliga när du vill.",
+     "source": 5,
+     "status": "osäkert",
+     "jev": {
+      "verdict": "says_nothing",
+      "confidence": 0.43
+     }
     },
     "withdrawals": {
      "value": "fria",
@@ -127,13 +123,13 @@
      "status": "okänt"
     },
     "withdrawal_terms": {
-     "value": "Pengarna finns alltid tillgängliga när du vill. Uttag: fria uttag enligt produktsidan.",
+     "value": "Pengarna finns alltid tillgängliga när du vill. Inga avgifter angivna.",
      "quote": "Pengarna finns alltid tillgängliga när du vill.",
      "source": 5,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.72
+      "confidence": 0.96
      }
     },
     "min_deposit_sek": {
@@ -155,19 +151,23 @@
      "status": "okänt"
     },
     "deposit_terms": {
-     "value": null,
-     "quote": null,
-     "source": null,
-     "status": "okänt"
+     "value": "Regelbundet sparande via automatiska överföringar till kontot",
+     "quote": "Du kan sedan enkelt spara regelbundet till sparkontot genom automatiska överföringar till ditt Ölandskonto Bas.",
+     "source": 5,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.92
+     }
     },
     "eligibility": {
-     "value": "För dig som ännu inte är konceptkund; kontot öppnas i samband med en gratis rådgivning.",
-     "quote": "Ölandskonto Bas är till för dig som ännu inte är konceptkund",
+     "value": "För dig som ännu inte är konceptkund; kontot öppnas i samband med gratis rådgivning",
+     "quote": "Ölandskonto Bas är till för dig som ännu inte är konceptkund men som ändå vill spara tryggt och långsiktigt.",
      "source": 5,
-     "status": "osäkert",
+     "status": "belagt",
      "jev": {
-      "verdict": "says_nothing",
-      "confidence": 0.76
+      "verdict": "supports",
+      "confidence": 0.72
      }
     },
     "requires_other_products": {
@@ -217,21 +217,17 @@
    },
    "rate_tiers": [],
    "pending_rate": null,
-   "status": "delvis verifierad"
+   "status": "verifierad"
   },
   {
    "name": "Ölandskonto Plus",
    "flags": [],
    "fields": {
     "product_type": {
-     "value": "rörligt sparkonto",
-     "quote": "Aktuell ränta",
-     "source": 6,
-     "status": "osäkert",
-     "jev": {
-      "verdict": "says_nothing",
-      "confidence": 0.23
-     }
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
     },
     "rate_percent": {
      "value": 0.5,
@@ -245,29 +241,28 @@
     },
     "rate_type": {
      "value": null,
-     "quote": "Aktuell ränta",
-     "source": 6,
-     "status": "stöds inte av källan",
-     "jev": {
-      "verdict": "says_nothing",
-      "confidence": 0.98
-     },
-     "claimed": "rörlig"
-    },
-    "binding_months": {
-     "value": null,
      "quote": null,
      "source": null,
      "status": "okänt"
     },
+    "binding_months": {
+     "value": 0,
+     "quote": "Pengarna finns alltid till hands när du behöver dem.",
+     "source": 6,
+     "status": "osäkert",
+     "jev": {
+      "verdict": "says_nothing",
+      "confidence": 0.79
+     }
+    },
     "withdrawals": {
      "value": "fria",
-     "quote": "Fria uttag",
+     "quote": "Pengarna finns alltid till hands när du behöver dem.",
      "source": 6,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.97
+      "confidence": 0.96
      }
     },
     "free_withdrawals_per_year": {
@@ -277,13 +272,13 @@
      "status": "okänt"
     },
     "withdrawal_terms": {
-     "value": "Fria uttag enligt produktsidan; kontot kan öppnas av Nyckelkund.",
-     "quote": "Fria uttag",
+     "value": "Pengarna finns alltid till hands när du behöver dem. Inga avgifter angivna.",
+     "quote": "Pengarna finns alltid till hands när du behöver dem.",
      "source": 6,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.86
+      "confidence": 0.85
      }
     },
     "min_deposit_sek": {
@@ -305,19 +300,23 @@
      "status": "okänt"
     },
     "deposit_terms": {
-     "value": null,
-     "quote": null,
-     "source": null,
-     "status": "okänt"
+     "value": "Regelbundet sparande via automatiska överföringar till kontot",
+     "quote": "Du kan sedan enkelt spara regelbundet till sparkontot genom automatiska överföringar till ditt Ölandskonto Plus.",
+     "source": 6,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.86
+     }
     },
     "eligibility": {
-     "value": "Nyckelkund",
+     "value": "Endast Nyckelkund",
      "quote": "Kontot kan öppnas om du är Nyckelkund.",
      "source": 6,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.67
+      "confidence": 0.97
      }
     },
     "requires_other_products": {
@@ -367,20 +366,20 @@
    },
    "rate_tiers": [],
    "pending_rate": null,
-   "status": "delvis verifierad"
+   "status": "verifierad"
   },
   {
    "name": "Ölandskonto Sund",
    "flags": [],
    "fields": {
     "product_type": {
-     "value": "rörligt sparkonto",
-     "quote": "Aktuell ränta",
-     "source": 7,
+     "value": "sparkonto med uttagsbegränsning",
+     "quote": "Ölandskonto Sund är till för dig som söker ett konto som är lite trögrörligt, vilket skapar ett extra skydd mot bedrägerier.",
+     "source": 1,
      "status": "osäkert",
      "jev": {
       "verdict": "contradicts",
-      "confidence": 0.43
+      "confidence": 0.28
      }
     },
     "rate_percent": {
@@ -390,35 +389,34 @@
      "status": "osäkert",
      "jev": {
       "verdict": "says_nothing",
-      "confidence": 0.33
+      "confidence": 0.28
      }
     },
     "rate_type": {
-     "value": "rörlig",
-     "quote": "Aktuell ränta",
-     "source": 7,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.13
-     }
-    },
-    "binding_months": {
      "value": null,
      "quote": null,
      "source": null,
      "status": "okänt"
     },
+    "binding_months": {
+     "value": 0,
+     "quote": "Ett tryggt sparande på konto.",
+     "source": 7,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.28
+     }
+    },
     "withdrawals": {
-     "value": null,
+     "value": "begränsade",
      "quote": "Endast överföring till eget konto i internetbanken eller appen. Överföringen tar tre kalenderdagar.",
      "source": 7,
-     "status": "motsägs av källan",
+     "status": "osäkert",
      "jev": {
       "verdict": "contradicts",
-      "confidence": 0.82
-     },
-     "claimed": "begränsade"
+      "confidence": 0.79
+     }
     },
     "free_withdrawals_per_year": {
      "value": null,
@@ -427,13 +425,13 @@
      "status": "okänt"
     },
     "withdrawal_terms": {
-     "value": "Överföring till eget konto i internetbanken/appen tar tre kalenderdagar; endast överföring till egna konton.",
+     "value": "Endast överföring till eget konto i internetbanken eller appen, tar tre kalenderdagar.",
      "quote": "Endast överföring till eget konto i internetbanken eller appen. Överföringen tar tre kalenderdagar.",
      "source": 7,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.97
+      "confidence": 0.92
      }
     },
     "min_deposit_sek": {
@@ -461,13 +459,13 @@
      "status": "okänt"
     },
     "eligibility": {
-     "value": "Ingen åldersgräns; kan öppnas själv i internetbanken eller appen.",
+     "value": "Ingen åldersgräns; kan öppnas själv i appen eller internetbanken",
      "quote": "Ja, det finns ingen åldersgräns på kontot.",
      "source": 7,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.98
+      "confidence": 0.8
      }
     },
     "requires_other_products": {
@@ -492,10 +490,10 @@
      "value": "SE",
      "quote": "Ölands Banks inlåningskonton omfattas av den statliga insättningsgarantin.",
      "source": 4,
-     "status": "osäkert",
+     "status": "belagt",
      "jev": {
-      "verdict": "says_nothing",
-      "confidence": 0.34
+      "verdict": "supports",
+      "confidence": 0.25
      }
     },
     "guarantee_amount": {
@@ -517,48 +515,47 @@
    },
    "rate_tiers": [],
    "pending_rate": null,
-   "status": "delvis verifierad"
+   "status": "verifierad"
   },
   {
    "name": "Ölandskonto Månad",
    "flags": [],
    "fields": {
     "product_type": {
-     "value": "rörligt sparkonto",
-     "quote": "Ölandskonto Månad är ett sparkonto med bra ränta från första kronan.",
-     "source": 1,
+     "value": "sparkonto med uttagsbegränsning",
+     "quote": "Ett fritt uttag per år, därefter uttagsavgift 2 % av uttaget belopp dock lägst 100 kr.",
+     "source": 0,
      "status": "osäkert",
      "jev": {
       "verdict": "says_nothing",
-      "confidence": 0.34
+      "confidence": 0.48
      }
     },
     "rate_percent": {
      "value": 1.65,
-     "quote": "1,65 %",
+     "quote": "Aktuell ränta (saldo under 100 000 kr) 1,65 %",
      "source": 0,
      "status": "osäkert",
      "jev": {
       "verdict": "contradicts",
-      "confidence": 0.33
+      "confidence": 0.38
      }
     },
     "rate_type": {
      "value": null,
-     "quote": "Aktuell ränta",
-     "source": 0,
-     "status": "stöds inte av källan",
-     "jev": {
-      "verdict": "says_nothing",
-      "confidence": 0.95
-     },
-     "claimed": "rörlig"
-    },
-    "binding_months": {
-     "value": null,
      "quote": null,
      "source": null,
      "status": "okänt"
+    },
+    "binding_months": {
+     "value": 0,
+     "quote": "Ölandskonto Månad är ett sparkonto med bra ränta från första kronan.",
+     "source": 1,
+     "status": "osäkert",
+     "jev": {
+      "verdict": "contradicts",
+      "confidence": 0.4
+     }
     },
     "withdrawals": {
      "value": "begränsade",
@@ -581,13 +578,13 @@
      }
     },
     "withdrawal_terms": {
-     "value": "Ett fritt uttag per år; därefter uttagsavgift 2 % av uttaget, lägst 100 kr.",
+     "value": "1 fritt uttag per år, därefter uttagsavgift 2 % av uttaget belopp (lägst 100 kr)",
      "quote": "Ett fritt uttag per år, därefter uttagsavgift 2 % av uttaget belopp dock lägst 100 kr.",
      "source": 0,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 1.0
+      "confidence": 0.98
      }
     },
     "min_deposit_sek": {
@@ -613,23 +610,23 @@
      "status": "okänt"
     },
     "deposit_terms": {
-     "value": "Avsett för regelbundet månadssparande till buffert.",
-     "quote": "vill börja månadsspara för att bygga upp en buffert",
+     "value": "Anpassat för månadssparande",
+     "quote": "Kontot är speciellt anpassat för dig som är Nyckelkund och vill börja månadsspara för att bygga upp en buffert.",
      "source": 1,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.86
+      "confidence": 0.97
      }
     },
     "eligibility": {
-     "value": "Nyckelkund",
+     "value": "Endast Nyckelkund",
      "quote": "Kontot kan öppnas om du är Nyckelkund.",
      "source": 0,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.77
+      "confidence": 0.92
      }
     },
     "requires_other_products": {
@@ -696,42 +693,182 @@
     }
    ],
    "pending_rate": null,
-   "status": "delvis verifierad"
+   "status": "verifierad"
+  },
+  {
+   "name": "Ölandskonto Fast",
+   "flags": [],
+   "fields": {
+    "product_type": {
+     "value": "fasträntekonto",
+     "quote": "Ölandskonto Fast är ett sparkonto där du binder pengarna från tre månader upp till fem år till fast ränta.",
+     "source": 1,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.2
+     }
+    },
+    "rate_percent": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "rate_type": {
+     "value": "fast",
+     "quote": "Ölandskonto Fast är ett sparkonto där du binder pengarna från tre månader upp till fem år till fast ränta.",
+     "source": 1,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.7
+     }
+    },
+    "binding_months": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "withdrawals": {
+     "value": "mot avgift",
+     "quote": "Om pengarna tas ut före slutförfallodagen utgår en ränteskillnadsersättning som beräknas på den marknadsränta som gäller på avslutsdagen, fram till slutförfallodagen.",
+     "source": 0,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.55
+     }
+    },
+    "free_withdrawals_per_year": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "withdrawal_terms": {
+     "value": "Uttag före slutförfallodagen ger ränteskillnadsersättning",
+     "quote": "Om pengarna tas ut före slutförfallodagen utgår en ränteskillnadsersättning som beräknas på den marknadsränta som gäller på avslutsdagen, fram till slutförfallodagen.",
+     "source": 0,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.92
+     }
+    },
+    "min_deposit_sek": {
+     "value": 5000,
+     "quote": "Minsta insättning\n\n5000 kr",
+     "source": 0,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.48
+     }
+    },
+    "max_deposit_sek": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "monthly_deposit_cap_sek": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "deposit_terms": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "eligibility": {
+     "value": "Kontot öppnas via bankens kontor",
+     "quote": "Kontot öppnas via våra kontor.",
+     "source": 1,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.96
+     }
+    },
+    "requires_other_products": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "intro_rate": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "interest_paid": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "guarantee_country": {
+     "value": "SE",
+     "quote": "Ölands Banks inlåningskonton omfattas av den statliga insättningsgarantin.",
+     "source": 4,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.48
+     }
+    },
+    "guarantee_amount": {
+     "value": "1 150 000 kr",
+     "quote": "Varje kontohavare har rätt till ersättning för sin sammanlagda kontobehållning i banken med ett belopp om högst 1 150 000 kr.",
+     "source": 4,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.97
+     }
+    },
+    "rate_valid_from": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    }
+   },
+   "rate_tiers": [],
+   "pending_rate": null,
+   "status": "ej verifierad"
   },
   {
    "name": "e-sparkonto",
    "flags": [],
    "fields": {
     "product_type": {
-     "value": "rörligt sparkonto",
-     "quote": "Aktuell ränta",
-     "source": 2,
-     "status": "osäkert",
-     "jev": {
-      "verdict": "says_nothing",
-      "confidence": 0.37
-     }
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
     },
     "rate_percent": {
-     "value": 0.0,
-     "quote": "0,00 %",
+     "value": 0.25,
+     "quote": "0,25 %",
      "source": 2,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.94
+      "confidence": 0.28
      }
     },
     "rate_type": {
      "value": null,
-     "quote": "Aktuell ränta",
-     "source": 2,
-     "status": "stöds inte av källan",
-     "jev": {
-      "verdict": "says_nothing",
-      "confidence": 0.92
-     },
-     "claimed": "rörlig"
+     "quote": null,
+     "source": null,
+     "status": "okänt"
     },
     "binding_months": {
      "value": 0,
@@ -760,23 +897,23 @@
      "status": "okänt"
     },
     "withdrawal_terms": {
-     "value": "Fria uttag; avslut sker via bankkontor.",
-     "quote": "Du behöver kontakta ett bankkontor för att avsluta ett e-sparkonto.",
+     "value": "Fria uttag; kontot kan inte kopplas till bank- eller betalkort",
+     "quote": "Du kan inte koppla bank- och betalkort till ditt e-sparkonto.",
      "source": 2,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.98
+      "confidence": 0.62
      }
     },
     "min_deposit_sek": {
      "value": 0,
-     "quote": "Minsta insättning 0 kr",
+     "quote": "Minsta insättning\n\n0 kr",
      "source": 2,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.95
+      "confidence": 0.94
      }
     },
     "max_deposit_sek": {
@@ -792,17 +929,17 @@
      "status": "okänt"
     },
     "deposit_terms": {
-     "value": "Månadssparande kan skapas till kontot.",
+     "value": "Månadssparande till kontot kan skapas",
      "quote": "Du kan enkelt skapa ett månadssparande till ditt konto.",
      "source": 2,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 1.0
+      "confidence": 0.66
      }
     },
     "eligibility": {
-     "value": "Inloggad med säkerhetsdosa eller Mobilt BankID; max tre e-sparkonton öppnade själv.",
+     "value": "Öppnas själv i internetbanken eller appen med säkerhetsdosa eller Mobilt BankID; max tre e-sparkonton",
      "quote": "Du behöver vara inloggad med säkerhetsdosa eller Mobilt BankID.",
      "source": 2,
      "status": "belagt",
@@ -861,155 +998,6 @@
    "status": "verifierad"
   },
   {
-   "name": "Ölandskonto Fast",
-   "flags": [],
-   "fields": {
-    "product_type": {
-     "value": "fasträntekonto",
-     "quote": "Ölandskonto Fast är ett sparkonto där du binder pengarna från tre månader upp till fem år till fast ränta.",
-     "source": 1,
-     "status": "osäkert",
-     "jev": {
-      "verdict": "says_nothing",
-      "confidence": 0.09
-     }
-    },
-    "rate_percent": {
-     "value": null,
-     "quote": null,
-     "source": null,
-     "status": "okänt"
-    },
-    "rate_type": {
-     "value": "fast",
-     "quote": "binder pengarna från tre månader upp till fem år till fast ränta",
-     "source": 1,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.22
-     }
-    },
-    "binding_months": {
-     "value": null,
-     "quote": null,
-     "source": null,
-     "status": "okänt"
-    },
-    "withdrawals": {
-     "value": "mot avgift",
-     "quote": "Om pengarna tas ut före slutförfallodagen utgår en ränteskillnadsersättning",
-     "source": 0,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.89
-     }
-    },
-    "free_withdrawals_per_year": {
-     "value": null,
-     "quote": null,
-     "source": null,
-     "status": "okänt"
-    },
-    "withdrawal_terms": {
-     "value": "Uttag före slutförfallodagen ger ränteskillnadsersättning beräknad på marknadsränta.",
-     "quote": "Om pengarna tas ut före slutförfallodagen utgår en ränteskillnadsersättning",
-     "source": 0,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 1.0
-     }
-    },
-    "min_deposit_sek": {
-     "value": 5000,
-     "quote": "Minsta insättning 5000 kr",
-     "source": 0,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.97
-     }
-    },
-    "max_deposit_sek": {
-     "value": null,
-     "quote": null,
-     "source": null,
-     "status": "okänt"
-    },
-    "monthly_deposit_cap_sek": {
-     "value": null,
-     "quote": null,
-     "source": null,
-     "status": "okänt"
-    },
-    "deposit_terms": {
-     "value": null,
-     "quote": null,
-     "source": null,
-     "status": "okänt"
-    },
-    "eligibility": {
-     "value": "Kontot öppnas via bankens kontor.",
-     "quote": "Kontot öppnas via våra kontor.",
-     "source": 1,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.69
-     }
-    },
-    "requires_other_products": {
-     "value": null,
-     "quote": null,
-     "source": null,
-     "status": "okänt"
-    },
-    "intro_rate": {
-     "value": null,
-     "quote": null,
-     "source": null,
-     "status": "okänt"
-    },
-    "interest_paid": {
-     "value": null,
-     "quote": null,
-     "source": null,
-     "status": "okänt"
-    },
-    "guarantee_country": {
-     "value": "SE",
-     "quote": "Ölands Banks inlåningskonton omfattas av den statliga insättningsgarantin.",
-     "source": 4,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.48
-     }
-    },
-    "guarantee_amount": {
-     "value": "1 150 000 kr",
-     "quote": "Varje kontohavare har rätt till ersättning för sin sammanlagda kontobehållning i banken med ett belopp om högst 1 150 000 kr.",
-     "source": 4,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.97
-     }
-    },
-    "rate_valid_from": {
-     "value": null,
-     "quote": null,
-     "source": null,
-     "status": "okänt"
-    }
-   },
-   "rate_tiers": [],
-   "pending_rate": null,
-   "status": "ej verifierad"
-  },
-  {
    "name": "Ungdomskonto",
    "flags": [],
    "fields": {
@@ -1021,12 +1009,12 @@
     },
     "rate_percent": {
      "value": 0.5,
-     "quote": "0,50 %",
+     "quote": "Ungdomskonto\nAktuell ränta\n0,50 %",
      "source": 0,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.95
+      "confidence": 0.83
      }
     },
     "rate_type": {
@@ -1108,24 +1096,16 @@
      "status": "okänt"
     },
     "guarantee_country": {
-     "value": "SE",
-     "quote": "Ölands Banks inlåningskonton omfattas av den statliga insättningsgarantin.",
-     "source": 4,
-     "status": "osäkert",
-     "jev": {
-      "verdict": "says_nothing",
-      "confidence": 0.35
-     }
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
     },
     "guarantee_amount": {
-     "value": "1 150 000 kr",
-     "quote": "Varje kontohavare har rätt till ersättning för sin sammanlagda kontobehållning i banken med ett belopp om högst 1 150 000 kr.",
-     "source": 4,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.76
-     }
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
     },
     "rate_valid_from": {
      "value": null,
@@ -1139,7 +1119,7 @@
    "status": "delvis verifierad"
   }
  ],
- "source_hash": "13b523674e7d1e13",
- "changed_at": "2026-10-19T00:42:33+00:00",
+ "source_hash": "85fc153678e08ff4",
+ "changed_at": "2026-11-17T17:18:04+00:00",
  "model": "claude-haiku-5-5"
 }

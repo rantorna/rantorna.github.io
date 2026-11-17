@@ -7,8 +7,8 @@
   "kind": "sparbank",
   "legal_name": "Falkenbergs Sparbank AB"
  },
- "checked_at": "2026-11-14T04:42:46+00:00",
- "discovered_at": "2026-10-19T19:57:56+00:00",
+ "checked_at": "2026-11-17T20:50:06+00:00",
+ "discovered_at": "2026-11-17T20:50:06+00:00",
  "sources": [
   {
    "url": "https://www.falkenbergssparbank.se/privat/betala-och-overfora/betalningar-till-utlandet.html",
@@ -32,32 +32,11 @@
    "chars": 10737
   },
   {
-   "url": "https://www.falkenbergssparbank.se/privat/betala-och-overfora/iban-och-bic.html",
-   "title": "IBAN, BIC & SWIFT – kontonummer vid utlandsbetalningar | Bic/Swift | Bic nummer | Falkenbergs Sparbank",
-   "kind": "html",
-   "via": "http",
-   "chars": 7051
-  },
-  {
-   "url": "https://www.falkenbergssparbank.se/privat/betala-och-overfora/overforingar.html",
-   "title": "Överföring - Gör stående överföring i internetbanken | Falkenbergs Sparbank",
-   "kind": "html",
-   "via": "http",
-   "chars": 9961
-  },
-  {
-   "url": "https://www.falkenbergssparbank.se/privat/rantor-priser-och-kurser/vanliga-tjanster.html",
-   "title": "Vanliga tjänster - gör det själv eller besök ett kontor | Falkenbergs Sparbank",
-   "kind": "html",
-   "via": "http",
-   "chars": 6722
-  },
-  {
    "url": "https://www.falkenbergssparbank.se/privat/rantor-priser-och-kurser.html",
    "title": "Räntor, valuta, priser och kurser - privatkunder | Falkenbergs Sparbank",
    "kind": "html",
    "via": "http",
-   "chars": 5165
+   "chars": 5114
   },
   {
    "url": "https://www.falkenbergssparbank.se/privat/betala-och-overfora/expressbetalning.html",
@@ -65,24 +44,44 @@
    "kind": "html",
    "via": "http",
    "chars": 5933
+  },
+  {
+   "url": "https://www.falkenbergssparbank.se/privat/betala-och-overfora/iban-och-bic.html",
+   "title": "IBAN, BIC & SWIFT – kontonummer vid utlandsbetalningar | Bic/Swift | Bic nummer | Falkenbergs Sparbank",
+   "kind": "html",
+   "via": "http",
+   "chars": 7051
+  },
+  {
+   "url": "https://www.falkenbergssparbank.se/privat/betala-och-overfora/betalningar-fran-utlandet.html",
+   "title": "Betalningar från utlandet - pengarna direkt in på kontot | Falkenbergs Sparbank",
+   "kind": "html",
+   "via": "http",
+   "chars": 8900
+  },
+  {
+   "url": "https://www.falkenbergssparbank.se/privat/rantor-priser-och-kurser/vanliga-tjanster.html",
+   "title": "Vanliga tjänster - gör det själv eller besök ett kontor | Falkenbergs Sparbank",
+   "kind": "html",
+   "via": "http",
+   "chars": 6722
   }
  ],
- "source_hash": "414461634ec5df4c",
  "status": "ok",
- "notes": "Påslag på växelkursen anges inte; sidan med valutakurser säger endast att kurserna är indikativa, så fx_markup_percent är null. Ingen betaltjänst-överföring för utlandsbetalningar finns i underlaget (Expressbetalning avser betalning till företag i realtid), så den produkten är utelämnad. Brådskande varianter finns: Europabetalning Urgent kostar 350 kr i internetbanken och Internationell betalning Urgent också 350 kr, men de är inte tagna som egna produkter. Kontorsbetalningar (200 kr respektive 250 kr) är utelämnade. Dagsgräns för överföringar är 50 000 kr som standard, men den gäller alla överföringar och inte per betalning, så max_amount_sek är null.",
+ "notes": "Priser för privatkunder i internetbanken/appen (dokument 0). Kontorsavgifter (Europabetalning 200 kr, Internationell betalning 250 kr, Urgent 550 kr) är utelämnade enligt reglerna. Express-avgiften som angetts är Urgent-varianten i internetbanken (350 kr) och bygger på att Urgent motsvarar expressbetalning. Ingen betaltjänst-produkt (typ Wise) finns i underlaget. Valutapåslag anges inte i underlaget (indikativa kurser utan påslagsprocent). Ingen beloppsgräns per betalning anges; standardgränsen är 50 000 kr per dag. Mottagarens bank får normalt pengarna bankdagen efter för EUR inom EU/EES.",
  "products": [
   {
-   "name": "Europabetalning (euro till konto inom EU/EES, internetbank)",
+   "name": "Europabetalning (euro till konto inom EU/EES eller Schweiz)",
    "flags": [],
    "fields": {
     "provider_type": {
      "value": "bank",
-     "quote": "Swedbank och sparbankerna",
-     "source": 3,
+     "quote": "Swedbankbetalning – Betalning till mottagare inom Swedbank.",
+     "source": 0,
      "status": "osäkert",
      "jev": {
       "verdict": "contradicts",
-      "confidence": 0.3
+      "confidence": 0.38
      }
     },
     "payment_type": {
@@ -92,17 +91,17 @@
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.62
+      "confidence": 0.35
      }
     },
     "fee_fixed_sek": {
      "value": 0,
-     "quote": "| Europabetalning (SEK el euro) | 200 kr | 0 kr |",
-     "source": 5,
+     "quote": "Avgift per överföring internetbanken\n\nBetalning till land inom EU/EES eller till Schweiz i euro eller svenska kronor.\n\n0 kr/st",
+     "source": 0,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.98
+      "confidence": 0.86
      }
     },
     "fee_percent": {
@@ -130,10 +129,14 @@
      "status": "okänt"
     },
     "express_fee_sek": {
-     "value": null,
-     "quote": null,
-     "source": null,
-     "status": "okänt"
+     "value": 350,
+     "quote": "Europabetalning Urgent\n\nAvgift per överföring internetbanken\n\nBetalning till land inom EU/EES eller till Schweiz i euro om betalningen brådskar.\n\n350 kr/st",
+     "source": 0,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.62
+     }
     },
     "max_amount_sek": {
      "value": null,
@@ -142,13 +145,13 @@
      "status": "okänt"
     },
     "delivery_time": {
-     "value": "nästa bankdag",
+     "value": "nästa bankdag (mottagarbanken)",
      "quote": "Betalningar i EUR når mottagarbanken dagen efter betalningsdagen.",
      "source": 0,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.92
+      "confidence": 0.89
      }
     },
     "recipient_charges": {
@@ -158,13 +161,13 @@
      "status": "okänt"
     },
     "requirements": {
-     "value": "Internetbank; återkommande betalningar till utlandet kräver att tjänsten aktiveras efter kontakt med banken",
+     "value": "Internetbank eller app; återkommande betalningar kräver att banken aktiverar tjänsten",
      "quote": "Om du har behov av att göra återkommande betalningar till utlandet i internetbanken behöver du först kontakta oss för att aktivera den möjligheten.",
      "source": 0,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.48
+      "confidence": 0.22
      }
     }
    },
@@ -173,17 +176,17 @@
    "status": "verifierad"
   },
   {
-   "name": "Internationell betalning (övriga valutor/länder, internetbank)",
+   "name": "Internationell betalning (övriga valutor och länder)",
    "flags": [],
    "fields": {
     "provider_type": {
      "value": "bank",
-     "quote": "Swedbank och sparbankerna",
-     "source": 3,
+     "quote": "Swedbankbetalning – Betalning till mottagare inom Swedbank.",
+     "source": 0,
      "status": "osäkert",
      "jev": {
       "verdict": "contradicts",
-      "confidence": 0.31
+      "confidence": 0.46
      }
     },
     "payment_type": {
@@ -193,17 +196,17 @@
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.52
+      "confidence": 0.16
      }
     },
     "fee_fixed_sek": {
      "value": 50,
-     "quote": "| Internationell betalning | 250 kr | 50 kr |",
-     "source": 5,
+     "quote": "Avgift per överföring internetbanken\n\nBetalning till land utanför EU/EES oavsett valuta. Samt betalning till land inom EU/EES eller Schweiz i andra valutor än euro och svenska kronor.\n\n50 kr/st",
+     "source": 0,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.94
+      "confidence": 0.61
      }
     },
     "fee_percent": {
@@ -231,10 +234,14 @@
      "status": "okänt"
     },
     "express_fee_sek": {
-     "value": null,
-     "quote": null,
-     "source": null,
-     "status": "okänt"
+     "value": 350,
+     "quote": "Internationell betalning Urgent\n\nAvgift per överföring internetbanken\n\nBetalning till land utanför EU/EES oavsett valuta. Samt betalning till land inom EU/EES eller Schweiz i andra valutor än euro om betalningen brådskar.\n\n350 kr/st",
+     "source": 0,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.19
+     }
     },
     "max_amount_sek": {
      "value": null,
@@ -249,27 +256,27 @@
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.86
+      "confidence": 0.85
      }
     },
     "recipient_charges": {
-     "value": "Avsändaren betalar tillägg för mottagande bankens kostnad, lägst 100 kr",
+     "value": "Tillägg för mottagande bankens kostnad tillkommer, lägst 100 kr/st",
      "quote": "Tillägg för mottagandes banks kostnad: Faktiskt kostnad eller generellt kostnad dock lägst 100 kr/st.",
      "source": 0,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.86
+      "confidence": 0.92
      }
     },
     "requirements": {
-     "value": "Internetbank; återkommande betalningar till utlandet kräver att tjänsten aktiveras efter kontakt med banken",
+     "value": "Internetbank eller app; återkommande betalningar kräver att banken aktiverar tjänsten",
      "quote": "Om du har behov av att göra återkommande betalningar till utlandet i internetbanken behöver du först kontakta oss för att aktivera den möjligheten.",
      "source": 0,
-     "status": "belagt",
+     "status": "osäkert",
      "jev": {
-      "verdict": "supports",
-      "confidence": 0.45
+      "verdict": "says_nothing",
+      "confidence": 0.11
      }
     }
    },
@@ -278,6 +285,7 @@
    "status": "verifierad"
   }
  ],
- "changed_at": "2026-10-19T20:07:31+00:00",
+ "source_hash": "26b7c99afeada734",
+ "changed_at": "2026-11-17T20:50:06+00:00",
  "model": "claude-haiku-5-5"
 }

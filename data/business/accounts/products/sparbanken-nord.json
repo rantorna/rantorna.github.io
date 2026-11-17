@@ -7,8 +7,8 @@
   "kind": "sparbank",
   "legal_name": "Sparbanken Nord"
  },
- "checked_at": "2026-11-14T03:24:15+00:00",
- "discovered_at": "2026-10-20T02:33:01+00:00",
+ "checked_at": "2026-11-17T19:28:14+00:00",
+ "discovered_at": "2026-11-17T19:28:14+00:00",
  "sources": [
   {
    "url": "https://www.sparbankennord.se/foretag/betala-och-ta-betalt/konton.html",
@@ -32,6 +32,13 @@
    "chars": 6718
   },
   {
+   "url": "https://www.sparbankennord.se/foretag/digitala-tjanster/internetbanken-foretag/behorigheter-i-internetbanken.html",
+   "title": "Behörighetsadministration | Användare och behörighet i internetbanken företag | Sparbanken Nord",
+   "kind": "html",
+   "via": "http",
+   "chars": 12311
+  },
+  {
    "url": "https://www.sparbankennord.se/foretag/bli-kund/aktiebolag.html",
    "title": "Aktiebolag – starta bolag | Skaffa bankintyg  | Sparbanken Nord",
    "kind": "html",
@@ -53,22 +60,15 @@
    "chars": 10117
   },
   {
-   "url": "https://www.sparbankennord.se/foretag/bli-kund/bli-uf-kund.html",
-   "title": "Bli UF-kund utan avgift - Ung Företagsamhet | Sparbanken Nord",
+   "url": "https://www.sparbankennord.se/foretag/uppdaterade-villkor-foretag.html",
+   "title": "Uppdaterade villkor | Sparbanken Nord",
    "kind": "html",
    "via": "http",
-   "chars": 15270
-  },
-  {
-   "url": "https://www.sparbankennord.se/foretag/digitala-tjanster/internetbanken-foretag/behorigheter-i-internetbanken.html",
-   "title": "Behörighetsadministration | Användare och behörighet i internetbanken företag | Sparbanken Nord",
-   "kind": "html",
-   "via": "http",
-   "chars": 12311
+   "chars": 5202
   }
  ],
  "status": "ok",
- "notes": "Företagskonto är den enda kontoprodukten med egna villkor (ränta, årsavgift, bankgiro, öppning) på källsidorna. Penningmarknadskonto, Klientmedelskonto och Valutakonto nämns endast kort på översiktssidan (källa 0) utan pris- eller villkorsuppgifter. Företagskonto ingår i ett Företagspaket, men paketets pris och innehåll framgår inte av underlaget. Prislistan för företag finns inte i underlaget. Källorna anger inte vilket land insättningsgarantin gäller i, så guarantee_country är null. Företagskontots \"open_online\" är false för nya kunder, eftersom de måste besöka bankkontor; befintliga företagskunder kan öppna kontot online. Notera att UF-erbjudandet (källa 6) är ett särskilt erbjudande och inte ett eget konto.",
+ "notes": "Företagskonto är den enda produkten med egna villkor och priser på källsidorna (årsavgift 0 kr, ränta 0 %). Penningmarknadskonto, Valutakonto och Klientmedelskonto nämns bara kort i översikten, så övriga fält är null. Sidan anger inte uttryckligen vilka företagsformer som kan öppna kontot; listan är hämtad från sidan \"Bli företagskund\". Digital öppning gäller enligt källan främst befintliga företagskunder; nya kunder hänvisas till bankkontor eller telefon. Insättningsgarantins land anges inte uttryckligen. Swish för företag nämns inte för kontot. Aktuella räntor visas bara via länk och finns inte i källtexten.",
  "products": [
   {
    "name": "Företagskonto",
@@ -76,83 +76,82 @@
    "fields": {
     "company_forms": {
      "value": "aktiebolag, handelsbolag, kommanditbolag, enskild firma, ideell förening, UF-företag",
-     "quote": "Enskild firma, UF-företag och Förening",
+     "quote": "Vi har allt du behöver oavsett vilket slags företad du driver.",
      "source": 2,
-     "status": "belagt",
+     "status": "osäkert",
      "jev": {
-      "verdict": "supports",
-      "confidence": 0.61
+      "verdict": "says_nothing",
+      "confidence": 0.19
      }
     },
     "accepts_new_companies": {
      "value": true,
-     "quote": "Starta aktiebolag och bli företagskund",
-     "source": 3,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.45
-     }
-    },
-    "new_company_terms": {
-     "value": "Anslutningsavgift 2 400 kr för nya företagskunder; för aktiebolag krävs minst 25 000 kr i aktiekapital och registrering via Bolagsverket/verksamt.se",
-     "quote": "Anslutningsavgift för nya företagskunder: 2 400 kronor.",
-     "source": 3,
+     "quote": "För dig som startar aktiebolag via Bolagsverket eller via köp av lagerbolag.",
+     "source": 2,
      "status": "osäkert",
      "jev": {
       "verdict": "says_nothing",
-      "confidence": 0.3
+      "confidence": 0.16
+     }
+    },
+    "new_company_terms": {
+     "value": "Anslutningsavgift 2 400 kr för nya företagskunder; aktiebolag kräver minst 25 000 kr i aktiekapital; enskild firma kräver F/FA-skatt och att man först är privatkund med internetbanken.",
+     "quote": "Anslutningsavgift för nya företagskunder: 2 400 kronor.",
+     "source": 4,
+     "status": "osäkert",
+     "jev": {
+      "verdict": "says_nothing",
+      "confidence": 0.44
      }
     },
     "open_online": {
-     "value": null,
+     "value": true,
      "quote": "Är du redan företagskund hos oss kan du öppna företagskonto själv online.",
      "source": 1,
-     "status": "motsägs av källan",
+     "status": "osäkert",
      "jev": {
       "verdict": "contradicts",
-      "confidence": 0.76
-     },
-     "claimed": false
+      "confidence": 0.6
+     }
     },
     "multiple_users": {
      "value": true,
-     "quote": "Bestäm vilka personer som kan ta del av företagets uppgifter via internetbanken",
-     "source": 7,
+     "quote": "Du som är behörighetsadministratör kan lägga upp nya användare och välja vilken behörighet var och en ska ha.",
+     "source": 3,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.66
+      "confidence": 0.22
      }
     },
     "user_terms": {
-     "value": "Behörighetsadministratör lägger upp användare, firmatecknare godkänner; begränsad eller obegränsad behörighet; behörighetsmallar finns om funktionen är aktiverad. Kostnad per användare anges ej",
-     "quote": "Du som är behörighetsadministratör kan lägga upp nya användare och välja vilken behörighet var och en ska ha.",
-     "source": 7,
+     "value": "Användare får begränsad eller obegränsad behörighet, läggs upp av behörighetsadministratör och godkänns av firmatecknare; behörighetsmallar finns. Ingen kostnad per användare angiven.",
+     "quote": "Du kan ge användaren obegränsad behörighet vilket innebär att användaren får full tillgång till alla nuvarande och framtida konton, avtal och ingående tjänster i internetbanken.",
+     "source": 3,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.76
+      "confidence": 0.48
      }
     },
     "monthly_fee_sek": {
      "value": 0,
-     "quote": "Årsavgift 0 kr",
+     "quote": "Årsavgift\n\n0 kr",
      "source": 1,
-     "status": "belagt",
+     "status": "osäkert",
      "jev": {
-      "verdict": "supports",
-      "confidence": 0.58
+      "verdict": "contradicts",
+      "confidence": 0.22
      }
     },
     "fee_terms": {
-     "value": "Ränta 0 %, årsavgift 0 kr. Priser för vanliga företagstjänster finns i prislistan för företag",
+     "value": "Årsavgift 0 kr; ränta 0 %. Priser för övriga företagstjänster finns i prislistan.",
      "quote": "Priser för våra vanligaste företagstjänster finns i prislistan.",
      "source": 1,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.7
+      "confidence": 0.2
      }
     },
     "swish": {
@@ -163,32 +162,32 @@
     },
     "bankgiro": {
      "value": true,
-     "quote": "Går att ansluta till andra betaltjänster och bankgiro",
+     "quote": "Anslut företagskontot till bankgironummer, kort och andra tjänster.",
      "source": 1,
-     "status": "belagt",
+     "status": "osäkert",
      "jev": {
-      "verdict": "supports",
-      "confidence": 0.77
+      "verdict": "contradicts",
+      "confidence": 0.16
      }
     },
     "account_interest_percent": {
      "value": 0,
-     "quote": "Ränta 0 %",
+     "quote": "Ränta\n\n0 %",
      "source": 1,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.92
+      "confidence": 0.35
      }
     },
     "requirements": {
-     "value": "Enskild firma måste vara privatkund med internetbanken; nya företag ansöker och kompletterar; kreditupplysning på ägare och företrädare",
-     "quote": "Du behöver vara privatkund hos oss med internetbanken för att kunna bli kund med din enskilda firma.",
+     "value": "Företaget ska kunna kreditupplysas; ägare, verkliga huvudmän och företrädare kontrolleras. Företaget ska vara registrerat i Bolagsverket för att användare ska kunna läggas till.",
+     "quote": "Banken förbehåller sig rätten att göra en kreditupplysning på samtliga ägare, verkliga huvudmän och personer som ska företräda företaget",
      "source": 4,
-     "status": "belagt",
+     "status": "osäkert",
      "jev": {
-      "verdict": "supports",
-      "confidence": 0.92
+      "verdict": "says_nothing",
+      "confidence": 0.11
      }
     },
     "guarantee_country": {
@@ -377,7 +376,7 @@
    "status": "ej verifierad"
   }
  ],
- "source_hash": "b33615a18e7b66b6",
- "changed_at": "2026-10-20T02:33:01+00:00",
+ "source_hash": "622972f4b3051d4a",
+ "changed_at": "2026-11-17T19:28:14+00:00",
  "model": "claude-haiku-5-5"
 }

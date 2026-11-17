@@ -7,7 +7,7 @@
   "kind": "sparbank",
   "legal_name": "Ölands Bank AB"
  },
- "checked_at": "2026-11-17T01:54:00+00:00",
+ "checked_at": "2026-11-17T18:15:50+00:00",
  "discovered_at": "2026-10-25T05:57:33+00:00",
  "sources": [
   {
@@ -21,8 +21,8 @@
    "url": "https://www.olandsbank.se/privat/spara-och-placera/spara-till-barn.html",
    "title": "Spara till barn & barnbarn | Långsiktigt sparande | Ölands Bank",
    "kind": "html",
-   "via": "browser",
-   "chars": 11700
+   "via": "http",
+   "chars": 11525
   },
   {
    "url": "https://www.olandsbank.se/privat/spara-och-placera/spara-till-barn/spara-i-barnets-eller-eget-namn.html",
@@ -67,8 +67,8 @@
    "chars": 7278
   }
  ],
- "status": "senaste tolkning misslyckades (Error code: 401 - {'type': 'error', 'error': {'type': 'authentication_error', 'm)",
- "notes": "Källorna för Ungdomskonto ger två olika räntor: 0,00 % på produktsidan (dokument 3) och 0,50 % i räntetabellen på sidan Aktuella räntor (dokument 0); här används 0,00 %, som står på den dedikerade produktsidan, men det bör verifieras. Åldersgränsen för barnbanktjänster är 0–17 år (dokument 4), medan Ungdomskontot övergår till Privatkonto vid 21 år (dokument 3). Ingen insättningsgarantins belopp anges i dokumenten. Ölands Bank anger att högst tre e-sparkonton kan öppnas själv i internetbanken eller appen (dokument 6). Fondsparande i barns namn (ISK, fondkonto, kapitalförsäkring) och Ölandskonto Fast/Bas/Plus/Månad, som inte uttryckligen nämner barn, är utelämnade enligt reglerna.",
+ "status": "ok",
+ "notes": "Räntorna skiljer sig mellan sidan med aktuella räntor (doc 0: Ungdomskonto 0,50 %, e-sparkonto 0,00 %) och produktsidorna (doc 3: Ungdomskonto 0,00 %; doc 6: e-sparkonto 0,25 %). Produktsidornas värden används här; kontrollera vilken ränta som gäller. Ungdomskontot har ingen uttrycklig åldersgräns nedåt i kontodokumentet; 0 år hämtat från 'Banktjänster till barn 0-17 år'. e-sparkonto: max tre e-sparkonton kan öppnas själv i internetbanken eller appen (doc 6). Ingen ränta visas i dokumenten för barnsparkonto i vanlig form; ISK och kapitalförsäkring för barn är utelämnade enligt reglerna. Insättningsgarantin nämns utan uttryckligt land; SE antaget som svensk bank.",
  "products": [
   {
    "name": "Ungdomskonto",
@@ -81,7 +81,7 @@
      "status": "osäkert",
      "jev": {
       "verdict": "contradicts",
-      "confidence": 0.2
+      "confidence": 0.34
      }
     },
     "youth_only": {
@@ -101,53 +101,57 @@
      "status": "osäkert",
      "jev": {
       "verdict": "says_nothing",
-      "confidence": 0.2
+      "confidence": 0.33
      }
     },
     "age_max": {
      "value": 21,
-     "quote": "Konto för unga upp till 21 år",
-     "source": 3,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.79
-     }
-    },
-    "age_terms": {
-     "value": "Kontot övergår till ett Privatkonto när barnet fyller 21 år",
      "quote": "När barnet fyller 21 år övergår kontot till ett Privatkonto.",
      "source": 3,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.98
+      "confidence": 0.72
+     }
+    },
+    "age_terms": {
+     "value": "När barnet fyller 21 år övergår kontot till ett Privatkonto.",
+     "quote": "När barnet fyller 21 år övergår kontot till ett Privatkonto.",
+     "source": 3,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 1.0
      }
     },
     "who_can_open": {
-     "value": "Du som förälder/vårdnadshavare öppnar kontot och ansluter det till Swish.",
+     "value": "Vårdnadshavare (förälder) öppnar kontot och ansluter det till Swish; barnet sätter in sina egna pengar.",
      "quote": "Du som förälder/vårdnadshavare öppnar kontot och ansluter det till Swish.",
      "source": 3,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.64
+      "confidence": 0.72
      }
     },
     "product_type": {
-     "value": null,
-     "quote": null,
-     "source": null,
-     "status": "okänt"
+     "value": "annat",
+     "quote": "Konto för unga upp till 21 år",
+     "source": 3,
+     "status": "osäkert",
+     "jev": {
+      "verdict": "says_nothing",
+      "confidence": 0.25
+     }
     },
     "rate_percent": {
      "value": 0.0,
-     "quote": "Pris Ungdomskonto Aktuell ränta 0,00 %",
+     "quote": "Pris Ungdomskonto\n\nAktuell ränta\n\n0,00 %",
      "source": 3,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.95
+      "confidence": 0.92
      }
     },
     "rate_type": {
@@ -158,7 +162,7 @@
     },
     "binding_months": {
      "value": 0,
-     "quote": "Bindningstid Ingen, fria uttag.",
+     "quote": "Ingen, fria uttag.",
      "source": 3,
      "status": "belagt",
      "jev": {
@@ -183,13 +187,13 @@
      "status": "okänt"
     },
     "withdrawal_terms": {
-     "value": "Ingen bindningstid och fria uttag. Kontot är kostnadsfritt.",
-     "quote": "Ungdomskontot är kostnadsfritt",
+     "value": "Fria uttag utan bindningstid; kontot är kostnadsfritt.",
+     "quote": "Ingen, fria uttag.",
      "source": 3,
-     "status": "osäkert",
+     "status": "belagt",
      "jev": {
-      "verdict": "says_nothing",
-      "confidence": 0.64
+      "verdict": "supports",
+      "confidence": 0.98
      }
     },
     "min_deposit_sek": {
@@ -215,25 +219,20 @@
      "status": "okänt"
     },
     "deposit_terms": {
-     "value": "Barnet kan sätta in egna inkomster, till exempel barnbidrag, studiebidrag, lön eller månadspeng.",
+     "value": "Barnet kan sätta in sina pengar, till exempel barnbidrag, studiebidrag, lön eller månadspeng.",
      "quote": "På Ungdomskontot kan ditt barn sätta in sina pengar till exempel barnbidrag, studiebidrag, lön eller månadspeng.",
      "source": 3,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.73
+      "confidence": 0.79
      }
     },
     "requires_other_products": {
      "value": null,
-     "quote": "Bankkort och Swish kan anslutas till kontot",
-     "source": 3,
-     "status": "stöds inte av källan",
-     "jev": {
-      "verdict": "says_nothing",
-      "confidence": 0.67
-     },
-     "claimed": false
+     "quote": null,
+     "source": null,
+     "status": "okänt"
     },
     "intro_rate": {
      "value": null,
@@ -254,7 +253,7 @@
      "status": "stöds inte av källan",
      "jev": {
       "verdict": "says_nothing",
-      "confidence": 0.92
+      "confidence": 0.96
      },
      "claimed": "SE"
     },
@@ -286,19 +285,18 @@
      "status": "osäkert",
      "jev": {
       "verdict": "says_nothing",
-      "confidence": 0.76
+      "confidence": 0.73
      }
     },
     "youth_only": {
-     "value": null,
+     "value": false,
      "quote": "Du öppnar enkelt e-sparkonto till ditt barn i internetbanken eller appen.",
      "source": 6,
-     "status": "motsägs av källan",
+     "status": "osäkert",
      "jev": {
       "verdict": "contradicts",
-      "confidence": 0.4
-     },
-     "claimed": false
+      "confidence": 0.37
+     }
     },
     "age_min": {
      "value": null,
@@ -319,29 +317,34 @@
      "status": "okänt"
     },
     "who_can_open": {
-     "value": "Förälder/vårdnadshavare öppnar e-sparkontot till barnet i internetbanken eller appen.",
+     "value": "Vårdnadshavare öppnar e-sparkontot åt barnet i internetbanken eller appen.",
      "quote": "Du öppnar enkelt e-sparkonto till ditt barn i internetbanken eller appen.",
      "source": 6,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.79
+      "confidence": 0.64
      }
     },
     "product_type": {
      "value": null,
-     "quote": null,
-     "source": null,
-     "status": "okänt"
+     "quote": "e-sparkonto - ett smidigt sparkonto i internetbanken",
+     "source": 6,
+     "status": "stöds inte av källan",
+     "jev": {
+      "verdict": "says_nothing",
+      "confidence": 0.83
+     },
+     "claimed": "rörligt sparkonto"
     },
     "rate_percent": {
-     "value": 0.0,
-     "quote": "Ränta e-sparkonto Aktuell ränta 0,00 %",
+     "value": 0.25,
+     "quote": "Ränta e-sparkonto\n\nAktuell ränta\n\n0,25 %",
      "source": 6,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.97
+      "confidence": 0.79
      }
     },
     "rate_type": {
@@ -353,7 +356,7 @@
     "binding_months": {
      "value": 0,
      "quote": "Ingen, fria uttag.",
-     "source": 3,
+     "source": 6,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
@@ -363,7 +366,7 @@
     "withdrawals": {
      "value": "fria",
      "quote": "Fria uttag",
-     "source": 3,
+     "source": 6,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
@@ -377,7 +380,7 @@
      "status": "okänt"
     },
     "withdrawal_terms": {
-     "value": "Fria uttag. Kontot avslutas genom kontakt med bankkontor.",
+     "value": "Fria uttag. Avslut av kontot kräver kontakt med bankkontor.",
      "quote": "Du behöver kontakta ett bankkontor för att avsluta ett e-sparkonto.",
      "source": 6,
      "status": "belagt",
@@ -389,7 +392,7 @@
     "min_deposit_sek": {
      "value": 0,
      "quote": "Minsta insättning 0 kr",
-     "source": 3,
+     "source": 6,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
@@ -409,25 +412,20 @@
      "status": "okänt"
     },
     "deposit_terms": {
-     "value": "Enkelt att sätta in eller ta ut pengar; månadssparande kan skapas.",
-     "quote": "Du kan enkelt skapa ett månadssparande till ditt konto.",
+     "value": "Enkelt att sätta in eller ta ut pengar; du kan skapa ett månadssparande till kontot.",
+     "quote": "Enkelt att sätta in eller ta ut pengar",
      "source": 6,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 1.0
+      "confidence": 0.96
      }
     },
     "requires_other_products": {
      "value": null,
-     "quote": "Du kan inte koppla bank- och betalkort till ditt e-sparkonto.",
-     "source": 6,
-     "status": "stöds inte av källan",
-     "jev": {
-      "verdict": "says_nothing",
-      "confidence": 0.74
-     },
-     "claimed": false
+     "quote": null,
+     "source": null,
+     "status": "okänt"
     },
     "intro_rate": {
      "value": null,
@@ -444,11 +442,11 @@
     "guarantee_country": {
      "value": "SE",
      "quote": "Kontot omfattas av insättningsgarantin",
-     "source": 3,
+     "source": 6,
      "status": "osäkert",
      "jev": {
-      "verdict": "says_nothing",
-      "confidence": 0.25
+      "verdict": "contradicts",
+      "confidence": 0.28
      }
     },
     "guarantee_amount": {
@@ -466,10 +464,10 @@
    },
    "rate_tiers": [],
    "pending_rate": null,
-   "status": "delvis verifierad"
+   "status": "verifierad"
   }
  ],
- "source_hash": "5516b37c2b1cc9f1",
- "changed_at": "2026-10-25T05:57:33+00:00",
+ "source_hash": "c80078052e39d8f6",
+ "changed_at": "2026-11-17T18:15:50+00:00",
  "model": "claude-haiku-5-5"
 }

@@ -7,8 +7,8 @@
   "kind": "sparbank",
   "legal_name": "Sparbanken Skaraborg AB (publ)"
  },
- "checked_at": "2026-11-14T04:41:04+00:00",
- "discovered_at": "2026-10-19T19:55:02+00:00",
+ "checked_at": "2026-11-17T20:48:03+00:00",
+ "discovered_at": "2026-11-17T20:48:03+00:00",
  "sources": [
   {
    "url": "https://www.sparbankenskaraborg.se/privat/betala-och-overfora/betalningar-till-utlandet.html",
@@ -25,6 +25,13 @@
    "chars": 6160
   },
   {
+   "url": "https://www.sparbankenskaraborg.se/privat/betala-och-overfora/overforingar.html",
+   "title": "Överföring - Gör stående överföring i internetbanken | Sparbanken Skaraborg",
+   "kind": "html",
+   "via": "http",
+   "chars": 10572
+  },
+  {
    "url": "https://www.sparbankenskaraborg.se/privat/rantor-priser-och-kurser/betalningstjanster.html",
    "title": "Betalningstjänster för privatkunder - prislista | Sparbanken Skaraborg",
    "kind": "html",
@@ -39,13 +46,6 @@
    "chars": 5379
   },
   {
-   "url": "https://www.sparbankenskaraborg.se/privat/betala-och-overfora/overforingar.html",
-   "title": "Överföring - Gör stående överföring i internetbanken | Sparbanken Skaraborg",
-   "kind": "html",
-   "via": "http",
-   "chars": 10572
-  },
-  {
    "url": "https://www.sparbankenskaraborg.se/privat/rantor-priser-och-kurser/vanliga-tjanster.html",
    "title": "Vanliga tjänster - gör det själv eller besök ett kontor | Sparbanken Skaraborg",
    "kind": "html",
@@ -58,36 +58,146 @@
    "kind": "html",
    "via": "http",
    "chars": 9071
+  },
+  {
+   "url": "https://www.sparbankenskaraborg.se/foretag/rantor-priser-och-kurser/valutakurser-betalningar.html",
+   "title": "Valutakurser betalningar och checkar - information | Sparbanken Skaraborg",
+   "kind": "html",
+   "via": "http",
+   "chars": 5800
   }
  ],
- "source_hash": "4a288f8a068b7edf",
  "status": "ok",
- "notes": "Prisuppgifterna gäller internetbanken/appen för privatpersoner; kontors- och Private Banking-priser har utelämnats. Europabetalning Urgent (350 kr) och Internationell betalning Urgent (350 kr) är egna prisposter och anges som expressavgift. Tillägget för mottagande bankens kostnad (lägst 100 kr) gäller enligt prislistan; för internationella betalningar. Inget uttryckligt valutapåslag i procent anges, och valutakurserna är indikativa. Swedbankbetalning nämns men har ingen angiven avgift. Ingen separat betaltjänstöverföring för utlandsbetalningar hittades. Vanlig överföring till annan bank kostar 10 kr i prislistan men gäller inte utlandet. Beloppsgränser: standardgräns 50 000 kr per dag, men ingen gräns per betalning angavs.",
+ "notes": "Avgifterna gäller betalning via internetbanken (privatkund); kontorsavgifter (200/250/550 kr) och Private Banking-priser är utelämnade. Valutapåslag anges inte i dokumenten; valutakurserna är \"indikativa\" utan angivet påslag, så fx_markup_percent är null. Ingen separat betaltjänst-överföring för utlandsbetalningar finns (banken har endast Överföring 0 kr/10 kr inom Sverige), så den kategorin är utelämnad. Daglig beloppsgräns (50 000 kr per dag för nya kunder) gäller alla överföringar och är inte ett belopp per betalning. Tillägget för mottagande bank anges på sidan för internationella betalningar; för Europabetalning finns inget motsvarande tillägg angivet.",
  "products": [
   {
-   "name": "Europabetalning",
+   "name": "Europabetalning (SEPA, euro till EU/EES/Schweiz)",
    "flags": [],
    "fields": {
     "provider_type": {
-     "value": null,
-     "quote": "Sparbanken Skaraborg är en bank, prislistan gäller bankens egna betalningar i internetbanken.",
+     "value": "bank",
+     "quote": "Vi hjälper dig med dina utlandsbetalningar. Kontakta oss genom att ringa eller besöka ett kontor.",
      "source": 0,
-     "status": "citat hittades inte",
-     "claimed": "bank"
+     "status": "osäkert",
+     "jev": {
+      "verdict": "contradicts",
+      "confidence": 0.25
+     }
     },
     "payment_type": {
      "value": "SEPA-betalning",
      "quote": "Europabetalning – Betalning till mottagare inom EU/ EES och Schweiz i EUR.",
      "source": 0,
-     "status": "belagt",
+     "status": "osäkert",
      "jev": {
-      "verdict": "supports",
-      "confidence": 0.62
+      "verdict": "says_nothing",
+      "confidence": 0.38
      }
     },
     "fee_fixed_sek": {
      "value": 0,
      "quote": "Avgift per överföring internetbanken Betalning till land inom EU/EES eller till Schweiz i euro eller svenska kronor. 0 kr/st",
+     "source": 0,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.82
+     }
+    },
+    "fee_percent": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "fee_min_sek": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "fx_markup_percent": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "uses_mid_rate": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "express_fee_sek": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "max_amount_sek": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "delivery_time": {
+     "value": "dagen efter betalningsdagen",
+     "quote": "Betalningar i EUR når mottagarbanken dagen efter betalningsdagen.",
+     "source": 0,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.85
+     }
+    },
+    "recipient_charges": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "requirements": {
+     "value": "Internetbank; återkommande betalningar kräver att banken aktiverar tjänsten",
+     "quote": "Om du har behov av att göra återkommande betalningar till utlandet i internetbanken behöver du först kontakta oss för att aktivera den möjligheten.",
+     "source": 0,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.19
+     }
+    }
+   },
+   "rate_tiers": [],
+   "pending_rate": null,
+   "status": "verifierad"
+  },
+  {
+   "name": "Europabetalning Urgent (SEPA, brådskande)",
+   "flags": [],
+   "fields": {
+    "provider_type": {
+     "value": "bank",
+     "quote": "Vi hjälper dig med dina utlandsbetalningar. Kontakta oss genom att ringa eller besöka ett kontor.",
+     "source": 0,
+     "status": "osäkert",
+     "jev": {
+      "verdict": "says_nothing",
+      "confidence": 0.3
+     }
+    },
+    "payment_type": {
+     "value": "SEPA-betalning",
+     "quote": "Europabetalning Urgent – Betalning till mottagare inom EU/EES och Schweiz i EUR som når mottagarens bank samma dag om den genomförs innan valutans stopptid.",
+     "source": 0,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.28
+     }
+    },
+    "fee_fixed_sek": {
+     "value": 350,
+     "quote": "Betalning till land inom EU/EES eller till Schweiz i euro om betalningen brådskar. 350 kr/st",
      "source": 0,
      "status": "belagt",
      "jev": {
@@ -121,12 +231,12 @@
     },
     "express_fee_sek": {
      "value": 350,
-     "quote": "Europabetalning Urgent Avgift per överföring internetbanken Betalning till land inom EU/EES eller till Schweiz i euro om betalningen brådskar. 350 kr/st",
+     "quote": "Betalning till land inom EU/EES eller till Schweiz i euro om betalningen brådskar. 350 kr/st",
      "source": 0,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 1.0
+      "confidence": 0.86
      }
     },
     "max_amount_sek": {
@@ -136,13 +246,13 @@
      "status": "okänt"
     },
     "delivery_time": {
-     "value": "Dagen efter betalningsdagen (standard); samma dag med Urgent",
-     "quote": "Betalningar i EUR når mottagarbanken dagen efter betalningsdagen.",
+     "value": "samma dag (om betalningen görs före valutans stopptid)",
+     "quote": "Europabetalning Urgent – Betalning till mottagare inom EU/EES och Schweiz i EUR som når mottagarens bank samma dag om den genomförs innan valutans stopptid.",
      "source": 0,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.88
+      "confidence": 0.97
      }
     },
     "recipient_charges": {
@@ -152,13 +262,13 @@
      "status": "okänt"
     },
     "requirements": {
-     "value": "Internetbank eller app; återkommande betalningar kräver att tjänsten aktiveras via banken",
+     "value": "Internetbank; återkommande betalningar kräver att banken aktiverar tjänsten",
      "quote": "Om du har behov av att göra återkommande betalningar till utlandet i internetbanken behöver du först kontakta oss för att aktivera den möjligheten.",
      "source": 0,
-     "status": "belagt",
+     "status": "osäkert",
      "jev": {
-      "verdict": "supports",
-      "confidence": 0.22
+      "verdict": "says_nothing",
+      "confidence": 0.53
      }
     }
    },
@@ -167,15 +277,18 @@
    "status": "verifierad"
   },
   {
-   "name": "Internationell betalning",
+   "name": "Internationell betalning (utlandsbetalning, övriga valutor/länder)",
    "flags": [],
    "fields": {
     "provider_type": {
-     "value": null,
-     "quote": "Sparbanken Skaraborg är en bank, prislistan gäller bankens egna betalningar i internetbanken.",
+     "value": "bank",
+     "quote": "Vi hjälper dig med dina utlandsbetalningar. Kontakta oss genom att ringa eller besöka ett kontor.",
      "source": 0,
-     "status": "citat hittades inte",
-     "claimed": "bank"
+     "status": "osäkert",
+     "jev": {
+      "verdict": "contradicts",
+      "confidence": 0.26
+     }
     },
     "payment_type": {
      "value": "utlandsbetalning",
@@ -184,17 +297,122 @@
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.34
+      "confidence": 0.1
      }
     },
     "fee_fixed_sek": {
      "value": 50,
-     "quote": "Avgift per överföring internetbanken Betalning till land utanför EU/EES oavsett valuta. Samt betalning till land inom EU/EES eller Schweiz i andra valutor än euro och svenska kronor. 50 kr/st",
+     "quote": "Betalning till land utanför EU/EES oavsett valuta. Samt betalning till land inom EU/EES eller Schweiz i andra valutor än euro och svenska kronor. 50 kr/st",
+     "source": 0,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.96
+     }
+    },
+    "fee_percent": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "fee_min_sek": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "fx_markup_percent": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "uses_mid_rate": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "express_fee_sek": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "max_amount_sek": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "delivery_time": {
+     "value": "ofta 2–4 bankdagar",
+     "quote": "Vid betalningar i andra valutor och till andra länder får mottagaren ofta pengarna inom 2-4 bankdagar.",
      "source": 0,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
       "confidence": 0.92
+     }
+    },
+    "recipient_charges": {
+     "value": "Tillägg för mottagande bankens kostnad, faktisk eller generell kostnad, lägst 100 kr/st",
+     "quote": "Tillägg för mottagandes banks kostnad: Faktiskt kostnad eller generellt kostnad dock lägst 100 kr/st.",
+     "source": 0,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.88
+     }
+    },
+    "requirements": {
+     "value": "Internetbank; återkommande betalningar kräver att banken aktiverar tjänsten",
+     "quote": "Om du har behov av att göra återkommande betalningar till utlandet i internetbanken behöver du först kontakta oss för att aktivera den möjligheten.",
+     "source": 0,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.24
+     }
+    }
+   },
+   "rate_tiers": [],
+   "pending_rate": null,
+   "status": "verifierad"
+  },
+  {
+   "name": "Internationell betalning Urgent (utlandsbetalning, brådskande)",
+   "flags": [],
+   "fields": {
+    "provider_type": {
+     "value": "bank",
+     "quote": "Vi hjälper dig med dina utlandsbetalningar. Kontakta oss genom att ringa eller besöka ett kontor.",
+     "source": 0,
+     "status": "osäkert",
+     "jev": {
+      "verdict": "says_nothing",
+      "confidence": 0.28
+     }
+    },
+    "payment_type": {
+     "value": "utlandsbetalning",
+     "quote": "Internationell betalning Urgent – Betalning till mottagare inom EU/EES och Schweiz i andra valutor än EUR samt betalningar till övriga världen. Når normalt mottagarens bank dagen efter den genomförts.",
+     "source": 0,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.38
+     }
+    },
+    "fee_fixed_sek": {
+     "value": 350,
+     "quote": "Betalning till land utanför EU/EES oavsett valuta. Samt betalning till land inom EU/EES eller Schweiz i andra valutor än euro om betalningen brådskar. 350 kr/st",
+     "source": 0,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.07
      }
     },
     "fee_percent": {
@@ -223,12 +441,12 @@
     },
     "express_fee_sek": {
      "value": 350,
-     "quote": "Internationell betalning Urgent Avgift per överföring internetbanken Betalning till land utanför EU/EES oavsett valuta. Samt betalning till land inom EU/EES eller Schweiz i andra valutor än euro om betalningen brådskar. 350 kr/st",
+     "quote": "Betalning till land utanför EU/EES oavsett valuta. Samt betalning till land inom EU/EES eller Schweiz i andra valutor än euro om betalningen brådskar. 350 kr/st",
      "source": 0,
-     "status": "belagt",
+     "status": "osäkert",
      "jev": {
-      "verdict": "supports",
-      "confidence": 0.58
+      "verdict": "says_nothing",
+      "confidence": 0.22
      }
     },
     "max_amount_sek": {
@@ -238,33 +456,33 @@
      "status": "okänt"
     },
     "delivery_time": {
-     "value": "Ofta 2–4 bankdagar",
-     "quote": "Vid betalningar i andra valutor och till andra länder får mottagaren ofta pengarna inom 2-4 bankdagar.",
+     "value": "normalt dagen efter att betalningen genomförts",
+     "quote": "Når normalt mottagarens bank dagen efter den genomförts.",
      "source": 0,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.94
+      "confidence": 0.98
      }
     },
     "recipient_charges": {
-     "value": "Avsändaren betalar tillägg för mottagande bankens kostnad, lägst 100 kr/st",
+     "value": "Tillägg för mottagande bankens kostnad, faktisk eller generell kostnad, lägst 100 kr/st",
      "quote": "Tillägg för mottagandes banks kostnad: Faktiskt kostnad eller generellt kostnad dock lägst 100 kr/st.",
      "source": 0,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.94
+      "confidence": 0.68
      }
     },
     "requirements": {
-     "value": "Internetbank eller app; återkommande betalningar kräver att tjänsten aktiveras via banken",
+     "value": "Internetbank; återkommande betalningar kräver att banken aktiverar tjänsten",
      "quote": "Om du har behov av att göra återkommande betalningar till utlandet i internetbanken behöver du först kontakta oss för att aktivera den möjligheten.",
      "source": 0,
-     "status": "belagt",
+     "status": "osäkert",
      "jev": {
-      "verdict": "supports",
-      "confidence": 0.2
+      "verdict": "says_nothing",
+      "confidence": 0.42
      }
     }
    },
@@ -273,6 +491,7 @@
    "status": "verifierad"
   }
  ],
- "changed_at": "2026-10-19T20:06:41+00:00",
+ "source_hash": "d84426acad056b4f",
+ "changed_at": "2026-11-17T20:48:03+00:00",
  "model": "claude-haiku-5-5"
 }
