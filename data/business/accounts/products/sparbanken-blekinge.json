@@ -7,8 +7,8 @@
   "kind": "sparbank",
   "legal_name": "Sparbanken Blekinge AB (publ)"
  },
- "checked_at": "2026-11-17T02:33:10+00:00",
- "discovered_at": "2026-10-20T02:36:12+00:00",
+ "checked_at": "2026-11-19T03:15:46+00:00",
+ "discovered_at": "2026-11-19T03:15:46+00:00",
  "sources": [
   {
    "url": "https://www.sparbankenblekinge.se/foretag/betala-och-ta-betalt/konton.html",
@@ -29,7 +29,14 @@
    "title": "Företagsbank – Vi hjälper dig med företaget | Företag | Sparbanken Blekinge",
    "kind": "html",
    "via": "http",
-   "chars": 7631
+   "chars": 8023
+  },
+  {
+   "url": "https://www.sparbankenblekinge.se/foretag/digitala-tjanster/internetbanken-foretag/behorigheter-i-internetbanken.html",
+   "title": "Behörighetsadministration | Användare och behörighet i internetbanken företag | Sparbanken Blekinge",
+   "kind": "html",
+   "via": "http",
+   "chars": 11541
   },
   {
    "url": "https://www.sparbankenblekinge.se/foretag/bli-kund.html",
@@ -39,18 +46,11 @@
    "chars": 6036
   },
   {
-   "url": "https://www.sparbankenblekinge.se/foretag/digitala-tjanster/internetbanken-foretag/behorigheter-i-internetbanken.html",
-   "title": "Behörighetsadministration | Användare och behörighet i internetbanken företag | Sparbanken Blekinge",
-   "kind": "html",
-   "via": "http",
-   "chars": 11776
-  },
-  {
    "url": "https://www.sparbankenblekinge.se/foretag/bli-kund/aktiebolag.html",
    "title": "Aktiebolag – starta bolag | Skaffa bankintyg  | Sparbanken Blekinge",
    "kind": "html",
    "via": "http",
-   "chars": 14368
+   "chars": 14236
   },
   {
    "url": "https://www.sparbankenblekinge.se/foretag/bli-kund/enskild-firma.html",
@@ -67,69 +67,196 @@
    "chars": 9539
   }
  ],
- "source_hash": "88dcc7e9f761474c",
  "status": "ok",
- "notes": "Swish företag via kontot anges inte. Kontot kan bara öppnas digitalt av befintliga företagskunder, och nya kunder behöver besöka kontoret. Företagspaketet (1 400 kr per år) nämns bara i prisrutor, utan innehåll. Monthly_fee är satt till 0 utifrån årsavgiften 0 kr.",
+ "notes": "Företagskonto är det enda kontot med specifika villkor i källorna. Penningmarknadskonto, Klientmedelskonto och Valutakonto nämns bara i översikten utan avgifter eller villkor, så övriga fält är null. Företagspaketet (årsavgift 1 400 kr, anslutningsavgift 2 500 kr) nämns på sidor för aktiebolag och handelsbolag, men källorna beskriver inte att paketet innehåller ett konto, så det är inte med som egen produkt. Anslutningsavgiften 2 500 kr gäller nya företagskunder. Ansökan för nya kunder görs via bankkontor eller telefon; digital öppning gäller enligt källan endast för befintliga företagskunder.",
  "products": [
   {
    "name": "Företagskonto",
    "flags": [],
    "fields": {
     "company_forms": {
-     "value": null,
-     "quote": "Aktiebolag",
-     "source": 3,
-     "status": "citat hittades inte",
-     "claimed": "aktiebolag, enskild firma, handelsbolag, kommanditbolag, förening, bostadsrättsförening, stiftelse"
+     "value": "aktiebolag, enskild firma, uf-företag, handelsbolag, kommanditbolag, förening, bostadsrättsförening, stiftelse",
+     "quote": "Förening och stiftelse",
+     "source": 4,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.56
+     }
     },
     "accepts_new_companies": {
-     "value": null,
-     "quote": "För dig som startar aktiebolag via Bolagsverket och via köp av lagerbolag.",
+     "value": true,
+     "quote": "Anslutningsavgift för nya företagskunder: 2 500 kronor",
      "source": 5,
-     "status": "citat hittades inte",
-     "claimed": true
+     "status": "osäkert",
+     "jev": {
+      "verdict": "says_nothing",
+      "confidence": 0.53
+     }
     },
     "new_company_terms": {
-     "value": null,
-     "quote": "Registrera företaget hos Skatteverket.\n\nBli godkänd för F/FA-skatt.",
-     "source": 6,
-     "status": "citat hittades inte",
-     "claimed": "Nystartade ansöker med affärsplan samt resultat- och likviditetsbudget; aktiekapital sätts in och bankkontor besöks. Enskild firma måste vara godkänd för F/FA-skatt hos Skatteverket och vara privatkund."
+     "value": "Ansökan om att bli företagskund med affärsplan och bolagsregistrering (Bolagsverket/verksamt.se); anslutningsavgift 2 500 kr",
+     "quote": "Registrera ditt nya bolag på verksamt.se, om du startar aktiebolag via Bolagsverket.",
+     "source": 5,
+     "status": "osäkert",
+     "jev": {
+      "verdict": "says_nothing",
+      "confidence": 0.14
+     }
     },
     "open_online": {
      "value": null,
-     "quote": "Är du redan företagskund hos oss kan du öppna företagskonto själv online.",
+     "quote": "Skaffa Företagskonto på telefon eller kontor",
      "source": 1,
-     "status": "citat hittades inte",
+     "status": "motsägs av källan",
+     "jev": {
+      "verdict": "contradicts",
+      "confidence": 0.66
+     },
      "claimed": false
     },
     "multiple_users": {
-     "value": null,
+     "value": true,
      "quote": "Du som är behörighetsadministratör kan lägga upp nya användare och välja vilken behörighet var och en ska ha.",
-     "source": 4,
-     "status": "citat hittades inte",
-     "claimed": true
+     "source": 3,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.2
+     }
+    },
+    "user_terms": {
+     "value": "Behörighetsadministratör lägger upp användare; begränsad eller obegränsad behörighet; firmatecknare godkänner användare. Ingen kostnad per användare angiven.",
+     "quote": "Begränsad:\nOm användaren till exempel ska kunna betala fakturor, överföra pengar från vissa konton",
+     "source": 3,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.4
+     }
+    },
+    "monthly_fee_sek": {
+     "value": 0,
+     "quote": "Årsavgift 0 kr",
+     "source": 1,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.11
+     }
+    },
+    "fee_terms": {
+     "value": "Årsavgift 0 kr; ränta 0,00 %; anslutningsavgift 2 500 kr för nya företagskunder",
+     "quote": "Årsavgift 0 kr",
+     "source": 1,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.28
+     }
+    },
+    "swish": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "bankgiro": {
+     "value": true,
+     "quote": "Går att ansluta till andra betaltjänster och bankgiro",
+     "source": 1,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.13
+     }
+    },
+    "account_interest_percent": {
+     "value": 0,
+     "quote": "Ränta 0,00 %",
+     "source": 1,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.55
+     }
+    },
+    "requirements": {
+     "value": "Kreditupplysning på ägare, verkliga huvudmän och företrädare; för nya företag registrering av bolaget",
+     "quote": "Banken förbehåller sig rätten att göra en kreditupplysning på samtliga ägare, verkliga huvudmän och personer som ska företräda företaget",
+     "source": 5,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.13
+     }
+    },
+    "guarantee_country": {
+     "value": "SE",
+     "quote": "Omfattas av insättningsgarantin",
+     "source": 1,
+     "status": "osäkert",
+     "jev": {
+      "verdict": "says_nothing",
+      "confidence": 0.72
+     }
+    }
+   },
+   "rate_tiers": [],
+   "pending_rate": null,
+   "status": "verifierad"
+  },
+  {
+   "name": "Penningmarknadskonto",
+   "flags": [],
+   "fields": {
+    "company_forms": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "accepts_new_companies": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "new_company_terms": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "open_online": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "multiple_users": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
     },
     "user_terms": {
      "value": null,
-     "quote": "Företagets firmatecknare slutsignerar den nya användaren.",
-     "source": 4,
-     "status": "citat hittades inte",
-     "claimed": "Behörighetsadministratör lägger upp användare och väljer begränsad eller obegränsad behörighet; firmatecknare måste godkänna ny användare inom 30 dagar; behörighetsmallar finns."
+     "quote": null,
+     "source": null,
+     "status": "okänt"
     },
     "monthly_fee_sek": {
      "value": null,
-     "quote": "Årsavgift\n\n0 kr",
-     "source": 1,
-     "status": "citat hittades inte",
-     "claimed": 0
+     "quote": null,
+     "source": null,
+     "status": "okänt"
     },
     "fee_terms": {
      "value": null,
-     "quote": "Anslutningsavgift för nya företagskunder: 2 500 kronor",
-     "source": 5,
-     "status": "citat hittades inte",
-     "claimed": "Kontot har 0 kr i årsavgift. Anslutningsavgift för nya företagskunder är 2 500 kr. Företagspaketet kostar 1 400 kr per år."
+     "quote": null,
+     "source": null,
+     "status": "okänt"
     },
     "swish": {
      "value": null,
@@ -139,24 +266,21 @@
     },
     "bankgiro": {
      "value": null,
-     "quote": "Går att ansluta till andra betaltjänster och bankgiro",
-     "source": 1,
-     "status": "citat hittades inte",
-     "claimed": true
+     "quote": null,
+     "source": null,
+     "status": "okänt"
     },
     "account_interest_percent": {
      "value": null,
-     "quote": "Ränta\n\n0,00 %",
-     "source": 1,
-     "status": "citat hittades inte",
-     "claimed": 0
+     "quote": null,
+     "source": null,
+     "status": "okänt"
     },
     "requirements": {
      "value": null,
-     "quote": "Banken förbehåller sig rätten att göra en kreditupplysning på samtliga ägare, verkliga huvudmän och personer som ska företräda företaget",
-     "source": 5,
-     "status": "citat hittades inte",
-     "claimed": "Ansökan med personuppgifter för verkliga huvudmän och företrädare; banken gör kreditupplysning; företaget ska vara registrerat hos Bolagsverket för att lägga till användare."
+     "quote": null,
+     "source": null,
+     "status": "okänt"
     },
     "guarantee_country": {
      "value": "SE",
@@ -165,7 +289,98 @@
      "status": "osäkert",
      "jev": {
       "verdict": "contradicts",
-      "confidence": 0.58
+      "confidence": 0.72
+     }
+    }
+   },
+   "rate_tiers": [],
+   "pending_rate": null,
+   "status": "ej verifierad"
+  },
+  {
+   "name": "Valutakonto",
+   "flags": [],
+   "fields": {
+    "company_forms": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "accepts_new_companies": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "new_company_terms": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "open_online": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "multiple_users": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "user_terms": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "monthly_fee_sek": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "fee_terms": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "swish": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "bankgiro": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "account_interest_percent": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "requirements": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "guarantee_country": {
+     "value": "SE",
+     "quote": "Alla våra konton omfattas av insättningsgarantin.",
+     "source": 0,
+     "status": "osäkert",
+     "jev": {
+      "verdict": "contradicts",
+      "confidence": 0.66
      }
     }
    },
@@ -174,6 +389,7 @@
    "status": "ej verifierad"
   }
  ],
- "changed_at": "2026-10-14T08:21:14+00:00",
- "model": "claude-sonnet-5-5"
+ "source_hash": "d13f95b25d2e54fb",
+ "changed_at": "2026-11-19T03:15:46+00:00",
+ "model": "claude-haiku-5-5"
 }

@@ -7,7 +7,7 @@
   "kind": "sparbank",
   "legal_name": "Sparbanken Syd"
  },
- "checked_at": "2026-11-17T02:17:29+00:00",
+ "checked_at": "2026-11-19T02:41:44+00:00",
  "discovered_at": "2026-10-26T03:09:01+00:00",
  "sources": [
   {
@@ -15,14 +15,14 @@
    "title": "Bolåneräntor",
    "kind": "html",
    "via": "http",
-   "chars": 4676
+   "chars": 4646
   },
   {
    "url": "https://www.sparbankensyd.se/sv/privat/vara-tjanster/bolan/bolanerantor",
    "title": "Bolåneräntor",
    "kind": "html",
    "via": "http",
-   "chars": 4676
+   "chars": 4646
   },
   {
    "url": "https://www.sparbankensyd.se/sv/privat/vara-tjanster/bolan/bolanerantor/historik-genomsnittsrantor",
@@ -67,8 +67,8 @@
    "chars": 4403
   }
  ],
- "status": "senaste tolkning misslyckades (Error code: 401 - {'type': 'error', 'error': {'type': 'authentication_error', 'm)",
- "notes": "Listräntor och snitträntor (oktober 2026, senast redovisade månad) hämtade från bolåneräntetabellen, källa 5. Snittränta finns endast för 3 mån, 1 år, 2 år och 3 år; för 4 år, 5 år, 7 år och 10 år redovisas ingen snittränta (fält tomma i tabellen). Ingen belåningsgradsprissättning med separata räntor angavs, så rate_tiers är tom. Effektiv ränta angavs bara som exempel för snitträntan 3 mån (2,93 %) och har därför inte tagits med. Individuell prissättning gäller, så faktisk ränta kan avvika. Ränterabatten (en månads ränta första året) gäller enligt källa 4 och är en kampanj som kan ändras. Rabatten och ränteändringar är från 2026-09-18.",
+ "status": "ok",
+ "notes": "Listräntor gäller från tabellen 'Ränteändringar 2026-11-16' (ingen separat startdag angiven, därför rate_valid_from tomt). Snitträntor avser 2026-10 (senast redovisade månad i tabellen); 4 år, 5 år, 7 år och 10 år saknar snittränta i källan (streck). Historiktabellen går bara till 2026-09 och används inte. Banken anger individuell prissättning; listräntan är utgångspunkt. Krav på övriga bankaffärer för räntan framgår inte tydligt som krav, därför tomt. Ingen tabell per belåningsgrad angavs. Max belåningsgrad 90 % av marknadsvärdet enligt källan för räntetabellen. Dokument 3 nämner en räntejustering 2026-09-18 utan detaljer.",
  "products": [
   {
    "name": "3 mån",
@@ -76,40 +76,44 @@
    "fields": {
     "loan_category": {
      "value": "vanligt bolån",
-     "quote": "Hos oss får du ett personligt bolån med individuell ränta",
+     "quote": "Hos oss får du ett personligt bolån med individuell ränta, ekonomisk rådgivning",
      "source": 5,
      "status": "osäkert",
      "jev": {
       "verdict": "says_nothing",
-      "confidence": 0.46
+      "confidence": 0.4
      }
     },
     "binding_months": {
      "value": 3,
-     "quote": "| 3 mån | 3,57 % | 2,89 % |",
-     "source": 5,
+     "quote": "| 3 mån | 3,82 | + 0,25 |",
+     "source": 0,
      "status": "belagt"
     },
     "rate_percent": {
-     "value": 3.57,
-     "quote": "| 3 mån | 3,57 % | 2,89 % |",
-     "source": 5,
+     "value": 3.82,
+     "quote": "| 3 mån | 3,82 | + 0,25 |",
+     "source": 0,
      "status": "belagt"
     },
     "avg_rate_percent": {
      "value": 2.89,
-     "quote": "| 3 mån | 3,57 % | 2,89 % |",
-     "source": 5,
-     "status": "belagt"
+     "quote": "| 202610 | 2,89 % | 3,27 % | 3,69 % | 3,92 % | - | - |",
+     "source": 0,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.85
+     }
     },
     "avg_rate_month": {
      "value": "2026-10",
-     "quote": "Genomsnittlig bolåneränta för 2026-10.",
-     "source": 5,
-     "status": "osäkert",
+     "quote": "| 202610 | 2,89 % | 3,27 % | 3,69 % | 3,92 % | - | - |",
+     "source": 0,
+     "status": "belagt",
      "jev": {
-      "verdict": "says_nothing",
-      "confidence": 0.68
+      "verdict": "supports",
+      "confidence": 0.89
      }
     },
     "effective_rate_percent": {
@@ -119,23 +123,19 @@
      "status": "okänt"
     },
     "rate_valid_from": {
-     "value": "2026-09-18",
-     "quote": "Vi justerar räntan på bolån fr o m 2026-09-18",
-     "source": 3,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.48
-     }
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
     },
     "ltv_pricing": {
-     "value": "Individuell prissättning; ränta beror bland annat på hur stora bolån du har i förhållande till värdet på bostaden. Ingen belåningsgradstabell angiven.",
+     "value": "Räntan beror bl.a. på belåningsgrad (lånets storlek i förhållande till bostadens värde); ingen separat tabell per belåningsgrad.",
      "quote": "Hur stora bolån du har i förhållande till värdet på bostaden.",
      "source": 0,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.89
+      "confidence": 0.85
      }
     },
     "discounts": {
@@ -149,19 +149,15 @@
      }
     },
     "requires_other_products": {
-     "value": false,
-     "quote": "Hur stor del av dina övriga bankaffärer du har hos oss. Ju fler bankaffärer du väljer att lägga hos oss, desto lägre kan din ränta bli.",
-     "source": 0,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.37
-     }
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
     },
     "max_ltv_percent": {
      "value": 90,
      "quote": "upp till en belåningsgrad om 90 % av marknadsvärdet",
-     "source": 5,
+     "source": 4,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
@@ -185,40 +181,44 @@
    "fields": {
     "loan_category": {
      "value": "vanligt bolån",
-     "quote": "Hos oss får du ett personligt bolån med individuell ränta",
+     "quote": "Hos oss får du ett personligt bolån med individuell ränta, ekonomisk rådgivning",
      "source": 5,
      "status": "osäkert",
      "jev": {
       "verdict": "says_nothing",
-      "confidence": 0.3
+      "confidence": 0.4
      }
     },
     "binding_months": {
      "value": 12,
-     "quote": "| 1 år | 4,09 % | 3,27 % |",
-     "source": 5,
+     "quote": "| 1 år | 4,09 | 0 |",
+     "source": 0,
      "status": "belagt"
     },
     "rate_percent": {
      "value": 4.09,
-     "quote": "| 1 år | 4,09 % | 3,27 % |",
-     "source": 5,
+     "quote": "| 1 år | 4,09 | 0 |",
+     "source": 0,
      "status": "belagt"
     },
     "avg_rate_percent": {
      "value": 3.27,
-     "quote": "| 1 år | 4,09 % | 3,27 % |",
-     "source": 5,
-     "status": "belagt"
+     "quote": "| 202610 | 2,89 % | 3,27 % | 3,69 % | 3,92 % | - | - |",
+     "source": 0,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.79
+     }
     },
     "avg_rate_month": {
      "value": "2026-10",
-     "quote": "Genomsnittlig bolåneränta för 2026-10.",
-     "source": 5,
-     "status": "osäkert",
+     "quote": "| 202610 | 2,89 % | 3,27 % | 3,69 % | 3,92 % | - | - |",
+     "source": 0,
+     "status": "belagt",
      "jev": {
-      "verdict": "says_nothing",
-      "confidence": 0.7
+      "verdict": "supports",
+      "confidence": 0.88
      }
     },
     "effective_rate_percent": {
@@ -228,23 +228,19 @@
      "status": "okänt"
     },
     "rate_valid_from": {
-     "value": "2026-09-18",
-     "quote": "Vi justerar räntan på bolån fr o m 2026-09-18",
-     "source": 3,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.58
-     }
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
     },
     "ltv_pricing": {
-     "value": "Individuell prissättning; ränta beror bland annat på hur stora bolån du har i förhållande till värdet på bostaden. Ingen belåningsgradstabell angiven.",
+     "value": "Räntan beror bl.a. på belåningsgrad (lånets storlek i förhållande till bostadens värde); ingen separat tabell per belåningsgrad.",
      "quote": "Hur stora bolån du har i förhållande till värdet på bostaden.",
      "source": 0,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.94
+      "confidence": 0.77
      }
     },
     "discounts": {
@@ -258,19 +254,15 @@
      }
     },
     "requires_other_products": {
-     "value": false,
-     "quote": "Hur stor del av dina övriga bankaffärer du har hos oss. Ju fler bankaffärer du väljer att lägga hos oss, desto lägre kan din ränta bli.",
-     "source": 0,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.26
-     }
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
     },
     "max_ltv_percent": {
      "value": 90,
      "quote": "upp till en belåningsgrad om 90 % av marknadsvärdet",
-     "source": 5,
+     "source": 4,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
@@ -294,40 +286,44 @@
    "fields": {
     "loan_category": {
      "value": "vanligt bolån",
-     "quote": "Hos oss får du ett personligt bolån med individuell ränta",
+     "quote": "Hos oss får du ett personligt bolån med individuell ränta, ekonomisk rådgivning",
      "source": 5,
      "status": "osäkert",
      "jev": {
       "verdict": "says_nothing",
-      "confidence": 0.31
+      "confidence": 0.44
      }
     },
     "binding_months": {
      "value": 24,
-     "quote": "| 2 år | 4,33 % | 3,69 % |",
-     "source": 5,
+     "quote": "| 2 år | 4,33 | 0 |",
+     "source": 0,
      "status": "belagt"
     },
     "rate_percent": {
      "value": 4.33,
-     "quote": "| 2 år | 4,33 % | 3,69 % |",
-     "source": 5,
+     "quote": "| 2 år | 4,33 | 0 |",
+     "source": 0,
      "status": "belagt"
     },
     "avg_rate_percent": {
      "value": 3.69,
-     "quote": "| 2 år | 4,33 % | 3,69 % |",
-     "source": 5,
-     "status": "belagt"
+     "quote": "| 202610 | 2,89 % | 3,27 % | 3,69 % | 3,92 % | - | - |",
+     "source": 0,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.91
+     }
     },
     "avg_rate_month": {
      "value": "2026-10",
-     "quote": "Genomsnittlig bolåneränta för 2026-10.",
-     "source": 5,
-     "status": "osäkert",
+     "quote": "| 202610 | 2,89 % | 3,27 % | 3,69 % | 3,92 % | - | - |",
+     "source": 0,
+     "status": "belagt",
      "jev": {
-      "verdict": "says_nothing",
-      "confidence": 0.6
+      "verdict": "supports",
+      "confidence": 0.83
      }
     },
     "effective_rate_percent": {
@@ -337,23 +333,19 @@
      "status": "okänt"
     },
     "rate_valid_from": {
-     "value": "2026-09-18",
-     "quote": "Vi justerar räntan på bolån fr o m 2026-09-18",
-     "source": 3,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.56
-     }
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
     },
     "ltv_pricing": {
-     "value": "Individuell prissättning; ränta beror bland annat på hur stora bolån du har i förhållande till värdet på bostaden. Ingen belåningsgradstabell angiven.",
+     "value": "Räntan beror bl.a. på belåningsgrad (lånets storlek i förhållande till bostadens värde); ingen separat tabell per belåningsgrad.",
      "quote": "Hur stora bolån du har i förhållande till värdet på bostaden.",
      "source": 0,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.94
+      "confidence": 0.76
      }
     },
     "discounts": {
@@ -367,19 +359,15 @@
      }
     },
     "requires_other_products": {
-     "value": false,
-     "quote": "Hur stor del av dina övriga bankaffärer du har hos oss. Ju fler bankaffärer du väljer att lägga hos oss, desto lägre kan din ränta bli.",
-     "source": 0,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.3
-     }
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
     },
     "max_ltv_percent": {
      "value": 90,
      "quote": "upp till en belåningsgrad om 90 % av marknadsvärdet",
-     "source": 5,
+     "source": 4,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
@@ -403,40 +391,44 @@
    "fields": {
     "loan_category": {
      "value": "vanligt bolån",
-     "quote": "Hos oss får du ett personligt bolån med individuell ränta",
+     "quote": "Hos oss får du ett personligt bolån med individuell ränta, ekonomisk rådgivning",
      "source": 5,
      "status": "osäkert",
      "jev": {
       "verdict": "says_nothing",
-      "confidence": 0.48
+      "confidence": 0.38
      }
     },
     "binding_months": {
      "value": 36,
-     "quote": "| 3 år | 4,48 % | 3,92 % |",
-     "source": 5,
+     "quote": "| 3 år | 4,48 | 0 |",
+     "source": 0,
      "status": "belagt"
     },
     "rate_percent": {
      "value": 4.48,
-     "quote": "| 3 år | 4,48 % | 3,92 % |",
-     "source": 5,
+     "quote": "| 3 år | 4,48 | 0 |",
+     "source": 0,
      "status": "belagt"
     },
     "avg_rate_percent": {
      "value": 3.92,
-     "quote": "| 3 år | 4,48 % | 3,92 % |",
-     "source": 5,
-     "status": "belagt"
+     "quote": "| 202610 | 2,89 % | 3,27 % | 3,69 % | 3,92 % | - | - |",
+     "source": 0,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.85
+     }
     },
     "avg_rate_month": {
      "value": "2026-10",
-     "quote": "Genomsnittlig bolåneränta för 2026-10.",
-     "source": 5,
-     "status": "osäkert",
+     "quote": "| 202610 | 2,89 % | 3,27 % | 3,69 % | 3,92 % | - | - |",
+     "source": 0,
+     "status": "belagt",
      "jev": {
-      "verdict": "says_nothing",
-      "confidence": 0.6
+      "verdict": "supports",
+      "confidence": 0.91
      }
     },
     "effective_rate_percent": {
@@ -446,23 +438,19 @@
      "status": "okänt"
     },
     "rate_valid_from": {
-     "value": "2026-09-18",
-     "quote": "Vi justerar räntan på bolån fr o m 2026-09-18",
-     "source": 3,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.52
-     }
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
     },
     "ltv_pricing": {
-     "value": "Individuell prissättning; ränta beror bland annat på hur stora bolån du har i förhållande till värdet på bostaden. Ingen belåningsgradstabell angiven.",
+     "value": "Räntan beror bl.a. på belåningsgrad (lånets storlek i förhållande till bostadens värde); ingen separat tabell per belåningsgrad.",
      "quote": "Hur stora bolån du har i förhållande till värdet på bostaden.",
      "source": 0,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.94
+      "confidence": 0.8
      }
     },
     "discounts": {
@@ -476,19 +464,15 @@
      }
     },
     "requires_other_products": {
-     "value": false,
-     "quote": "Hur stor del av dina övriga bankaffärer du har hos oss. Ju fler bankaffärer du väljer att lägga hos oss, desto lägre kan din ränta bli.",
-     "source": 0,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.3
-     }
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
     },
     "max_ltv_percent": {
      "value": 90,
      "quote": "upp till en belåningsgrad om 90 % av marknadsvärdet",
-     "source": 5,
+     "source": 4,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
@@ -512,24 +496,24 @@
    "fields": {
     "loan_category": {
      "value": "vanligt bolån",
-     "quote": "Hos oss får du ett personligt bolån med individuell ränta",
+     "quote": "Hos oss får du ett personligt bolån med individuell ränta, ekonomisk rådgivning",
      "source": 5,
      "status": "osäkert",
      "jev": {
       "verdict": "says_nothing",
-      "confidence": 0.42
+      "confidence": 0.44
      }
     },
     "binding_months": {
      "value": 48,
-     "quote": "| 4 år | 4,72 % | |",
-     "source": 5,
+     "quote": "| 4 år | 4,72 | 0 |",
+     "source": 0,
      "status": "belagt"
     },
     "rate_percent": {
      "value": 4.72,
-     "quote": "| 4 år | 4,72 % | |",
-     "source": 5,
+     "quote": "| 4 år | 4,72 | 0 |",
+     "source": 0,
      "status": "belagt"
     },
     "avg_rate_percent": {
@@ -551,23 +535,19 @@
      "status": "okänt"
     },
     "rate_valid_from": {
-     "value": "2026-09-18",
-     "quote": "Vi justerar räntan på bolån fr o m 2026-09-18",
-     "source": 3,
-     "status": "osäkert",
-     "jev": {
-      "verdict": "says_nothing",
-      "confidence": 0.31
-     }
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
     },
     "ltv_pricing": {
-     "value": "Individuell prissättning; ränta beror bland annat på hur stora bolån du har i förhållande till värdet på bostaden. Ingen belåningsgradstabell angiven.",
+     "value": "Räntan beror bl.a. på belåningsgrad (lånets storlek i förhållande till bostadens värde); ingen separat tabell per belåningsgrad.",
      "quote": "Hur stora bolån du har i förhållande till värdet på bostaden.",
      "source": 0,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.91
+      "confidence": 0.53
      }
     },
     "discounts": {
@@ -581,19 +561,15 @@
      }
     },
     "requires_other_products": {
-     "value": false,
-     "quote": "Hur stor del av dina övriga bankaffärer du har hos oss. Ju fler bankaffärer du väljer att lägga hos oss, desto lägre kan din ränta bli.",
-     "source": 0,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.52
-     }
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
     },
     "max_ltv_percent": {
      "value": 90,
      "quote": "upp till en belåningsgrad om 90 % av marknadsvärdet",
-     "source": 5,
+     "source": 4,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
@@ -617,24 +593,24 @@
    "fields": {
     "loan_category": {
      "value": "vanligt bolån",
-     "quote": "Hos oss får du ett personligt bolån med individuell ränta",
+     "quote": "Hos oss får du ett personligt bolån med individuell ränta, ekonomisk rådgivning",
      "source": 5,
      "status": "osäkert",
      "jev": {
       "verdict": "says_nothing",
-      "confidence": 0.55
+      "confidence": 0.34
      }
     },
     "binding_months": {
      "value": 60,
-     "quote": "| 5 år | 4,87 % | |",
-     "source": 5,
+     "quote": "| 5 år | 4,87 | 0 |",
+     "source": 0,
      "status": "belagt"
     },
     "rate_percent": {
      "value": 4.87,
-     "quote": "| 5 år | 4,87 % | |",
-     "source": 5,
+     "quote": "| 5 år | 4,87 | 0 |",
+     "source": 0,
      "status": "belagt"
     },
     "avg_rate_percent": {
@@ -656,23 +632,19 @@
      "status": "okänt"
     },
     "rate_valid_from": {
-     "value": "2026-09-18",
-     "quote": "Vi justerar räntan på bolån fr o m 2026-09-18",
-     "source": 3,
-     "status": "osäkert",
-     "jev": {
-      "verdict": "says_nothing",
-      "confidence": 0.31
-     }
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
     },
     "ltv_pricing": {
-     "value": "Individuell prissättning; ränta beror bland annat på hur stora bolån du har i förhållande till värdet på bostaden. Ingen belåningsgradstabell angiven.",
+     "value": "Räntan beror bl.a. på belåningsgrad (lånets storlek i förhållande till bostadens värde); ingen separat tabell per belåningsgrad.",
      "quote": "Hur stora bolån du har i förhållande till värdet på bostaden.",
      "source": 0,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.91
+      "confidence": 0.79
      }
     },
     "discounts": {
@@ -686,19 +658,15 @@
      }
     },
     "requires_other_products": {
-     "value": false,
-     "quote": "Hur stor del av dina övriga bankaffärer du har hos oss. Ju fler bankaffärer du väljer att lägga hos oss, desto lägre kan din ränta bli.",
-     "source": 0,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.4
-     }
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
     },
     "max_ltv_percent": {
      "value": 90,
      "quote": "upp till en belåningsgrad om 90 % av marknadsvärdet",
-     "source": 5,
+     "source": 4,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
@@ -722,24 +690,24 @@
    "fields": {
     "loan_category": {
      "value": "vanligt bolån",
-     "quote": "Hos oss får du ett personligt bolån med individuell ränta",
+     "quote": "Hos oss får du ett personligt bolån med individuell ränta, ekonomisk rådgivning",
      "source": 5,
      "status": "osäkert",
      "jev": {
       "verdict": "says_nothing",
-      "confidence": 0.56
+      "confidence": 0.34
      }
     },
     "binding_months": {
      "value": 84,
-     "quote": "| 7 år | 5,00 % | |",
-     "source": 5,
+     "quote": "| 7 år | 5,00 | 0 |",
+     "source": 0,
      "status": "belagt"
     },
     "rate_percent": {
      "value": 5.0,
-     "quote": "| 7 år | 5,00 % | |",
-     "source": 5,
+     "quote": "| 7 år | 5,00 | 0 |",
+     "source": 0,
      "status": "belagt"
     },
     "avg_rate_percent": {
@@ -761,23 +729,19 @@
      "status": "okänt"
     },
     "rate_valid_from": {
-     "value": "2026-09-18",
-     "quote": "Vi justerar räntan på bolån fr o m 2026-09-18",
-     "source": 3,
-     "status": "osäkert",
-     "jev": {
-      "verdict": "says_nothing",
-      "confidence": 0.34
-     }
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
     },
     "ltv_pricing": {
-     "value": "Individuell prissättning; ränta beror bland annat på hur stora bolån du har i förhållande till värdet på bostaden. Ingen belåningsgradstabell angiven.",
+     "value": "Räntan beror bl.a. på belåningsgrad (lånets storlek i förhållande till bostadens värde); ingen separat tabell per belåningsgrad.",
      "quote": "Hur stora bolån du har i förhållande till värdet på bostaden.",
      "source": 0,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.89
+      "confidence": 0.72
      }
     },
     "discounts": {
@@ -791,19 +755,15 @@
      }
     },
     "requires_other_products": {
-     "value": false,
-     "quote": "Hur stor del av dina övriga bankaffärer du har hos oss. Ju fler bankaffärer du väljer att lägga hos oss, desto lägre kan din ränta bli.",
-     "source": 0,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.35
-     }
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
     },
     "max_ltv_percent": {
      "value": 90,
      "quote": "upp till en belåningsgrad om 90 % av marknadsvärdet",
-     "source": 5,
+     "source": 4,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
@@ -827,24 +787,24 @@
    "fields": {
     "loan_category": {
      "value": "vanligt bolån",
-     "quote": "Hos oss får du ett personligt bolån med individuell ränta",
+     "quote": "Hos oss får du ett personligt bolån med individuell ränta, ekonomisk rådgivning",
      "source": 5,
      "status": "osäkert",
      "jev": {
       "verdict": "says_nothing",
-      "confidence": 0.52
+      "confidence": 0.46
      }
     },
     "binding_months": {
      "value": 120,
-     "quote": "| 10 år | 5,22 % | |",
-     "source": 5,
+     "quote": "| 10 år | 5,22 | 0 |",
+     "source": 0,
      "status": "belagt"
     },
     "rate_percent": {
      "value": 5.22,
-     "quote": "| 10 år | 5,22 % | |",
-     "source": 5,
+     "quote": "| 10 år | 5,22 | 0 |",
+     "source": 0,
      "status": "belagt"
     },
     "avg_rate_percent": {
@@ -866,23 +826,19 @@
      "status": "okänt"
     },
     "rate_valid_from": {
-     "value": "2026-09-18",
-     "quote": "Vi justerar räntan på bolån fr o m 2026-09-18",
-     "source": 3,
-     "status": "osäkert",
-     "jev": {
-      "verdict": "says_nothing",
-      "confidence": 0.24
-     }
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
     },
     "ltv_pricing": {
-     "value": "Individuell prissättning; ränta beror bland annat på hur stora bolån du har i förhållande till värdet på bostaden. Ingen belåningsgradstabell angiven.",
+     "value": "Räntan beror bl.a. på belåningsgrad (lånets storlek i förhållande till bostadens värde); ingen separat tabell per belåningsgrad.",
      "quote": "Hur stora bolån du har i förhållande till värdet på bostaden.",
      "source": 0,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.91
+      "confidence": 0.67
      }
     },
     "discounts": {
@@ -896,19 +852,15 @@
      }
     },
     "requires_other_products": {
-     "value": false,
-     "quote": "Hur stor del av dina övriga bankaffärer du har hos oss. Ju fler bankaffärer du väljer att lägga hos oss, desto lägre kan din ränta bli.",
-     "source": 0,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.4
-     }
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
     },
     "max_ltv_percent": {
      "value": 90,
      "quote": "upp till en belåningsgrad om 90 % av marknadsvärdet",
-     "source": 5,
+     "source": 4,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
@@ -927,7 +879,7 @@
    "status": "verifierad"
   }
  ],
- "source_hash": "4f0fd4d7a561e062",
- "changed_at": "2026-11-12T03:11:06+00:00",
+ "source_hash": "d58905381b27c433",
+ "changed_at": "2026-11-19T02:41:44+00:00",
  "model": "claude-haiku-5-5"
 }

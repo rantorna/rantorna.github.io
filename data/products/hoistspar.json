@@ -7,7 +7,7 @@
   "kind": "kreditmarknadsbolag",
   "legal_name": "Hoist Finance AB (publ)"
  },
- "checked_at": "2026-11-17T17:41:02+00:00",
+ "checked_at": "2026-11-19T01:45:35+00:00",
  "discovered_at": "2026-11-14T01:24:35+00:00",
  "sources": [
   {
@@ -103,7 +103,7 @@
   }
  ],
  "status": "ok",
- "notes": "Endast privatkundsvarianterna Sparkonto Fast 3, 6, 12, 24 och 36 månader är medtagna; Sparkonto Fast 3m (företag) är utelämnad. Räntorna är hämtade från jämförelsesidan (källa 2) och stämmer med räntehistoriken (källa 4); valid_from är senaste posten i räntehistoriken. Inga räntetrappor, inga fria uttag per år och inga månatliga insättningstak finns angivna. Uppgiften om att villkoren ändrats (version 9 för konsument) används för villkor. Källa 3 har tecken-separerade rader, så vissa citat är förkortade. Det finns en motstridig uppgift i källa 1 (företagsvillkor) som inte används. Källa 0 visar samma 3,40 % för 36 månader.",
+ "notes": "Ränteuppgifterna är hämtade från räntehistoriken (senaste daterade post per bindningstid). Jämför-sidan visar andra räntor utan datum (3 mån 3,06 %, 6 mån 3,15 %, 12 mån 3,40 %, 24 mån 3,35 %, 36 mån 3,45 %); de skiljer sig från historiken och kan vara inaktuella, så kontrollera mot banken. Villkor för privatkonsument hämtas från version 9 (konsumentvillkoren); företagsvillkoren och företagsprodukten (0,20 %) är utelämnade. Det finns ingen uppgift om fria uttag, minsta belopp eller kampanjränta. Eftersom villkoren anger 'ej angivet' för vissa fält har sådana värden satts till null.",
  "products": [
   {
    "name": "Sparkonto Fast 3 månader",
@@ -111,23 +111,19 @@
    "fields": {
     "product_type": {
      "value": "fasträntekonto",
-     "quote": "HoistSpar erbjuder fasträntekonton med bindningstider mellan 3-36 månader.",
-     "source": 1,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.3
-     }
-    },
-    "rate_percent": {
-     "value": 3.05,
-     "quote": "Ränta 3,05%",
+     "quote": "Det här är Sparkonto Fast",
      "source": 1,
      "status": "osäkert",
      "jev": {
       "verdict": "says_nothing",
-      "confidence": 0.46
+      "confidence": 0.44
      }
+    },
+    "rate_percent": {
+     "value": 3.05,
+     "quote": "3 månader 2026-11-10 3,05% 1 150 000 kr",
+     "source": 3,
+     "status": "belagt"
     },
     "rate_type": {
      "value": "fast",
@@ -141,19 +137,16 @@
     },
     "binding_months": {
      "value": 3,
-     "quote": "Bindningstid 90 dagar",
+     "quote": "Sparkonto Fast 3 månader",
      "source": 1,
      "status": "belagt"
     },
     "withdrawals": {
-     "value": "mot avgift",
-     "quote": "om du skulle behöva ta ut pengar från kontot innan löptidens slut så tillkommer en uttagsavgift",
-     "source": 1,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.97
-     }
+     "value": null,
+     "quote": "Det är möjligt att begära uttag från eller avsluta ett Sparkonto före Löptidens utgång mot en avgift.",
+     "source": 2,
+     "status": "citat hittades inte",
+     "claimed": "mot avgift"
     },
     "free_withdrawals_per_year": {
      "value": null,
@@ -162,13 +155,13 @@
      "status": "okänt"
     },
     "withdrawal_terms": {
-     "value": "Uttagsavgift 1 % av uttagsbeloppet vid bindningstid upp till ett år.",
+     "value": "Uttag före löptidens slut mot avgift: 1 % av uttagsbeloppet (bindningstid upp till 1 år).",
      "quote": "För uttag från Sparkonto Fast med bindningstid upp till och med ett (1) år debiteras en avgift om 1%.",
      "source": 1,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 1.0
+      "confidence": 0.98
      }
     },
     "min_deposit_sek": {
@@ -195,53 +188,49 @@
      "status": "okänt"
     },
     "deposit_terms": {
-     "value": "Insättning via bankgiro; obegränsat antal insättningar under 14 dagar från första insättningen",
+     "value": "Obegränsat antal insättningar under 14 dagar från den första insättningen; därefter endast om Bolaget tillåter det",
      "quote": "Obegränsat antal insättningar är tillåtet under 14 dagar från den första insättningen.",
      "source": 1,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.98
+      "confidence": 0.11
      }
     },
     "eligibility": {
-     "value": "Över 18 år, folkbokförd i Sverige, BankID",
+     "value": "Fysisk person över 18 år, folkbokförd i Sverige, med BankID",
      "quote": "Om du är över 18 år och folkbokförd i Sverige blir du kund genom att logga in med ditt BankID på hemsidan.",
      "source": 7,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.89
+      "confidence": 0.86
      }
     },
     "requires_other_products": {
      "value": false,
-     "quote": "Inga tilläggstjänster kan knytas till",
+     "quote": "Inga tilläggstjänster kan knytas till Sparkontot.",
      "source": 0,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.26
+      "confidence": 0.24
      }
     },
     "intro_rate": {
-     "value": false,
-     "quote": "Räntan är fast och gäller under hela bindningstiden",
-     "source": 1,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.34
-     }
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
     },
     "interest_paid": {
-     "value": "Kapitaliseras vid löptidens slut",
-     "quote": "Räntan kapitaliseras vid löptidens slut.",
-     "source": 1,
+     "value": "Vid löptidens slut (kapitaliseras)",
+     "quote": "Räntan kapitaliseras vid utgången av aktuell löptid.",
+     "source": 2,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.88
+      "confidence": 0.94
      }
     },
     "guarantee_country": {
@@ -256,12 +245,12 @@
     },
     "guarantee_amount": {
      "value": "1 150 000 kronor per kund",
-     "quote": "1 150 000 kronor per kund. Riksgälden betalar ut ersättningen inom sju arbetsdagar",
+     "quote": "skyddar insättningar upp till 1 150 000 kronor per kund.",
      "source": 1,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.89
+      "confidence": 0.94
      }
     },
     "rate_valid_from": {
@@ -277,7 +266,7 @@
    },
    "rate_tiers": [],
    "pending_rate": null,
-   "status": "verifierad"
+   "status": "delvis verifierad"
   },
   {
    "name": "Sparkonto Fast 6 månader",
@@ -285,23 +274,19 @@
    "fields": {
     "product_type": {
      "value": "fasträntekonto",
-     "quote": "HoistSpar erbjuder fasträntekonton med bindningstider mellan 3-36 månader.",
+     "quote": "Det här är Sparkonto Fast",
      "source": 1,
      "status": "osäkert",
      "jev": {
       "verdict": "says_nothing",
-      "confidence": 0.24
+      "confidence": 0.44
      }
     },
     "rate_percent": {
      "value": 3.1,
-     "quote": "Ränta 3,10%",
-     "source": 1,
-     "status": "osäkert",
-     "jev": {
-      "verdict": "says_nothing",
-      "confidence": 0.42
-     }
+     "quote": "6 månader 2026-11-10 3,10% 1 150 000 kr",
+     "source": 3,
+     "status": "belagt"
     },
     "rate_type": {
      "value": "fast",
@@ -315,19 +300,16 @@
     },
     "binding_months": {
      "value": 6,
-     "quote": "Bindningstid 180 dagar",
+     "quote": "Sparkonto Fast 6 månader",
      "source": 1,
      "status": "belagt"
     },
     "withdrawals": {
-     "value": "mot avgift",
-     "quote": "om du skulle behöva ta ut pengar från kontot innan löptidens slut så tillkommer en uttagsavgift",
-     "source": 1,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.98
-     }
+     "value": null,
+     "quote": "Det är möjligt att begära uttag från eller avsluta ett Sparkonto före Löptidens utgång mot en avgift.",
+     "source": 2,
+     "status": "citat hittades inte",
+     "claimed": "mot avgift"
     },
     "free_withdrawals_per_year": {
      "value": null,
@@ -336,7 +318,7 @@
      "status": "okänt"
     },
     "withdrawal_terms": {
-     "value": "Uttagsavgift 1 % av uttagsbeloppet vid bindningstid upp till ett år.",
+     "value": "Uttag före löptidens slut mot avgift: 1 % av uttagsbeloppet (bindningstid upp till 1 år).",
      "quote": "För uttag från Sparkonto Fast med bindningstid upp till och med ett (1) år debiteras en avgift om 1%.",
      "source": 1,
      "status": "belagt",
@@ -369,53 +351,50 @@
      "status": "okänt"
     },
     "deposit_terms": {
-     "value": "Insättning via bankgiro; obegränsat antal insättningar under 14 dagar från första insättningen",
+     "value": "Obegränsat antal insättningar under 14 dagar från den första insättningen; därefter endast om Bolaget tillåter det",
      "quote": "Obegränsat antal insättningar är tillåtet under 14 dagar från den första insättningen.",
      "source": 1,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.98
+      "confidence": 0.09
      }
     },
     "eligibility": {
-     "value": "Över 18 år, folkbokförd i Sverige, BankID",
+     "value": "Fysisk person över 18 år, folkbokförd i Sverige, med BankID",
      "quote": "Om du är över 18 år och folkbokförd i Sverige blir du kund genom att logga in med ditt BankID på hemsidan.",
      "source": 7,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.91
+      "confidence": 0.88
      }
     },
     "requires_other_products": {
-     "value": false,
-     "quote": "Inga tilläggstjänster kan knytas till",
+     "value": null,
+     "quote": "Inga tilläggstjänster kan knytas till Sparkontot.",
      "source": 0,
-     "status": "belagt",
+     "status": "stöds inte av källan",
      "jev": {
-      "verdict": "supports",
-      "confidence": 0.19
-     }
+      "verdict": "says_nothing",
+      "confidence": 0.42
+     },
+     "claimed": false
     },
     "intro_rate": {
-     "value": false,
-     "quote": "Räntan är fast och gäller under hela bindningstiden",
-     "source": 1,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.41
-     }
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
     },
     "interest_paid": {
-     "value": "Kapitaliseras vid löptidens slut",
-     "quote": "Räntan kapitaliseras vid löptidens slut.",
-     "source": 1,
+     "value": "Vid löptidens slut (kapitaliseras)",
+     "quote": "Räntan kapitaliseras vid utgången av aktuell löptid.",
+     "source": 2,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.92
+      "confidence": 0.97
      }
     },
     "guarantee_country": {
@@ -430,12 +409,12 @@
     },
     "guarantee_amount": {
      "value": "1 150 000 kronor per kund",
-     "quote": "1 150 000 kronor per kund. Riksgälden betalar ut ersättningen inom sju arbetsdagar",
+     "quote": "skyddar insättningar upp till 1 150 000 kronor per kund.",
      "source": 1,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.88
+      "confidence": 0.96
      }
     },
     "rate_valid_from": {
@@ -451,7 +430,7 @@
    },
    "rate_tiers": [],
    "pending_rate": null,
-   "status": "verifierad"
+   "status": "delvis verifierad"
   },
   {
    "name": "Sparkonto Fast 12 månader",
@@ -459,23 +438,19 @@
    "fields": {
     "product_type": {
      "value": "fasträntekonto",
-     "quote": "HoistSpar erbjuder fasträntekonton med bindningstider mellan 3-36 månader.",
-     "source": 1,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.22
-     }
-    },
-    "rate_percent": {
-     "value": 3.25,
-     "quote": "Ränta 3,25%",
+     "quote": "Det här är Sparkonto Fast",
      "source": 1,
      "status": "osäkert",
      "jev": {
       "verdict": "says_nothing",
-      "confidence": 0.35
+      "confidence": 0.62
      }
+    },
+    "rate_percent": {
+     "value": 3.25,
+     "quote": "12 månader 2026-10-30 3,25% 1 150 000 kr",
+     "source": 3,
+     "status": "belagt"
     },
     "rate_type": {
      "value": "fast",
@@ -489,19 +464,16 @@
     },
     "binding_months": {
      "value": 12,
-     "quote": "Bindningstid 365 dagar",
+     "quote": "Sparkonto Fast 12 månader",
      "source": 1,
      "status": "belagt"
     },
     "withdrawals": {
-     "value": "mot avgift",
-     "quote": "om du skulle behöva ta ut pengar från kontot innan löptidens slut så tillkommer en uttagsavgift",
-     "source": 1,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.94
-     }
+     "value": null,
+     "quote": "Det är möjligt att begära uttag från eller avsluta ett Sparkonto före Löptidens utgång mot en avgift.",
+     "source": 2,
+     "status": "citat hittades inte",
+     "claimed": "mot avgift"
     },
     "free_withdrawals_per_year": {
      "value": null,
@@ -510,7 +482,7 @@
      "status": "okänt"
     },
     "withdrawal_terms": {
-     "value": "Uttagsavgift 1 % av uttagsbeloppet vid bindningstid upp till ett år.",
+     "value": "Uttag före löptidens slut mot avgift: 1 % av uttagsbeloppet (bindningstid upp till 1 år).",
      "quote": "För uttag från Sparkonto Fast med bindningstid upp till och med ett (1) år debiteras en avgift om 1%.",
      "source": 1,
      "status": "belagt",
@@ -543,53 +515,50 @@
      "status": "okänt"
     },
     "deposit_terms": {
-     "value": "Insättning via bankgiro; obegränsat antal insättningar under 14 dagar från första insättningen",
+     "value": "Obegränsat antal insättningar under 14 dagar från den första insättningen; därefter endast om Bolaget tillåter det",
      "quote": "Obegränsat antal insättningar är tillåtet under 14 dagar från den första insättningen.",
      "source": 1,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.98
+      "confidence": 0.11
      }
     },
     "eligibility": {
-     "value": "Över 18 år, folkbokförd i Sverige, BankID",
+     "value": "Fysisk person över 18 år, folkbokförd i Sverige, med BankID",
      "quote": "Om du är över 18 år och folkbokförd i Sverige blir du kund genom att logga in med ditt BankID på hemsidan.",
      "source": 7,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.91
+      "confidence": 0.89
      }
     },
     "requires_other_products": {
-     "value": false,
-     "quote": "Inga tilläggstjänster kan knytas till",
+     "value": null,
+     "quote": "Inga tilläggstjänster kan knytas till Sparkontot.",
      "source": 0,
-     "status": "belagt",
+     "status": "stöds inte av källan",
      "jev": {
-      "verdict": "supports",
-      "confidence": 0.14
-     }
+      "verdict": "says_nothing",
+      "confidence": 0.61
+     },
+     "claimed": false
     },
     "intro_rate": {
-     "value": false,
-     "quote": "Räntan är fast och gäller under hela bindningstiden",
-     "source": 1,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.43
-     }
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
     },
     "interest_paid": {
-     "value": "Kapitaliseras vid löptidens slut",
-     "quote": "Räntan kapitaliseras vid löptidens slut.",
-     "source": 1,
+     "value": "Vid löptidens slut (kapitaliseras)",
+     "quote": "Räntan kapitaliseras vid utgången av aktuell löptid.",
+     "source": 2,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.89
+      "confidence": 0.96
      }
     },
     "guarantee_country": {
@@ -604,12 +573,12 @@
     },
     "guarantee_amount": {
      "value": "1 150 000 kronor per kund",
-     "quote": "1 150 000 kronor per kund. Riksgälden betalar ut ersättningen inom sju arbetsdagar",
+     "quote": "skyddar insättningar upp till 1 150 000 kronor per kund.",
      "source": 1,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.91
+      "confidence": 0.94
      }
     },
     "rate_valid_from": {
@@ -625,7 +594,7 @@
    },
    "rate_tiers": [],
    "pending_rate": null,
-   "status": "verifierad"
+   "status": "delvis verifierad"
   },
   {
    "name": "Sparkonto Fast 24 månader",
@@ -633,23 +602,19 @@
    "fields": {
     "product_type": {
      "value": "fasträntekonto",
-     "quote": "HoistSpar erbjuder fasträntekonton med bindningstider mellan 3-36 månader.",
+     "quote": "Det här är Sparkonto Fast",
      "source": 1,
      "status": "osäkert",
      "jev": {
       "verdict": "says_nothing",
-      "confidence": 0.33
+      "confidence": 0.58
      }
     },
     "rate_percent": {
      "value": 3.3,
-     "quote": "Ränta 3,30%",
-     "source": 1,
-     "status": "osäkert",
-     "jev": {
-      "verdict": "contradicts",
-      "confidence": 0.2
-     }
+     "quote": "24 månader 2026-10-30 3,30% 1 150 000 kr",
+     "source": 3,
+     "status": "belagt"
     },
     "rate_type": {
      "value": "fast",
@@ -663,19 +628,16 @@
     },
     "binding_months": {
      "value": 24,
-     "quote": "Bindningstid 730 dagar",
+     "quote": "Sparkonto Fast 24 månader",
      "source": 1,
      "status": "belagt"
     },
     "withdrawals": {
-     "value": "mot avgift",
-     "quote": "om du skulle behöva ta ut pengar från kontot innan löptidens slut så tillkommer en uttagsavgift",
-     "source": 1,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.95
-     }
+     "value": null,
+     "quote": "Det är möjligt att begära uttag från eller avsluta ett Sparkonto före Löptidens utgång mot en avgift.",
+     "source": 2,
+     "status": "citat hittades inte",
+     "claimed": "mot avgift"
     },
     "free_withdrawals_per_year": {
      "value": null,
@@ -684,7 +646,7 @@
      "status": "okänt"
     },
     "withdrawal_terms": {
-     "value": "Uttagsavgift 2 % av uttagsbeloppet vid bindningstid över ett år.",
+     "value": "Uttag före löptidens slut mot avgift: 2 % av uttagsbeloppet (bindningstid över 1 år).",
      "quote": "För uttag från Sparkonto Fast med bindningstid över ett (1) år debiteras en avgift om 2%.",
      "source": 1,
      "status": "belagt",
@@ -717,53 +679,50 @@
      "status": "okänt"
     },
     "deposit_terms": {
-     "value": "Insättning via bankgiro; obegränsat antal insättningar under 14 dagar från första insättningen",
+     "value": "Obegränsat antal insättningar under 14 dagar från den första insättningen; därefter endast om Bolaget tillåter det",
      "quote": "Obegränsat antal insättningar är tillåtet under 14 dagar från den första insättningen.",
      "source": 1,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.98
+      "confidence": 0.04
      }
     },
     "eligibility": {
-     "value": "Över 18 år, folkbokförd i Sverige, BankID",
+     "value": "Fysisk person över 18 år, folkbokförd i Sverige, med BankID",
      "quote": "Om du är över 18 år och folkbokförd i Sverige blir du kund genom att logga in med ditt BankID på hemsidan.",
      "source": 7,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.92
+      "confidence": 0.88
      }
     },
     "requires_other_products": {
-     "value": false,
-     "quote": "Inga tilläggstjänster kan knytas till",
+     "value": null,
+     "quote": "Inga tilläggstjänster kan knytas till Sparkontot.",
      "source": 0,
-     "status": "belagt",
+     "status": "stöds inte av källan",
      "jev": {
-      "verdict": "supports",
-      "confidence": 0.06
-     }
+      "verdict": "says_nothing",
+      "confidence": 0.48
+     },
+     "claimed": false
     },
     "intro_rate": {
-     "value": false,
-     "quote": "Räntan är fast och gäller under hela bindningstiden",
-     "source": 1,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.58
-     }
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
     },
     "interest_paid": {
-     "value": "Kapitaliseras vid löptidens slut",
-     "quote": "Räntan kapitaliseras vid löptidens slut.",
-     "source": 1,
+     "value": "Vid löptidens slut (kapitaliseras)",
+     "quote": "Räntan kapitaliseras vid utgången av aktuell löptid.",
+     "source": 2,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.85
+      "confidence": 0.96
      }
     },
     "guarantee_country": {
@@ -778,12 +737,12 @@
     },
     "guarantee_amount": {
      "value": "1 150 000 kronor per kund",
-     "quote": "1 150 000 kronor per kund. Riksgälden betalar ut ersättningen inom sju arbetsdagar",
+     "quote": "skyddar insättningar upp till 1 150 000 kronor per kund.",
      "source": 1,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.88
+      "confidence": 0.92
      }
     },
     "rate_valid_from": {
@@ -799,7 +758,7 @@
    },
    "rate_tiers": [],
    "pending_rate": null,
-   "status": "verifierad"
+   "status": "delvis verifierad"
   },
   {
    "name": "Sparkonto Fast 36 månader",
@@ -807,23 +766,19 @@
    "fields": {
     "product_type": {
      "value": "fasträntekonto",
-     "quote": "HoistSpar erbjuder fasträntekonton med bindningstider mellan 3-36 månader.",
+     "quote": "Det här är Sparkonto Fast",
      "source": 1,
      "status": "osäkert",
      "jev": {
       "verdict": "says_nothing",
-      "confidence": 0.19
+      "confidence": 0.68
      }
     },
     "rate_percent": {
      "value": 3.4,
-     "quote": "Ränta 3,40%",
-     "source": 1,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.76
-     }
+     "quote": "36 månader 2026-10-30 3,40% 1 150 000 kr",
+     "source": 3,
+     "status": "belagt"
     },
     "rate_type": {
      "value": "fast",
@@ -837,19 +792,16 @@
     },
     "binding_months": {
      "value": 36,
-     "quote": "Bindningstid 1095 dagar",
+     "quote": "Sparkonto Fast 36 månader",
      "source": 1,
      "status": "belagt"
     },
     "withdrawals": {
-     "value": "mot avgift",
-     "quote": "om du skulle behöva ta ut pengar från kontot innan löptidens slut så tillkommer en uttagsavgift",
-     "source": 1,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 1.0
-     }
+     "value": null,
+     "quote": "Det är möjligt att begära uttag från eller avsluta ett Sparkonto före Löptidens utgång mot en avgift.",
+     "source": 2,
+     "status": "citat hittades inte",
+     "claimed": "mot avgift"
     },
     "free_withdrawals_per_year": {
      "value": null,
@@ -858,13 +810,13 @@
      "status": "okänt"
     },
     "withdrawal_terms": {
-     "value": "Uttagsavgift 2 % av uttagsbeloppet vid bindningstid över ett år.",
+     "value": "Uttag före löptidens slut mot avgift: 2 % av uttagsbeloppet (bindningstid över 1 år).",
      "quote": "För uttag från Sparkonto Fast med bindningstid över ett (1) år debiteras en avgift om 2%.",
      "source": 1,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 1.0
+      "confidence": 0.98
      }
     },
     "min_deposit_sek": {
@@ -891,53 +843,49 @@
      "status": "okänt"
     },
     "deposit_terms": {
-     "value": "Insättning via bankgiro; obegränsat antal insättningar under 14 dagar från första insättningen",
+     "value": "Obegränsat antal insättningar under 14 dagar från den första insättningen; därefter endast om Bolaget tillåter det",
      "quote": "Obegränsat antal insättningar är tillåtet under 14 dagar från den första insättningen.",
      "source": 1,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.98
+      "confidence": 0.06
      }
     },
     "eligibility": {
-     "value": "Över 18 år, folkbokförd i Sverige, BankID",
+     "value": "Fysisk person över 18 år, folkbokförd i Sverige, med BankID",
      "quote": "Om du är över 18 år och folkbokförd i Sverige blir du kund genom att logga in med ditt BankID på hemsidan.",
      "source": 7,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.91
+      "confidence": 0.86
      }
     },
     "requires_other_products": {
      "value": false,
-     "quote": "Inga tilläggstjänster kan knytas till",
+     "quote": "Inga tilläggstjänster kan knytas till Sparkontot.",
      "source": 0,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.11
+      "confidence": 0.25
      }
     },
     "intro_rate": {
-     "value": false,
-     "quote": "Räntan är fast och gäller under hela bindningstiden",
-     "source": 1,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.58
-     }
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
     },
     "interest_paid": {
-     "value": "Kapitaliseras vid löptidens slut",
-     "quote": "Räntan kapitaliseras vid löptidens slut.",
-     "source": 1,
+     "value": "Vid löptidens slut (kapitaliseras)",
+     "quote": "Räntan kapitaliseras vid utgången av aktuell löptid.",
+     "source": 2,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.88
+      "confidence": 0.96
      }
     },
     "guarantee_country": {
@@ -952,12 +900,12 @@
     },
     "guarantee_amount": {
      "value": "1 150 000 kronor per kund",
-     "quote": "1 150 000 kronor per kund. Riksgälden betalar ut ersättningen inom sju arbetsdagar",
+     "quote": "skyddar insättningar upp till 1 150 000 kronor per kund.",
      "source": 1,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.89
+      "confidence": 0.94
      }
     },
     "rate_valid_from": {
@@ -973,10 +921,10 @@
    },
    "rate_tiers": [],
    "pending_rate": null,
-   "status": "verifierad"
+   "status": "delvis verifierad"
   }
  ],
- "source_hash": "104f7acc15f83041",
- "changed_at": "2026-11-12T01:19:41+00:00",
+ "source_hash": "4c6eb999bc0d9a33",
+ "changed_at": "2026-11-19T01:45:35+00:00",
  "model": "claude-haiku-5-5"
 }

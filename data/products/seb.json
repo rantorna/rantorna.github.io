@@ -7,7 +7,7 @@
   "kind": "storbank",
   "legal_name": "Skandinaviska Enskilda Banken AB"
  },
- "checked_at": "2026-11-17T17:44:57+00:00",
+ "checked_at": "2026-11-19T01:50:24+00:00",
  "discovered_at": "2026-10-26T01:21:17+00:00",
  "sources": [
   {
@@ -68,22 +68,21 @@
   }
  ],
  "status": "ok",
- "notes": "Källorna 0 och 1 är identiska. Exkluderade: skogskonto, skogsskadekonto, upphovsmannakonto, notariatkonto (särskilda ändamål), investeringssparkonto och IPS (ej sparkonton/pensionssparkonto enligt reglerna), samt lån. Placeringskontots räntor är enligt källan indikativa och kan ändras innan kontot öppnas. Privatkonto (0 % ränta) är medtaget som transaktionskonto med ränta; ingen uttagsinformation finns. Grönt sparkonto har samma räntetrappa som Enkla sparkontot enligt källan. Ingen uppgift om när räntan kapitaliseras/betalas ut, eventuella minimibelopp för Enkla/Gröna sparkontot eller uttagsbegränsningar utöver \"fria uttag\" saknas i källorna. SEB nämner förmånsnivåerna Plus, Premium och Platinum men ingen separat ränta för dem finns i källorna. Bindningstid för 1–5 år saknar angivet minsta insättningsbelopp i källorna.",
+ "notes": "Skogskonton, Upphovsmannakonto, Notariatkonto, Investeringssparkonto, IPS och ISK/AF-konton är exkluderade enligt reglerna. Enkla sparkontot och Grönt sparkonto har samma räntetrappa enligt källan (0,25 % upp till 250 000 kr, 0 % därefter); räntan för 100 000 kr är 0,25 %. Placeringskontots räntor anges som indikativa i källan och kan ändras innan kontot öppnats. Minimibelopp 10 000 kr gäller enligt källan endast 3- och 6-månaderskonton via internetbanken. Uppgifter om uttagsantal, ränteutbetalning, kampanjränta och kundkrav saknas i källorna och är satta till null. Räntorna visas på sidan utan inloggning; ingen inloggningsbegränsning angiven.",
  "products": [
   {
    "name": "Privatkonto",
    "flags": [],
    "fields": {
     "product_type": {
-     "value": null,
+     "value": "transaktionskonto med ränta",
      "quote": "Privatkonto",
      "source": 0,
-     "status": "stöds inte av källan",
+     "status": "osäkert",
      "jev": {
-      "verdict": "says_nothing",
-      "confidence": 0.8
-     },
-     "claimed": "transaktionskonto med ränta"
+      "verdict": "contradicts",
+      "confidence": 0.33
+     }
     },
     "rate_percent": {
      "value": 0,
@@ -180,17 +179,17 @@
      "status": "osäkert",
      "jev": {
       "verdict": "says_nothing",
-      "confidence": 0.4
+      "confidence": 0.42
      }
     },
     "guarantee_amount": {
-     "value": "1 150 000 kr",
+     "value": "1 150 000 kronor",
      "quote": "Varje kund har rätt till ersättning för sin sammanlagda kontobehållning i banken med ett belopp om högst 1 150 000 kronor.",
      "source": 0,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.3
+      "confidence": 0.24
      }
     },
     "rate_valid_from": {
@@ -231,22 +230,22 @@
    "fields": {
     "product_type": {
      "value": "rörligt sparkonto",
-     "quote": "Med Enkla sparkontot sparar du med låg risk och har fri tillgång till pengarna.",
-     "source": 3,
-     "status": "belagt",
+     "quote": "Med Enkla sparkontot binder du inte ditt sparande på något sätt.",
+     "source": 4,
+     "status": "osäkert",
      "jev": {
-      "verdict": "supports",
-      "confidence": 0.3
+      "verdict": "says_nothing",
+      "confidence": 0.49
      }
     },
     "rate_percent": {
-     "value": 0.1,
-     "quote": "| 0– 250 000 | 0,10 % | +0,10 % | 2026-04-28 |",
+     "value": 0.25,
+     "quote": "| 0– 250 000 | 0,25 % | +0,15 % | 2026-11-18 |",
      "source": 0,
-     "status": "osäkert",
+     "status": "belagt",
      "jev": {
-      "verdict": "contradicts",
-      "confidence": 0.16
+      "verdict": "supports",
+      "confidence": 0.07
      }
     },
     "rate_type": {
@@ -282,13 +281,13 @@
      "status": "okänt"
     },
     "withdrawal_terms": {
-     "value": "Uttag när du vill utan avgift; inga antalsbegränsningar angivna",
+     "value": "Uttag när du vill utan avgift enligt SEB:s sida om Enkla sparkontot.",
      "quote": "Gör uttag när du vill utan avgift",
      "source": 3,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.98
+      "confidence": 1.0
      }
     },
     "min_deposit_sek": {
@@ -310,13 +309,13 @@
      "status": "okänt"
     },
     "deposit_terms": {
-     "value": "Engångsinsättningar eller löpande sparande, valfritt belopp när som helst",
+     "value": "Spara lite varje månad eller göra engångsinsättningar",
      "quote": "Med Enkla sparkontot kan du spara lite varje månad eller göra engångsinsättningar – valet är ditt.",
      "source": 4,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.92
+      "confidence": 1.0
      }
     },
     "eligibility": {
@@ -346,7 +345,7 @@
     "guarantee_country": {
      "value": "SE",
      "quote": "Kontot omfattas av den statliga insättningsgarantin enligt beslut av Riksgälden.",
-     "source": 0,
+     "source": 3,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
@@ -354,9 +353,9 @@
      }
     },
     "guarantee_amount": {
-     "value": "1 150 000 kr",
+     "value": "1 150 000 kronor",
      "quote": "Varje kund har rätt till ersättning för sin sammanlagda kontobehållning i banken med ett belopp om högst 1 150 000 kronor.",
-     "source": 0,
+     "source": 3,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
@@ -364,13 +363,13 @@
      }
     },
     "rate_valid_from": {
-     "value": "2026-04-28",
-     "quote": "| 0– 250 000 | 0,10 % | +0,10 % | 2026-04-28 |",
+     "value": "2026-11-18",
+     "quote": "| 0– 250 000 | 0,25 % | +0,15 % | 2026-11-18 |",
      "source": 0,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.89
+      "confidence": 0.83
      }
     }
    },
@@ -378,8 +377,8 @@
     {
      "min_sek": 0,
      "max_sek": 250000,
-     "rate_percent": 0.1,
-     "quote": "| 0– 250 000 | 0,10 % | +0,10 % | 2026-04-28 |",
+     "rate_percent": 0.25,
+     "quote": "| 0– 250 000 | 0,25 % | +0,15 % | 2026-11-18 |",
      "source": 0,
      "status": "belagt"
     },
@@ -422,17 +421,17 @@
      "status": "osäkert",
      "jev": {
       "verdict": "says_nothing",
-      "confidence": 0.66
+      "confidence": 0.64
      }
     },
     "rate_percent": {
-     "value": 0.1,
-     "quote": "För beloppet upp till och med 250 000 kronor är räntan 0,10 %.",
-     "source": 3,
+     "value": 0.25,
+     "quote": "För beloppet upp till och med 250 000 kronor är räntan 0,25 %.",
+     "source": 6,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.98
+      "confidence": 0.91
      }
     },
     "rate_type": {
@@ -443,12 +442,12 @@
     },
     "binding_months": {
      "value": 0,
-     "quote": "Nej, det kostar inget att öppna kontot och det är fritt att ta ut pengar från kontot när du vill.",
+     "quote": "Fria uttag och inga avgifter",
      "source": 6,
      "status": "osäkert",
      "jev": {
       "verdict": "says_nothing",
-      "confidence": 0.48
+      "confidence": 0.34
      }
     },
     "withdrawals": {
@@ -468,13 +467,13 @@
      "status": "okänt"
     },
     "withdrawal_terms": {
-     "value": "Fria uttag och inga avgifter",
+     "value": "Fria uttag och inga avgifter.",
      "quote": "Fria uttag och inga avgifter",
      "source": 6,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.66
+      "confidence": 0.98
      }
     },
     "min_deposit_sek": {
@@ -496,17 +495,13 @@
      "status": "okänt"
     },
     "deposit_terms": {
-     "value": "Samma villkor som Enkla sparkontot; pengarna öronmärks för gröna ändamål",
-     "quote": "Vårt gröna sparkonto är ett Enkla sparkontot med gröna ändamål.",
-     "source": 6,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.44
-     }
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
     },
     "eligibility": {
-     "value": "Privatpersoner",
+     "value": "Alla privatpersoner kan öppna ett grönt sparkonto.",
      "quote": "Alla privatpersoner kan öppna ett grönt sparkonto.",
      "source": 6,
      "status": "belagt",
@@ -535,32 +530,32 @@
     },
     "guarantee_country": {
      "value": "SE",
-     "quote": "Kontot omfattas av den statliga insättningsgarantin enligt beslut av Riksgälden.",
-     "source": 0,
+     "quote": "Kontot omfattas av den statliga insättnings­garantin enligt beslut av Riksgälden.",
+     "source": 6,
      "status": "osäkert",
      "jev": {
       "verdict": "says_nothing",
-      "confidence": 0.24
+      "confidence": 0.28
      }
     },
     "guarantee_amount": {
-     "value": "1 150 000 kr",
-     "quote": "Varje kund har rätt till ersättning för sin sammanlagda kontobehållning i banken med ett belopp om högst 1 150 000 kronor.",
-     "source": 0,
+     "value": "1 150 000 kronor",
+     "quote": "Varje kund har rätt till ersättning för sin samman­lagda konto­behållning i banken med ett belopp om högst 1 150 000 kronor.",
+     "source": 6,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 1.0
+      "confidence": 0.98
      }
     },
     "rate_valid_from": {
-     "value": "2026-04-28",
-     "quote": "| 0– 250 000 | 0,10 % | +0,10 % | 2026-04-28 |",
+     "value": "2026-11-18",
+     "quote": "| 0– 250 000 | 0,25 % | +0,15 % | 2026-11-18 |",
      "source": 0,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.86
+      "confidence": 0.94
      }
     }
    },
@@ -568,8 +563,8 @@
     {
      "min_sek": 0,
      "max_sek": 250000,
-     "rate_percent": 0.1,
-     "quote": "| 0– 250 000 | 0,10 % | +0,10 % | 2026-04-28 |",
+     "rate_percent": 0.25,
+     "quote": "| 0– 250 000 | 0,25 % | +0,15 % | 2026-11-18 |",
      "source": 0,
      "status": "belagt"
     },
@@ -602,17 +597,17 @@
    "status": "verifierad"
   },
   {
-   "name": "Placeringskonto 3 mån",
+   "name": "Placeringskonto 3 månader",
    "flags": [],
    "fields": {
     "product_type": {
      "value": "fasträntekonto",
-     "quote": "Ett placerings­konto är ett sparkonto med fast ränta",
-     "source": 4,
-     "status": "osäkert",
+     "quote": "Fast ränta under hela bindningstiden",
+     "source": 2,
+     "status": "belagt",
      "jev": {
-      "verdict": "contradicts",
-      "confidence": 0.26
+      "verdict": "supports",
+      "confidence": 0.25
      }
     },
     "rate_percent": {
@@ -625,26 +620,26 @@
      "value": "fast",
      "quote": "Fast ränta under hela bindningstiden",
      "source": 2,
-     "status": "osäkert",
+     "status": "belagt",
      "jev": {
-      "verdict": "says_nothing",
-      "confidence": 0.16
+      "verdict": "supports",
+      "confidence": 0.48
      }
     },
     "binding_months": {
      "value": 3,
-     "quote": "| 3 månader | 1,95 % | 2026-11-09 |",
-     "source": 0,
+     "quote": "Bind pengarna från 3 månader till 5 år*",
+     "source": 2,
      "status": "belagt"
     },
     "withdrawals": {
      "value": "ej tillåtna",
-     "quote": "pengarna på ett placeringskonto är låsta under den bindningstid du har valt",
+     "quote": "pengarna på ett placeringskonto är låsta under den bindningstid du har valt.",
      "source": 2,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.89
+      "confidence": 0.83
      }
     },
     "free_withdrawals_per_year": {
@@ -654,13 +649,13 @@
      "status": "okänt"
     },
     "withdrawal_terms": {
-     "value": "Låst under vald bindningstid; fast ränta under hela bindningstiden",
-     "quote": "pengarna på ett placeringskonto är låsta under den bindningstid du har valt",
+     "value": "Pengarna är låsta under vald bindningstid.",
+     "quote": "pengarna på ett placeringskonto är låsta under den bindningstid du har valt.",
      "source": 2,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.55
+      "confidence": 0.8
      }
     },
     "min_deposit_sek": {
@@ -670,7 +665,7 @@
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.94
+      "confidence": 0.72
      }
     },
     "max_deposit_sek": {
@@ -722,17 +717,17 @@
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.34
+      "confidence": 0.4
      }
     },
     "guarantee_amount": {
-     "value": "1 150 000 kr",
+     "value": "1 150 000 kronor",
      "quote": "Varje kund har rätt till ersättning för sin sammanlagda kontobehållning i banken med ett belopp om högst 1 150 000 kronor.",
      "source": 0,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.73
+      "confidence": 0.43
      }
     },
     "rate_valid_from": {
@@ -742,7 +737,7 @@
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.96
+      "confidence": 0.97
      }
     }
    },
@@ -751,17 +746,17 @@
    "status": "verifierad"
   },
   {
-   "name": "Placeringskonto 6 mån",
+   "name": "Placeringskonto 6 månader",
    "flags": [],
    "fields": {
     "product_type": {
      "value": "fasträntekonto",
-     "quote": "Ett placerings­konto är ett sparkonto med fast ränta",
-     "source": 4,
-     "status": "osäkert",
+     "quote": "Fast ränta under hela bindningstiden",
+     "source": 2,
+     "status": "belagt",
      "jev": {
-      "verdict": "contradicts",
-      "confidence": 0.22
+      "verdict": "supports",
+      "confidence": 0.34
      }
     },
     "rate_percent": {
@@ -777,7 +772,7 @@
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.16
+      "confidence": 0.53
      }
     },
     "binding_months": {
@@ -788,12 +783,12 @@
     },
     "withdrawals": {
      "value": "ej tillåtna",
-     "quote": "pengarna på ett placeringskonto är låsta under den bindningstid du har valt",
+     "quote": "pengarna på ett placeringskonto är låsta under den bindningstid du har valt.",
      "source": 2,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.89
+      "confidence": 0.85
      }
     },
     "free_withdrawals_per_year": {
@@ -803,13 +798,13 @@
      "status": "okänt"
     },
     "withdrawal_terms": {
-     "value": "Låst under vald bindningstid; fast ränta under hela bindningstiden",
-     "quote": "pengarna på ett placeringskonto är låsta under den bindningstid du har valt",
+     "value": "Pengarna är låsta under vald bindningstid.",
+     "quote": "pengarna på ett placeringskonto är låsta under den bindningstid du har valt.",
      "source": 2,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.6
+      "confidence": 0.73
      }
     },
     "min_deposit_sek": {
@@ -819,7 +814,7 @@
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.97
+      "confidence": 0.8
      }
     },
     "max_deposit_sek": {
@@ -868,20 +863,20 @@
      "value": "SE",
      "quote": "Båda kontotyperna omfattas av den statliga insättningsgarantin enligt beslut av Riksgälden.",
      "source": 2,
-     "status": "osäkert",
+     "status": "belagt",
      "jev": {
-      "verdict": "says_nothing",
-      "confidence": 0.31
+      "verdict": "supports",
+      "confidence": 0.26
      }
     },
     "guarantee_amount": {
-     "value": "1 150 000 kr",
+     "value": "1 150 000 kronor",
      "quote": "Varje kund har rätt till ersättning för sin sammanlagda kontobehållning i banken med ett belopp om högst 1 150 000 kronor.",
      "source": 0,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.73
+      "confidence": 0.28
      }
     },
     "rate_valid_from": {
@@ -891,7 +886,7 @@
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.97
+      "confidence": 0.98
      }
     }
    },
@@ -905,12 +900,12 @@
    "fields": {
     "product_type": {
      "value": "fasträntekonto",
-     "quote": "Ett placerings­konto är ett sparkonto med fast ränta",
-     "source": 4,
+     "quote": "Fast ränta under hela bindningstiden",
+     "source": 2,
      "status": "osäkert",
      "jev": {
-      "verdict": "contradicts",
-      "confidence": 0.18
+      "verdict": "says_nothing",
+      "confidence": 0.09
      }
     },
     "rate_percent": {
@@ -937,12 +932,12 @@
     },
     "withdrawals": {
      "value": "ej tillåtna",
-     "quote": "pengarna på ett placeringskonto är låsta under den bindningstid du har valt",
+     "quote": "pengarna på ett placeringskonto är låsta under den bindningstid du har valt.",
      "source": 2,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.94
+      "confidence": 0.85
      }
     },
     "free_withdrawals_per_year": {
@@ -952,13 +947,13 @@
      "status": "okänt"
     },
     "withdrawal_terms": {
-     "value": "Låst under vald bindningstid; fast ränta under hela bindningstiden",
-     "quote": "pengarna på ett placeringskonto är låsta under den bindningstid du har valt",
+     "value": "Pengarna är låsta under vald bindningstid.",
+     "quote": "pengarna på ett placeringskonto är låsta under den bindningstid du har valt.",
      "source": 2,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.74
+      "confidence": 0.8
      }
     },
     "min_deposit_sek": {
@@ -1020,13 +1015,13 @@
      }
     },
     "guarantee_amount": {
-     "value": "1 150 000 kr",
+     "value": "1 150 000 kronor",
      "quote": "Varje kund har rätt till ersättning för sin sammanlagda kontobehållning i banken med ett belopp om högst 1 150 000 kronor.",
      "source": 0,
-     "status": "belagt",
+     "status": "osäkert",
      "jev": {
-      "verdict": "supports",
-      "confidence": 0.82
+      "verdict": "says_nothing",
+      "confidence": 0.48
      }
     },
     "rate_valid_from": {
@@ -1050,12 +1045,12 @@
    "fields": {
     "product_type": {
      "value": "fasträntekonto",
-     "quote": "Ett placerings­konto är ett sparkonto med fast ränta",
-     "source": 4,
+     "quote": "Fast ränta under hela bindningstiden",
+     "source": 2,
      "status": "osäkert",
      "jev": {
-      "verdict": "contradicts",
-      "confidence": 0.16
+      "verdict": "says_nothing",
+      "confidence": 0.1
      }
     },
     "rate_percent": {
@@ -1082,12 +1077,12 @@
     },
     "withdrawals": {
      "value": "ej tillåtna",
-     "quote": "pengarna på ett placeringskonto är låsta under den bindningstid du har valt",
+     "quote": "pengarna på ett placeringskonto är låsta under den bindningstid du har valt.",
      "source": 2,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.91
+      "confidence": 0.88
      }
     },
     "free_withdrawals_per_year": {
@@ -1097,13 +1092,13 @@
      "status": "okänt"
     },
     "withdrawal_terms": {
-     "value": "Låst under vald bindningstid; fast ränta under hela bindningstiden",
-     "quote": "pengarna på ett placeringskonto är låsta under den bindningstid du har valt",
+     "value": "Pengarna är låsta under vald bindningstid.",
+     "quote": "pengarna på ett placeringskonto är låsta under den bindningstid du har valt.",
      "source": 2,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.67
+      "confidence": 0.86
      }
     },
     "min_deposit_sek": {
@@ -1165,13 +1160,13 @@
      }
     },
     "guarantee_amount": {
-     "value": "1 150 000 kr",
+     "value": "1 150 000 kronor",
      "quote": "Varje kund har rätt till ersättning för sin sammanlagda kontobehållning i banken med ett belopp om högst 1 150 000 kronor.",
      "source": 0,
-     "status": "belagt",
+     "status": "osäkert",
      "jev": {
-      "verdict": "supports",
-      "confidence": 0.73
+      "verdict": "says_nothing",
+      "confidence": 0.48
      }
     },
     "rate_valid_from": {
@@ -1195,12 +1190,12 @@
    "fields": {
     "product_type": {
      "value": "fasträntekonto",
-     "quote": "Ett placerings­konto är ett sparkonto med fast ränta",
-     "source": 4,
-     "status": "osäkert",
+     "quote": "Fast ränta under hela bindningstiden",
+     "source": 2,
+     "status": "belagt",
      "jev": {
-      "verdict": "contradicts",
-      "confidence": 0.3
+      "verdict": "supports",
+      "confidence": 0.14
      }
     },
     "rate_percent": {
@@ -1221,18 +1216,18 @@
     },
     "binding_months": {
      "value": 36,
-     "quote": "| 3 år | 2,60 % | 2026-10-26 |",
-     "source": 0,
+     "quote": "Bind pengarna från 3 månader till 5 år*",
+     "source": 2,
      "status": "belagt"
     },
     "withdrawals": {
      "value": "ej tillåtna",
-     "quote": "pengarna på ett placeringskonto är låsta under den bindningstid du har valt",
+     "quote": "pengarna på ett placeringskonto är låsta under den bindningstid du har valt.",
      "source": 2,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.92
+      "confidence": 0.86
      }
     },
     "free_withdrawals_per_year": {
@@ -1242,13 +1237,13 @@
      "status": "okänt"
     },
     "withdrawal_terms": {
-     "value": "Låst under vald bindningstid; fast ränta under hela bindningstiden",
-     "quote": "pengarna på ett placeringskonto är låsta under den bindningstid du har valt",
+     "value": "Pengarna är låsta under vald bindningstid.",
+     "quote": "pengarna på ett placeringskonto är låsta under den bindningstid du har valt.",
      "source": 2,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.56
+      "confidence": 0.83
      }
     },
     "min_deposit_sek": {
@@ -1310,13 +1305,13 @@
      }
     },
     "guarantee_amount": {
-     "value": "1 150 000 kr",
+     "value": "1 150 000 kronor",
      "quote": "Varje kund har rätt till ersättning för sin sammanlagda kontobehållning i banken med ett belopp om högst 1 150 000 kronor.",
      "source": 0,
-     "status": "belagt",
+     "status": "osäkert",
      "jev": {
-      "verdict": "supports",
-      "confidence": 0.76
+      "verdict": "says_nothing",
+      "confidence": 0.48
      }
     },
     "rate_valid_from": {
@@ -1340,12 +1335,12 @@
    "fields": {
     "product_type": {
      "value": "fasträntekonto",
-     "quote": "Ett placerings­konto är ett sparkonto med fast ränta",
-     "source": 4,
-     "status": "osäkert",
+     "quote": "Fast ränta under hela bindningstiden",
+     "source": 2,
+     "status": "belagt",
      "jev": {
-      "verdict": "contradicts",
-      "confidence": 0.2
+      "verdict": "supports",
+      "confidence": 0.07
      }
     },
     "rate_percent": {
@@ -1372,12 +1367,12 @@
     },
     "withdrawals": {
      "value": "ej tillåtna",
-     "quote": "pengarna på ett placeringskonto är låsta under den bindningstid du har valt",
+     "quote": "pengarna på ett placeringskonto är låsta under den bindningstid du har valt.",
      "source": 2,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.88
+      "confidence": 0.82
      }
     },
     "free_withdrawals_per_year": {
@@ -1387,13 +1382,13 @@
      "status": "okänt"
     },
     "withdrawal_terms": {
-     "value": "Låst under vald bindningstid; fast ränta under hela bindningstiden",
-     "quote": "pengarna på ett placeringskonto är låsta under den bindningstid du har valt",
+     "value": "Pengarna är låsta under vald bindningstid.",
+     "quote": "pengarna på ett placeringskonto är låsta under den bindningstid du har valt.",
      "source": 2,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.58
+      "confidence": 0.86
      }
     },
     "min_deposit_sek": {
@@ -1455,13 +1450,13 @@
      }
     },
     "guarantee_amount": {
-     "value": "1 150 000 kr",
+     "value": "1 150 000 kronor",
      "quote": "Varje kund har rätt till ersättning för sin sammanlagda kontobehållning i banken med ett belopp om högst 1 150 000 kronor.",
      "source": 0,
-     "status": "belagt",
+     "status": "osäkert",
      "jev": {
-      "verdict": "supports",
-      "confidence": 0.67
+      "verdict": "says_nothing",
+      "confidence": 0.4
      }
     },
     "rate_valid_from": {
@@ -1485,12 +1480,12 @@
    "fields": {
     "product_type": {
      "value": "fasträntekonto",
-     "quote": "Ett placerings­konto är ett sparkonto med fast ränta",
-     "source": 4,
-     "status": "osäkert",
+     "quote": "Fast ränta under hela bindningstiden",
+     "source": 2,
+     "status": "belagt",
      "jev": {
-      "verdict": "contradicts",
-      "confidence": 0.3
+      "verdict": "supports",
+      "confidence": 0.25
      }
     },
     "rate_percent": {
@@ -1511,18 +1506,18 @@
     },
     "binding_months": {
      "value": 60,
-     "quote": "| 5 år | 2,75 % | 2026-10-26 |",
-     "source": 0,
+     "quote": "Bind pengarna från 3 månader till 5 år*",
+     "source": 2,
      "status": "belagt"
     },
     "withdrawals": {
      "value": "ej tillåtna",
-     "quote": "pengarna på ett placeringskonto är låsta under den bindningstid du har valt",
+     "quote": "pengarna på ett placeringskonto är låsta under den bindningstid du har valt.",
      "source": 2,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.94
+      "confidence": 0.88
      }
     },
     "free_withdrawals_per_year": {
@@ -1532,13 +1527,13 @@
      "status": "okänt"
     },
     "withdrawal_terms": {
-     "value": "Låst under vald bindningstid; fast ränta under hela bindningstiden",
-     "quote": "pengarna på ett placeringskonto är låsta under den bindningstid du har valt",
+     "value": "Pengarna är låsta under vald bindningstid.",
+     "quote": "pengarna på ett placeringskonto är låsta under den bindningstid du har valt.",
      "source": 2,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.67
+      "confidence": 0.85
      }
     },
     "min_deposit_sek": {
@@ -1600,13 +1595,13 @@
      }
     },
     "guarantee_amount": {
-     "value": "1 150 000 kr",
+     "value": "1 150 000 kronor",
      "quote": "Varje kund har rätt till ersättning för sin sammanlagda kontobehållning i banken med ett belopp om högst 1 150 000 kronor.",
      "source": 0,
-     "status": "belagt",
+     "status": "osäkert",
      "jev": {
-      "verdict": "supports",
-      "confidence": 0.82
+      "verdict": "says_nothing",
+      "confidence": 0.44
      }
     },
     "rate_valid_from": {
@@ -1625,7 +1620,7 @@
    "status": "verifierad"
   }
  ],
- "source_hash": "28a100a8cb1ad57a",
- "changed_at": "2026-11-10T01:26:36+00:00",
+ "source_hash": "7f094067f68fe817",
+ "changed_at": "2026-11-19T01:50:24+00:00",
  "model": "claude-haiku-5-5"
 }
