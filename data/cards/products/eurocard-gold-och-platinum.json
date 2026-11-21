@@ -7,7 +7,7 @@
   "kind": "storbank",
   "legal_name": "SEB Kort Bank AB"
  },
- "checked_at": "2026-11-19T04:25:09+00:00",
+ "checked_at": "2026-11-21T04:31:42+00:00",
  "discovered_at": "2026-10-24T04:31:31+00:00",
  "sources": [
   {
@@ -15,21 +15,21 @@
    "title": "Terms, conditions and prices",
    "kind": "html",
    "via": "http",
-   "chars": 6108
+   "chars": 6881
   },
   {
    "url": "https://eurocard.com/sv/produkter-och-tjanster/privatkort/priser-och-villkor/",
    "title": "Priser och villkor | Eurocard",
    "kind": "html",
    "via": "http",
-   "chars": 5771
+   "chars": 6464
   },
   {
    "url": "https://eurocard.com/Doc/se/ecpi0w-secci-se.pdf",
    "title": "ecpi0w-secci-se.pdf",
    "kind": "pdf",
    "via": "http",
-   "chars": 8073
+   "chars": 12858
   },
   {
    "url": "https://eurocard.com/Doc/se/ecai0w-kontobestammelser-pb-ec2058-se.pdf",
@@ -68,70 +68,71 @@
   }
  ],
  "status": "ok",
- "notes": "Årsavgiften för Platinum skiljer sig mellan källorna: den svenska prissidan anger 1 980 kr/år (vilket stämmer med 165 kr/månad), medan den engelska prissidan anger 1,880 kr/år. Svenska sidan använd. Förhandsinformationen (SECCI, daterad 2026-06-17) har äldre avgifter (Gold 525 kr/år, Platinum 1 695 kr/år) och effektiv ränta (Gold 16,17 %, Platinum 17,68 %); prislistan från 1 nov 2026 används. Fakturaavgiften 40 kr gäller ej e-faktura (e-faktura är 0 kr). Räntefria dagar anges inte i källorna. Försäkringar (betalskydd 0,75 %, olycksfallsförsäkring) och reseförsäkring finns inte i schemat och har inte tagits med som fält.",
+ "notes": "Årsavgift för Platinum: prislistan på engelska (källa 0) anger 1,880 men samma källa i fotnoten, svenska prissidan (källa 1) och SECCI-dokumentet (källa 2) anger 1 980 kr, och 165 kr/månad × 12 = 1 980. Värdet 1 980 används. Effektiv ränta för Platinum: prislistan och SECCI:s bilaga 1 anger 18,23 % för 75 000 kr, men SECCI:s huvudtext anger 36,72 % för 20 000 kr (samma dokument, med 1 980 kr årsavgift). Värdet 18,23 % används eftersom det stämmer med prislistan. Fakturaavgiften 40 kr avser pappersfaktura (ej e-faktura). Gold har betalskydd 0,75 % av utestående saldo per månad som tillval, och förlängd betaltid 175 kr/år; dessa är inte inkluderade i fälten. Inga uppgifter om räntefria dagar, kreditgräns, ålderskrav eller inkomstkrav fanns i källorna.",
  "products": [
   {
    "name": "Eurocard Gold",
    "flags": [],
    "fields": {
     "card_type": {
-     "value": "kreditkort",
-     "quote": "Typ av kredit Betal- och kreditkort som är anslutet till Mastercards kortnätverk.",
+     "value": null,
+     "quote": "Typ av kredit Betal- och kreditkort med anslutning till Mastercards kortnätverk.",
      "source": 2,
-     "status": "osäkert",
+     "status": "stöds inte av källan",
      "jev": {
       "verdict": "says_nothing",
-      "confidence": 0.61
-     }
+      "confidence": 0.8
+     },
+     "claimed": "kreditkort"
     },
     "network": {
      "value": "Mastercard",
-     "quote": "Betal- och kreditkort som är anslutet till Mastercards kortnätverk.",
+     "quote": "Typ av kredit Betal- och kreditkort med anslutning till Mastercards kortnätverk.",
      "source": 2,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.96
+     }
+    },
+    "annual_fee_sek": {
+     "value": 588,
+     "quote": "SEK 588/year or SEK 49/month",
+     "source": 0,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.52
+     }
+    },
+    "monthly_fee_sek": {
+     "value": 49,
+     "quote": "588 kr alt. 49 kr/månad",
+     "source": 1,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
       "confidence": 0.97
      }
     },
-    "annual_fee_sek": {
-     "value": 588,
-     "quote": "588 kr alt. 49 kr/månad",
-     "source": 1,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.7
-     }
-    },
-    "monthly_fee_sek": {
-     "value": 49,
-     "quote": "SEK 588/year or SEK 49/month",
-     "source": 0,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.98
-     }
-    },
     "invoice_fee_sek": {
      "value": 40,
-     "quote": "Eurocard Gold/ Eurocard Platinum | 40 kr",
-     "source": 1,
+     "quote": "Pappersfaktura: 40 kr",
+     "source": 2,
      "status": "osäkert",
      "jev": {
       "verdict": "contradicts",
-      "confidence": 0.46
+      "confidence": 0.5
      }
     },
     "rate_percent": {
      "value": 14.8,
-     "quote": "Årsränta | Eurocard Gold | 14,80%",
-     "source": 1,
+     "quote": "The annual interest rate of 14.80% and the annual fee of SEK 588 are assumed to remain unchanged during the period.",
+     "source": 0,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 1.0
+      "confidence": 0.97
      }
     },
     "rate_max_percent": {
@@ -147,63 +148,59 @@
      "status": "okänt"
     },
     "credit_limit_max_sek": {
-     "value": 35000,
-     "quote": "Gold: 35.000 kronor.",
-     "source": 2,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.94
-     }
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
     },
     "currency_fee_percent": {
      "value": 2,
-     "quote": "Utöver denna kurs tillkommer vårt valutapåslag på 2 %.",
-     "source": 1,
+     "quote": "On top of this rate, we add our currency fee of 2%.",
+     "source": 0,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.98
+     }
+    },
+    "atm_fee_percent": {
+     "value": 3,
+     "quote": "3 % of the amount withdrawn (min. SEK 40)",
+     "source": 0,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
       "confidence": 1.0
      }
     },
-    "atm_fee_percent": {
-     "value": 3,
-     "quote": "3 % på uttaget belopp (dock minst 40 kr)",
-     "source": 1,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.95
-     }
-    },
     "atm_fee_min_sek": {
      "value": 40,
-     "quote": "3 % på uttaget belopp (dock minst 40 kr)",
-     "source": 1,
+     "quote": "3 % of the amount withdrawn (min. SEK 40)",
+     "source": 0,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.95
+      "confidence": 0.97
      }
     },
     "example_credit_sek": {
-     "value": 35000,
-     "quote": "beräknad på ett kreditbelopp om 35 000 kr, är 16,40 %",
-     "source": 1,
+     "value": 20000,
+     "quote": "For a credit amount of SEK 20,000, the effective interest rate (APR) is 19.71%",
+     "source": 0,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.96
+      "confidence": 1.0
      }
     },
     "example_effective_rate_percent": {
-     "value": 16.4,
-     "quote": "Effektiv ränta* | Eurocard Gold | 16,40%",
-     "source": 1,
+     "value": 19.71,
+     "quote": "For a credit amount of SEK 20,000, the effective interest rate (APR) is 19.71%",
+     "source": 0,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.98
+      "confidence": 1.0
      }
     },
     "min_age": {
@@ -252,61 +249,65 @@
    "flags": [],
    "fields": {
     "card_type": {
-     "value": "kreditkort",
-     "quote": "Typ av kredit Betal- och kreditkort som är anslutet till Mastercards kortnätverk.",
+     "value": null,
+     "quote": "Typ av kredit Betal- och kreditkort med anslutning till Mastercards kortnätverk.",
      "source": 2,
-     "status": "osäkert",
+     "status": "stöds inte av källan",
      "jev": {
       "verdict": "says_nothing",
-      "confidence": 0.52
-     }
+      "confidence": 0.91
+     },
+     "claimed": "kreditkort"
     },
     "network": {
      "value": "Mastercard",
-     "quote": "Betal- och kreditkort som är anslutet till Mastercards kortnätverk.",
+     "quote": "Typ av kredit Betal- och kreditkort med anslutning till Mastercards kortnätverk.",
      "source": 2,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.98
+      "confidence": 0.86
      }
     },
     "annual_fee_sek": {
      "value": 1980,
+     "quote": "the annual fee of SEK 1,980 are assumed to remain unchanged during the period.",
+     "source": 0,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.76
+     }
+    },
+    "monthly_fee_sek": {
+     "value": 165,
      "quote": "1 980 kr alt. 165 kr/månad",
      "source": 1,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.85
-     }
-    },
-    "monthly_fee_sek": {
-     "value": 165,
-     "quote": "SEK 1,880/year or SEK 165/month",
-     "source": 0,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.97
+      "confidence": 0.91
      }
     },
     "invoice_fee_sek": {
      "value": 40,
-     "quote": "Eurocard Gold/ Eurocard Platinum | 40 kr",
-     "source": 1,
+     "quote": "Pappersfaktura: 40 kr",
+     "source": 2,
      "status": "osäkert",
      "jev": {
       "verdict": "contradicts",
-      "confidence": 0.33
+      "confidence": 0.35
      }
     },
     "rate_percent": {
-     "value": null,
-     "quote": "Årsränta | Eurocard Platinum | 14,00%",
-     "source": 1,
-     "status": "citat hittades inte",
-     "claimed": 14.0
+     "value": 14.0,
+     "quote": "The annual interest rate of 14,00% and the annual fee of SEK 1,980 are assumed to remain unchanged during the period.",
+     "source": 0,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.98
+     }
     },
     "rate_max_percent": {
      "value": null,
@@ -321,19 +322,15 @@
      "status": "okänt"
     },
     "credit_limit_max_sek": {
-     "value": 50000,
-     "quote": "Platinum 50.000 kronor.",
-     "source": 2,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.98
-     }
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
     },
     "currency_fee_percent": {
      "value": 2,
-     "quote": "Utöver denna kurs tillkommer vårt valutapåslag på 2 %.",
-     "source": 1,
+     "quote": "On top of this rate, we add our currency fee of 2%.",
+     "source": 0,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
@@ -342,8 +339,8 @@
     },
     "atm_fee_percent": {
      "value": 3,
-     "quote": "3 % på uttaget belopp (dock minst 40 kr)",
-     "source": 1,
+     "quote": "3 % of the amount withdrawn (min. SEK 40)",
+     "source": 0,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
@@ -352,8 +349,8 @@
     },
     "atm_fee_min_sek": {
      "value": 40,
-     "quote": "3 % på uttaget belopp (dock minst 40 kr)",
-     "source": 1,
+     "quote": "3 % of the amount withdrawn (min. SEK 40)",
+     "source": 0,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
@@ -361,21 +358,24 @@
      }
     },
     "example_credit_sek": {
-     "value": 50000,
-     "quote": "beräknad på ett kreditbelopp om 50 000 kr, är 18,41 %",
-     "source": 1,
+     "value": 75000,
+     "quote": "For a credit amount of SEK 75,000, the effective interest rate (APR) is 18,23%",
+     "source": 0,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.97
+      "confidence": 0.98
      }
     },
     "example_effective_rate_percent": {
-     "value": null,
-     "quote": "Effektiv ränta* | Eurocard Platinum | 18,41%",
-     "source": 1,
-     "status": "citat hittades inte",
-     "claimed": 18.41
+     "value": 18.23,
+     "quote": "For a credit amount of SEK 75,000, the effective interest rate (APR) is 18,23%",
+     "source": 0,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 1.0
+     }
     },
     "min_age": {
      "value": null,
@@ -416,10 +416,10 @@
    },
    "rate_tiers": [],
    "pending_rate": null,
-   "status": "ej verifierad"
+   "status": "verifierad"
   }
  ],
- "source_hash": "57bb5a389de0b80e",
- "changed_at": "2026-11-05T05:09:52+00:00",
+ "source_hash": "7e862648705b522f",
+ "changed_at": "2026-11-21T04:31:42+00:00",
  "model": "claude-haiku-5-5"
 }

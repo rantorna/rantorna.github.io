@@ -7,8 +7,8 @@
   "kind": "sparbank",
   "legal_name": "Sidensjö sparbank"
  },
- "checked_at": "2026-11-17T19:38:04+00:00",
- "discovered_at": "2026-10-21T03:15:24+00:00",
+ "checked_at": "2026-11-21T03:34:48+00:00",
+ "discovered_at": "2026-11-21T03:34:48+00:00",
  "sources": [
   {
    "url": "https://www.sidensjosparbank.se/foretag/spara-och-placera/sparkonton.html",
@@ -46,13 +46,6 @@
    "chars": 5016
   },
   {
-   "url": "https://www.sidensjosparbank.se/foretag/rantor-priser-och-kurser.html",
-   "title": "Räntor, valuta, priser och kurser | För företag | Sidensjö Sparbank",
-   "kind": "html",
-   "via": "http",
-   "chars": 5227
-  },
-  {
    "url": "https://www.sidensjosparbank.se/foretag/spara-och-placera/sparkonton/aktie--och-fondkonto.html",
    "title": "Aktie- och Fondkonto för företag | Sidensjö Sparbank",
    "kind": "html",
@@ -65,10 +58,17 @@
    "kind": "html",
    "via": "browser",
    "chars": 5367
+  },
+  {
+   "url": "https://www.sidensjosparbank.se/foretag/rantor-priser-och-kurser.html",
+   "title": "Räntor, valuta, priser och kurser | För företag | Sidensjö Sparbank",
+   "kind": "html",
+   "via": "http",
+   "chars": 5436
   }
  ],
  "status": "ok",
- "notes": "Räntor för fasträntekontot (per bindningstid) och för Placeringskonto Företag saknas i källorna; räntan visas bara som \"Kontakta er rådgivare\" respektive saknas i räntetabellen. Fasträntekontot är därför en produkt utan angiven ränta och bindningstid (intervall 3 mån–5 år). Penningmarknadskonto är en tabell med räntebaser, inte en egen produkt, och är utelämnad. Företagskonto (0,00 %) är ett transaktionskonto utan sparränta och är utelämnat. Skogskonto, Aktie- och Fondkonto (ingen ränta) är utelämnade. Insättningsgarantin för Sidensjökonto Max och fasträntekontot anges utan land och är därför null. Källan för Placeringskonto Företag (doc 2) och Ränteplaceringar (doc 7) är 'Sidan finns inte'. Sparkonto Företag anges med 0 % i både sidan och räntesidan.",
+ "notes": "Räntan för Sparkonto Företag: källa 4 anger 0 %, källa 7 anger 0,25 % efter höjning 23 november (år anges ej); den senare används. Sidensjökonto Max: källa 4 anger 1 % / 1,25 % (tröskel 500 000 kr), källa 7 efter höjning 1,25 % / 1,50 %; de nyare räntorna används, tröskeln 500 000 kr hämtas från källa 4. Inga startdatum för räntorna anges. Fasträntekonto för företag: bindningstider (3 mån–5 år) och räntor visas inte; banken hänvisar till rådgivare, så ingen ränta eller enskild bindningstid kan anges. Placeringskonto Företag: ingen ränta uppges (sidan är tom i källan; separat sida för produkten ger 404). Ej medtagna: Aktie- och Fondkonto (ingen ränta), Skogskonto (särskilt ändamål), Företagskonto (0 %, transaktionskonto), Penningmarknadskonto (räntebaser, ej produkt), samt Sidensjökonto nivå 1/2, E-spar och Sparkonto Plus som nämns i källa 7 men saknar företagssida.",
  "products": [
   {
    "name": "Sparkonto Företag",
@@ -81,13 +81,13 @@
      "status": "okänt"
     },
     "rate_percent": {
-     "value": 0,
-     "quote": "Aktuell ränta\n\n0%",
-     "source": 1,
+     "value": 0.25,
+     "quote": "Sparkonto Företag +0,25 0,25 %",
+     "source": 7,
      "status": "osäkert",
      "jev": {
       "verdict": "contradicts",
-      "confidence": 0.2
+      "confidence": 0.52
      }
     },
     "rate_type": {
@@ -97,10 +97,14 @@
      "status": "okänt"
     },
     "binding_months": {
-     "value": null,
-     "quote": null,
-     "source": null,
-     "status": "okänt"
+     "value": 0,
+     "quote": "Fria uttag.",
+     "source": 1,
+     "status": "osäkert",
+     "jev": {
+      "verdict": "contradicts",
+      "confidence": 0.34
+     }
     },
     "withdrawals": {
      "value": "fria",
@@ -119,13 +123,13 @@
      "status": "okänt"
     },
     "withdrawal_terms": {
-     "value": "Fria uttag enligt banken; kontot är avsett för sparande och kan inte kopplas till bankkort eller automatiska lånedragningar.",
-     "quote": "Då detta är ett konto avsett för sparande kan inte produktanslutningar som till exempel bankkort och automatiska lånedragningar göras.",
+     "value": "Fria uttag. Inga uttagsavgifter eller uppsägningstid anges.",
+     "quote": "Fria uttag.",
      "source": 1,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.67
+      "confidence": 0.48
      }
     },
     "min_deposit_sek": {
@@ -147,23 +151,23 @@
      "status": "okänt"
     },
     "deposit_terms": {
-     "value": "Engångsinsättningar och regelbundet sparande via automatiska överföringar.",
+     "value": "Engångsinsättningar och regelbundet sparande via automatiska överföringar",
      "quote": "Du kan göra engångsinsättningar men även enkelt spara regelbundet genom automatiska överföringar till ditt Sparkonto Företag.",
      "source": 1,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.64
+      "confidence": 0.62
      }
     },
     "eligibility": {
-     "value": "Öppnas genom kontakt med bankkontor.",
+     "value": "Öppnas via bankkontor",
      "quote": "Kontakt ditt bankkontor för att öppna kontot",
      "source": 1,
      "status": "osäkert",
      "jev": {
-      "verdict": "says_nothing",
-      "confidence": 0.45
+      "verdict": "contradicts",
+      "confidence": 0.14
      }
     },
     "requires_other_products": {
@@ -191,7 +195,7 @@
      "status": "osäkert",
      "jev": {
       "verdict": "contradicts",
-      "confidence": 0.31
+      "confidence": 0.4
      }
     },
     "guarantee_amount": {
@@ -209,7 +213,7 @@
    },
    "rate_tiers": [],
    "pending_rate": null,
-   "status": "delvis verifierad"
+   "status": "verifierad"
   },
   {
    "name": "Sidensjökonto Max",
@@ -221,18 +225,18 @@
      "source": 4,
      "status": "osäkert",
      "jev": {
-      "verdict": "says_nothing",
-      "confidence": 0.25
+      "verdict": "contradicts",
+      "confidence": 0.4
      }
     },
     "rate_percent": {
-     "value": 1,
-     "quote": "1%. På behållning upp till 499 999 kr.",
-     "source": 4,
+     "value": 1.25,
+     "quote": "Maxkonto nivå 1 +0,25 1,25 %",
+     "source": 7,
      "status": "osäkert",
      "jev": {
-      "verdict": "says_nothing",
-      "confidence": 0.23
+      "verdict": "contradicts",
+      "confidence": 0.61
      }
     },
     "rate_type": {
@@ -248,43 +252,43 @@
      "status": "okänt"
     },
     "withdrawals": {
-     "value": "begränsade",
-     "quote": "Två fria uttag/år. Därefter kostar varje uttag 1% på uttaget belopp, dock minst 50 kr.",
+     "value": "mot avgift",
+     "quote": "Uttagsvillkor: Två fria uttag/år. Därefter kostar varje uttag 1% på uttaget belopp, dock minst 50 kr.",
      "source": 4,
      "status": "osäkert",
      "jev": {
       "verdict": "contradicts",
-      "confidence": 0.25
+      "confidence": 0.74
      }
     },
     "free_withdrawals_per_year": {
      "value": 2,
-     "quote": "Två fria uttag/år.",
-     "source": 4,
+     "quote": "Två fria uttag per år.",
+     "source": 0,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.28
+      "confidence": 0.31
      }
     },
     "withdrawal_terms": {
-     "value": "Två fria uttag per år; därefter 1 % av uttaget belopp, minst 50 kr per uttag.",
-     "quote": "Två fria uttag/år. Därefter kostar varje uttag 1% på uttaget belopp, dock minst 50 kr.",
+     "value": "Två fria uttag/år, därefter 1 % av uttaget belopp, minst 50 kr per uttag",
+     "quote": "Uttagsvillkor: Två fria uttag/år. Därefter kostar varje uttag 1% på uttaget belopp, dock minst 50 kr.",
      "source": 4,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.22
+      "confidence": 0.62
      }
     },
     "min_deposit_sek": {
      "value": 50000,
      "quote": "Minsta insättning 50 000 kronor.",
      "source": 0,
-     "status": "osäkert",
+     "status": "belagt",
      "jev": {
-      "verdict": "contradicts",
-      "confidence": 0.37
+      "verdict": "supports",
+      "confidence": 0.2
      }
     },
     "max_deposit_sek": {
@@ -300,14 +304,10 @@
      "status": "okänt"
     },
     "deposit_terms": {
-     "value": "Minsta insättning 50 000 kronor.",
-     "quote": "Minsta insättning 50 000 kronor.",
-     "source": 0,
-     "status": "osäkert",
-     "jev": {
-      "verdict": "contradicts",
-      "confidence": 0.3
-     }
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
     },
     "eligibility": {
      "value": null,
@@ -356,17 +356,17 @@
     {
      "min_sek": 0,
      "max_sek": 499999,
-     "rate_percent": 1,
-     "quote": "1%. På behållning upp till 499 999 kr.",
-     "source": 4,
+     "rate_percent": 1.25,
+     "quote": "Maxkonto nivå 1 +0,25 1,25 %",
+     "source": 7,
      "status": "belagt"
     },
     {
      "min_sek": 500000,
      "max_sek": null,
-     "rate_percent": 1.25,
-     "quote": "1,25%. På hela behållningen när insatt belopp uppgår till 500 000 kr.",
-     "source": 4,
+     "rate_percent": 1.5,
+     "quote": "Maxkonto nivå 2 +0,25 1,50 %",
+     "source": 7,
      "status": "belagt"
     }
    ],
@@ -399,8 +399,8 @@
      "source": 3,
      "status": "osäkert",
      "jev": {
-      "verdict": "says_nothing",
-      "confidence": 0.28
+      "verdict": "contradicts",
+      "confidence": 0.22
      }
     },
     "binding_months": {
@@ -411,12 +411,12 @@
     },
     "withdrawals": {
      "value": "mot avgift",
-     "quote": "Om pengarna tas ut innan slutförfallodagen utgår en ränteskillnadsersättning",
+     "quote": "Om pengarna tas ut innan slutförfallodagen utgår en ränteskillnadsersättning som beräknas på den marknadsränta som gäller på avslutsdagen, fram till slutförfallodagen.",
      "source": 3,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.74
+      "confidence": 0.37
      }
     },
     "free_withdrawals_per_year": {
@@ -426,13 +426,13 @@
      "status": "okänt"
     },
     "withdrawal_terms": {
-     "value": "Uttag före slutförfall ger ränteskillnadsersättning; uppsägning före förfall kostar.",
-     "quote": "Om pengarna tas ut innan slutförfallodagen utgår en ränteskillnadsersättning som beräknas på den marknadsränta som gäller på avslutsdagen",
+     "value": "Uttag före slutförfallodag ger ränteskillnadsersättning",
+     "quote": "Om pengarna tas ut innan slutförfallodagen utgår en ränteskillnadsersättning som beräknas på den marknadsränta som gäller på avslutsdagen, fram till slutförfallodagen.",
      "source": 3,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.69
+      "confidence": 0.88
      }
     },
     "min_deposit_sek": {
@@ -459,24 +459,20 @@
      "status": "okänt"
     },
     "deposit_terms": {
-     "value": "Automatiska överföringar till fasträntekontot är inte möjliga.",
+     "value": "Engångsinsättning; automatiska överföringar är inte möjliga",
      "quote": "Det går inte att ha automatiska överföringar till Fasträntekontot.",
      "source": 3,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.92
+      "confidence": 0.2
      }
     },
     "eligibility": {
-     "value": "Besök ett av våra kontor för att öppna kontot.",
-     "quote": "Besök ett av våra kontor för att öppna Fasträntekonto för företag.",
-     "source": 3,
-     "status": "osäkert",
-     "jev": {
-      "verdict": "contradicts",
-      "confidence": 0.31
-     }
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
     },
     "requires_other_products": {
      "value": null,
@@ -542,10 +538,14 @@
      "status": "okänt"
     },
     "binding_months": {
-     "value": null,
-     "quote": null,
-     "source": null,
-     "status": "okänt"
+     "value": 0,
+     "quote": "Fria uttag. Med Placeringskonto Företag skapar du en ekonomisk buffert för ditt företag, samtidigt som pengarna alltid finns tillgängliga.",
+     "source": 3,
+     "status": "osäkert",
+     "jev": {
+      "verdict": "says_nothing",
+      "confidence": 0.26
+     }
     },
     "withdrawals": {
      "value": "fria",
@@ -564,8 +564,8 @@
      "status": "okänt"
     },
     "withdrawal_terms": {
-     "value": "Fria uttag; pengarna finns alltid tillgängliga.",
-     "quote": "Med Placeringskonto Företag skapar du en ekonomisk buffert för ditt företag, samtidigt som pengarna alltid finns tillgängliga.",
+     "value": "Fria uttag",
+     "quote": "Fria uttag. Med Placeringskonto Företag skapar du en ekonomisk buffert för ditt företag, samtidigt som pengarna alltid finns tillgängliga.",
      "source": 3,
      "status": "belagt",
      "jev": {
@@ -645,7 +645,7 @@
    "status": "ej verifierad"
   }
  ],
- "source_hash": "671c66296e6fd6ff",
- "changed_at": "2026-10-21T03:15:24+00:00",
+ "source_hash": "b8576614ca5a4b36",
+ "changed_at": "2026-11-21T03:34:48+00:00",
  "model": "claude-haiku-5-5"
 }

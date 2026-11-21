@@ -7,7 +7,7 @@
   "kind": "nischbank",
   "legal_name": "Lea Bank AB"
  },
- "checked_at": "2026-11-19T04:29:20+00:00",
+ "checked_at": "2026-11-21T04:37:16+00:00",
  "discovered_at": "2026-11-17T03:38:56+00:00",
  "sources": [
   {
@@ -50,7 +50,7 @@
    "title": "Lea Bank - Privatlån, samla lån, kreditkort och sparande",
    "kind": "html",
    "via": "http",
-   "chars": 4973
+   "chars": 5013
   },
   {
    "url": "https://www.leabank.se/forsakringar/utgiftsskydd",
@@ -75,7 +75,7 @@
   }
  ],
  "status": "ok",
- "notes": "Produkten heter i källorna \"Lea Bank Kreditkort\" (virtuellt kort, Visa); ordet \"Classic\" finns inte i dokumenten, så namnet är satt efter källan. Kravet på inkomst anges per månad (15 000 kr/månad), därför är min_income_sek null. Avi-/fakturaavgift för e-faktura saknas; endast pappersavi 30 kr anges, så fältet är null. Effektiv ränta: SEKKI anger 18,87 % för 50 000 kr/12 månader, men webbsidan anger 26,45 % för exemplet 20 000 kr; SEKKI-värdet används här. Årsavgift 0 kr enligt flera källor.",
+ "notes": "Produkten heter i källorna \"Lea Bank Kreditkort\" (virtuellt kort, SEKKI: \"Lea kreditkort\"); namnet \"Classic\" finns inte i underlaget. Aviavgift 30 kr gäller pappersavi och är inte satt som e-fakturaavgift (saknas). Representativt exempel: SEKKI (50 000 kr, 18,87 %) används; webbsidan anger i stället 20 000 kr och 26,45 %. Månadsinkomstkravet (15 000 kr) anges per månad och är därför inte omräknat till årsbelopp. Minimibetalning: lägst 3 % av kontoskulden, dock lägst 150 kr (ej i något fält). Övertrasseringsavgift 195 kr och dröjsmålsränta (kreditränta + 2,1 procentenheter) finns i SEKKI men har inga fält.",
  "products": [
   {
    "name": "Lea Bank Kreditkort",
@@ -83,12 +83,12 @@
    "fields": {
     "card_type": {
      "value": "kreditkort",
-     "quote": "Krediten disponeras med ett kreditkort.",
+     "quote": "avtal om betalkort med kredit intill viss högsta gräns utgivet av Lea Bank",
      "source": 0,
-     "status": "belagt",
+     "status": "osäkert",
      "jev": {
-      "verdict": "supports",
-      "confidence": 0.55
+      "verdict": "says_nothing",
+      "confidence": 0.67
      }
     },
     "network": {
@@ -103,12 +103,12 @@
     },
     "annual_fee_sek": {
      "value": 0,
-     "quote": "Lea Bank Kreditkort har ingen årsavgift.",
-     "source": 1,
-     "status": "belagt",
+     "quote": "Årsavgift | kr 0 |",
+     "source": 2,
+     "status": "osäkert",
      "jev": {
-      "verdict": "supports",
-      "confidence": 0.33
+      "verdict": "says_nothing",
+      "confidence": 0.14
      }
     },
     "monthly_fee_sek": {
@@ -145,32 +145,32 @@
     },
     "interest_free_days": {
      "value": 47,
-     "quote": "Få upp till 47 dagars räntefri kredit",
-     "source": 1,
+     "quote": "| Räntefria dagar | 47 dagar |",
+     "source": 2,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.48
+      "confidence": 0.2
      }
     },
     "credit_limit_max_sek": {
      "value": 50000,
-     "quote": "Du kan ansöka om en kreditgräns på upp till 50 000 kronor.",
+     "quote": "Vi erbjuder en kreditgräns upp till 50 000 kronor och upp till 47 dagars räntefri kredit.",
      "source": 1,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.69
+      "confidence": 0.96
      }
     },
     "currency_fee_percent": {
      "value": 1.75,
-     "quote": "Valutaväxlingspåslag 1.75% på betalningsbeloppet.",
-     "source": 0,
+     "quote": "| Valutapåslag | 1,75 % |",
+     "source": 2,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.92
+      "confidence": 0.96
      }
     },
     "atm_fee_percent": {
@@ -197,10 +197,10 @@
      "value": 50000,
      "quote": "Kreditbelopp: 50.000 KR",
      "source": 0,
-     "status": "osäkert",
+     "status": "belagt",
      "jev": {
-      "verdict": "says_nothing",
-      "confidence": 0.23
+      "verdict": "supports",
+      "confidence": 0.73
      }
     },
     "example_effective_rate_percent": {
@@ -231,12 +231,12 @@
     },
     "travel_insurance": {
      "value": true,
-     "quote": "Reseförsäkring ingår när du betalar minst 75 % av resan med kortet",
+     "quote": "Alltid reseförsäkring när du betalar minst 75% av resan med kortet",
      "source": 1,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.97
+      "confidence": 0.74
      }
     },
     "bonus": {
@@ -252,8 +252,8 @@
      "status": "okänt"
     },
     "requirements": {
-     "value": "Ha bott i Sverige i minst 3 år; månadsinkomst minst 15 000 kr; inga betalningsanmärkningar eller skulder hos Kronofogden",
-     "quote": "Ha bott i Sverige i minst 3 år",
+     "value": "Minst 23 år, bott i Sverige i minst 3 år, månadsinkomst minst 15 000 kr, inga betalningsanmärkningar eller skulder hos Kronofogden.",
+     "quote": "En månadsinkomst på minst 15 000 kr",
      "source": 3,
      "status": "belagt",
      "jev": {
@@ -267,7 +267,7 @@
    "status": "verifierad"
   }
  ],
- "source_hash": "8ce10b506bccd05f",
- "changed_at": "2026-10-24T04:35:50+00:00",
+ "source_hash": "d9b92e5eca4fd655",
+ "changed_at": "2026-11-21T04:37:16+00:00",
  "model": "claude-haiku-5-5"
 }
