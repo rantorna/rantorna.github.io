@@ -7,8 +7,8 @@
   "kind": "medlemsbank",
   "legal_name": "OK Värmland ekonomisk förening"
  },
- "checked_at": "2026-11-21T01:39:26+00:00",
- "discovered_at": "2026-10-26T01:53:42+00:00",
+ "checked_at": "2026-11-24T01:45:14+00:00",
+ "discovered_at": "2026-11-24T01:45:14+00:00",
  "sources": [
   {
    "url": "https://www.okvarmland.se/medlemskap/aterbaring-och-ranta",
@@ -16,37 +16,23 @@
    "kind": "html",
    "via": "http",
    "chars": 3991
-  },
-  {
-   "url": "https://www.okvarmland.se/medlemskap/medlem",
-   "title": "Medlem | OK Värmland",
-   "kind": "html",
-   "via": "http",
-   "chars": 3001
-  },
-  {
-   "url": "https://www.okvarmland.se/",
-   "title": "Tillsammans gör vi gott för Värmland | OK Värmland",
-   "kind": "html",
-   "via": "http",
-   "chars": 2539
   }
  ],
  "status": "ok",
- "notes": "Källan (index 0) är enda dokumentet med räntor. Medlemskontots räntetrappa följer ordagrant dokumentets intervall; räntan för 100 000 kr anges som 1,85 %. Insatskontot är ett medlemsinsats-konto som alla medlemmar automatiskt har, inte ett vanligt sparkonto; det tas med eftersom källan anger en egen ränta, men dess villkor (bindning, uttag) framgår inte. Insättningsgaranti: källan anger uttryckligen att behållningen inte omfattas av insättningsgaranti. Ränta/återbäring-fördelning mellan insats- och medlemskonto beskrivs i källan men är inte en separat produkt. Ej medtagna: OKQ8 Visakort (1 % tillgodoränta) eftersom det är ett betalkort och ränta styrs av OKQ8, inte OK Värmland. Återbäringen 2025 är ingen ränta och ingår inte. Uttagsregler, bindning och fria uttag saknas i källorna. Insatskontots uttags- och insättningsregler saknas.",
+ "notes": "Källan anger att räntan på Medlemskontot \"beräknas alltid från första kronan\", vilket kan tolkas som att trappans sats gäller hela saldot; rate_percent (1,85 %) är satsen för 100 000 kr enligt trappan. Insatskontot är ett medlemskonto kopplat till insatsen (ej ett fritt sparkonto) och tas med eftersom det har egen ränta. OKQ8 Visakort (tillgodoränta 1 %, max 300 000 kr) har exkluderats eftersom det är ett kortkonto och inte ett sparkonto. Källan anger att behållningen på sparkontot INTE omfattas av insättningsgaranti (lagen 1995:1571), varför guarantee_country och guarantee_amount lämnats tomma. Uttagsregler, bindningstid och insättningsbelopp framgår inte av källan. Sidan anger ränta för 2026 men räntesatserna är daterade från 2 oktober 2023.",
  "products": [
   {
    "name": "OK Värmland Medlemskonto",
    "flags": [],
    "fields": {
     "product_type": {
-     "value": "rörligt sparkonto",
-     "quote": "Ränta OK Värmland Medlemskonto 2026. Räntesatserna gäller fr. o. m. 2 oktober 2023 och räntan beräknas alltid från första kronan.",
+     "value": "annat",
+     "quote": "Ränta OK Värmland Medlemskonto 2026",
      "source": 0,
      "status": "osäkert",
      "jev": {
-      "verdict": "says_nothing",
-      "confidence": 0.25
+      "verdict": "contradicts",
+      "confidence": 0.72
      }
     },
     "rate_percent": {
@@ -94,14 +80,10 @@
      }
     },
     "min_deposit_sek": {
-     "value": 0,
-     "quote": "räntan beräknas alltid från första kronan",
-     "source": 0,
-     "status": "osäkert",
-     "jev": {
-      "verdict": "says_nothing",
-      "confidence": 0.41
-     }
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
     },
     "max_deposit_sek": {
      "value": null,
@@ -116,13 +98,13 @@
      "status": "okänt"
     },
     "deposit_terms": {
-     "value": "Återbäring och ränta sätts in på medlemskontot",
-     "quote": "Alla medlemmar har ett insatskonto och ett medlemskonto där återbäringen sätts in.",
+     "value": "Återbäring och ränta sätts in på medlemskontot (för medlem med fullbetald insats).",
+     "quote": "För medlem som innehar fullbetald insats överförs ränta och återbäring till medlemskontot.",
      "source": 0,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.43
+      "confidence": 0.96
      }
     },
     "eligibility": {
@@ -132,14 +114,19 @@
      "status": "osäkert",
      "jev": {
       "verdict": "says_nothing",
-      "confidence": 0.49
+      "confidence": 0.66
      }
     },
     "requires_other_products": {
      "value": null,
-     "quote": null,
-     "source": null,
-     "status": "okänt"
+     "quote": "Alla medlemmar har ett insatskonto och ett medlemskonto där återbäringen sätts in.",
+     "source": 0,
+     "status": "stöds inte av källan",
+     "jev": {
+      "verdict": "says_nothing",
+      "confidence": 0.92
+     },
+     "claimed": false
     },
     "intro_rate": {
      "value": null,
@@ -148,13 +135,13 @@
      "status": "okänt"
     },
     "interest_paid": {
-     "value": "Årsvis, räntebesked i januari när räntan för året är påförd",
+     "value": "Årsvis, när räntan för året är påförd (räntebesked i januari).",
      "quote": "Räntebesked skickas ut i Januari när räntan för året är påförd.",
      "source": 0,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.94
+      "confidence": 1.0
      }
     },
     "guarantee_country": {
@@ -182,7 +169,7 @@
    },
    "rate_tiers": [
     {
-     "min_sek": 0,
+     "min_sek": null,
      "max_sek": 3000,
      "rate_percent": 0.6,
      "quote": "Saldo upp till -3 000 kr=0,60%",
@@ -231,12 +218,12 @@
    "fields": {
     "product_type": {
      "value": "annat",
-     "quote": "Ränta OK Värmland Insatskonto:\n1%",
+     "quote": "Ränta OK Värmland Insatskonto:",
      "source": 0,
      "status": "osäkert",
      "jev": {
       "verdict": "says_nothing",
-      "confidence": 0.3
+      "confidence": 0.38
      }
     },
     "rate_percent": {
@@ -298,26 +285,35 @@
      "status": "okänt"
     },
     "deposit_terms": {
-     "value": null,
-     "quote": null,
-     "source": null,
-     "status": "okänt"
-    },
-    "eligibility": {
-     "value": "Alla medlemmar har insatskonto",
-     "quote": "Alla medlemmar har ett insatskonto och ett medlemskonto där återbäringen sätts in.",
+     "value": "Utbetald ränta och återbäring förs över till insatskontot tills halva insatsen inbetalats.",
+     "quote": "För medlemmar som inte har full insats sker utbetalning av ränta och återbäring genom överföring till dennes insatskonto tills halva insatsen inbetalats.",
      "source": 0,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.77
+      "confidence": 0.85
+     }
+    },
+    "eligibility": {
+     "value": "Medlemmar i OK Värmland",
+     "quote": "Alla medlemmar har ett insatskonto och ett medlemskonto där återbäringen sätts in.",
+     "source": 0,
+     "status": "osäkert",
+     "jev": {
+      "verdict": "says_nothing",
+      "confidence": 0.5
      }
     },
     "requires_other_products": {
      "value": null,
-     "quote": null,
-     "source": null,
-     "status": "okänt"
+     "quote": "Alla medlemmar har ett insatskonto och ett medlemskonto där återbäringen sätts in.",
+     "source": 0,
+     "status": "stöds inte av källan",
+     "jev": {
+      "verdict": "says_nothing",
+      "confidence": 0.92
+     },
+     "claimed": false
     },
     "intro_rate": {
      "value": null,
@@ -355,7 +351,7 @@
    "status": "delvis verifierad"
   }
  ],
- "source_hash": "01ccd2fe0b826101",
- "changed_at": "2026-10-26T01:53:42+00:00",
+ "source_hash": "25af4dc0b1d65fb5",
+ "changed_at": "2026-11-24T01:45:14+00:00",
  "model": "claude-haiku-5-5"
 }

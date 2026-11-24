@@ -7,7 +7,7 @@
   "kind": "annat",
   "legal_name": "AMF Tjänstepension AB"
  },
- "checked_at": "2026-11-21T05:06:10+00:00",
+ "checked_at": "2026-11-24T05:01:09+00:00",
  "discovered_at": "2026-11-19T05:06:46+00:00",
  "sources": [
   {
@@ -82,30 +82,30 @@
   }
  ],
  "status": "ok",
- "notes": "AMF publicerar ingen tolvmånadersränta för avkastningsräntan; de deklarerade avkastningsräntorna är månadsvisa och varierar per ålder (tabeller för 25, 40, 55, 65 år) eller saknar ålderssplit, så rate_percent är null. Tabellens 'Q3 2026' är ett kvartal och 'Genomsnitt 2021-2025' är ett femårsgenomsnitt; ingen av dem användes som rate_percent. Totalavkastning (4,6 % 5-års, jan–sep 2026), konsolideringsgrad (100,6 %), förvaltningskostnad (0,10 %) och målbild för aktieandel (45 %) gäller hela den traditionella försäkringen och har lagts in på varje produkt. Aktieandelen är en långsiktig målbild, inte aktuell fördelning. Avgifterna är förvaltningskostnad i procent av kapitalet; fasta avgifter i kronor framgår inte. Individuell tjänstepension har ingen angiven garantiränta i källan. Avkastningsräntan fastställs månadsvis och är inte garanterad (ingen före/efter-skatt-uppgift). Fondförsäkring har utelämnats. Privat pensionsförsäkring tar inte emot nya inbetalningar men publicerar aktuella räntor, därför med. ITP-tabellerna för 2013–2018 och före 2013 avser äldre bestånd med egna siffror; de publicerade avkastningsräntorna för dessa är ålders- eller beståndsbaserade och saknar tolvmånadersräntor.",
+ "notes": "Avkastningsräntan är inte garanterad, fördelas månadsvis och publiceras bara som genomsnitt per åldersgrupp och för Q3 2026 / enskilda år, inte som senaste 12 månaders ränta. Därför är rate_percent, monthly_rate_percent och rate_month satta till null (Q3 2026 är delår och inte tolv månader). Totalavkastning och 5-årssnitt (4,6 % jan–sep 2026) gäller hela den traditionella försäkringen, inte enskilda portföljer. Konsolideringsnivån (100,6 % per 2026-10-31), förvaltningskostnaden (0,10 %) och målbilden för aktier (45 %) gäller också hela förvaltningen. Garantiränta för individuell tjänstepension saknas i källan. Källdokumentet 0 har inte rate_basis (före/efter avgifter) för avkastningsräntan. Fondförsäkring har utelämnats.",
  "products": [
   {
-   "name": "Traditionell försäkring – Avtalspension SAF-LO (privatanställd arbetare)",
+   "name": "Traditionell försäkring, privatanställd arbetare (SAF-LO)",
    "flags": [],
    "fields": {
     "product_kind": {
      "value": "tjänstepension",
-     "quote": "Traditionell försäkring innebär att du låter AMFs förvaltare sköta placeringarna av din tjänstepension som du får från jobbet.",
-     "source": 7,
-     "status": "belagt",
+     "quote": "Privatanställda arbetare tillhör avtalsområde SAF-LO.",
+     "source": 0,
+     "status": "osäkert",
      "jev": {
-      "verdict": "supports",
-      "confidence": 0.43
+      "verdict": "says_nothing",
+      "confidence": 0.58
      }
     },
     "rate_kind": {
      "value": "månadsvis avkastningsränta",
-     "quote": "Räntan fördelas månadsvis i efterskott och är inte garanterad.",
+     "quote": "Avkastningsräntan fördelas månadsvis i efterskott och är inte garanterad.",
      "source": 0,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.34
+      "confidence": 0.53
      }
     },
     "rate_percent": {
@@ -145,27 +145,27 @@
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.33
+      "confidence": 0.44
      }
     },
     "return_period": {
-     "value": "jan–sep 2026 (5 års genomsnitt)",
+     "value": "jan–sep 2026 (5-årssnitt, traditionell försäkring)",
      "quote": "| | Jan-sept 2026 | Jan-sept 2025 |",
      "source": 3,
      "status": "osäkert",
      "jev": {
       "verdict": "contradicts",
-      "confidence": 0.09
+      "confidence": 0.26
      }
     },
     "consolidation_percent": {
      "value": 100.6,
-     "quote": "Aktuell konsolideringsnivå 100,6 procent per 2026-09-30.",
+     "quote": "Aktuell konsolideringsnivå 100,6 procent per 2026-10-31.",
      "source": 3,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.82
+      "confidence": 0.85
      }
     },
     "guaranteed_rate_percent": {
@@ -185,7 +185,7 @@
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.66
+      "confidence": 0.52
      }
     },
     "fee_fixed_sek": {
@@ -195,8 +195,117 @@
      "status": "okänt"
     },
     "fee_terms": {
-     "value": "Förvaltningskostnadsprocent 0,10 % och kapitalförvaltningskostnad 0,03 % (senaste 12 månaders utfall); övriga avgifter enligt försäkringsvillkor.",
+     "value": "Förvaltningskostnadsprocent 0,10 % och kapitalförvaltningskostnadsprocent 0,03 % (senaste 12 månaders utfall), gäller hela den traditionella förvaltningen",
      "quote": "* Förvaltningskostnadsprocent, traditionell försäkring (0,10%) och Kapitalförvaltningskostnadsprocent (0,03%) är beräknade med senaste 12 månaders utfall.",
+     "source": 3,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.64
+     }
+    },
+    "equity_share_percent": {
+     "value": 45,
+     "quote": "| Aktier | 45 % |",
+     "source": 3,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.82
+     }
+    },
+    "available_to": {
+     "value": "Privatanställda arbetare (avtalsområde SAF-LO)",
+     "quote": "Privatanställda arbetare tillhör avtalsområde SAF-LO.",
+     "source": 0,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.35
+     }
+    }
+   },
+   "rate_tiers": [],
+   "pending_rate": null,
+   "status": "ej verifierad"
+  },
+  {
+   "name": "Traditionell försäkring, kommun- och regionanställd (AKAP-KR/KAP-KL)",
+   "flags": [],
+   "fields": {
+    "product_kind": {
+     "value": "tjänstepension",
+     "quote": "Anställda i kommuner och regioner tillhör avtalsområden AKAP-KR/KAP-KL.",
+     "source": 0,
+     "status": "osäkert",
+     "jev": {
+      "verdict": "says_nothing",
+      "confidence": 0.7
+     }
+    },
+    "rate_kind": {
+     "value": "månadsvis avkastningsränta",
+     "quote": "Avkastningsräntan fördelas månadsvis i efterskott och är inte garanterad.",
+     "source": 0,
+     "status": "osäkert",
+     "jev": {
+      "verdict": "says_nothing",
+      "confidence": 0.38
+     }
+    },
+    "rate_percent": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "rate_month": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "monthly_rate_percent": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "rate_basis": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "return_1y_percent": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "return_5y_avg_percent": {
+     "value": 4.6,
+     "quote": "| Genomsnittlig totalavkastning, 5 år (%), traditionell försäkring | 4,6 | 5,8 |",
+     "source": 3,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.28
+     }
+    },
+    "return_period": {
+     "value": "jan–sep 2026 (5-årssnitt, traditionell försäkring)",
+     "quote": "| | Jan-sept 2026 | Jan-sept 2025 |",
+     "source": 3,
+     "status": "osäkert",
+     "jev": {
+      "verdict": "contradicts",
+      "confidence": 0.04
+     }
+    },
+    "consolidation_percent": {
+     "value": 100.6,
+     "quote": "Aktuell konsolideringsnivå 100,6 procent per 2026-10-31.",
      "source": 3,
      "status": "belagt",
      "jev": {
@@ -204,6 +313,42 @@
       "confidence": 0.76
      }
     },
+    "guaranteed_rate_percent": {
+     "value": 0.85,
+     "quote": "0,85 % före avdrag för skatt och kostnader (0,22 % efter avdrag för skatt och kostnader).",
+     "source": 0,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.92
+     }
+    },
+    "fee_capital_percent": {
+     "value": 0.1,
+     "quote": "| Förvaltningskostnadsprocent, traditionell försäkring (%)* | 0,10 | 0,10 |",
+     "source": 3,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.42
+     }
+    },
+    "fee_fixed_sek": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "fee_terms": {
+     "value": "Förvaltningskostnadsprocent 0,10 % och kapitalförvaltningskostnadsprocent 0,03 % (senaste 12 månaders utfall), gäller hela den traditionella förvaltningen",
+     "quote": "* Förvaltningskostnadsprocent, traditionell försäkring (0,10%) och Kapitalförvaltningskostnadsprocent (0,03%) är beräknade med senaste 12 månaders utfall.",
+     "source": 3,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.52
+     }
+    },
     "equity_share_percent": {
      "value": 45,
      "quote": "| Aktier | 45 % |",
@@ -211,17 +356,17 @@
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.74
+      "confidence": 0.64
      }
     },
     "available_to": {
-     "value": "Privatanställda arbetare, avtalsområde SAF-LO",
-     "quote": "Privatanställda arbetare tillhör avtalsområde SAF-LO.",
+     "value": "Anställda i kommuner och regioner (avtalsområde AKAP-KR/KAP-KL)",
+     "quote": "Anställda i kommuner och regioner tillhör avtalsområden AKAP-KR/KAP-KL.",
      "source": 0,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.74
+      "confidence": 0.3
      }
     }
    },
@@ -230,18 +375,19 @@
    "status": "ej verifierad"
   },
   {
-   "name": "Traditionell försäkring – AKAP-KR/KAP-KL (kommun och region)",
+   "name": "Traditionell försäkring ITP/ITPK (tecknade från 2018-10-01)",
    "flags": [],
    "fields": {
     "product_kind": {
-     "value": "tjänstepension",
-     "quote": "Anställda i kommuner och regioner tillhör avtalsområden AKAP-KR/KAP-KL.",
+     "value": null,
+     "quote": "Privatanställda tjänstemän tillhör avtalsområde ITP, ITPK, FTP eller FTPK.",
      "source": 0,
-     "status": "osäkert",
+     "status": "stöds inte av källan",
      "jev": {
       "verdict": "says_nothing",
-      "confidence": 0.68
-     }
+      "confidence": 0.85
+     },
+     "claimed": "tjänstepension"
     },
     "rate_kind": {
      "value": "månadsvis avkastningsränta",
@@ -249,546 +395,63 @@
      "source": 0,
      "status": "osäkert",
      "jev": {
-      "verdict": "contradicts",
-      "confidence": 0.18
-     }
-    },
-    "rate_percent": {
-     "value": null,
-     "quote": null,
-     "source": null,
-     "status": "okänt"
-    },
-    "rate_month": {
-     "value": null,
-     "quote": null,
-     "source": null,
-     "status": "okänt"
-    },
-    "monthly_rate_percent": {
-     "value": null,
-     "quote": null,
-     "source": null,
-     "status": "okänt"
-    },
-    "rate_basis": {
-     "value": null,
-     "quote": null,
-     "source": null,
-     "status": "okänt"
-    },
-    "return_1y_percent": {
-     "value": null,
-     "quote": null,
-     "source": null,
-     "status": "okänt"
-    },
-    "return_5y_avg_percent": {
-     "value": 4.6,
-     "quote": "| Genomsnittlig totalavkastning, 5 år (%), traditionell försäkring | 4,6 | 5,8 |",
-     "source": 3,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.14
-     }
-    },
-    "return_period": {
-     "value": "jan–sep 2026 (5 års genomsnitt)",
-     "quote": "| | Jan-sept 2026 | Jan-sept 2025 |",
-     "source": 3,
-     "status": "osäkert",
-     "jev": {
       "verdict": "says_nothing",
-      "confidence": 0.04
-     }
-    },
-    "consolidation_percent": {
-     "value": 100.6,
-     "quote": "Aktuell konsolideringsnivå 100,6 procent per 2026-09-30.",
-     "source": 3,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.58
-     }
-    },
-    "guaranteed_rate_percent": {
-     "value": 0.85,
-     "quote": "0,85 % före avdrag för skatt och kostnader (0,22 % efter avdrag för skatt och kostnader).",
-     "source": 0,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
       "confidence": 0.72
      }
     },
-    "fee_capital_percent": {
-     "value": 0.1,
-     "quote": "| Förvaltningskostnadsprocent, traditionell försäkring (%)* | 0,10 | 0,10 |",
-     "source": 3,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.31
-     }
-    },
-    "fee_fixed_sek": {
+    "rate_percent": {
      "value": null,
      "quote": null,
      "source": null,
      "status": "okänt"
     },
-    "fee_terms": {
-     "value": "Förvaltningskostnadsprocent 0,10 % och kapitalförvaltningskostnad 0,03 % (senaste 12 månaders utfall); övriga avgifter enligt försäkringsvillkor.",
-     "quote": "* Förvaltningskostnadsprocent, traditionell försäkring (0,10%) och Kapitalförvaltningskostnadsprocent (0,03%) är beräknade med senaste 12 månaders utfall.",
+    "rate_month": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "monthly_rate_percent": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "rate_basis": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "return_1y_percent": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "return_5y_avg_percent": {
+     "value": 4.6,
+     "quote": "| Genomsnittlig totalavkastning, 5 år (%), traditionell försäkring | 4,6 | 5,8 |",
      "source": 3,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.44
-     }
-    },
-    "equity_share_percent": {
-     "value": 45,
-     "quote": "| Aktier | 45 % |",
-     "source": 3,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.58
-     }
-    },
-    "available_to": {
-     "value": "Anställda i kommuner och regioner, avtalsområde AKAP-KR/KAP-KL",
-     "quote": "Anställda i kommuner och regioner tillhör avtalsområden AKAP-KR/KAP-KL.",
-     "source": 0,
-     "status": "osäkert",
-     "jev": {
-      "verdict": "contradicts",
       "confidence": 0.37
      }
-    }
-   },
-   "rate_tiers": [],
-   "pending_rate": null,
-   "status": "ej verifierad"
-  },
-  {
-   "name": "Traditionell försäkring – ITP och ITPK (tecknad från 2018-10-01)",
-   "flags": [],
-   "fields": {
-    "product_kind": {
-     "value": null,
-     "quote": "Privatanställda tjänstemän tillhör avtalsområde ITP, ITPK, FTP eller FTPK.",
-     "source": 0,
-     "status": "stöds inte av källan",
-     "jev": {
-      "verdict": "says_nothing",
-      "confidence": 0.82
-     },
-     "claimed": "tjänstepension"
     },
-    "rate_kind": {
-     "value": "månadsvis avkastningsränta",
-     "quote": "Räntan fördelas månadsvis i efterskott och är inte garanterad.",
-     "source": 0,
-     "status": "osäkert",
+    "return_period": {
+     "value": "jan–sep 2026 (5-årssnitt, traditionell försäkring)",
+     "quote": "| | Jan-sept 2026 | Jan-sept 2025 |",
+     "source": 3,
+     "status": "belagt",
      "jev": {
-      "verdict": "says_nothing",
+      "verdict": "supports",
       "confidence": 0.04
      }
     },
-    "rate_percent": {
-     "value": null,
-     "quote": null,
-     "source": null,
-     "status": "okänt"
-    },
-    "rate_month": {
-     "value": null,
-     "quote": null,
-     "source": null,
-     "status": "okänt"
-    },
-    "monthly_rate_percent": {
-     "value": null,
-     "quote": null,
-     "source": null,
-     "status": "okänt"
-    },
-    "rate_basis": {
-     "value": null,
-     "quote": null,
-     "source": null,
-     "status": "okänt"
-    },
-    "return_1y_percent": {
-     "value": null,
-     "quote": null,
-     "source": null,
-     "status": "okänt"
-    },
-    "return_5y_avg_percent": {
-     "value": 4.6,
-     "quote": "| Genomsnittlig totalavkastning, 5 år (%), traditionell försäkring | 4,6 | 5,8 |",
-     "source": 3,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.48
-     }
-    },
-    "return_period": {
-     "value": "jan–sep 2026 (5 års genomsnitt)",
-     "quote": "| | Jan-sept 2026 | Jan-sept 2025 |",
-     "source": 3,
-     "status": "osäkert",
-     "jev": {
-      "verdict": "says_nothing",
-      "confidence": 0.11
-     }
-    },
     "consolidation_percent": {
      "value": 100.6,
-     "quote": "Aktuell konsolideringsnivå 100,6 procent per 2026-09-30.",
-     "source": 3,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.88
-     }
-    },
-    "guaranteed_rate_percent": {
-     "value": 0.85,
-     "quote": "0,85 % före avdrag för skatt och kostnader (0,22 % efter avdrag för skatt och kostnader).",
-     "source": 0,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.89
-     }
-    },
-    "fee_capital_percent": {
-     "value": 0.1,
-     "quote": "| Förvaltningskostnadsprocent, traditionell försäkring (%)* | 0,10 | 0,10 |",
-     "source": 3,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.49
-     }
-    },
-    "fee_fixed_sek": {
-     "value": null,
-     "quote": null,
-     "source": null,
-     "status": "okänt"
-    },
-    "fee_terms": {
-     "value": "Förvaltningskostnadsprocent 0,10 % och kapitalförvaltningskostnad 0,03 % (senaste 12 månaders utfall); övriga avgifter enligt försäkringsvillkor.",
-     "quote": "* Förvaltningskostnadsprocent, traditionell försäkring (0,10%) och Kapitalförvaltningskostnadsprocent (0,03%) är beräknade med senaste 12 månaders utfall.",
-     "source": 3,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.73
-     }
-    },
-    "equity_share_percent": {
-     "value": 45,
-     "quote": "| Aktier | 45 % |",
-     "source": 3,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.83
-     }
-    },
-    "available_to": {
-     "value": "Privatanställda tjänstemän, avtalsområde ITP och ITPK",
-     "quote": "Privatanställda tjänstemän tillhör avtalsområde ITP, ITPK, FTP eller FTPK.",
-     "source": 0,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.3
-     }
-    }
-   },
-   "rate_tiers": [],
-   "pending_rate": null,
-   "status": "ej verifierad"
-  },
-  {
-   "name": "Traditionell försäkring – ITP och ITPK (tecknade 2013-07-01 t o m 2018-09-30)",
-   "flags": [],
-   "fields": {
-    "product_kind": {
-     "value": "tjänstepension",
-     "quote": "Genomsnittlig avkastningsränta för försäkringar tecknade 2013-07-01 t o m 2018-09-30",
-     "source": 0,
-     "status": "osäkert",
-     "jev": {
-      "verdict": "says_nothing",
-      "confidence": 0.79
-     }
-    },
-    "rate_kind": {
-     "value": "månadsvis avkastningsränta",
-     "quote": "Räntan fördelas månadsvis i efterskott och är inte garanterad.",
-     "source": 0,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.66
-     }
-    },
-    "rate_percent": {
-     "value": null,
-     "quote": null,
-     "source": null,
-     "status": "okänt"
-    },
-    "rate_month": {
-     "value": null,
-     "quote": null,
-     "source": null,
-     "status": "okänt"
-    },
-    "monthly_rate_percent": {
-     "value": null,
-     "quote": null,
-     "source": null,
-     "status": "okänt"
-    },
-    "rate_basis": {
-     "value": null,
-     "quote": null,
-     "source": null,
-     "status": "okänt"
-    },
-    "return_1y_percent": {
-     "value": null,
-     "quote": null,
-     "source": null,
-     "status": "okänt"
-    },
-    "return_5y_avg_percent": {
-     "value": 4.6,
-     "quote": "| Genomsnittlig totalavkastning, 5 år (%), traditionell försäkring | 4,6 | 5,8 |",
-     "source": 3,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.14
-     }
-    },
-    "return_period": {
-     "value": "jan–sep 2026 (5 års genomsnitt)",
-     "quote": "| | Jan-sept 2026 | Jan-sept 2025 |",
-     "source": 3,
-     "status": "osäkert",
-     "jev": {
-      "verdict": "contradicts",
-      "confidence": 0.3
-     }
-    },
-    "consolidation_percent": {
-     "value": 100.6,
-     "quote": "Aktuell konsolideringsnivå 100,6 procent per 2026-09-30.",
-     "source": 3,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.44
-     }
-    },
-    "guaranteed_rate_percent": {
-     "value": 0.85,
-     "quote": "0,85 % före avdrag för skatt och kostnader (0,22 % efter avdrag för skatt och kostnader).",
-     "source": 0,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.68
-     }
-    },
-    "fee_capital_percent": {
-     "value": 0.1,
-     "quote": "| Förvaltningskostnadsprocent, traditionell försäkring (%)* | 0,10 | 0,10 |",
-     "source": 3,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.33
-     }
-    },
-    "fee_fixed_sek": {
-     "value": null,
-     "quote": null,
-     "source": null,
-     "status": "okänt"
-    },
-    "fee_terms": {
-     "value": "Förvaltningskostnadsprocent 0,10 % och kapitalförvaltningskostnad 0,03 % (senaste 12 månaders utfall); övriga avgifter enligt försäkringsvillkor.",
-     "quote": "* Förvaltningskostnadsprocent, traditionell försäkring (0,10%) och Kapitalförvaltningskostnadsprocent (0,03%) är beräknade med senaste 12 månaders utfall.",
-     "source": 3,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.6
-     }
-    },
-    "equity_share_percent": {
-     "value": 45,
-     "quote": "| Aktier | 45 % |",
-     "source": 3,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.7
-     }
-    },
-    "available_to": {
-     "value": "Privatanställda tjänstemän, ITP/ITPK-försäkringar tecknade 2013-07-01 till 2018-09-30",
-     "quote": "Genomsnittlig avkastningsränta för försäkringar tecknade 2013-07-01 t o m 2018-09-30",
-     "source": 0,
-     "status": "osäkert",
-     "jev": {
-      "verdict": "says_nothing",
-      "confidence": 0.34
-     }
-    }
-   },
-   "rate_tiers": [],
-   "pending_rate": null,
-   "status": "ej verifierad"
-  },
-  {
-   "name": "Traditionell försäkring – FTP och FTPK",
-   "flags": [],
-   "fields": {
-    "product_kind": {
-     "value": null,
-     "quote": "Aktuella siffror för FTP och FTPK",
-     "source": 0,
-     "status": "stöds inte av källan",
-     "jev": {
-      "verdict": "says_nothing",
-      "confidence": 0.88
-     },
-     "claimed": "tjänstepension"
-    },
-    "rate_kind": {
-     "value": "månadsvis avkastningsränta",
-     "quote": "Räntan fördelas månadsvis i efterskott och är inte garanterad.",
-     "source": 0,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.14
-     }
-    },
-    "rate_percent": {
-     "value": null,
-     "quote": null,
-     "source": null,
-     "status": "okänt"
-    },
-    "rate_month": {
-     "value": null,
-     "quote": null,
-     "source": null,
-     "status": "okänt"
-    },
-    "monthly_rate_percent": {
-     "value": null,
-     "quote": null,
-     "source": null,
-     "status": "okänt"
-    },
-    "rate_basis": {
-     "value": null,
-     "quote": null,
-     "source": null,
-     "status": "okänt"
-    },
-    "return_1y_percent": {
-     "value": null,
-     "quote": null,
-     "source": null,
-     "status": "okänt"
-    },
-    "return_5y_avg_percent": {
-     "value": 4.6,
-     "quote": "| Genomsnittlig totalavkastning, 5 år (%), traditionell försäkring | 4,6 | 5,8 |",
-     "source": 3,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.44
-     }
-    },
-    "return_period": {
-     "value": "jan–sep 2026 (5 års genomsnitt)",
-     "quote": "| | Jan-sept 2026 | Jan-sept 2025 |",
-     "source": 3,
-     "status": "osäkert",
-     "jev": {
-      "verdict": "contradicts",
-      "confidence": 0.14
-     }
-    },
-    "consolidation_percent": {
-     "value": 100.6,
-     "quote": "Aktuell konsolideringsnivå 100,6 procent per 2026-09-30.",
-     "source": 3,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.85
-     }
-    },
-    "guaranteed_rate_percent": {
-     "value": 1.5,
-     "quote": "1,50 % före avdrag för skatt och kostnader (0,88 % efter avdrag för skatt och kostnader).",
-     "source": 0,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.97
-     }
-    },
-    "fee_capital_percent": {
-     "value": 0.1,
-     "quote": "| Förvaltningskostnadsprocent, traditionell försäkring (%)* | 0,10 | 0,10 |",
-     "source": 3,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.6
-     }
-    },
-    "fee_fixed_sek": {
-     "value": null,
-     "quote": null,
-     "source": null,
-     "status": "okänt"
-    },
-    "fee_terms": {
-     "value": "Förvaltningskostnadsprocent 0,10 % och kapitalförvaltningskostnad 0,03 % (senaste 12 månaders utfall); övriga avgifter enligt försäkringsvillkor.",
-     "quote": "* Förvaltningskostnadsprocent, traditionell försäkring (0,10%) och Kapitalförvaltningskostnadsprocent (0,03%) är beräknade med senaste 12 månaders utfall.",
-     "source": 3,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.7
-     }
-    },
-    "equity_share_percent": {
-     "value": 45,
-     "quote": "| Aktier | 45 % |",
+     "quote": "Aktuell konsolideringsnivå 100,6 procent per 2026-10-31.",
      "source": 3,
      "status": "belagt",
      "jev": {
@@ -796,14 +459,60 @@
       "confidence": 0.86
      }
     },
+    "guaranteed_rate_percent": {
+     "value": 0.85,
+     "quote": "0,85 % före avdrag för skatt och kostnader (0,22 % efter avdrag för skatt och kostnader).",
+     "source": 0,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.92
+     }
+    },
+    "fee_capital_percent": {
+     "value": 0.1,
+     "quote": "| Förvaltningskostnadsprocent, traditionell försäkring (%)* | 0,10 | 0,10 |",
+     "source": 3,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.53
+     }
+    },
+    "fee_fixed_sek": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "fee_terms": {
+     "value": "Förvaltningskostnadsprocent 0,10 % och kapitalförvaltningskostnadsprocent 0,03 % (senaste 12 månaders utfall), gäller hela den traditionella förvaltningen",
+     "quote": "* Förvaltningskostnadsprocent, traditionell försäkring (0,10%) och Kapitalförvaltningskostnadsprocent (0,03%) är beräknade med senaste 12 månaders utfall.",
+     "source": 3,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.55
+     }
+    },
+    "equity_share_percent": {
+     "value": 45,
+     "quote": "| Aktier | 45 % |",
+     "source": 3,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.79
+     }
+    },
     "available_to": {
-     "value": "Privatanställda tjänstemän, avtalsområde FTP och FTPK",
+     "value": "Privatanställda tjänstemän (avtalsområde ITP, ITPK)",
      "quote": "Privatanställda tjänstemän tillhör avtalsområde ITP, ITPK, FTP eller FTPK.",
      "source": 0,
      "status": "osäkert",
      "jev": {
       "verdict": "contradicts",
-      "confidence": 0.42
+      "confidence": 0.19
      }
     }
    },
@@ -812,12 +521,12 @@
    "status": "ej verifierad"
   },
   {
-   "name": "Traditionell försäkring – PA 16 (statligt anställda)",
+   "name": "Traditionell försäkring ITP/ITPK, tecknade 2013-07-01 t.o.m. 2018-09-30",
    "flags": [],
    "fields": {
     "product_kind": {
      "value": null,
-     "quote": "Statligt anställda tillhör avtalsområde PA 16.",
+     "quote": "Genomsnittlig avkastningsränta för försäkringar tecknade 2013-07-01 t o m 2018-09-30",
      "source": 0,
      "status": "stöds inte av källan",
      "jev": {
@@ -830,9 +539,9 @@
      "value": "månadsvis avkastningsränta",
      "quote": "Räntan fördelas månadsvis i efterskott och är inte garanterad.",
      "source": 0,
-     "status": "osäkert",
+     "status": "belagt",
      "jev": {
-      "verdict": "contradicts",
+      "verdict": "supports",
       "confidence": 0.22
      }
     },
@@ -877,23 +586,20 @@
      }
     },
     "return_period": {
-     "value": "jan–sep 2026 (5 års genomsnitt)",
-     "quote": "| | Jan-sept 2025 |",
+     "value": null,
+     "quote": "| | Jan-sept 2025 | Jan-sept 2025 |",
      "source": 3,
-     "status": "osäkert",
-     "jev": {
-      "verdict": "contradicts",
-      "confidence": 0.6
-     }
+     "status": "citat hittades inte",
+     "claimed": "jan–sep 2026 (5-årssnitt, traditionell försäkring)"
     },
     "consolidation_percent": {
      "value": 100.6,
-     "quote": "Aktuell konsolideringsnivå 100,6 procent per 2026-09-30.",
+     "quote": "Aktuell konsolideringsnivå 100,6 procent per 2026-10-31.",
      "source": 3,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.73
+      "confidence": 0.38
      }
     },
     "guaranteed_rate_percent": {
@@ -903,7 +609,7 @@
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.79
+      "confidence": 0.66
      }
     },
     "fee_capital_percent": {
@@ -913,7 +619,7 @@
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.5
+      "confidence": 0.25
      }
     },
     "fee_fixed_sek": {
@@ -923,7 +629,1014 @@
      "status": "okänt"
     },
     "fee_terms": {
-     "value": "Förvaltningskostnadsprocent 0,10 % och kapitalförvaltningskostnad 0,03 % (senaste 12 månaders utfall); övriga avgifter enligt försäkringsvillkor.",
+     "value": "Förvaltningskostnadsprocent 0,10 % och kapitalförvaltningskostnadsprocent 0,03 % (senaste 12 månaders utfall), gäller hela den traditionella förvaltningen",
+     "quote": "* Förvaltningskostnadsprocent, traditionell försäkring (0,10%) och Kapitalförvaltningskostnadsprocent (0,03%) är beräknade med senaste 12 månaders utfall.",
+     "source": 3,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.42
+     }
+    },
+    "equity_share_percent": {
+     "value": 45,
+     "quote": "| Aktier | 45 % |",
+     "source": 3,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.49
+     }
+    },
+    "available_to": {
+     "value": "Privatanställda tjänstemän (ITP, ITPK) med försäkring tecknad 2013-07-01 t.o.m. 2018-09-30",
+     "quote": "Genomsnittlig avkastningsränta för försäkringar tecknade 2013-07-01 t o m 2018-09-30",
+     "source": 0,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.14
+     }
+    }
+   },
+   "rate_tiers": [],
+   "pending_rate": null,
+   "status": "ej verifierad"
+  },
+  {
+   "name": "Traditionell försäkring ITP/ITPK, tecknade före 2013-07-01",
+   "flags": [],
+   "fields": {
+    "product_kind": {
+     "value": null,
+     "quote": "Avkastningsränta i försäkringar tecknade före 2013-07-01",
+     "source": 0,
+     "status": "citat hittades inte",
+     "claimed": "tjänstepension"
+    },
+    "rate_kind": {
+     "value": "månadsvis avkastningsränta",
+     "quote": "Räntan fördelas månadsvis i efterskott och är inte garanterad.",
+     "source": 0,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.55
+     }
+    },
+    "rate_percent": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "rate_month": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "monthly_rate_percent": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "rate_basis": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "return_1y_percent": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "return_5y_avg_percent": {
+     "value": 4.6,
+     "quote": "| Genomsnittlig totalavkastning, 5 år (%), traditionell försäkring | 4,6 | 5,8 |",
+     "source": 3,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.56
+     }
+    },
+    "return_period": {
+     "value": "jan–sep 2026 (5-årssnitt, traditionell försäkring)",
+     "quote": "| | Jan-sept 2026 | Jan-sept 2025 |",
+     "source": 3,
+     "status": "osäkert",
+     "jev": {
+      "verdict": "contradicts",
+      "confidence": 0.16
+     }
+    },
+    "consolidation_percent": {
+     "value": 100.6,
+     "quote": "Aktuell konsolideringsnivå 100,6 procent per 2026-10-31.",
+     "source": 3,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.76
+     }
+    },
+    "guaranteed_rate_percent": {
+     "value": 0.85,
+     "quote": "0,85 % före avdrag för skatt och kostnader (0,22 % efter avdrag för skatt och kostnader).",
+     "source": 0,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.86
+     }
+    },
+    "fee_capital_percent": {
+     "value": 0.1,
+     "quote": "| Förvaltningskostnadsprocent, traditionell försäkring (%)* | 0,10 | 0,10 |",
+     "source": 3,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.52
+     }
+    },
+    "fee_fixed_sek": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "fee_terms": {
+     "value": "Förvaltningskostnadsprocent 0,10 % och kapitalförvaltningskostnadsprocent 0,03 % (senaste 12 månaders utfall), gäller hela den traditionella förvaltningen",
+     "quote": "* Förvaltningskostnadsprocent, traditionell försäkring (0,10%) och Kapitalförvaltningskostnadsprocent (0,03%) är beräknade med senaste 12 månaders utfall.",
+     "source": 3,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.58
+     }
+    },
+    "equity_share_percent": {
+     "value": 45,
+     "quote": "| Aktier | 45 % |",
+     "source": 3,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.68
+     }
+    },
+    "available_to": {
+     "value": null,
+     "quote": "Avkastningsränta i försäkringar tecknade före 2013-07-01",
+     "source": 0,
+     "status": "citat hittades inte",
+     "claimed": "Privatanställda tjänstemän (ITP, ITPK) med försäkring tecknad före 2013-07-01"
+    }
+   },
+   "rate_tiers": [],
+   "pending_rate": null,
+   "status": "ej verifierad"
+  },
+  {
+   "name": "Traditionell försäkring FTP/FTPK",
+   "flags": [],
+   "fields": {
+    "product_kind": {
+     "value": null,
+     "quote": "Privatanställda tjänstemän tillhör avtalsområde ITP, ITPK, FTP eller FTPK.",
+     "source": 0,
+     "status": "stöds inte av källan",
+     "jev": {
+      "verdict": "says_nothing",
+      "confidence": 0.8
+     },
+     "claimed": "tjänstepension"
+    },
+    "rate_kind": {
+     "value": "månadsvis avkastningsränta",
+     "quote": "Räntan fördelas månadsvis i efterskott och är inte garanterad.",
+     "source": 0,
+     "status": "osäkert",
+     "jev": {
+      "verdict": "says_nothing",
+      "confidence": 0.62
+     }
+    },
+    "rate_percent": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "rate_month": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "monthly_rate_percent": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "rate_basis": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "return_1y_percent": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "return_5y_avg_percent": {
+     "value": 4.6,
+     "quote": "| Genomsnittlig totalavkastning, 5 år (%), traditionell försäkring | 4,6 | 5,8 |",
+     "source": 3,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.52
+     }
+    },
+    "return_period": {
+     "value": "jan–sep 2026 (5-årssnitt, traditionell försäkring)",
+     "quote": "| | Jan-sept 2026 | Jan-sept 2025 |",
+     "source": 3,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.24
+     }
+    },
+    "consolidation_percent": {
+     "value": 100.6,
+     "quote": "Aktuell konsolideringsnivå 100,6 procent per 2026-10-31.",
+     "source": 3,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.85
+     }
+    },
+    "guaranteed_rate_percent": {
+     "value": 1.5,
+     "quote": "1,50 % före avdrag för skatt och kostnader (0,88 % efter avdrag för skatt och kostnader).",
+     "source": 0,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.94
+     }
+    },
+    "fee_capital_percent": {
+     "value": 0.1,
+     "quote": "| Förvaltningskostnadsprocent, traditionell försäkring (%)* | 0,10 | 0,10 |",
+     "source": 3,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.58
+     }
+    },
+    "fee_fixed_sek": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "fee_terms": {
+     "value": "Förvaltningskostnadsprocent 0,10 % och kapitalförvaltningskostnadsprocent 0,03 % (senaste 12 månaders utfall), gäller hela den traditionella förvaltningen",
+     "quote": "* Förvaltningskostnadsprocent, traditionell försäkring (0,10%) och Kapitalförvaltningskostnadsprocent (0,03%) är beräknade med senaste 12 månaders utfall.",
+     "source": 3,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.66
+     }
+    },
+    "equity_share_percent": {
+     "value": 45,
+     "quote": "| Aktier | 45 % |",
+     "source": 3,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.82
+     }
+    },
+    "available_to": {
+     "value": "Privatanställda tjänstemän (avtalsområde FTP, FTPK)",
+     "quote": "Privatanställda tjänstemän tillhör avtalsområde ITP, ITPK, FTP eller FTPK.",
+     "source": 0,
+     "status": "osäkert",
+     "jev": {
+      "verdict": "contradicts",
+      "confidence": 0.18
+     }
+    }
+   },
+   "rate_tiers": [],
+   "pending_rate": null,
+   "status": "ej verifierad"
+  },
+  {
+   "name": "Traditionell försäkring PA 16 (statligt anställd)",
+   "flags": [],
+   "fields": {
+    "product_kind": {
+     "value": null,
+     "quote": "Statligt anställda tillhör avtalsområde PA 16.",
+     "source": 0,
+     "status": "stöds inte av källan",
+     "jev": {
+      "verdict": "says_nothing",
+      "confidence": 0.86
+     },
+     "claimed": "tjänstepension"
+    },
+    "rate_kind": {
+     "value": "månadsvis avkastningsränta",
+     "quote": "Avkastningsräntan fördelas månadsvis i efterskott och är inte garanterad.",
+     "source": 0,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.46
+     }
+    },
+    "rate_percent": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "rate_month": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "monthly_rate_percent": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "rate_basis": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "return_1y_percent": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "return_5y_avg_percent": {
+     "value": 4.6,
+     "quote": "| Genomsnittlig totalavkastning, 5 år (%), traditionell försäkring | 4,6 | 5,8 |",
+     "source": 3,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.46
+     }
+    },
+    "return_period": {
+     "value": "jan–sep 2026 (5-årssnitt, traditionell försäkring)",
+     "quote": "| | Jan-sept 2026 | Jan-sept 2025 |",
+     "source": 3,
+     "status": "osäkert",
+     "jev": {
+      "verdict": "contradicts",
+      "confidence": 0.22
+     }
+    },
+    "consolidation_percent": {
+     "value": 100.6,
+     "quote": "Aktuell konsolideringsnivå 100,6 procent per 2026-10-31.",
+     "source": 3,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.8
+     }
+    },
+    "guaranteed_rate_percent": {
+     "value": 0.85,
+     "quote": "0,85 % före avdrag för skatt och kostnader (0,22 % efter avdrag för skatt och kostnader).",
+     "source": 0,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.94
+     }
+    },
+    "fee_capital_percent": {
+     "value": 0.1,
+     "quote": "| Förvaltningskostnadsprocent, traditionell försäkring (%)* | 0,10 | 0,10 |",
+     "source": 3,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.52
+     }
+    },
+    "fee_fixed_sek": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "fee_terms": {
+     "value": "Förvaltningskostnadsprocent 0,10 % och kapitalförvaltningskostnadsprocent 0,03 % (senaste 12 månaders utfall), gäller hela den traditionella förvaltningen",
+     "quote": "* Förvaltningskostnadsprocent, traditionell försäkring (0,10%) och Kapitalförvaltningskostnadsprocent (0,03%) är beräknade med senaste 12 månaders utfall.",
+     "source": 3,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.5
+     }
+    },
+    "equity_share_percent": {
+     "value": 45,
+     "quote": "| Aktier | 45 % |",
+     "source": 3,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.73
+     }
+    },
+    "available_to": {
+     "value": "Statligt anställda (avtalsområde PA 16)",
+     "quote": "Statligt anställda tillhör avtalsområde PA 16.",
+     "source": 0,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.33
+     }
+    }
+   },
+   "rate_tiers": [],
+   "pending_rate": null,
+   "status": "ej verifierad"
+  },
+  {
+   "name": "Traditionell försäkring, individuell tjänstepension",
+   "flags": [],
+   "fields": {
+    "product_kind": {
+     "value": "tjänstepension",
+     "quote": "Individuell tjänstepension är en överenskommelse mellan arbetsgivare och dig som anställd när kollektivavtal inte finns eller som ett komplement till kollektivavtalet.",
+     "source": 0,
+     "status": "osäkert",
+     "jev": {
+      "verdict": "says_nothing",
+      "confidence": 0.37
+     }
+    },
+    "rate_kind": {
+     "value": "månadsvis avkastningsränta",
+     "quote": "Räntan fördelas månadsvis i efterskott och är inte garanterad.",
+     "source": 0,
+     "status": "osäkert",
+     "jev": {
+      "verdict": "says_nothing",
+      "confidence": 0.48
+     }
+    },
+    "rate_percent": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "rate_month": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "monthly_rate_percent": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "rate_basis": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "return_1y_percent": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "return_5y_avg_percent": {
+     "value": 4.6,
+     "quote": "| Genomsnittlig totalavkastning, 5 år (%), traditionell försäkring | 4,6 | 5,8 |",
+     "source": 3,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.67
+     }
+    },
+    "return_period": {
+     "value": "jan–sep 2026 (5-årssnitt, traditionell försäkring)",
+     "quote": "| | Jan-sept 2026 | Jan-sept 2025 |",
+     "source": 3,
+     "status": "osäkert",
+     "jev": {
+      "verdict": "contradicts",
+      "confidence": 0.07
+     }
+    },
+    "consolidation_percent": {
+     "value": 100.6,
+     "quote": "Aktuell konsolideringsnivå 100,6 procent per 2026-10-31.",
+     "source": 3,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.83
+     }
+    },
+    "guaranteed_rate_percent": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "fee_capital_percent": {
+     "value": 0.1,
+     "quote": "| Förvaltningskostnadsprocent, traditionell försäkring (%)* | 0,10 | 0,10 |",
+     "source": 3,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.61
+     }
+    },
+    "fee_fixed_sek": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "fee_terms": {
+     "value": "Förvaltningskostnadsprocent 0,10 % och kapitalförvaltningskostnadsprocent 0,03 % (senaste 12 månaders utfall), gäller hela den traditionella förvaltningen",
+     "quote": "* Förvaltningskostnadsprocent, traditionell försäkring (0,10%) och Kapitalförvaltningskostnadsprocent (0,03%) är beräknade med senaste 12 månaders utfall.",
+     "source": 3,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.67
+     }
+    },
+    "equity_share_percent": {
+     "value": 45,
+     "quote": "| Aktier | 45 % |",
+     "source": 3,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.91
+     }
+    },
+    "available_to": {
+     "value": "Individuell tjänstepension (överenskommelse mellan arbetsgivare och anställd)",
+     "quote": "Individuell tjänstepension är en överenskommelse mellan arbetsgivare och dig som anställd när kollektivavtal inte finns eller som ett komplement till kollektivavtalet.",
+     "source": 0,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.33
+     }
+    }
+   },
+   "rate_tiers": [],
+   "pending_rate": null,
+   "status": "ej verifierad"
+  },
+  {
+   "name": "Traditionell försäkring, individuell tjänstepension tecknade före 2013-07-01",
+   "flags": [],
+   "fields": {
+    "product_kind": {
+     "value": "tjänstepension",
+     "quote": "AMF ändrade avkastningsmodell den 1 juli 2013.",
+     "source": 0,
+     "status": "osäkert",
+     "jev": {
+      "verdict": "says_nothing",
+      "confidence": 0.35
+     }
+    },
+    "rate_kind": {
+     "value": "månadsvis avkastningsränta",
+     "quote": "Räntan fördelas månadsvis i efterskott och är inte garanterad.",
+     "source": 0,
+     "status": "osäkert",
+     "jev": {
+      "verdict": "says_nothing",
+      "confidence": 0.33
+     }
+    },
+    "rate_percent": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "rate_month": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "monthly_rate_percent": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "rate_basis": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "return_1y_percent": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "return_5y_avg_percent": {
+     "value": 4.6,
+     "quote": "| Genomsnittlig totalavkastning, 5 år (%), traditionell försäkring | 4,6 | 5,8 |",
+     "source": 3,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.34
+     }
+    },
+    "return_period": {
+     "value": "jan–sep 2026 (5-årssnitt, traditionell försäkring)",
+     "quote": "| | Jan-sept 2026 | Jan-sept 2025 |",
+     "source": 3,
+     "status": "osäkert",
+     "jev": {
+      "verdict": "contradicts",
+      "confidence": 0.19
+     }
+    },
+    "consolidation_percent": {
+     "value": 100.6,
+     "quote": "Aktuell konsolideringsnivå 100,6 procent per 2026-10-31.",
+     "source": 3,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.64
+     }
+    },
+    "guaranteed_rate_percent": {
+     "value": 0.85,
+     "quote": "0,85 % före avdrag för skatt och kostnader (0,22 % efter avdrag för skatt och kostnader).",
+     "source": 0,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.83
+     }
+    },
+    "fee_capital_percent": {
+     "value": 0.1,
+     "quote": "| Förvaltningskostnadsprocent, traditionell försäkring (%)* | 0,10 | 0,10 |",
+     "source": 3,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.37
+     }
+    },
+    "fee_fixed_sek": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "fee_terms": {
+     "value": "Förvaltningskostnadsprocent 0,10 % och kapitalförvaltningskostnadsprocent 0,03 % (senaste 12 månaders utfall), gäller hela den traditionella förvaltningen",
+     "quote": "* Förvaltningskostnadsprocent, traditionell försäkring (0,10%) och Kapitalförvaltningskostnadsprocent (0,03%) är beräknade med senaste 12 månaders utfall.",
+     "source": 3,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.58
+     }
+    },
+    "equity_share_percent": {
+     "value": 45,
+     "quote": "| Aktier | 45 % |",
+     "source": 3,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.73
+     }
+    },
+    "available_to": {
+     "value": "Individuell tjänstepension, försäkring tecknad före 2013-07-01",
+     "quote": "AMF ändrade avkastningsmodell den 1 juli 2013. Avkastningsränta i försäkringar tecknade före det datumet framgår i nedan tabell.",
+     "source": 0,
+     "status": "osäkert",
+     "jev": {
+      "verdict": "says_nothing",
+      "confidence": 0.25
+     }
+    }
+   },
+   "rate_tiers": [],
+   "pending_rate": null,
+   "status": "ej verifierad"
+  },
+  {
+   "name": "Privat pensionsförsäkring (stängd för nya inbetalningar från 2015-01-01)",
+   "flags": [],
+   "fields": {
+    "product_kind": {
+     "value": "privat pensionsförsäkring",
+     "quote": "Privat pensionssparande är en försäkring som du själv har tecknat och betalat in till.",
+     "source": 0,
+     "status": "osäkert",
+     "jev": {
+      "verdict": "says_nothing",
+      "confidence": 0.66
+     }
+    },
+    "rate_kind": {
+     "value": "månadsvis avkastningsränta",
+     "quote": "Räntan fördelas månadsvis i efterskott och är inte garanterad.",
+     "source": 0,
+     "status": "osäkert",
+     "jev": {
+      "verdict": "contradicts",
+      "confidence": 0.42
+     }
+    },
+    "rate_percent": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "rate_month": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "monthly_rate_percent": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "rate_basis": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "return_1y_percent": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "return_5y_avg_percent": {
+     "value": 4.6,
+     "quote": "| Genomsnittlig totalavkastning, 5 år (%), traditionell försäkring | 4,6 | 5,8 |",
+     "source": 3,
+     "status": "osäkert",
+     "jev": {
+      "verdict": "contradicts",
+      "confidence": 0.5
+     }
+    },
+    "return_period": {
+     "value": "jan–sep 2026 (5-årssnitt, traditionell försäkring)",
+     "quote": "| | Jan-sept 2026 | Jan-sept 2025 |",
+     "source": 3,
+     "status": "osäkert",
+     "jev": {
+      "verdict": "contradicts",
+      "confidence": 0.52
+     }
+    },
+    "consolidation_percent": {
+     "value": 100.6,
+     "quote": "Aktuell konsolideringsnivå 100,6 procent per 2026-10-31.",
+     "source": 3,
+     "status": "osäkert",
+     "jev": {
+      "verdict": "contradicts",
+      "confidence": 0.2
+     }
+    },
+    "guaranteed_rate_percent": {
+     "value": 1.5,
+     "quote": "1,50 % före avdrag för skatt och kostnader (0,88 % efter avdrag för skatt och kostnader).",
+     "source": 0,
+     "status": "osäkert",
+     "jev": {
+      "verdict": "contradicts",
+      "confidence": 0.48
+     }
+    },
+    "fee_capital_percent": {
+     "value": 0.1,
+     "quote": "| Förvaltningskostnadsprocent, traditionell försäkring (%)* | 0,10 | 0,10 |",
+     "source": 3,
+     "status": "osäkert",
+     "jev": {
+      "verdict": "contradicts",
+      "confidence": 0.2
+     }
+    },
+    "fee_fixed_sek": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "fee_terms": {
+     "value": "Förvaltningskostnadsprocent 0,10 % och kapitalförvaltningskostnadsprocent 0,03 % (senaste 12 månaders utfall), gäller hela den traditionella förvaltningen",
+     "quote": "* Förvaltningskostnadsprocent, traditionell försäkring (0,10%) och Kapitalförvaltningskostnadsprocent (0,03%) är beräknade med senaste 12 månaders utfall.",
+     "source": 3,
+     "status": "osäkert",
+     "jev": {
+      "verdict": "says_nothing",
+      "confidence": 0.2
+     }
+    },
+    "equity_share_percent": {
+     "value": 45,
+     "quote": "| Aktier | 45 % |",
+     "source": 3,
+     "status": "osäkert",
+     "jev": {
+      "verdict": "says_nothing",
+      "confidence": 0.14
+     }
+    },
+    "available_to": {
+     "value": "Privatperson, egen privat pensionsförsäkring (inga nya inbetalningar sedan 2015-01-01)",
+     "quote": "AMF tar från och med 1 januari 2015 inte emot inbetalningar till ditt privata pensionssparande.",
+     "source": 0,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.89
+     }
+    }
+   },
+   "rate_tiers": [],
+   "pending_rate": null,
+   "status": "ej verifierad"
+  },
+  {
+   "name": "Traditionell försäkring, andra tjänstepensionsavtal (BTPK, ITPK-S, ITPK-Tele, ITPK-P, PPAK, Frivillig BTPK/FTPK/ITPK, Frivillig Livsarbetstidspension)",
+   "flags": [],
+   "fields": {
+    "product_kind": {
+     "value": "tjänstepension",
+     "quote": "Här hittar du viktiga räntor som påverkar din tjänstepension BTPK, ITPK-S, ITPK-Tele, ITPK-P, PPAK, Frivillig BTPK, Frivillig FTPK, Frivillig ITPK och Frivillig Livsarbetstidspension.",
+     "source": 0,
+     "status": "osäkert",
+     "jev": {
+      "verdict": "says_nothing",
+      "confidence": 0.4
+     }
+    },
+    "rate_kind": {
+     "value": "månadsvis avkastningsränta",
+     "quote": "Räntan fördelas månadsvis i efterskott och är inte garanterad.",
+     "source": 0,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.3
+     }
+    },
+    "rate_percent": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "rate_month": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "monthly_rate_percent": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "rate_basis": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "return_1y_percent": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "return_5y_avg_percent": {
+     "value": 4.6,
+     "quote": "| Genomsnittlig totalavkastning, 5 år (%), traditionell försäkring | 4,6 | 5,8 |",
+     "source": 3,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.52
+     }
+    },
+    "return_period": {
+     "value": "jan–sep 2026 (5-årssnitt, traditionell försäkring)",
+     "quote": "| | Jan-sept 2026 | Jan-sept 2025 |",
+     "source": 3,
+     "status": "osäkert",
+     "jev": {
+      "verdict": "contradicts",
+      "confidence": 0.13
+     }
+    },
+    "consolidation_percent": {
+     "value": 100.6,
+     "quote": "Aktuell konsolideringsnivå 100,6 procent per 2026-10-31.",
+     "source": 3,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.83
+     }
+    },
+    "guaranteed_rate_percent": {
+     "value": 1.5,
+     "quote": "1,50 % före avdrag för skatt och kostnader (0,88 % efter avdrag för skatt och kostnader).",
+     "source": 0,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.58
+     }
+    },
+    "fee_capital_percent": {
+     "value": 0.1,
+     "quote": "| Förvaltningskostnadsprocent, traditionell försäkring (%)* | 0,10 | 0,10 |",
+     "source": 3,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.4
+     }
+    },
+    "fee_fixed_sek": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "fee_terms": {
+     "value": "Förvaltningskostnadsprocent 0,10 % och kapitalförvaltningskostnadsprocent 0,03 % (senaste 12 månaders utfall), gäller hela den traditionella förvaltningen",
      "quote": "* Förvaltningskostnadsprocent, traditionell försäkring (0,10%) och Kapitalförvaltningskostnadsprocent (0,03%) är beräknade med senaste 12 månaders utfall.",
      "source": 3,
      "status": "belagt",
@@ -939,448 +1652,17 @@
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.58
-     }
-    },
-    "available_to": {
-     "value": "Statligt anställda, avtalsområde PA 16",
-     "quote": "Statligt anställda tillhör avtalsområde PA 16.",
-     "source": 0,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.28
-     }
-    }
-   },
-   "rate_tiers": [],
-   "pending_rate": null,
-   "status": "ej verifierad"
-  },
-  {
-   "name": "Traditionell försäkring – Individuell tjänstepension",
-   "flags": [],
-   "fields": {
-    "product_kind": {
-     "value": "tjänstepension",
-     "quote": "Individuell tjänstepension är en överenskommelse mellan arbetsgivare och dig som anställd",
-     "source": 0,
-     "status": "osäkert",
-     "jev": {
-      "verdict": "says_nothing",
-      "confidence": 0.56
-     }
-    },
-    "rate_kind": {
-     "value": "månadsvis avkastningsränta",
-     "quote": "Räntan fördelas månadsvis i efterskott och är inte garanterad.",
-     "source": 0,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.31
-     }
-    },
-    "rate_percent": {
-     "value": null,
-     "quote": null,
-     "source": null,
-     "status": "okänt"
-    },
-    "rate_month": {
-     "value": null,
-     "quote": null,
-     "source": null,
-     "status": "okänt"
-    },
-    "monthly_rate_percent": {
-     "value": null,
-     "quote": null,
-     "source": null,
-     "status": "okänt"
-    },
-    "rate_basis": {
-     "value": null,
-     "quote": null,
-     "source": null,
-     "status": "okänt"
-    },
-    "return_1y_percent": {
-     "value": null,
-     "quote": null,
-     "source": null,
-     "status": "okänt"
-    },
-    "return_5y_avg_percent": {
-     "value": 4.6,
-     "quote": "| Genomsnittlig totalavkastning, 5 år (%), traditionell försäkring | 4,6 | 5,8 |",
-     "source": 3,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.35
-     }
-    },
-    "return_period": {
-     "value": "jan–sep 2026 (5 års genomsnitt)",
-     "quote": "| | Jan-sept 2026 | Jan-sept 2025 |",
-     "source": 3,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.07
-     }
-    },
-    "consolidation_percent": {
-     "value": 100.6,
-     "quote": "Aktuell konsolideringsnivå 100,6 procent per 2026-09-30.",
-     "source": 3,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
       "confidence": 0.76
      }
     },
-    "guaranteed_rate_percent": {
-     "value": null,
-     "quote": null,
-     "source": null,
-     "status": "okänt"
-    },
-    "fee_capital_percent": {
-     "value": 0.1,
-     "quote": "| Förvaltningskostnadsprocent, traditionell försäkring (%)* | 0,10 | 0,10 |",
-     "source": 3,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.77
-     }
-    },
-    "fee_fixed_sek": {
-     "value": null,
-     "quote": null,
-     "source": null,
-     "status": "okänt"
-    },
-    "fee_terms": {
-     "value": "Förvaltningskostnadsprocent 0,10 % och kapitalförvaltningskostnad 0,03 % (senaste 12 månaders utfall); övriga avgifter enligt försäkringsvillkor.",
-     "quote": "* Förvaltningskostnadsprocent, traditionell försäkring (0,10%) och Kapitalförvaltningskostnadsprocent (0,03%) är beräknade med senaste 12 månaders utfall.",
-     "source": 3,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.72
-     }
-    },
-    "equity_share_percent": {
-     "value": 45,
-     "quote": "| Aktier | 45 % |",
-     "source": 3,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.94
-     }
-    },
     "available_to": {
-     "value": "Individuell tjänstepension, överenskommelse mellan arbetsgivare och anställd",
-     "quote": "Individuell tjänstepension är en överenskommelse mellan arbetsgivare och dig som anställd när kollektivavtal inte finns eller som ett komplement till kollektivavtalet.",
-     "source": 0,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.2
-     }
-    }
-   },
-   "rate_tiers": [],
-   "pending_rate": null,
-   "status": "ej verifierad"
-  },
-  {
-   "name": "Traditionell försäkring – Privat pensionsförsäkring (stängd för nya inbetalningar)",
-   "flags": [],
-   "fields": {
-    "product_kind": {
-     "value": "privat pensionsförsäkring",
-     "quote": "Privat Pensionsförsäkring",
+     "value": "Andra tjänstepensionsavtal: BTPK, ITPK-S, ITPK-Tele, ITPK-P, PPAK och frivilliga avtal",
+     "quote": "Här hittar du viktiga räntor som påverkar din tjänstepension BTPK, ITPK-S, ITPK-Tele, ITPK-P, PPAK, Frivillig BTPK, Frivillig FTPK, Frivillig ITPK och Frivillig Livsarbetstidspension.",
      "source": 0,
      "status": "osäkert",
      "jev": {
       "verdict": "says_nothing",
-      "confidence": 0.2
-     }
-    },
-    "rate_kind": {
-     "value": "månadsvis avkastningsränta",
-     "quote": "Räntan fördelas månadsvis i efterskott och är inte garanterad.",
-     "source": 0,
-     "status": "osäkert",
-     "jev": {
-      "verdict": "says_nothing",
-      "confidence": 0.6
-     }
-    },
-    "rate_percent": {
-     "value": null,
-     "quote": null,
-     "source": null,
-     "status": "okänt"
-    },
-    "rate_month": {
-     "value": null,
-     "quote": null,
-     "source": null,
-     "status": "okänt"
-    },
-    "monthly_rate_percent": {
-     "value": null,
-     "quote": null,
-     "source": null,
-     "status": "okänt"
-    },
-    "rate_basis": {
-     "value": null,
-     "quote": null,
-     "source": null,
-     "status": "okänt"
-    },
-    "return_1y_percent": {
-     "value": null,
-     "quote": null,
-     "source": null,
-     "status": "okänt"
-    },
-    "return_5y_avg_percent": {
-     "value": 4.6,
-     "quote": "| Genomsnittlig totalavkastning, 5 år (%), traditionell försäkring | 4,6 | 5,8 |",
-     "source": 3,
-     "status": "osäkert",
-     "jev": {
-      "verdict": "says_nothing",
-      "confidence": 0.2
-     }
-    },
-    "return_period": {
-     "value": "jan–sep 2026 (5 års genomsnitt)",
-     "quote": "| | Jan-sept 2026 | Jan-sept 2025 |",
-     "source": 3,
-     "status": "osäkert",
-     "jev": {
-      "verdict": "contradicts",
-      "confidence": 0.35
-     }
-    },
-    "consolidation_percent": {
-     "value": 100.6,
-     "quote": "Aktuell konsolideringsnivå 100,6 procent per 2026-09-30.",
-     "source": 3,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.18
-     }
-    },
-    "guaranteed_rate_percent": {
-     "value": 1.5,
-     "quote": "1,50 % före avdrag för skatt och kostnader (0,88 % efter avdrag för skatt och kostnader).",
-     "source": 0,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.19
-     }
-    },
-    "fee_capital_percent": {
-     "value": 0.1,
-     "quote": "| Förvaltningskostnadsprocent, traditionell försäkring (%)* | 0,10 | 0,10 |",
-     "source": 3,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.5
-     }
-    },
-    "fee_fixed_sek": {
-     "value": null,
-     "quote": null,
-     "source": null,
-     "status": "okänt"
-    },
-    "fee_terms": {
-     "value": "Förvaltningskostnadsprocent 0,10 % och kapitalförvaltningskostnad 0,03 % (senaste 12 månaders utfall); övriga avgifter enligt försäkringsvillkor.",
-     "quote": "* Förvaltningskostnadsprocent, traditionell försäkring (0,10%) och Kapitalförvaltningskostnadsprocent (0,03%) är beräknade med senaste 12 månaders utfall.",
-     "source": 3,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.4
-     }
-    },
-    "equity_share_percent": {
-     "value": 45,
-     "quote": "| Aktier | 45 % |",
-     "source": 3,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.73
-     }
-    },
-    "available_to": {
-     "value": "Privatperson som själv tecknat och betalat in; inga nya inbetalningar från 1 januari 2015",
-     "quote": "Privat pensionssparande är en försäkring som du själv har tecknat och betalat in till.",
-     "source": 0,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.89
-     }
-    }
-   },
-   "rate_tiers": [],
-   "pending_rate": null,
-   "status": "ej verifierad"
-  },
-  {
-   "name": "Traditionell försäkring – Andra tjänstepensionsavtal (BTPK, ITPK-S, ITPK-Tele, ITPK-P, PPAK m.fl.)",
-   "flags": [],
-   "fields": {
-    "product_kind": {
-     "value": "tjänstepension",
-     "quote": "Nyckeltal för andra tjänstepensionsavtal",
-     "source": 0,
-     "status": "osäkert",
-     "jev": {
-      "verdict": "says_nothing",
-      "confidence": 0.44
-     }
-    },
-    "rate_kind": {
-     "value": "månadsvis avkastningsränta",
-     "quote": "Räntan fördelas månadsvis i efterskott och är inte garanterad.",
-     "source": 0,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.28
-     }
-    },
-    "rate_percent": {
-     "value": null,
-     "quote": null,
-     "source": null,
-     "status": "okänt"
-    },
-    "rate_month": {
-     "value": null,
-     "quote": null,
-     "source": null,
-     "status": "okänt"
-    },
-    "monthly_rate_percent": {
-     "value": null,
-     "quote": null,
-     "source": null,
-     "status": "okänt"
-    },
-    "rate_basis": {
-     "value": null,
-     "quote": null,
-     "source": null,
-     "status": "okänt"
-    },
-    "return_1y_percent": {
-     "value": null,
-     "quote": null,
-     "source": null,
-     "status": "okänt"
-    },
-    "return_5y_avg_percent": {
-     "value": 4.6,
-     "quote": "| Genomsnittlig totalavkastning, 5 år (%), traditionell försäkring | 4,6 | 5,8 |",
-     "source": 3,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.58
-     }
-    },
-    "return_period": {
-     "value": "jan–sep 2026 (5 års genomsnitt)",
-     "quote": "| | Jan-sept 2026 | Jan-sept 2025 |",
-     "source": 3,
-     "status": "osäkert",
-     "jev": {
-      "verdict": "contradicts",
-      "confidence": 0.28
-     }
-    },
-    "consolidation_percent": {
-     "value": 100.6,
-     "quote": "Aktuell konsolideringsnivå 100,6 procent per 2026-09-30.",
-     "source": 3,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.86
-     }
-    },
-    "guaranteed_rate_percent": {
-     "value": 1.5,
-     "quote": "1,50 % före avdrag för skatt och kostnader (0,88 % efter avdrag för skatt och kostnader).",
-     "source": 0,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.96
-     }
-    },
-    "fee_capital_percent": {
-     "value": 0.1,
-     "quote": "| Förvaltningskostnadsprocent, traditionell försäkring (%)* | 0,10 | 0,10 |",
-     "source": 3,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
       "confidence": 0.67
-     }
-    },
-    "fee_fixed_sek": {
-     "value": null,
-     "quote": null,
-     "source": null,
-     "status": "okänt"
-    },
-    "fee_terms": {
-     "value": "Förvaltningskostnadsprocent 0,10 % och kapitalförvaltningskostnad 0,03 % (senaste 12 månaders utfall); övriga avgifter enligt försäkringsvillkor.",
-     "quote": "* Förvaltningskostnadsprocent, traditionell försäkring (0,10%) och Kapitalförvaltningskostnadsprocent (0,03%) är beräknade med senaste 12 månaders utfall.",
-     "source": 3,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.85
-     }
-    },
-    "equity_share_percent": {
-     "value": 45,
-     "quote": "| Aktier | 45 % |",
-     "source": 3,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.91
-     }
-    },
-    "available_to": {
-     "value": "BTPK, ITPK-S, ITPK-Tele, ITPK-P, PPAK, Frivillig BTPK, Frivillig FTPK, Frivillig ITPK och Frivillig Livsarbetstidspension",
-     "quote": "BTPK, ITPK-S, ITPK-Tele, ITPK-P, PPAK, Frivillig BTPK, Frivillig FTPK, Frivillig ITPK och Frivillig Livsarbetstidspension",
-     "source": 0,
-     "status": "osäkert",
-     "jev": {
-      "verdict": "says_nothing",
-      "confidence": 0.43
      }
     }
    },
@@ -1389,7 +1671,7 @@
    "status": "ej verifierad"
   }
  ],
- "source_hash": "cddbd05aee3f3705",
- "changed_at": "2026-11-07T13:54:59+00:00",
+ "source_hash": "890d8eafce7aaffc",
+ "changed_at": "2026-11-24T05:01:09+00:00",
  "model": "claude-haiku-5-5"
 }
