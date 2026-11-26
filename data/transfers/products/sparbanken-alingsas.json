@@ -7,7 +7,7 @@
   "kind": "sparbank",
   "legal_name": "Sparbanken Alingsås AB (publ)"
  },
- "checked_at": "2026-11-24T04:46:53+00:00",
+ "checked_at": "2026-11-26T04:46:02+00:00",
  "discovered_at": "2026-11-17T20:56:36+00:00",
  "sources": [
   {
@@ -22,7 +22,7 @@
    "title": "Valutakurser betalningar - betala på resan | Valuta | Sparbanken Alingsås",
    "kind": "html",
    "via": "http",
-   "chars": 6329
+   "chars": 6336
   },
   {
    "url": "https://www.sparbankenalingsas.se/privat/betala-och-overfora/expressbetalning.html",
@@ -43,7 +43,7 @@
    "title": "Överföring - Gör stående överföring i internetbanken | Sparbanken Alingsås",
    "kind": "html",
    "via": "http",
-   "chars": 10820
+   "chars": 11523
   },
   {
    "url": "https://www.sparbankenalingsas.se/privat/rantor-priser-och-kurser.html",
@@ -67,20 +67,22 @@
    "chars": 7264
   }
  ],
- "source_hash": "d0abcf02123763b7",
  "status": "ok",
- "notes": "Banken erbjuder ingen egen betaltjänstöverföring för utlandsbetalningar; Expressbetalning är en produkt förköp hos en företagskund och ingår därför inte. Ingen valutapåslag anges i procent för utlandsbetalningar, så fx_markup_percent är null. Kurslistan (indikativa kurser) innehåller inga påslag uttryckligen. Europabetalning Urgent (350 kr i internetbanken) och Internationell betalning Urgent (350 kr) redovisas som expressavgift; Urgent-tjänsterna når mottagaren samma dag (EUR inom EES) respektive normalt dagen efter. Kontorsavgifter (200 kr, 250 kr, 550 kr) och Private Banking-priser har utelämnats. Standard daglig beloppsgräns för nya kunder är 50 000 kr, men det är inte en gräns per betalning och anges därför inte som max_amount_sek.",
+ "notes": "Bankens priser för privatpersoner via internetbanken: Europabetalning 0 kr och Internationell betalning 50 kr per överföring. Expressvarianten Europabetalning Urgent kostar 350 kr i internetbanken och Internationell betalning Urgent 350 kr (kontor 550 kr); dessa är egna betalningsalternativ och ingår inte som separata produkter. Kontorsavgifter (200 kr resp. 250 kr, Private Banking 0 kr) är uteslutna. Ingen valutapåslag i procent anges för utlandsbetalningar; valutakurserna är \"indikativa\" och uttryckligen utan påslagsuppgift. Ingen tjänst för betaltjänst-överföring (typ Wise) finns på sidorna, så den produkten saknas. Expressbetalning på sidan är ett köpsätt hos en företagskund, inte en utlandsbetalning, och togs därför inte med. Mottagarbankens kostnad för Europabetalning anges inte.",
  "products": [
   {
    "name": "Europabetalning",
    "flags": [],
    "fields": {
     "provider_type": {
-     "value": null,
-     "quote": "Sparbanken Alingsås är en bank; betalningen görs via bankens internetbank.",
+     "value": "bank",
+     "quote": "Vi som betalarens bank ser till att beloppet kommer till mottagarens bank.",
      "source": 0,
-     "status": "citat hittades inte",
-     "claimed": "bank"
+     "status": "osäkert",
+     "jev": {
+      "verdict": "contradicts",
+      "confidence": 0.33
+     }
     },
     "payment_type": {
      "value": "SEPA-betalning",
@@ -94,12 +96,12 @@
     },
     "fee_fixed_sek": {
      "value": 0,
-     "quote": "Avgift per överföring internetbanken Betalning till land inom EU/EES eller till Schweiz i euro eller svenska kronor. 0 kr/st",
+     "quote": "Avgift per överföring internetbanken\n\nBetalning till land inom EU/EES eller till Schweiz i euro eller svenska kronor.\n\n0 kr/st",
      "source": 0,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.92
+      "confidence": 0.85
      }
     },
     "fee_percent": {
@@ -127,14 +129,10 @@
      "status": "okänt"
     },
     "express_fee_sek": {
-     "value": 350,
-     "quote": "Europabetalning Urgent Avgift per överföring internetbanken Betalning till land inom EU/EES eller till Schweiz i euro om betalningen brådskar. 350 kr/st",
-     "source": 0,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 1.0
-     }
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
     },
     "max_amount_sek": {
      "value": null,
@@ -143,13 +141,13 @@
      "status": "okänt"
     },
     "delivery_time": {
-     "value": "nästa bankdag",
-     "quote": "om du skickar EUR till en mottagare med bank inom EU/EES d.v.s. en Europabetalning så har mottagaren normalt pengarna bankdagen efter betalningen är gjord.",
+     "value": "dagen efter betalningsdagen (bankdagen efter)",
+     "quote": "Betalningar i EUR når mottagarbanken dagen efter betalningsdagen.",
      "source": 0,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.98
+      "confidence": 0.8
      }
     },
     "recipient_charges": {
@@ -159,13 +157,13 @@
      "status": "okänt"
     },
     "requirements": {
-     "value": "Internetbank; återkommande betalningar kräver aktivering",
+     "value": "Återkommande betalningar i internetbanken kräver att tjänsten aktiveras av banken",
      "quote": "Om du har behov av att göra återkommande betalningar till utlandet i internetbanken behöver du först kontakta oss för att aktivera den möjligheten.",
      "source": 0,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.35
+      "confidence": 0.31
      }
     }
    },
@@ -178,11 +176,14 @@
    "flags": [],
    "fields": {
     "provider_type": {
-     "value": null,
-     "quote": "Sparbanken Alingsås är en bank; betalningen görs via bankens internetbank.",
+     "value": "bank",
+     "quote": "Vi som betalarens bank ser till att beloppet kommer till mottagarens bank.",
      "source": 0,
-     "status": "citat hittades inte",
-     "claimed": "bank"
+     "status": "osäkert",
+     "jev": {
+      "verdict": "contradicts",
+      "confidence": 0.28
+     }
     },
     "payment_type": {
      "value": "utlandsbetalning",
@@ -196,12 +197,12 @@
     },
     "fee_fixed_sek": {
      "value": 50,
-     "quote": "Internationell betalning Avgift per överföring internetbanken Betalning till land utanför EU/EES oavsett valuta. Samt betalning till land inom EU/EES eller Schweiz i andra valutor än euro och svenska kronor. 50 kr/st",
+     "quote": "Avgift per överföring internetbanken\n\nBetalning till land utanför EU/EES oavsett valuta. Samt betalning till land inom EU/EES eller Schweiz i andra valutor än euro och svenska kronor.\n\n50 kr/st",
      "source": 0,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.88
+      "confidence": 0.66
      }
     },
     "fee_percent": {
@@ -229,14 +230,10 @@
      "status": "okänt"
     },
     "express_fee_sek": {
-     "value": 350,
-     "quote": "Internationell betalning Urgent Avgift per överföring internetbanken Betalning till land utanför EU/EES oavsett valuta. Samt betalning till land inom EU/EES eller Schweiz i andra valutor än euro om betalningen brådskar. 350 kr/st",
-     "source": 0,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.86
-     }
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
     },
     "max_amount_sek": {
      "value": null,
@@ -245,33 +242,33 @@
      "status": "okänt"
     },
     "delivery_time": {
-     "value": "2–4 bankdagar",
+     "value": "ofta 2–4 bankdagar",
      "quote": "Vid betalningar i andra valutor och till andra länder får mottagaren ofta pengarna inom 2-4 bankdagar.",
      "source": 0,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.92
+      "confidence": 0.76
      }
     },
     "recipient_charges": {
-     "value": "Tillägg för mottagande bankens kostnad: faktisk eller generell kostnad, lägst 100 kr/st",
-     "quote": "Avgift mottagandes banks kostnad 100 kr/st minimum Tillägg för mottagandes banks kostnad: Faktiskt kostnad eller generellt kostnad dock lägst 100 kr/st.",
+     "value": "Tillägg för mottagande bankens kostnad, faktiskt eller generell kostnad, lägst 100 kr/st",
+     "quote": "Tillägg för mottagandes banks kostnad: Faktiskt kostnad eller generellt kostnad dock lägst 100 kr/st.",
      "source": 0,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.94
+      "confidence": 0.91
      }
     },
     "requirements": {
-     "value": "Internetbank; återkommande betalningar kräver aktivering",
-     "quote": "Om du har behov av att göra återkommande betalningar till utlandet i internetbanken behöver du först kontakta oss för att aktivera den möjligheten.",
+     "value": "Återkommande betalningar i internetbanken kräver att tjänsten aktiveras av banken",
+     "quote": "Om du har behov av att göra återkommande betalningar till mottagare i utlandet kan du ansöka om att få tjänsten Betalningar till utlandet aktiverad i internetbanken.",
      "source": 0,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.25
+      "confidence": 0.52
      }
     }
    },
@@ -280,6 +277,7 @@
    "status": "verifierad"
   }
  ],
- "changed_at": "2026-10-19T20:08:42+00:00",
+ "source_hash": "f51a9abbb90ccf3e",
+ "changed_at": "2026-11-26T04:46:02+00:00",
  "model": "claude-haiku-5-5"
 }

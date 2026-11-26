@@ -7,7 +7,7 @@
   "kind": "nischbank",
   "legal_name": "Ikano Bank AB (publ)"
  },
- "checked_at": "2026-11-24T01:34:48+00:00",
+ "checked_at": "2026-11-26T01:43:54+00:00",
  "discovered_at": "2026-11-17T17:13:34+00:00",
  "sources": [
   {
@@ -29,7 +29,7 @@
    "title": "Spara pengar tryggt hos en hemkär bank | Ikano Bank",
    "kind": "html",
    "via": "http",
-   "chars": 10514
+   "chars": 10728
   },
   {
    "url": "https://ikanobank.se/spara/sparkonto-fix",
@@ -61,7 +61,7 @@
   }
  ],
  "status": "ok",
- "notes": "Fem produkter: Sparkonto, Sparkonto Plus och tre bindningstider för Sparkonto Fix (1, 2, 5 år). Effektiv årsränta för Fix (2,95 %, 3,10 %, 3,15 %) finns i källan men har ingen egen fältplats i schemat. Inget startdatum för räntorna anges; ingen källa anger om höjningen är tillfällig. Sparkonto och Plus saknar uppgift om max insättning. Minsta insättning på Sparkonto anges inte i källorna. Det finns ingen uppgift om att Plus kräver andra produkter. Källorna säger inte om Sparkonto Fix-räntan är ett kampanjerbjudande. Uttagsavgiften på Sparkonto Plus och Fix är belagd i källorna.",
+ "notes": "Källorna anger ingen tidpunkt för när respektive ränta började gälla (rate_valid_from ej angivet); sidan säger bara att räntorna nyligen höjts. Sparkonto Fix kräver att ett avkastningskonto (vanligt sparkonto) öppnas automatiskt; källorna säger inte uttryckligen om det är ett krav i form av en separat produkt, därför requires_other_products lämnat tomt. Ränteutbetalning för Sparkonto och Sparkonto Plus: en generell FAQ (sparkonto-sidan, dokument 0) säger \"betalas ut årsvis\", vilket stämmer med den mer specifika uppgiften 31/12. Sparkonto Plus: 1,70 % gäller vid saldo på minst 100 000 kr, annars 1,40 %; detta anges som räntetrappa. Antal fria uttag för Sparkonto och Fix anges inte i siffror för Sparkonto (\"Helt fria uttag\") och Fix (inga fria uttag under bindningstiden). Ingen intro-/kampanjränta markerad, eftersom källorna inte anger att räntan är tillfällig. Effektiv ränta ej använd som rate_percent.",
  "products": [
   {
    "name": "Sparkonto",
@@ -69,22 +69,22 @@
    "fields": {
     "product_type": {
      "value": "rörligt sparkonto",
-     "quote": "Sparkonto med ränta och fria uttag",
+     "quote": "Tryggt sparkonto med ränta 1,40 %",
      "source": 4,
      "status": "osäkert",
      "jev": {
-      "verdict": "says_nothing",
-      "confidence": 0.46
+      "verdict": "contradicts",
+      "confidence": 0.64
      }
     },
     "rate_percent": {
      "value": 1.4,
-     "quote": "| Ränta | 1,40 % |",
+     "quote": "Ränta: 1,40 %",
      "source": 0,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.4
+      "confidence": 0.49
      }
     },
     "rate_type": {
@@ -124,20 +124,24 @@
      "status": "okänt"
     },
     "withdrawal_terms": {
-     "value": "Fria uttag utan avgift; inga avgifter på kontot.",
+     "value": "Helt fria uttag utan avgift och utan bindningstid. Uttag upp till 1 050 000 kr per dag via Mina sidor.",
      "quote": "Du kan göra uttag på upp till 1 050 000 kr per dag genom",
-     "source": 2,
-     "status": "osäkert",
+     "source": 4,
+     "status": "belagt",
      "jev": {
-      "verdict": "says_nothing",
-      "confidence": 0.6
+      "verdict": "supports",
+      "confidence": 0.86
      }
     },
     "min_deposit_sek": {
-     "value": null,
-     "quote": null,
-     "source": null,
-     "status": "okänt"
+     "value": 0,
+     "quote": "Ränta från första kronan",
+     "source": 4,
+     "status": "osäkert",
+     "jev": {
+      "verdict": "says_nothing",
+      "confidence": 0.34
+     }
     },
     "max_deposit_sek": {
      "value": null,
@@ -152,23 +156,23 @@
      "status": "okänt"
     },
     "deposit_terms": {
-     "value": "Fria insättningar; möjlighet till månadssparande",
+     "value": "Insättningar när som helst; möjlighet till månadssparande",
      "quote": "Möjlighet att månadsspara.",
      "source": 2,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.66
+      "confidence": 0.48
      }
     },
     "eligibility": {
-     "value": "Öppnas genom ansökan signerad med BankID",
-     "quote": "Signera ansökan med BankID.",
-     "source": 0,
-     "status": "belagt",
+     "value": "Privatperson som öppnar kontot med BankID; kan vara upp till två kontohavare",
+     "quote": "Signera med BankID.",
+     "source": 4,
+     "status": "osäkert",
      "jev": {
-      "verdict": "supports",
-      "confidence": 0.76
+      "verdict": "says_nothing",
+      "confidence": 0.43
      }
     },
     "requires_other_products": {
@@ -205,12 +209,12 @@
     },
     "guarantee_amount": {
      "value": "1 150 000 kronor",
-     "quote": "med ett belopp som motsvarar högst 1 150 000 kronor",
+     "quote": "motsvarar högst 1 150 000 kronor",
      "source": 0,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.67
+      "confidence": 0.97
      }
     },
     "rate_valid_from": {
@@ -230,12 +234,12 @@
    "fields": {
     "product_type": {
      "value": "rörligt sparkonto",
-     "quote": "Sparkonto Plus – med högre rörlig ränta",
+     "quote": "Sparkonto med högre ränta 1,70 %",
      "source": 5,
      "status": "osäkert",
      "jev": {
       "verdict": "says_nothing",
-      "confidence": 0.33
+      "confidence": 0.46
      }
     },
     "rate_percent": {
@@ -260,12 +264,12 @@
     },
     "binding_months": {
      "value": 0,
-     "quote": "Ingen bindningstid.",
+     "quote": "Ingen bindningstid",
      "source": 2,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.89
+      "confidence": 0.19
      }
     },
     "withdrawals": {
@@ -289,7 +293,7 @@
      }
     },
     "withdrawal_terms": {
-     "value": "Fyra fria uttag per kalenderår; därefter 1 % avgift på uttaget belopp.",
+     "value": "Fyra fria uttag per kalenderår; från femte uttaget avgift 1 % av uttaget belopp.",
      "quote": "Från och med det femte uttaget debiteras en avgift på 1 % av uttaget belopp.",
      "source": 5,
      "status": "belagt",
@@ -300,12 +304,12 @@
     },
     "min_deposit_sek": {
      "value": 100000,
-     "quote": "För att få räntan 1,70 % behöver du spara minst 100 000 kr.",
-     "source": 0,
+     "quote": "För att få räntan 1,70 % behöver du spara minst 100 000 kr. Sparar du mindre än så får du 1,40 % i ränta.",
+     "source": 2,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.94
+      "confidence": 0.85
      }
     },
     "max_deposit_sek": {
@@ -321,23 +325,23 @@
      "status": "okänt"
     },
     "deposit_terms": {
-     "value": "Kan sätta in och ta ut pengar; ränta 1,70 % vid saldo på minst 100 000 kr",
-     "quote": "samtidigt ha möjlighet att både sätta in och ta ut pengar.",
+     "value": "Insättningar när som helst; uttag begränsade till fyra fria per år",
+     "quote": "Fyra fria uttag per år.",
+     "source": 2,
+     "status": "osäkert",
+     "jev": {
+      "verdict": "says_nothing",
+      "confidence": 0.3
+     }
+    },
+    "eligibility": {
+     "value": "Privatperson som öppnar kontot med BankID; kan vara upp till två kontohavare",
+     "quote": "På Sparkonto Plus kan ni vara upp till två stycken kontohavare.",
      "source": 5,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.83
-     }
-    },
-    "eligibility": {
-     "value": "Öppnas genom ansökan signerad med BankID; upp till två kontohavare",
-     "quote": "Signera med BankID.",
-     "source": 3,
-     "status": "osäkert",
-     "jev": {
-      "verdict": "says_nothing",
-      "confidence": 0.48
+      "confidence": 0.91
      }
     },
     "requires_other_products": {
@@ -355,7 +359,7 @@
     "interest_paid": {
      "value": "Årsvis den 31/12 (minus 30 % skatt)",
      "quote": "Räntan betalas ut årsvis den 31/12 (minus 30 % skatt) för Sparkonto och Sparkonto Plus.",
-     "source": 4,
+     "source": 5,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
@@ -365,7 +369,7 @@
     "guarantee_country": {
      "value": "SE",
      "quote": "Våra konton omfattas av den statliga insättningsgarantin enligt beslut av Riksgälden.",
-     "source": 0,
+     "source": 5,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
@@ -374,12 +378,12 @@
     },
     "guarantee_amount": {
      "value": "1 150 000 kronor",
-     "quote": "med ett belopp som motsvarar högst 1 150 000 kronor",
-     "source": 0,
+     "quote": "motsvarar högst 1 150 000 kronor",
+     "source": 5,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 1.0
+      "confidence": 0.94
      }
     },
     "rate_valid_from": {
@@ -403,7 +407,7 @@
      "max_sek": null,
      "rate_percent": 1.7,
      "quote": "För att få räntan 1,70 % behöver du spara minst 100 000 kr.",
-     "source": 0,
+     "source": 5,
      "status": "belagt"
     }
    ],
@@ -416,34 +420,34 @@
    "fields": {
     "product_type": {
      "value": "fasträntekonto",
-     "quote": "Sparkonto Fix är ett fasträntekonto där du sparar tryggt med hög, fast ränta från första kronan.",
+     "quote": "Vårt Sparkonto Fix är ett så kallat fasträntekonto.",
      "source": 3,
-     "status": "osäkert",
+     "status": "belagt",
      "jev": {
-      "verdict": "contradicts",
-      "confidence": 0.38
+      "verdict": "supports",
+      "confidence": 0.37
      }
     },
     "rate_percent": {
-     "value": 2.95,
-     "quote": "| Ränta 1 år | 2,95 % (effektiv årsränta 2,95 %) |",
+     "value": 3.15,
+     "quote": "Ränta 1 år | 3,15 % (effektiv årsränta 3,15 %)",
      "source": 1,
      "status": "belagt"
     },
     "rate_type": {
      "value": "fast",
-     "quote": "Räntan är densamma under hela bindningstiden och ändras varken uppåt eller neråt.",
-     "source": 3,
-     "status": "osäkert",
+     "quote": "Fast ränta under hela bindningstiden",
+     "source": 0,
+     "status": "belagt",
      "jev": {
-      "verdict": "says_nothing",
-      "confidence": 0.34
+      "verdict": "supports",
+      "confidence": 0.68
      }
     },
     "binding_months": {
      "value": 12,
-     "quote": "| Sparkonto Fix 1 år | 2,95 % | 2,95 % | Ansök |",
-     "source": 0,
+     "quote": "1 år 3,15 %",
+     "source": 3,
      "status": "belagt"
     },
     "withdrawals": {
@@ -463,13 +467,13 @@
      "status": "okänt"
     },
     "withdrawal_terms": {
-     "value": "Förtida uttag kostar 3 % av uttaget belopp; kostnadsfritt vid bindningstidens slut.",
+     "value": "Förtida uttag eller avslut kostar 3 % av uttaget belopp. Kostnadsfritt uttag vid bindningstidens slut.",
      "quote": "Om du gör ett uttag innan löptidens slut tas en avgift på 3 % av uttaget belopp.",
      "source": 3,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.97
+      "confidence": 1.0
      }
     },
     "min_deposit_sek": {
@@ -495,23 +499,23 @@
      "status": "okänt"
     },
     "deposit_terms": {
-     "value": "Engångsinsättning; pengarna sätts in en gång",
+     "value": "Engångsinsättning; lägsta belopp 10 000 kr",
      "quote": "Du sätter in pengarna en enda gång",
      "source": 3,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.97
+      "confidence": 0.92
      }
     },
     "eligibility": {
-     "value": "Öppnas genom ansökan signerad med BankID",
-     "quote": "Välj bindningstid och fyll i ansökan. Signera med BankID.",
+     "value": "Privatperson; kan vara upp till två kontohavare",
+     "quote": "På Sparkonto Fix kan ni vara upp till två stycken kontohavare.",
      "source": 3,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.73
+      "confidence": 0.74
      }
     },
     "requires_other_products": {
@@ -527,19 +531,19 @@
      "status": "okänt"
     },
     "interest_paid": {
-     "value": "Vid bindningstidens slut (efter 1, 2 eller 5 år), minus 30 % skatt",
-     "quote": "Räntan betalas sedan ut i slutet av bindningstiden – det vill säga efter 1, 2 eller 5 år – minus 30 % skatt.",
+     "value": "I slutet av bindningstiden",
+     "quote": "Räntan betalas sedan ut i slutet av bindningstiden",
      "source": 3,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.98
+      "confidence": 1.0
      }
     },
     "guarantee_country": {
      "value": "SE",
      "quote": "Våra konton omfattas av den statliga insättningsgarantin enligt beslut av Riksgälden.",
-     "source": 0,
+     "source": 3,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
@@ -548,12 +552,12 @@
     },
     "guarantee_amount": {
      "value": "1 150 000 kronor",
-     "quote": "med ett belopp som motsvarar högst 1 150 000 kronor",
-     "source": 0,
+     "quote": "motsvarar högst 1 150 000 kronor",
+     "source": 3,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.97
+      "confidence": 0.94
      }
     },
     "rate_valid_from": {
@@ -573,34 +577,34 @@
    "fields": {
     "product_type": {
      "value": "fasträntekonto",
-     "quote": "Sparkonto Fix är ett fasträntekonto där du sparar tryggt med hög, fast ränta från första kronan.",
+     "quote": "Vårt Sparkonto Fix är ett så kallat fasträntekonto.",
      "source": 3,
      "status": "osäkert",
      "jev": {
-      "verdict": "contradicts",
-      "confidence": 0.35
+      "verdict": "says_nothing",
+      "confidence": 0.44
      }
     },
     "rate_percent": {
      "value": 3.15,
-     "quote": "| Ränta 2 år | 3,15 % (effektiv årsränta 3,10 %) |",
+     "quote": "Ränta 2 år | 3,15 % (effektiv årsränta 3,10 %)",
      "source": 1,
      "status": "belagt"
     },
     "rate_type": {
      "value": "fast",
-     "quote": "Räntan är densamma under hela bindningstiden och ändras varken uppåt eller neråt.",
-     "source": 3,
-     "status": "osäkert",
+     "quote": "Fast ränta under hela bindningstiden",
+     "source": 0,
+     "status": "belagt",
      "jev": {
-      "verdict": "says_nothing",
-      "confidence": 0.48
+      "verdict": "supports",
+      "confidence": 0.68
      }
     },
     "binding_months": {
      "value": 24,
-     "quote": "| Sparkonto Fix 2 år | 3,15 % | 3,10 % | Ansök |",
-     "source": 0,
+     "quote": "2 år 3,15 %",
+     "source": 3,
      "status": "belagt"
     },
     "withdrawals": {
@@ -620,13 +624,13 @@
      "status": "okänt"
     },
     "withdrawal_terms": {
-     "value": "Förtida uttag kostar 3 % av uttaget belopp; kostnadsfritt vid bindningstidens slut.",
+     "value": "Förtida uttag eller avslut kostar 3 % av uttaget belopp. Kostnadsfritt uttag vid bindningstidens slut.",
      "quote": "Om du gör ett uttag innan löptidens slut tas en avgift på 3 % av uttaget belopp.",
      "source": 3,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.97
+      "confidence": 1.0
      }
     },
     "min_deposit_sek": {
@@ -652,23 +656,23 @@
      "status": "okänt"
     },
     "deposit_terms": {
-     "value": "Engångsinsättning; pengarna sätts in en gång",
+     "value": "Engångsinsättning; lägsta belopp 10 000 kr",
      "quote": "Du sätter in pengarna en enda gång",
      "source": 3,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.96
+      "confidence": 0.92
      }
     },
     "eligibility": {
-     "value": "Öppnas genom ansökan signerad med BankID",
-     "quote": "Välj bindningstid och fyll i ansökan. Signera med BankID.",
+     "value": "Privatperson; kan vara upp till två kontohavare",
+     "quote": "På Sparkonto Fix kan ni vara upp till två stycken kontohavare.",
      "source": 3,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.61
+      "confidence": 0.82
      }
     },
     "requires_other_products": {
@@ -684,19 +688,19 @@
      "status": "okänt"
     },
     "interest_paid": {
-     "value": "Vid bindningstidens slut (efter 1, 2 eller 5 år), minus 30 % skatt",
-     "quote": "Räntan betalas sedan ut i slutet av bindningstiden – det vill säga efter 1, 2 eller 5 år – minus 30 % skatt.",
+     "value": "I slutet av bindningstiden",
+     "quote": "Räntan betalas sedan ut i slutet av bindningstiden",
      "source": 3,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.98
+      "confidence": 1.0
      }
     },
     "guarantee_country": {
      "value": "SE",
      "quote": "Våra konton omfattas av den statliga insättningsgarantin enligt beslut av Riksgälden.",
-     "source": 0,
+     "source": 3,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
@@ -705,12 +709,12 @@
     },
     "guarantee_amount": {
      "value": "1 150 000 kronor",
-     "quote": "med ett belopp som motsvarar högst 1 150 000 kronor",
-     "source": 0,
+     "quote": "motsvarar högst 1 150 000 kronor",
+     "source": 3,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.94
+      "confidence": 0.91
      }
     },
     "rate_valid_from": {
@@ -730,34 +734,34 @@
    "fields": {
     "product_type": {
      "value": "fasträntekonto",
-     "quote": "Sparkonto Fix är ett fasträntekonto där du sparar tryggt med hög, fast ränta från första kronan.",
+     "quote": "Vårt Sparkonto Fix är ett så kallat fasträntekonto.",
      "source": 3,
-     "status": "osäkert",
+     "status": "belagt",
      "jev": {
-      "verdict": "contradicts",
-      "confidence": 0.43
+      "verdict": "supports",
+      "confidence": 0.28
      }
     },
     "rate_percent": {
      "value": 3.35,
-     "quote": "| Ränta 5 år | 3,35 % (effektiv årsränta 3,15 %) |",
+     "quote": "Ränta 5 år | 3,35 % (effektiv årsränta 3,15 %)",
      "source": 1,
      "status": "belagt"
     },
     "rate_type": {
      "value": "fast",
-     "quote": "Räntan är densamma under hela bindningstiden och ändras varken uppåt eller neråt.",
-     "source": 3,
-     "status": "osäkert",
+     "quote": "Fast ränta under hela bindningstiden",
+     "source": 0,
+     "status": "belagt",
      "jev": {
-      "verdict": "says_nothing",
-      "confidence": 0.5
+      "verdict": "supports",
+      "confidence": 0.72
      }
     },
     "binding_months": {
      "value": 60,
-     "quote": "| Sparkonto Fix 5 år | 3,35 % | 3,15 % | Ansök |",
-     "source": 0,
+     "quote": "5 år 3,35 %",
+     "source": 3,
      "status": "belagt"
     },
     "withdrawals": {
@@ -777,13 +781,13 @@
      "status": "okänt"
     },
     "withdrawal_terms": {
-     "value": "Förtida uttag kostar 3 % av uttaget belopp; kostnadsfritt vid bindningstidens slut.",
+     "value": "Förtida uttag eller avslut kostar 3 % av uttaget belopp. Kostnadsfritt uttag vid bindningstidens slut.",
      "quote": "Om du gör ett uttag innan löptidens slut tas en avgift på 3 % av uttaget belopp.",
      "source": 3,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.98
+      "confidence": 1.0
      }
     },
     "min_deposit_sek": {
@@ -809,23 +813,23 @@
      "status": "okänt"
     },
     "deposit_terms": {
-     "value": "Engångsinsättning; pengarna sätts in en gång",
+     "value": "Engångsinsättning; lägsta belopp 10 000 kr",
      "quote": "Du sätter in pengarna en enda gång",
      "source": 3,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.97
+      "confidence": 0.96
      }
     },
     "eligibility": {
-     "value": "Öppnas genom ansökan signerad med BankID",
-     "quote": "Välj bindningstid och fyll i ansökan. Signera med BankID.",
+     "value": "Privatperson; kan vara upp till två kontohavare",
+     "quote": "På Sparkonto Fix kan ni vara upp till två stycken kontohavare.",
      "source": 3,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.66
+      "confidence": 0.79
      }
     },
     "requires_other_products": {
@@ -841,19 +845,19 @@
      "status": "okänt"
     },
     "interest_paid": {
-     "value": "Vid bindningstidens slut (efter 1, 2 eller 5 år), minus 30 % skatt",
-     "quote": "Räntan betalas sedan ut i slutet av bindningstiden – det vill säga efter 1, 2 eller 5 år – minus 30 % skatt.",
+     "value": "I slutet av bindningstiden",
+     "quote": "Räntan betalas sedan ut i slutet av bindningstiden",
      "source": 3,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.98
+      "confidence": 1.0
      }
     },
     "guarantee_country": {
      "value": "SE",
      "quote": "Våra konton omfattas av den statliga insättningsgarantin enligt beslut av Riksgälden.",
-     "source": 0,
+     "source": 3,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
@@ -862,12 +866,12 @@
     },
     "guarantee_amount": {
      "value": "1 150 000 kronor",
-     "quote": "med ett belopp som motsvarar högst 1 150 000 kronor",
-     "source": 0,
+     "quote": "motsvarar högst 1 150 000 kronor",
+     "source": 3,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.95
+      "confidence": 0.96
      }
     },
     "rate_valid_from": {
@@ -882,7 +886,7 @@
    "status": "verifierad"
   }
  ],
- "source_hash": "3bdafeb62a6fa325",
- "changed_at": "2026-11-02T11:15:18+00:00",
+ "source_hash": "e42486d6a511eb02",
+ "changed_at": "2026-11-26T01:43:54+00:00",
  "model": "claude-haiku-5-5"
 }

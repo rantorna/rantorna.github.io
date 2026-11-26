@@ -7,7 +7,7 @@
   "kind": "sparbank",
   "legal_name": "Ölands Bank AB"
  },
- "checked_at": "2026-11-24T04:42:28+00:00",
+ "checked_at": "2026-11-26T04:40:25+00:00",
  "discovered_at": "2026-11-19T04:42:51+00:00",
  "sources": [
   {
@@ -36,7 +36,7 @@
    "title": "Överföring - Gör stående överföring i internetbanken | Ölands Bank",
    "kind": "html",
    "via": "http",
-   "chars": 11217
+   "chars": 11920
   },
   {
    "url": "https://www.olandsbank.se/privat/rantor-priser-och-kurser/betalningstjanster.html",
@@ -60,39 +60,41 @@
    "chars": 7800
   }
  ],
- "source_hash": "90d20faa89f5d412",
  "status": "ok",
- "notes": "Banken har ingen egen betaltjänst av typen Wise/Revolut, så den tredje produkttypen saknas. Valutakurserna (källa 1) är indikativa och ett valutapåslag i procent anges inte, därför är fx_markup_percent null. Tillägget för mottagande banks kostnad (lägst 100 kr) gäller enligt prislistan för internationella betalningar; det står inte uttryckligen om det gäller internetbanken, och ingen avgift för det finns för Europabetalning. Express-avgifterna avser bankens egna Urgent-varianter (350 kr i internetbanken). Daglig beloppsgräns: nya kunder 50 000 kr per dag (gäller alla överföringar, inte per betalning), därför max_amount_sek null. Priser för kontor/Kundcenter (200 kr respektive 250 kr) och Private Banking (0 kr) är uteslutna eftersom de inte gäller internetbank/app. Swedbankbetalning (för mottagare inom Swedbank) är inte med då den inte gäller utlandsbetalning.",
+ "notes": "Priserna gäller internetbanken/appen för privatpersoner. Kontorsavgifter (200 kr, 250 kr, 550 kr) och privatbankskunders 0 kr är utelämnade. Ingen egen betaltjänst-överföring (Wise-liknande) finns i källorna, så den produkten är utelämnad. Valutapåslag anges inte i källorna (kurslistan är indikativ och påslag står inte), därför null. Express-avgiften är här satt till bankens 'Urgent'-avgift i internetbanken. Mottagarbankens tillägg (min 100 kr) gäller för utlandsbetalningen; det går inte att säga exakt belopp utan faktisk kostnad.",
  "products": [
   {
-   "name": "Europabetalning (SEPA-betalning i euro till EU/EES)",
+   "name": "Europabetalning (SEPA, euro till EU/EES-konto)",
    "flags": [],
    "fields": {
     "provider_type": {
-     "value": null,
-     "quote": "Ölands Bank är en bank; Swedbank privat står i sidhuvudet. Avgifterna gäller bankens egna överföringar.",
+     "value": "bank",
+     "quote": "Swedbank privat ... Ölands Bank",
      "source": 0,
-     "status": "citat hittades inte",
-     "claimed": "bank"
+     "status": "osäkert",
+     "jev": {
+      "verdict": "contradicts",
+      "confidence": 0.52
+     }
     },
     "payment_type": {
      "value": "SEPA-betalning",
-     "quote": "Europabetalning – Betalning till mottagare inom EU/ EES och Schweiz i EUR. Betalningar i EUR når mottagarbanken dagen efter betalningsdagen.",
+     "quote": "Europabetalning – Betalning till mottagare inom EU/ EES och Schweiz i EUR.",
      "source": 0,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.28
+      "confidence": 0.24
      }
     },
     "fee_fixed_sek": {
      "value": 0,
-     "quote": "Avgift per överföring internetbanken\n\nBetalning till land inom EU/EES eller till Schweiz i euro eller svenska kronor.\n\n0 kr/st",
-     "source": 0,
+     "quote": "Europabetalning (SEK el euro) | 200 kr | 0 kr |",
+     "source": 6,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.85
+      "confidence": 0.83
      }
     },
     "fee_percent": {
@@ -121,12 +123,12 @@
     },
     "express_fee_sek": {
      "value": 350,
-     "quote": "Europabetalning Urgent\n\nAvgift per överföring internetbanken\n\nBetalning till land inom EU/EES eller till Schweiz i euro om betalningen brådskar.\n\n350 kr/st",
-     "source": 0,
+     "quote": "Europabetalning - Urgent (SEK el euro) | 550 kr | 350 kr |",
+     "source": 6,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.27
+      "confidence": 0.55
      }
     },
     "max_amount_sek": {
@@ -136,13 +138,13 @@
      "status": "okänt"
     },
     "delivery_time": {
-     "value": "nästa bankdag",
+     "value": "nästa bankdag (mottagarbanken dagen efter betalningsdagen)",
      "quote": "Betalningar i EUR når mottagarbanken dagen efter betalningsdagen.",
      "source": 0,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.88
+      "confidence": 0.96
      }
     },
     "recipient_charges": {
@@ -152,13 +154,13 @@
      "status": "okänt"
     },
     "requirements": {
-     "value": "Internetbank eller app; återkommande betalningar måste först aktiveras genom kontakt med banken",
+     "value": "Internetbanken; återkommande betalningar kräver att banken först aktiverar tjänsten",
      "quote": "Om du har behov av att göra återkommande betalningar till utlandet i internetbanken behöver du först kontakta oss för att aktivera den möjligheten.",
      "source": 0,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.19
+      "confidence": 0.22
      }
     }
    },
@@ -167,15 +169,18 @@
    "status": "verifierad"
   },
   {
-   "name": "Internationell betalning (utlandsbetalning övriga valutor/länder)",
+   "name": "Internationell betalning (utlandsbetalning, övriga valutor och länder)",
    "flags": [],
    "fields": {
     "provider_type": {
-     "value": null,
-     "quote": "Ölands Bank är en bank; Swedbank privat står i sidhuvudet. Avgifterna gäller bankens egna överföringar.",
+     "value": "bank",
+     "quote": "Swedbank privat ... Ölands Bank",
      "source": 0,
-     "status": "citat hittades inte",
-     "claimed": "bank"
+     "status": "osäkert",
+     "jev": {
+      "verdict": "contradicts",
+      "confidence": 0.52
+     }
     },
     "payment_type": {
      "value": "utlandsbetalning",
@@ -184,17 +189,17 @@
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.18
+      "confidence": 0.26
      }
     },
     "fee_fixed_sek": {
      "value": 50,
-     "quote": "Avgift per överföring internetbanken\n\nBetalning till land utanför EU/EES oavsett valuta. Samt betalning till land inom EU/EES eller Schweiz i andra valutor än euro och svenska kronor.\n\n50 kr/st",
-     "source": 0,
+     "quote": "Internationell betalning | 250 kr | 50 kr |",
+     "source": 6,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.37
+      "confidence": 0.76
      }
     },
     "fee_percent": {
@@ -223,12 +228,12 @@
     },
     "express_fee_sek": {
      "value": 350,
-     "quote": "Internationell betalning Urgent\n\nAvgift per överföring internetbanken\n\nBetalning till land utanför EU/EES oavsett valuta. Samt betalning till land inom EU/EES eller Schweiz i andra valutor än euro om betalningen brådskar.\n\n350 kr/st",
-     "source": 0,
+     "quote": "Internationell betalning - Urgent | 550 kr | 350 kr |",
+     "source": 6,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.3
+      "confidence": 0.8
      }
     },
     "max_amount_sek": {
@@ -238,33 +243,33 @@
      "status": "okänt"
     },
     "delivery_time": {
-     "value": "2–4 bankdagar",
+     "value": "ofta 2–4 bankdagar",
      "quote": "Vid betalningar i andra valutor och till andra länder får mottagaren ofta pengarna inom 2-4 bankdagar.",
      "source": 0,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.95
+      "confidence": 0.86
      }
     },
     "recipient_charges": {
-     "value": "Tillägg för mottagande bankens kostnad, lägst 100 kr",
+     "value": "Tillägg för mottagande bankens kostnad, minst 100 kr per betalning (faktisk eller generell kostnad)",
      "quote": "Tillägg för mottagandes banks kostnad: Faktiskt kostnad eller generellt kostnad dock lägst 100 kr/st.",
      "source": 0,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.88
+      "confidence": 0.83
      }
     },
     "requirements": {
-     "value": "Internetbank eller app; återkommande betalningar måste först aktiveras genom kontakt med banken",
+     "value": "Internetbanken; återkommande betalningar kräver att banken först aktiverar tjänsten",
      "quote": "Om du har behov av att göra återkommande betalningar till utlandet i internetbanken behöver du först kontakta oss för att aktivera den möjligheten.",
      "source": 0,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.53
+      "confidence": 0.46
      }
     }
    },
@@ -273,6 +278,7 @@
    "status": "verifierad"
   }
  ],
- "changed_at": "2026-10-19T20:05:49+00:00",
+ "source_hash": "d311d1e7670fb041",
+ "changed_at": "2026-11-26T04:40:25+00:00",
  "model": "claude-haiku-5-5"
 }

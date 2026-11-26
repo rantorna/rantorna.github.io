@@ -7,7 +7,7 @@
   "kind": "sparbank",
   "legal_name": "Valdemarsviks Sparbank"
  },
- "checked_at": "2026-11-24T03:19:44+00:00",
+ "checked_at": "2026-11-26T03:20:18+00:00",
  "discovered_at": "2026-11-19T03:18:37+00:00",
  "sources": [
   {
@@ -15,7 +15,7 @@
    "title": "Räntor företag | Valdemarsviks Sparbank",
    "kind": "html",
    "via": "http",
-   "chars": 4270
+   "chars": 4276
   },
   {
    "url": "https://www.valdemarsvikssparbank.se/foretag/betala-och-ta-betalt/konton/foretagskonto.html",
@@ -67,52 +67,51 @@
    "chars": 4830
   }
  ],
- "source_hash": "59e5b09889c44b00",
  "status": "ok",
- "notes": "Kontot kan öppnas i internetbank/app av befintliga företagskunder (max 3 konton digitalt), men nya kunder ska boka möte med banken, så open_online satt till false. Startavgift 2 500 kr för nya företagskunder. Enskild firma nämns i behörighetstexten men inte uttryckligen som kontoform i ansökan. Övriga konton (Placeringskonto Företag/Förening, Skogskonto, Valutakonto, Klientmedelskonto) har bara ränta angiven och är inte transaktionskonton, så de är utelämnade.",
+ "notes": "Endast Företagskonto redovisas som transaktionskonto. Placeringskonto Företag, Placeringskonto Förening och Skogskonto är sparkonton och ingår inte. Valutakonto och Klientmedelskonto nämns bara i en flik utan villkor eller priser i källorna och har därför inte lagts in. Enskild firma nämns inte uttryckligen som kontoform och är därför inte med i company_forms. Insättningsgarantins land anges inte uttryckligen i källorna. Årsavgiften står som 0 kr per år; månadsavgift anges inte. Priser för övriga tjänster finns i prislistan för företag.",
  "products": [
   {
    "name": "Företagskonto",
    "flags": [],
    "fields": {
     "company_forms": {
-     "value": "aktiebolag, handelsbolag, kommanditbolag, enskild firma",
-     "quote": "Do you have a limited company, partnership or limited partnership, or are you about to start up a company? Welcome to Valdemarsviks Sparbank!",
+     "value": "aktiebolag, handelsbolag, kommanditbolag",
+     "quote": "Do you have a limited company, partnership or limited partnership, or are you about to start up a company?",
      "source": 3,
      "status": "osäkert",
      "jev": {
       "verdict": "says_nothing",
-      "confidence": 0.61
+      "confidence": 0.67
      }
     },
     "accepts_new_companies": {
      "value": true,
-     "quote": "Do you have a limited company, partnership or limited partnership, or are you about to start up a company? Welcome to Valdemarsviks Sparbank!",
-     "source": 3,
-     "status": "belagt",
-     "jev": {
-      "verdict": "supports",
-      "confidence": 0.62
-     }
-    },
-    "new_company_terms": {
-     "value": "Engångsavgift (startup fee) på 2 500 kr för nya företagskunder.",
      "quote": "A startup fee of SEK 2 500 applies for new business customers.",
      "source": 3,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.4
+      "confidence": 0.28
      }
     },
-    "open_online": {
-     "value": false,
-     "quote": "Vi vill känna våra kunder och vi tror att du vill känna oss. Därför vill vi träffa dig personligen, gärna på vårt kontor eller hälsa på i din verksamhet.",
-     "source": 2,
+    "new_company_terms": {
+     "value": "Startavgift 2 500 kr för nya företagskunder. Nystartade som registrerar via verksamt.se får e-postadress till bankkontoret att använda vid registrering.",
+     "quote": "If you are starting a new company via verksamt.se, we will send you the e-mail address for the bank branch that you will need to use when registering your company.",
+     "source": 3,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.61
+      "confidence": 0.49
+     }
+    },
+    "open_online": {
+     "value": true,
+     "quote": "Öppna Företagskonto i internetbanken för företag",
+     "source": 1,
+     "status": "osäkert",
+     "jev": {
+      "verdict": "contradicts",
+      "confidence": 0.22
      }
     },
     "multiple_users": {
@@ -126,13 +125,13 @@
      }
     },
     "user_terms": {
-     "value": "Behörighetsadministratör lägger upp användare och väljer begränsad eller obegränsad behörighet; firmatecknare måste slutsignera nya användare; behörighetsmallar finns.",
-     "quote": "Företagets firmatecknare slutsignerar den nya användaren.",
+     "value": "Behörighetsadministratör lägger upp användare, firmatecknare godkänner. Begränsad eller obegränsad behörighet. Behörighetsmallar finns om företaget har funktionen Utökad hantering av behörighet. Ingen kostnad per användare angiven.",
+     "quote": "Begränsad:\nOm användaren till exempel ska kunna betala fakturor, överföra pengar från vissa konton, hantera löner och pensionsplaner ska du ge begränsad behörighet för just detta.",
      "source": 5,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.45
+      "confidence": 0.35
      }
     },
     "monthly_fee_sek": {
@@ -146,14 +145,15 @@
      }
     },
     "fee_terms": {
-     "value": "Årsavgift 0 kr för kontot. Swish 0 kr/år, 0 kr per mottagen transaktion. Bankgiro 250 kr/år. Internetbanken Företag 300 kr/år. Bankkort Business 350 kr/år.",
-     "quote": "Bankgiro Årsavgift 250 kr",
-     "source": 4,
-     "status": "belagt",
+     "value": null,
+     "quote": "Anslut företagskontot till bankgironummer, kort och andra tjänster.",
+     "source": 1,
+     "status": "stöds inte av källan",
      "jev": {
-      "verdict": "supports",
-      "confidence": 0.2
-     }
+      "verdict": "says_nothing",
+      "confidence": 0.8
+     },
+     "claimed": "Årsavgift 0 kr. Kontot kan anslutas till bankgironummer (Bankgiro årsavgift 250 kr enligt prislistan), kort och andra tjänster."
     },
     "swish": {
      "value": true,
@@ -162,7 +162,7 @@
      "status": "osäkert",
      "jev": {
       "verdict": "says_nothing",
-      "confidence": 0.52
+      "confidence": 0.73
      }
     },
     "bankgiro": {
@@ -176,34 +176,27 @@
      }
     },
     "account_interest_percent": {
-     "value": 0,
-     "quote": "Företagskonto Ränta 0 %",
+     "value": null,
+     "quote": "Räntor på Företagskonto Ränta 0 %",
      "source": 1,
+     "status": "citat hittades inte",
+     "claimed": 0
+    },
+    "requirements": {
+     "value": "Företaget ska vara registrerat i Bolagsverket för att användare ska kunna läggas till i internetbanken. Kundansökan med frågor om verksamheten (KYC).",
+     "quote": "För att lägga till en användare i internetbanken behöver företaget finnas registrerat i Bolagsverket.",
+     "source": 5,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.59
-     }
-    },
-    "requirements": {
-     "value": "Kontakt med banken för personligt möte; företaget ska vara registrerat hos Bolagsverket; firmatecknare ska finnas som användare i internetbanken.",
-     "quote": "För att lägga till en användare i internetbanken behöver företaget finnas registrerat i Bolagsverket.",
-     "source": 5,
-     "status": "osäkert",
-     "jev": {
-      "verdict": "says_nothing",
-      "confidence": 0.3
+      "confidence": 0.25
      }
     },
     "guarantee_country": {
-     "value": "SE",
-     "quote": "Företagskontot är ett transaktionskonto som omfattas av insättningsgarantin.",
-     "source": 1,
-     "status": "osäkert",
-     "jev": {
-      "verdict": "says_nothing",
-      "confidence": 0.79
-     }
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
     }
    },
    "rate_tiers": [],
@@ -211,6 +204,7 @@
    "status": "verifierad"
   }
  ],
- "changed_at": "2026-10-14T08:03:33+00:00",
- "model": "claude-sonnet-5-5"
+ "source_hash": "cf57bad0b3a75764",
+ "changed_at": "2026-11-26T03:20:18+00:00",
+ "model": "claude-haiku-5-5"
 }
