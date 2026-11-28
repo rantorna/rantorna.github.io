@@ -7,23 +7,39 @@
   "kind": "neobank",
   "legal_name": "Revolut Bank UAB, filial i Sverige"
  },
- "checked_at": "2026-11-26T03:12:41+00:00",
- "discovered_at": "2026-11-02T13:55:28+00:00",
- "sources": [],
- "status": "kunde inte hämtas",
+ "checked_at": "2026-11-28T03:15:16+00:00",
+ "discovered_at": "2026-11-28T03:15:16+00:00",
+ "sources": [
+  {
+   "url": "https://www.revolut.com/sv-SE/business/business-account-plans/",
+   "title": "Prissättning för Business-konto | Revolut Business | Revolut Sverige",
+   "kind": "html",
+   "via": "browser",
+   "chars": 26003
+  },
+  {
+   "url": "https://www.revolut.com/sv-SE/business/",
+   "title": "Företagskonto | Hantera din ekonomi | Revolut Business",
+   "kind": "html",
+   "via": "browser",
+   "chars": 13118
+  }
+ ],
+ "status": "ok",
+ "notes": "Revolut Business säljs som fyra månadspaket (Basic, Grow, Skaländra, Enterprise); alla paket ingår i samma konto. Nystartade företag: källan anger inte uttryckligen om nystartade utan historik tas emot, så fältet lämnas tomt. Swish och bankgiro nämns inte. Räntorna (1–2 % p.a.) gäller Sparande och inte företagskontot, så account_interest_percent lämnas tomt. Enterprise-priset är anpassat. Insättningsgarantin gäller via Revolut Bank UAB (Litauen). Priser och räntor är angivna per 15/6/2026 enligt källan.",
  "products": [
   {
-   "name": "Företagskonto",
+   "name": "Basic",
    "flags": [],
    "fields": {
     "company_forms": {
-     "value": "bolag och andra registrerade företag; ej egenföretagare, välgörenhetsorganisationer, offentlig sektor eller kooperativ",
+     "value": "Ej enskild firma (egenföretagare), ej kooperativ, ej välgörenhetsorganisation; övriga godkända företagsformer anges vid registreringen",
      "quote": "Ditt företag kan inte vara en välgörenhetsorganisation, verka inom offentlig sektor, fungera som ett kooperativ eller vara registrerat som egenföretagare.",
-     "source": 0,
+     "source": 1,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.59
+      "confidence": 0.43
      }
     },
     "accepts_new_companies": {
@@ -41,44 +57,52 @@
     "open_online": {
      "value": true,
      "quote": "Fyll i ett kort formulär online. Det tar bara cirka 10 minuter",
-     "source": 0,
+     "source": 1,
      "status": "osäkert",
      "jev": {
       "verdict": "says_nothing",
-      "confidence": 0.13
+      "confidence": 0.38
      }
     },
     "multiple_users": {
      "value": true,
-     "quote": "Varje teammedlem kan ha upp till 3 aktiva fysiska kort och upp till 50 aktiva virtuella kort.",
+     "quote": "✓ Obegränsat antal teammedlemmar",
      "source": 0,
      "status": "osäkert",
      "jev": {
       "verdict": "says_nothing",
-      "confidence": 0.28
+      "confidence": 0.18
      }
     },
     "user_terms": {
-     "value": "Flera teammedlemmar med kort; anpassade godkännandeflöden för utgifter. Kostnad per användare framgår inte.",
-     "quote": "Skapa anpassade arbetsflöden för godkännande så att utgifterna följer policyn",
+     "value": "Obegränsat antal teammedlemmar utan extra kostnad; anpassad åtkomst för enskilda konton ingår inte i Basic",
+     "quote": "Bjud in hela teamet utan extra kostnad",
+     "source": 0,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.24
+     }
+    },
+    "monthly_fee_sek": {
+     "value": 150,
+     "quote": "150 kr/månad",
      "source": 0,
      "status": "osäkert",
      "jev": {
       "verdict": "contradicts",
-      "confidence": 0.1
+      "confidence": 0.46
      }
     },
-    "monthly_fee_sek": {
-     "value": null,
-     "quote": null,
-     "source": null,
-     "status": "okänt"
-    },
     "fee_terms": {
-     "value": null,
-     "quote": null,
-     "source": null,
-     "status": "okänt"
+     "value": "10 avgiftsfria lokala överföringar per månad; växling upp till 12 000 kr till interbankkursen; betalningsmottagande från 0,8 % + 0,25 kr på plats och från 1 % + 2,40 kr online; fysiska och virtuella företagskort",
+     "quote": "Per transaktion-priser för lyckade betalningar, från 0,8 % + 0,25 kr baserat på ditt paket",
+     "source": 0,
+     "status": "osäkert",
+     "jev": {
+      "verdict": "contradicts",
+      "confidence": 0.22
+     }
     },
     "swish": {
      "value": null,
@@ -99,8 +123,198 @@
      "status": "okänt"
     },
     "requirements": {
-     "value": "Företaget måste vara fullt registrerat och aktivt, registrerat i ett godkänt land, verka inom godkänd bransch och ha juridisk hemadress i Storbritannien, EES, Schweiz, Australien, Nya Zeeland, Singapore eller USA",
+     "value": "Fullt registrerat och aktivt företag i godkänt land; ej verksamhet inom icke-godkända branscher; juridisk hemadress i Storbritannien, EES, Schweiz, Australien, Nya Zeeland, Singapore eller USA",
      "quote": "Ditt företag måste vara fullt registrerat och aktivt",
+     "source": 1,
+     "status": "osäkert",
+     "jev": {
+      "verdict": "contradicts",
+      "confidence": 0.62
+     }
+    },
+    "guarantee_country": {
+     "value": "LT",
+     "quote": "Berättigade insättningar är försäkrade av det litauiska offentliga insättningsgarantisystemet",
+     "source": 1,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.31
+     }
+    }
+   },
+   "rate_tiers": [],
+   "pending_rate": null,
+   "status": "verifierad"
+  },
+  {
+   "name": "Grow",
+   "flags": [],
+   "fields": {
+    "company_forms": {
+     "value": "Ej enskild firma (egenföretagare), ej kooperativ, ej välgörenhetsorganisation; övriga godkända företagsformer anges vid registreringen",
+     "quote": "Ditt företag kan inte vara en välgörenhetsorganisation, verka inom offentlig sektor, fungera som ett kooperativ eller vara registrerat som egenföretagare.",
+     "source": 1,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.46
+     }
+    },
+    "accepts_new_companies": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "new_company_terms": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "open_online": {
+     "value": true,
+     "quote": "Fyll i ett kort formulär online. Det tar bara cirka 10 minuter",
+     "source": 1,
+     "status": "osäkert",
+     "jev": {
+      "verdict": "says_nothing",
+      "confidence": 0.2
+     }
+    },
+    "multiple_users": {
+     "value": true,
+     "quote": "✓ Obegränsat antal teammedlemmar",
+     "source": 0,
+     "status": "osäkert",
+     "jev": {
+      "verdict": "says_nothing",
+      "confidence": 0.26
+     }
+    },
+    "user_terms": {
+     "value": "Obegränsat antal teammedlemmar utan extra kostnad; anpassad åtkomst för enskilda konton och godkännanden ingår",
+     "quote": "Ställ in anpassad åtkomst för enskilda konton",
+     "source": 0,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.2
+     }
+    },
+    "monthly_fee_sek": {
+     "value": 450,
+     "quote": "450 kr/månad",
+     "source": 0,
+     "status": "osäkert",
+     "jev": {
+      "verdict": "contradicts",
+      "confidence": 0.37
+     }
+    },
+    "fee_terms": {
+     "value": "5 avgiftsfria internationella och 100 avgiftsfria lokala överföringar per månad; växling upp till 220 000 kr till interbankkursen; betalningsmottagande från 0,8 % + 0,25 kr på plats och från 1 % + 2,40 kr online",
+     "quote": "Per transaktion-priser för lyckade betalningar, från 0,8 % + 0,25 kr baserat på ditt paket",
+     "source": 0,
+     "status": "osäkert",
+     "jev": {
+      "verdict": "contradicts",
+      "confidence": 0.43
+     }
+    },
+    "swish": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "bankgiro": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "account_interest_percent": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "requirements": {
+     "value": "Fullt registrerat och aktivt företag i godkänt land; ej verksamhet inom icke-godkända branscher; juridisk hemadress i Storbritannien, EES, Schweiz, Australien, Nya Zeeland, Singapore eller USA",
+     "quote": "Ditt företag måste vara fullt registrerat och aktivt",
+     "source": 1,
+     "status": "osäkert",
+     "jev": {
+      "verdict": "contradicts",
+      "confidence": 0.55
+     }
+    },
+    "guarantee_country": {
+     "value": "LT",
+     "quote": "Berättigade insättningar är försäkrade av det litauiska offentliga insättningsgarantisystemet",
+     "source": 1,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.16
+     }
+    }
+   },
+   "rate_tiers": [],
+   "pending_rate": null,
+   "status": "verifierad"
+  },
+  {
+   "name": "Skaländra",
+   "flags": [],
+   "fields": {
+    "company_forms": {
+     "value": "Ej enskild firma (egenföretagare), ej kooperativ, ej välgörenhetsorganisation; övriga godkända företagsformer anges vid registreringen",
+     "quote": "Ditt företag kan inte vara en välgörenhetsorganisation, verka inom offentlig sektor, fungera som ett kooperativ eller vara registrerat som egenföretagare.",
+     "source": 1,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.44
+     }
+    },
+    "accepts_new_companies": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "new_company_terms": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "open_online": {
+     "value": true,
+     "quote": "Fyll i ett kort formulär online. Det tar bara cirka 10 minuter",
+     "source": 1,
+     "status": "osäkert",
+     "jev": {
+      "verdict": "says_nothing",
+      "confidence": 0.3
+     }
+    },
+    "multiple_users": {
+     "value": true,
+     "quote": "✓ Obegränsat antal teammedlemmar",
+     "source": 0,
+     "status": "osäkert",
+     "jev": {
+      "verdict": "says_nothing",
+      "confidence": 0.18
+     }
+    },
+    "user_terms": {
+     "value": "Obegränsat antal teammedlemmar utan extra kostnad; anpassad åtkomst för enskilda konton och godkännanden ingår",
+     "quote": "Ställ in anpassad åtkomst för enskilda konton",
      "source": 0,
      "status": "belagt",
      "jev": {
@@ -108,14 +322,177 @@
       "confidence": 0.22
      }
     },
+    "monthly_fee_sek": {
+     "value": 1500,
+     "quote": "1 500 kr/mån",
+     "source": 0,
+     "status": "osäkert",
+     "jev": {
+      "verdict": "contradicts",
+      "confidence": 0.2
+     }
+    },
+    "fee_terms": {
+     "value": "25 avgiftsfria internationella och 1 000 lokala överföringar per månad; växling upp till 700 000 kr till interbankkursen; högre paketgränser för att expandera globalt; betalningsmottagande från 0,8 % + 0,25 kr på plats och från 1 % + 2,40 kr online",
+     "quote": "Få högre paketgränser för att expandera globalt.",
+     "source": 0,
+     "status": "osäkert",
+     "jev": {
+      "verdict": "contradicts",
+      "confidence": 0.42
+     }
+    },
+    "swish": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "bankgiro": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "account_interest_percent": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "requirements": {
+     "value": "Fullt registrerat och aktivt företag i godkänt land; ej verksamhet inom icke-godkända branscher; juridisk hemadress i Storbritannien, EES, Schweiz, Australien, Nya Zeeland, Singapore eller USA",
+     "quote": "Ditt företag måste vara fullt registrerat och aktivt",
+     "source": 1,
+     "status": "osäkert",
+     "jev": {
+      "verdict": "contradicts",
+      "confidence": 0.44
+     }
+    },
     "guarantee_country": {
      "value": "LT",
      "quote": "Berättigade insättningar är försäkrade av det litauiska offentliga insättningsgarantisystemet",
+     "source": 1,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.3
+     }
+    }
+   },
+   "rate_tiers": [],
+   "pending_rate": null,
+   "status": "verifierad"
+  },
+  {
+   "name": "Enterprise",
+   "flags": [],
+   "fields": {
+    "company_forms": {
+     "value": "Ej enskild firma (egenföretagare), ej kooperativ, ej välgörenhetsorganisation; övriga godkända företagsformer anges vid registreringen",
+     "quote": "Ditt företag kan inte vara en välgörenhetsorganisation, verka inom offentlig sektor, fungera som ett kooperativ eller vara registrerat som egenföretagare.",
+     "source": 1,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.58
+     }
+    },
+    "accepts_new_companies": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "new_company_terms": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "open_online": {
+     "value": true,
+     "quote": "Fyll i ett kort formulär online. Det tar bara cirka 10 minuter",
+     "source": 1,
+     "status": "osäkert",
+     "jev": {
+      "verdict": "says_nothing",
+      "confidence": 0.13
+     }
+    },
+    "multiple_users": {
+     "value": true,
+     "quote": "✓ Obegränsat antal teammedlemmar",
      "source": 0,
      "status": "belagt",
      "jev": {
       "verdict": "supports",
-      "confidence": 0.4
+      "confidence": 0.34
+     }
+    },
+    "user_terms": {
+     "value": "Obegränsat antal teammedlemmar utan extra kostnad; anpassad åtkomst för enskilda konton och anpassade godkännanden ingår",
+     "quote": "Ställ in anpassad åtkomst för enskilda konton",
+     "source": 0,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.42
+     }
+    },
+    "monthly_fee_sek": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "fee_terms": {
+     "value": "Pris efter behov (anpassat paket); anpassade gränser för överföringar och valutaväxling; kontohantering med kontospecialist",
+     "quote": "Skapa paketet som passar dina exakta behov.",
+     "source": 0,
+     "status": "osäkert",
+     "jev": {
+      "verdict": "contradicts",
+      "confidence": 0.5
+     }
+    },
+    "swish": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "bankgiro": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "account_interest_percent": {
+     "value": null,
+     "quote": null,
+     "source": null,
+     "status": "okänt"
+    },
+    "requirements": {
+     "value": "Fullt registrerat och aktivt företag i godkänt land; ej verksamhet inom icke-godkända branscher; juridisk hemadress i Storbritannien, EES, Schweiz, Australien, Nya Zeeland, Singapore eller USA",
+     "quote": "Ditt företag måste vara fullt registrerat och aktivt",
+     "source": 1,
+     "status": "osäkert",
+     "jev": {
+      "verdict": "contradicts",
+      "confidence": 0.43
+     }
+    },
+    "guarantee_country": {
+     "value": "LT",
+     "quote": "Berättigade insättningar är försäkrade av det litauiska offentliga insättningsgarantisystemet",
+     "source": 1,
+     "status": "belagt",
+     "jev": {
+      "verdict": "supports",
+      "confidence": 0.49
      }
     }
    },
@@ -124,6 +501,7 @@
    "status": "verifierad"
   }
  ],
- "changed_at": "2026-10-26T03:40:51+00:00",
- "source_hash": "4612b02972823452"
+ "source_hash": "713abeac4cb97259",
+ "changed_at": "2026-11-28T03:15:16+00:00",
+ "model": "claude-haiku-5-5"
 }
